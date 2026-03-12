@@ -4,6 +4,17 @@ import { Center, Sparkles } from "@react-three/drei";
 import { useControls, button } from "leva";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
+import {
+  EffectComposer,
+  ToneMapping,
+  Vignette,
+  Glitch,
+  Noise,
+  Bloom,
+  DepthOfField,
+} from "@react-three/postprocessing";
+import { ToneMappingMode } from "postprocessing";
+import { BlendFunction } from "postprocessing";
 
 export default function Experience() {
   const controlFog = useControls("Fog", {
@@ -19,6 +30,12 @@ export default function Experience() {
     count: { value: 300, min: 1, max: 1000, step: 1 },
     speed: { value: 0.2, min: 0.01, max: 1, step: 0.01 },
   });
+
+  const controlDepthOfField = useControls("DepthOfField", {
+    focusDistance: { value: 0.025, min: 0, max: 1, step: 0.001 },
+    focusLength: { value: 0.025, min: 0, max: 1, step: 0.001 },
+    bokehScale: { value: 6, min: 0, max: 10, step: 0.1 },
+  });
   return (
     <>
       <fog
@@ -26,6 +43,27 @@ export default function Experience() {
         args={[controlFog.color, controlFog.near, controlFog.far]}
       />
       <color attach="background" args={[controlFog.color]} />
+      <EffectComposer multisampling={8}>
+        {/* <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> */}
+        {/* <Bloom luminanceThreshold={1.1} mipmapBlur intensity={1.5} /> */}
+        {/* <Vignette
+          offset={0.3}
+          darkness={0.9}
+          blendFunction={BlendFunction.NORMAL}
+        /> */}
+        {/* <Vignette
+          offset={0.2}
+          darkness={0.4}
+          blendFunction={BlendFunction.MULTIPLY}
+        /> */}
+
+        {/* <DepthOfField
+          focusDistance={controlDepthOfField.focusDistance}
+          focusLength={controlDepthOfField.focusLength}
+          bokehScale={controlDepthOfField.bokehScale}
+        /> */}
+      </EffectComposer>
+
       <OrbitControls makeDefault />
       <Perf position="top-left" />
 
@@ -44,6 +82,7 @@ export default function Experience() {
           position={[0, 1, 0]}
           speed={controlParticles.speed}
           color={controlFog.color}
+          // opacity={1}
         />
       </Center>
     </>
