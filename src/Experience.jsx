@@ -1,6 +1,8 @@
 import { OrbitControls } from "@react-three/drei";
-import { Model } from "./Components/Test.jsx";
-import { Center, Sparkles } from "@react-three/drei";
+import Model from "./Components/Test.jsx";
+import Character from "./Components/Character.jsx";
+
+import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useControls, button } from "leva";
 import { useRef } from "react";
 import { Perf } from "r3f-perf";
@@ -71,19 +73,25 @@ export default function Experience() {
       <ambientLight intensity={1.5} />
       <Center>
         <Model scale={controlFog.scaleModel} />
-        <Sparkles
-          size={controlParticles.size}
-          count={controlParticles.count}
-          scale={[
-            controlParticles.scale,
-            controlParticles.scale,
-            controlParticles.scale,
-          ]}
-          position={[0, 1, 0]}
-          speed={controlParticles.speed}
-          color={controlFog.color}
-          // opacity={1}
-        />
+        <PivotControls depthTest={false}>
+          <Character />
+        </PivotControls>
+
+        <PivotControls depthTest={false}>
+          <Sparkles
+            size={controlParticles.size}
+            count={controlParticles.count}
+            scale={[
+              controlParticles.scale,
+              controlParticles.scale,
+              controlParticles.scale,
+            ]}
+            position={[0, 1, 0]}
+            speed={controlParticles.speed}
+            color={controlFog.color}
+            // opacity={1}
+          />
+        </PivotControls>
       </Center>
     </>
   );
