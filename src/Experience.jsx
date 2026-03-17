@@ -1,22 +1,13 @@
 import { OrbitControls } from "@react-three/drei";
-import Model from "./Components/Test.jsx";
-import Character from "./Components/Character.jsx";
+import Model from "./Components/3DModel/Test.jsx";
+import Character from "./Components/3DModel/Character.jsx";
 
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
-import { useControls, button } from "leva";
-import { useRef } from "react";
+import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 import {
   EffectComposer,
-  ToneMapping,
-  Vignette,
-  Glitch,
-  Noise,
-  Bloom,
-  DepthOfField,
 } from "@react-three/postprocessing";
-import { ToneMappingMode } from "postprocessing";
-import { BlendFunction } from "postprocessing";
 
 export default function Experience() {
   const controlFog = useControls("Fog", {
@@ -89,7 +80,7 @@ export default function Experience() {
             position={[0, 1, 0]}
             speed={controlParticles.speed}
             color={controlFog.color}
-            // opacity={1}
+          // opacity={1}
           />
         </PivotControls>
       </Center>

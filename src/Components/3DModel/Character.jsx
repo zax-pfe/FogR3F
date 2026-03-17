@@ -4,7 +4,7 @@ import { useControls, button } from "leva";
 
 export default function Character(props) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/cap_test.glb");
+  const { nodes, materials, animations } = useGLTF("/assets/3DModels/cap_test.glb");
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState(null);
   const animationsNames = animations.map((anim) => anim.name);
@@ -48,4 +48,4 @@ export default function Character(props) {
   );
 }
 
-useGLTF.preload("/cap_test.glb");
+useGLTF.preload("/assets/3DModels/cap_test.glb");

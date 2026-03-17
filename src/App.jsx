@@ -5,14 +5,14 @@ import ThreeScene from './Components/ThreeScene/ThreeScene'
 
 function App() {
 
-    return (
-        <>
-            <ThreeScene>
-                <Experience />
-            </ThreeScene>
-            {/* <Loader /> */}
-        </>
-    )
+  return (
+    <>
+      <ThreeScene>
+        <Experience />
+      </ThreeScene>
+      {/* <Loader /> */}
+    </>
+  )
 }
 
 export default App
