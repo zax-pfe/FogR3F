@@ -12,7 +12,7 @@ import {
 export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: 0, min: -15, max: 150, step: 0.1 },
-    far: { value: 2, min: 1, max: 150, step: 0.1 },
+    far: { value: 30, min: 1, max: 150, step: 0.1 },
     color: "#cc7b32",
     scaleModel: { value: 1, min: 1, max: 10, step: 0.1 },
   });
