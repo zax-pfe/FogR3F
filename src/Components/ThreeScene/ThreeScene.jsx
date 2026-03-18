@@ -2,10 +2,14 @@ import { Canvas } from "@react-three/fiber";
 import s from "./ThreeScene.module.scss";
 import { Suspense } from "react";
 
-const ThreeScene = ({ children }) => {
+const ThreeScene = ({ children, placeholder = false }) => {
 
-  return (
-    <Canvas
+  return placeholder ? (
+    <div className={s.canvas}>
+      <p>canvas3D</p>
+    </div>
+  ) : (
+    <Canvas className={s.canvas}
       camera={{
         fov: 45,
         near: 0.1,
