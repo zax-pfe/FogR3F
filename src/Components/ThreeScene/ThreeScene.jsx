@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import s from "./ThreeScene.module.css";
+import s from "./ThreeScene.module.scss";
 import { Suspense } from "react";
 
 const ThreeScene = ({ children }) => {
