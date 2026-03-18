@@ -5,8 +5,8 @@ import { Suspense } from "react";
 const ThreeScene = ({ children, placeholder = false }) => {
 
   return placeholder ? (
-    <div className={s.canvas}>
-      <p>canvas3D</p>
+    <div className={`${s.canvas} ${s.placeholder}`}>
+      <p>Ici le jeu</p>
     </div>
   ) : (
     <Canvas className={s.canvas}

@@ -4,6 +4,7 @@ import Experience from './Experience'
 import ThreeScene from './Components/ThreeScene/ThreeScene'
 
 import { KeyboardControls } from "@react-three/drei";
+import Hud from './Components/Interface/Hud/Hud';
 
 const keys = {
   left: "arrowleft",
@@ -27,6 +28,7 @@ function App() {
         <ThreeScene placeholder>
           <Experience />
         </ThreeScene>
+        <Hud />
         {/* <Loader /> */}
       </KeyboardControls>
     </>
