@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import { useControls } from "leva";
 import Character from "./3DModel/Character";
+import { degToRad } from "three/src/math/MathUtils.js";
 
 // ______________________ UTILS __________________/
 
@@ -32,11 +33,21 @@ const lerpAngle = (start, end, t) => {
 
 export default function CharacterTestController() {
   // ______________________ REFS & VARIABLES __________________/
+  // Object refs
   const rb = useRef(); // RigidBody -> hitbox
-  const container = useRef();
   const character = useRef();
+
+  // Camera refs
+  const container = useRef();
   const cameraTarget = useRef();
   const cameraPosition = useRef();
+  const cameraWorldPosition = useRef(new Vector3());
+  const cameraLookAtWorldPosition = useRef(new Vector3());
+  const cameraLookAt = useRef(new Vector3());
+
+  // Rotation
+  const characterRotationTarget = useRef(0);
+  const rotationTarget = useRef(0);
 
   const [, get] = useKeyboardControls(); // Get input controls
 
@@ -45,61 +56,101 @@ export default function CharacterTestController() {
     "Character Test Controls",
     {
       WALK_SPEED: { value: 5, min: 0, max: 10, step: 0.1 },
-      ROTATION_SPEED: { value: 5, min: 0, max: 10, step: 0.1 },
+      ROTATION_SPEED: {
+        value: degToRad(3),
+        min: degToRad(0.1),
+        max: degToRad(5),
+        step: degToRad(0.1),
+      },
     },
   );
 
-  useFrame(
-    ({ camera }, delta) => {
-      if (!rb.current) return;
+  useFrame(({ camera }, delta) => {
+    // ______________________ OBJECT CONTROLS __________________/
 
-      const vel = rb.current.linvel();
+    if (!rb.current) return;
 
-      const movement = { x: 0, z: 0 };
-      // Inputs
-      if (get().forward) movement.z = -1;
-      if (get().backward) movement.z = 1;
-      if (get().left) movement.x = -1;
-      if (get().right) movement.x = 1;
+    const vel = rb.current.linvel();
 
-      // if Rotation
-      if (movement.x !== 0 || movement.z !== 0) {
-        // unknown math to find the angle to rotate
-        // the character to face the movement direction
-        const targetAngle = Math.atan2(movement.x, movement.z);
+    const movement = { x: 0, z: 0 };
+    // Inputs
+    if (get().forward) movement.z = 1;
+    if (get().backward) movement.z = -1;
+    if (get().left) movement.x = 1;
+    if (get().right) movement.x = -1;
 
-        character.current.rotation.y = lerpAngle(
-          character.current.rotation.y,
-          targetAngle,
-          0.1,
-        );
+    if (movement.x !== 0) {
+      rotationTarget.current += ROTATION_SPEED * movement.x;
+    }
 
-        const angle = character.current.rotation.y;
-        vel.x = Math.sin(angle) * WALK_SPEED;
-        vel.z = Math.cos(angle) * WALK_SPEED;
-      } else {
-        vel.x = 0;
-        vel.z = 0;
-      }
+    // if Rotation
+    if (movement.x !== 0 || movement.z !== 0) {
+      // unknown math to find the angle to rotate
+      // the character to face the movement direction
+      characterRotationTarget.current = Math.atan2(movement.x, movement.z);
+      vel.x =
+        Math.sin(rotationTarget.current + characterRotationTarget.current) *
+        WALK_SPEED;
 
-      rb.current.setLinvel(vel, true);
-    },
+      vel.z =
+        Math.cos(rotationTarget.current + characterRotationTarget.current) *
+        WALK_SPEED;
+    }
 
-    [WALK_SPEED, ROTATION_SPEED],
-  );
+    character.current.rotation.y = lerpAngle(
+      character.current.rotation.y,
+      characterRotationTarget.current,
+      0.1,
+    );
+
+    rb.current.setLinvel(vel, true);
+
+    //   const targetAngle = Math.atan2(movement.x, movement.z);
+
+    //   const angle = rotationTarget.current + characterRotationTarget.curren;
+
+    //   character.current.rotation.y = lerpAngle(
+    //     character.current.rotation.y,
+    //     targetAngle,
+    //     0.1,
+    //   );
+    //   vel.x = Math.sin(angle) * WALK_SPEED;
+    //   vel.z = Math.cos(angle) * WALK_SPEED;
+    // } else {
+    //   vel.x = 0;
+    //   vel.z = 0;
+    // }
+    // rb.current.setLinvel(vel, true);
+
+    // ______________________ CAMERA CONTROLS __________________/
+
+    container.current.rotation.y = MathUtils.lerp(
+      container.current.rotation.y,
+      rotationTarget.current,
+      0.1,
+    );
+
+    cameraPosition.current.getWorldPosition(cameraWorldPosition.current);
+    camera.position.lerp(cameraWorldPosition.current, 0.1);
+
+    if (cameraTarget.current) {
+      cameraTarget.current.getWorldPosition(cameraLookAtWorldPosition.current);
+      cameraLookAt.current.lerp(cameraLookAtWorldPosition.current, 0.1);
+
+      camera.lookAt(cameraLookAt.current);
+    }
+  });
 
   return (
-    <RigidBody colliders={false} position={[0, 1, 0]} lockRotations ref={rb}>
+    <RigidBody colliders={false} position={[0, 5, 0]} lockRotations ref={rb}>
       <group ref={container}>
-        <group ref={cameraTarget} position-z={1.5}>
-          <group ref={cameraPosition} position-y={4} position-z={4}>
-            <group ref={character}>
-              <Character />
-              <CapsuleCollider args={[0.5, 1]} />
-            </group>
-          </group>
+        <group ref={cameraTarget} position-z={4} />
+        <group ref={cameraPosition} position-y={7} position-z={-15} />
+        <group ref={character}>
+          <Character />
         </group>
       </group>
+      <CapsuleCollider args={[0.5, 1]} />
     </RigidBody>
   );
 }

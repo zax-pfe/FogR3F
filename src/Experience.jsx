@@ -26,8 +26,8 @@ export default function Experience() {
 
   // ______________________ LEVA CONTROLS __________________/
   const controlFog = useControls("Fog", {
-    near: { value: 25, min: -15, max: 150, step: 0.1 },
-    far: { value: 117, min: 1, max: 150, step: 0.1 },
+    near: { value: -15, min: -15, max: 150, step: 0.1 },
+    far: { value: 61, min: 1, max: 150, step: 0.1 },
     color: "#cc7b32",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
