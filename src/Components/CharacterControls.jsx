@@ -1,9 +1,9 @@
 import React from "react";
 import { useControls, button } from "leva";
 import { useRef } from "react";
-import Character from "./Character.jsx";
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useKeyboardControls } from "@react-three/drei";
+import Character from "./3DModel/Character";
 
 export default function CharacterControls() {
   const characterRef = useRef();

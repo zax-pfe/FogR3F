@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF("/First try for textures.glb");
+  const { nodes, materials } = useGLTF("/assets/3DModels/First_try.glb");
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={8.76}>
@@ -254,4 +254,4 @@ export default function Model(props) {
   );
 }
 
-useGLTF.preload("/First try for textures.glb");
+useGLTF.preload("/assets/3DModels/First_try.glb");

@@ -1,25 +1,16 @@
 import { OrbitControls } from "@react-three/drei";
-import Model from "./Components/Test.jsx";
+import Model from "./Components/3DModel/Test.jsx";
 import Terrain from "./Components/Terrain.jsx";
-import CharacterControls from "./Components/CharacterControls.jsx";
 
 import { useThree } from "@react-three/fiber";
 
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
-import { useControls, button } from "leva";
-import { useRef } from "react";
+import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 import {
   EffectComposer,
-  ToneMapping,
-  Vignette,
-  Glitch,
-  Noise,
-  Bloom,
-  DepthOfField,
 } from "@react-three/postprocessing";
-import { ToneMappingMode } from "postprocessing";
-import { BlendFunction } from "postprocessing";
+import CharacterControls from "./Components/CharacterControls.jsx";
 
 export default function Experience() {
   const { camera } = useThree();
