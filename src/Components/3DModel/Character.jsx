@@ -1,10 +1,13 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useControls, button } from "leva";
 
 export default function Character(props) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/assets/3DModels/cap_test.glb");
+  const { nodes, materials, animations } = useGLTF(
+    "/assets/3DModels/cap_test.glb",
+  );
+
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState(null);
   const animationsNames = animations.map((anim) => anim.name);
@@ -33,7 +36,7 @@ export default function Character(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <group name="Armature" position={[0, 0, -1.638]}>
+        <group name="Armature" position={[0, 0, 2]} rotation={[0, Math.PI, 0]}>
           <skinnedMesh
             name="Cone"
             geometry={nodes.Cone.geometry}
