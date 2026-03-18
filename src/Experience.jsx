@@ -9,7 +9,12 @@ import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 import {
   EffectComposer,
+  ToneMapping,
+  Bloom,
+  Vignette,
+  DepthOfField,
 } from "@react-three/postprocessing";
+import { ToneMappingMode, BlendFunction } from "postprocessing";
 import CharacterControls from "./Components/CharacterControls.jsx";
 
 export default function Experience() {
