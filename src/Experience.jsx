@@ -1,15 +1,16 @@
 import { OrbitControls } from "@react-three/drei";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
-import { useThree } from "@react-three/fiber";
+import { useThree, useFrame } from "@react-three/fiber";
 import Cristal from "./Components/3DModel/Cristal.jsx";
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 import InvisibleWall from "./Components/InvisibleWall.jsx";
+import * as THREE from "three";
 
 import { Physics } from "@react-three/rapier";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import VFX from "./Components/VFX/VFX.jsx";
 
@@ -41,6 +42,29 @@ export default function Experience() {
   //   z: { value: 20, min: -50, max: 50, step: 0.1 },
   // });
 
+  useFrame((state, delta) => {
+    if (cristalRef.current) {
+      cristalRef.current.rotation.y += delta * 0.5;
+    }
+
+    // console.log("Position cristal:", cristalRef.current.position);
+    if (characterRef.current && cristalRef.current) {
+      const charWorldPos = new THREE.Vector3();
+      characterRef.current.getWorldPosition(charWorldPos);
+
+      const cristalWorldPos = new THREE.Vector3();
+      cristalRef.current.getWorldPosition(cristalWorldPos);
+
+      charWorldPos.y = 0;
+      cristalWorldPos.y = 0;
+
+      const distance = charWorldPos.distanceTo(cristalWorldPos);
+
+      if (distance < 2) {
+        console.log("the cristal !");
+      }
+    }
+  });
   return (
     <>
       <fog
@@ -65,7 +89,9 @@ export default function Experience() {
           <Terrain scale={controlFog.scaleModel} />
           <CharacterController ref={characterRef} />
           <Cristal position={[0, 10, 0]} ref={cristalRef} />
-          {/* <InvisibleWall /> */}
+          <PivotControls anchor={[0, 0, 0]} depthTest={false}>
+            <InvisibleWall />
+          </PivotControls>
         </Center>
       </Physics>
 

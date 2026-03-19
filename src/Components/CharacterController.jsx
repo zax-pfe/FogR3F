@@ -6,6 +6,7 @@ import { useKeyboardControls } from "@react-three/drei";
 import { useControls } from "leva";
 import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";
+import { forwardRef } from "react";
 
 // ______________________ UTILS __________________/
 
@@ -31,10 +32,12 @@ const lerpAngle = (start, end, t) => {
   return normalizeAngle(start + (end - start) * t);
 };
 
-export default function CharacterTestController() {
+// export default function CharacterController({ characterRef }) {
+const CharacterController = forwardRef((props, ref) => {
   // ______________________ REFS & VARIABLES __________________/
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
+  // const character = ref;
   const character = useRef();
 
   // Camera refs
@@ -58,6 +61,8 @@ export default function CharacterTestController() {
     camera_target_z,
     camera_position_y,
     camera_position_z,
+    cameraPositions,
+    orbitControlsEnabled,
   } = useControls("Character Test Controls", {
     WALK_SPEED: { value: 5, min: 0, max: 10, step: 0.1 },
     ROTATION_SPEED: {
@@ -69,6 +74,12 @@ export default function CharacterTestController() {
     camera_target_z: { value: 4, min: -10, max: 10, step: 0.1 },
     camera_position_y: { value: 7, min: 0, max: 20, step: 0.1 },
     camera_position_z: { value: -15, min: -50, max: 0, step: 0.1 },
+    // cameraPositions: {
+    //   value: { z: 7, y: -15 },
+    //   step: 0.1,
+    //   joystick: "invertY"z,
+    // },
+    orbitControlsEnabled: false,
   });
 
   // ______________________ FRAME UPDATE __________________/
@@ -87,17 +98,19 @@ export default function CharacterTestController() {
     if (get().left) movement.x = 1;
     if (get().right) movement.x = -1;
 
+    // _________________________ ROTATION _________________________/
+
     if (movement.x !== 0) {
       rotationTarget.current += ROTATION_SPEED * movement.x * delta * 50;
     }
 
-    // if Rotation
+    // _________________________ TRANSLATION _________________________/
     if (movement.z !== 0) {
       // unknown math to find the angle to rotate
       // the character to face the movement direction
       const moveAngle = Math.atan2(movement.x, movement.z);
       const finalAngle = rotationTarget.current + moveAngle;
-      // characterRotationTarget.current = Math.atan2(movement.x, movement.z);
+      // characterRotationTarget.current = finalAngle;
 
       vel.z = Math.cos(finalAngle) * WALK_SPEED * delta * 50;
       vel.x = Math.sin(finalAngle) * WALK_SPEED * delta * 50;
@@ -112,21 +125,23 @@ export default function CharacterTestController() {
     rb.current.setLinvel(vel, true);
 
     // ______________________ CAMERA CONTROLS __________________/
-
     container.current.rotation.y = MathUtils.lerp(
       container.current.rotation.y,
       rotationTarget.current,
       0.1,
     );
+    if (orbitControlsEnabled) {
+      cameraPosition.current.getWorldPosition(cameraWorldPosition.current);
+      camera.position.lerp(cameraWorldPosition.current, 0.1);
 
-    cameraPosition.current.getWorldPosition(cameraWorldPosition.current);
-    camera.position.lerp(cameraWorldPosition.current, 0.1);
+      if (cameraTarget.current) {
+        cameraTarget.current.getWorldPosition(
+          cameraLookAtWorldPosition.current,
+        );
+        cameraLookAt.current.lerp(cameraLookAtWorldPosition.current, 0.1);
 
-    if (cameraTarget.current) {
-      cameraTarget.current.getWorldPosition(cameraLookAtWorldPosition.current);
-      cameraLookAt.current.lerp(cameraLookAtWorldPosition.current, 0.1);
-
-      camera.lookAt(cameraLookAt.current);
+        camera.lookAt(cameraLookAt.current);
+      }
     }
   });
 
@@ -138,12 +153,17 @@ export default function CharacterTestController() {
           ref={cameraPosition}
           position-y={camera_position_y}
           position-z={camera_position_z}
+          // position-y={cameraPositions.y}
+          // position-z={cameraPositions.z}
         />
         <group ref={character}>
-          <Character />
+          {/* <Character /> */}
+          <Character ref={ref} />
         </group>
       </group>
       <CapsuleCollider args={[0.5, 1]} />
     </RigidBody>
   );
-}
+  // }
+});
+export default CharacterController;

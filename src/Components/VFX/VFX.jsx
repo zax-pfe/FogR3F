@@ -1,6 +1,7 @@
 import React from "react";
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useControls } from "leva";
+import { Points } from "@react-three/drei";
 
 export default function VFX({ particlesColor }) {
   const controlParticles = useControls("Particles", {
@@ -14,6 +15,7 @@ export default function VFX({ particlesColor }) {
       <Sparkles
         size={controlParticles.size}
         count={controlParticles.count}
+        opacity={0.1}
         scale={[
           controlParticles.scale,
           controlParticles.scale,
@@ -23,6 +25,10 @@ export default function VFX({ particlesColor }) {
         speed={controlParticles.speed}
         color={particlesColor}
       />
+
+      {/* <Points limit={1000}>
+        <pointsMaterial color="#fff" size={0.01} transparent opacity={0.6} />
+      </Points> */}
     </>
   );
 }
