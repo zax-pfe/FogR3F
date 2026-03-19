@@ -49,6 +49,8 @@ const Character = forwardRef((props, ref) => {
               geometry={nodes.Cone.geometry}
               material={materials["Material.001"]}
               skeleton={nodes.Cone.skeleton}
+              castShadow={true}
+              receiveShadow={true}
             />
             <primitive object={nodes.Bone} />
             <primitive object={nodes.neutral_bone} />

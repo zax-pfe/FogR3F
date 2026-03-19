@@ -7,6 +7,7 @@ import { useControls } from "leva";
 import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { forwardRef } from "react";
+import MolecTest from "./3DModel/molecTest";
 
 // ______________________ UTILS __________________/
 
@@ -79,7 +80,7 @@ const CharacterController = forwardRef((props, ref) => {
     //   step: 0.1,
     //   joystick: "invertY"z,
     // },
-    orbitControlsEnabled: false,
+    orbitControlsEnabled: true,
   });
 
   // ______________________ FRAME UPDATE __________________/
@@ -105,7 +106,8 @@ const CharacterController = forwardRef((props, ref) => {
     }
 
     // _________________________ TRANSLATION _________________________/
-    if (movement.z !== 0) {
+    if (movement.z !== 0 || movement.x !== 0) {
+      //  if (movement.z !== 0) {
       // unknown math to find the angle to rotate
       // the character to face the movement direction
       const moveAngle = Math.atan2(movement.x, movement.z);

@@ -4,12 +4,16 @@ import { useControls } from "leva";
 import { Points } from "@react-three/drei";
 
 export default function VFX({ particlesColor }) {
-  const controlParticles = useControls("Particles", {
-    scale: { value: 90, min: 1, max: 150, step: 1 },
-    size: { value: 28, min: 1, max: 100, step: 1 },
-    count: { value: 1000, min: 1, max: 2000, step: 1 },
-    speed: { value: 1.5, min: 0.01, max: 3, step: 0.01 },
-  });
+  const controlParticles = useControls(
+    "Particles",
+    {
+      scale: { value: 90, min: 1, max: 150, step: 1 },
+      size: { value: 28, min: 1, max: 100, step: 1 },
+      count: { value: 1000, min: 1, max: 2000, step: 1 },
+      speed: { value: 1.5, min: 0.01, max: 3, step: 0.01 },
+    },
+    { collapsed: true },
+  );
   return (
     <>
       <Sparkles
