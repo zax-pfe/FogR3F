@@ -52,18 +52,26 @@ export default function CharacterTestController() {
   const [, get] = useKeyboardControls(); // Get input controls
 
   // ______________________ LEVA CONTROLS __________________/
-  const { WALK_SPEED, ROTATION_SPEED } = useControls(
-    "Character Test Controls",
-    {
-      WALK_SPEED: { value: 5, min: 0, max: 10, step: 0.1 },
-      ROTATION_SPEED: {
-        value: degToRad(3),
-        min: degToRad(0.1),
-        max: degToRad(5),
-        step: degToRad(0.1),
-      },
+  const {
+    WALK_SPEED,
+    ROTATION_SPEED,
+    camera_target_z,
+    camera_position_y,
+    camera_position_z,
+  } = useControls("Character Test Controls", {
+    WALK_SPEED: { value: 5, min: 0, max: 10, step: 0.1 },
+    ROTATION_SPEED: {
+      value: degToRad(1.5),
+      min: degToRad(0.1),
+      max: degToRad(5),
+      step: degToRad(0.1),
     },
-  );
+    camera_target_z: { value: 4, min: -10, max: 10, step: 0.1 },
+    camera_position_y: { value: 7, min: 0, max: 20, step: 0.1 },
+    camera_position_z: { value: -15, min: -50, max: 0, step: 0.1 },
+  });
+
+  // ______________________ FRAME UPDATE __________________/
 
   useFrame(({ camera }, delta) => {
     // ______________________ OBJECT CONTROLS __________________/
@@ -80,21 +88,19 @@ export default function CharacterTestController() {
     if (get().right) movement.x = -1;
 
     if (movement.x !== 0) {
-      rotationTarget.current += ROTATION_SPEED * movement.x;
+      rotationTarget.current += ROTATION_SPEED * movement.x * delta * 50;
     }
 
     // if Rotation
-    if (movement.x !== 0 || movement.z !== 0) {
+    if (movement.z !== 0) {
       // unknown math to find the angle to rotate
       // the character to face the movement direction
-      characterRotationTarget.current = Math.atan2(movement.x, movement.z);
-      vel.x =
-        Math.sin(rotationTarget.current + characterRotationTarget.current) *
-        WALK_SPEED;
+      const moveAngle = Math.atan2(movement.x, movement.z);
+      const finalAngle = rotationTarget.current + moveAngle;
+      // characterRotationTarget.current = Math.atan2(movement.x, movement.z);
 
-      vel.z =
-        Math.cos(rotationTarget.current + characterRotationTarget.current) *
-        WALK_SPEED;
+      vel.z = Math.cos(finalAngle) * WALK_SPEED * delta * 50;
+      vel.x = Math.sin(finalAngle) * WALK_SPEED * delta * 50;
     }
 
     character.current.rotation.y = lerpAngle(
@@ -104,23 +110,6 @@ export default function CharacterTestController() {
     );
 
     rb.current.setLinvel(vel, true);
-
-    //   const targetAngle = Math.atan2(movement.x, movement.z);
-
-    //   const angle = rotationTarget.current + characterRotationTarget.curren;
-
-    //   character.current.rotation.y = lerpAngle(
-    //     character.current.rotation.y,
-    //     targetAngle,
-    //     0.1,
-    //   );
-    //   vel.x = Math.sin(angle) * WALK_SPEED;
-    //   vel.z = Math.cos(angle) * WALK_SPEED;
-    // } else {
-    //   vel.x = 0;
-    //   vel.z = 0;
-    // }
-    // rb.current.setLinvel(vel, true);
 
     // ______________________ CAMERA CONTROLS __________________/
 
@@ -144,8 +133,12 @@ export default function CharacterTestController() {
   return (
     <RigidBody colliders={false} position={[0, 5, 0]} lockRotations ref={rb}>
       <group ref={container}>
-        <group ref={cameraTarget} position-z={4} />
-        <group ref={cameraPosition} position-y={7} position-z={-15} />
+        <group ref={cameraTarget} position-z={camera_target_z} />
+        <group
+          ref={cameraPosition}
+          position-y={camera_position_y}
+          position-z={camera_position_z}
+        />
         <group ref={character}>
           <Character />
         </group>

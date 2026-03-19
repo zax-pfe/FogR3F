@@ -14,12 +14,17 @@ const ThreeScene = ({ children }) => {
   return (
     <KeyboardControls map={keyBoardMap}>
       <Canvas
+        framerate={60}
         camera={{
           fov: 45,
           near: 0.1,
           far: 200,
           position: [-8.49, 10.13, 63.97],
           rotation: [-0.13, -0.05, -0.002],
+        }}
+        gl={{
+          powerPreference: "high-performance",
+          antialias: false,
         }}
       >
         <Suspense fallback={null}>{children}</Suspense>
