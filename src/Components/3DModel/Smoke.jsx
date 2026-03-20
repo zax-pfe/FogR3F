@@ -12,6 +12,7 @@ import {
   Euler,
 } from "three";
 import * as THREE from "three";
+import { useControls } from "leva";
 
 extend({ InstancedMesh2 });
 import { useGameStore } from "../../store/store.js";
@@ -21,21 +22,44 @@ export default function Smoke() {
   const lifeTime = 1.5;
   const speed = 0.5;
   let time = 0;
-  const direction = new Vector3(0, 0.5, 0).normalize();
-  const geometry = useMemo(() => new PlaneGeometry(0.5, 0.3), []);
+  const {
+    speedGeneration,
+    offsetX,
+    offsetY,
+    offsetZ,
+    particlesColor,
+    particlesOpacity,
+    particlesSizeX,
+    particlesSizeY,
+  } = useControls("Smoke", {
+    speedGeneration: { value: 0.1, min: 0.01, max: 1, step: 0.01 },
+    offsetX: { value: 3, min: 0, max: 10, step: 0.1 },
+    offsetY: { value: 1, min: 0, max: 10, step: 0.1 },
+    offsetZ: { value: 1, min: 0, max: 10, step: 0.1 },
+    particlesColor: "#e49c32",
+    particlesOpacity: { value: 0.8, min: 0, max: 1, step: 0.01 },
+    particlesSizeX: { value: 0.5, min: 0.01, max: 1, step: 0.01 },
+    particlesSizeY: { value: 0.3, min: 0.01, max: 1, step: 0.01 },
+  });
+
+  const direction = new Vector3(0, 0.5, 0.5).normalize();
+  const geometry = useMemo(
+    () => new PlaneGeometry(particlesSizeX, particlesSizeY),
+    [particlesSizeX, particlesSizeY],
+  );
   const texture = useLoader(TextureLoader, cloudImg);
 
   const material = useMemo(
     () =>
       new MeshBasicMaterial({
-        color: "#e49c32",
+        color: particlesColor,
         map: texture,
         alphaMap: texture,
         depthWrite: false,
         transparent: true,
-        opacity: 1,
+        opacity: particlesOpacity,
       }),
-    [texture],
+    [texture, particlesColor, particlesOpacity],
   );
 
   let landingAnimation = false;
@@ -51,16 +75,16 @@ export default function Smoke() {
     const elapsedTime = state.clock.getElapsedTime();
 
     if (
-      elapsedTime - time > Math.random() * 0.1 &&
+      elapsedTime - time > Math.random() * speedGeneration &&
       playerAnimation === "walk"
     ) {
       time = elapsedTime;
       landingAnimation = false;
       ref.current.addInstances(2, (obj) => {
         obj.position.copy({
-          x: x + (Math.random() - 0.5) * 3,
-          y: y - 1,
-          z: z + (Math.random() - 0.5) * 1,
+          x: x + (Math.random() - 0.5) * offsetX,
+          y: y - offsetY,
+          z: z + (Math.random() - 0.5) * offsetZ,
         });
         const scale = Math.random() + 0.6;
         obj.scale.set(scale, scale, scale);
