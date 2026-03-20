@@ -18,21 +18,22 @@ import { useGameStore } from "../../store/store.js";
 
 export default function Smoke() {
   const ref = useRef(null);
-  const lifeTime = 1;
-  const speed = 1;
+  const lifeTime = 1.5;
+  const speed = 0.5;
   let time = 0;
   const direction = new Vector3(0, 0.5, 0).normalize();
-  const geometry = useMemo(() => new PlaneGeometry(0.7, 0.5), []);
+  const geometry = useMemo(() => new PlaneGeometry(0.5, 0.3), []);
   const texture = useLoader(TextureLoader, cloudImg);
 
   const material = useMemo(
     () =>
       new MeshBasicMaterial({
-        color: 0xffffff,
+        color: "#e49c32",
         map: texture,
         alphaMap: texture,
         depthWrite: false,
         transparent: true,
+        opacity: 1,
       }),
     [texture],
   );
