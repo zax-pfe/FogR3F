@@ -68,21 +68,21 @@ export default function Experience() {
       />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      <EffectComposer multisampling={8}>
-        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+      {/* <EffectComposer multisampling={8}> */}
+        {/* <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
         <Bloom luminanceThreshold={1.1} mipmapBlur intensity={1.5} />
         <Vignette
           offset={0.1}
           darkness={0.5}
           blendFunction={BlendFunction.NORMAL}
-        />
+        /> */}
 
-        <DepthOfField
+        {/* <DepthOfField
           focusDistance={controlDepthOfField.focusDistance}
           focusLength={controlDepthOfField.focusLength}
           bokehScale={controlDepthOfField.bokehScale}
-        />
-      </EffectComposer>
+        /> */}
+      {/* </EffectComposer> */}
 
       {/* ______________________ SETUP __________________/ */}
 
