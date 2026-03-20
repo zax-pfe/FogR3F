@@ -17,6 +17,8 @@ import VFX from "./Components/VFX/VFX.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
 
 import Lights from "./Components/Lights/Lights.jsx";
+import Smoke from "./Components/3DModel/Smoke.jsx";
+import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
@@ -74,24 +76,19 @@ export default function Experience() {
   return (
     <>
       {/* ______________________ FOG__________________/ */}
-
       <fog
         attach="fog"
         args={[controlFog.color, controlFog.near, controlFog.far]}
       />
       <color attach="background" args={[controlFog.color]} />
-
       {/* ______________________ POST PROCESSING__________________/ */}
       <PostProcessing />
-
       {/* ______________________ SETUP __________________/ */}
-
       <OrbitControls makeDefault />
       <Perf position="top-left" />
       <Lights />
-
+      <CalculateDistance />
       {/* ______________________ MODELS __________________/ */}
-
       <Physics>
         <Center>
           <Terrain scale={controlFog.scaleModel} />
@@ -102,8 +99,8 @@ export default function Experience() {
           </PivotControls>
         </Center>
       </Physics>
+      <Smoke />
       <MolecTest targetRef={characterRef} />
-
       {/* ______________________ VFX __________________/ */}
       <VFX particlesColor={controlFog.color} />
     </>

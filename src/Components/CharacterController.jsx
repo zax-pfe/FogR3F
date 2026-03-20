@@ -10,6 +10,7 @@ import { forwardRef } from "react";
 import MolecTest from "./3DModel/molecTest";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
+import { useGameStore } from "../store/store.js";
 
 // ______________________ UTILS __________________/
 
@@ -41,21 +42,10 @@ const CharacterController = forwardRef((props, ref) => {
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
+  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
+  const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
 
   // ______________________ PARTICLES __________________/
-
-  const particlesRef = useRef();
-  const particlePositions = useRef(
-    new Float32Array(1000 * 3), // 100 particules
-  );
-
-  useEffect(() => {
-    for (let i = 0; i < 100; i++) {
-      particlePositions.current[i * 3 + 0] = 0;
-      particlePositions.current[i * 3 + 1] = 0;
-      particlePositions.current[i * 3 + 2] = 0;
-    }
-  }, []);
 
   // Camera refs
   const container = useRef();
@@ -124,6 +114,7 @@ const CharacterController = forwardRef((props, ref) => {
     // _________________________ TRANSLATION _________________________/
     // if (movement.z !== 0 || movement.x !== 0) {
     if (movement.z !== 0) {
+      setPlayerAnimation("walk");
       // unknown math to find the angle to rotate
       // the character to face the movement direction
       const moveAngle = Math.atan2(movement.x, movement.z);
@@ -132,6 +123,8 @@ const CharacterController = forwardRef((props, ref) => {
 
       vel.z = Math.cos(finalAngle) * WALK_SPEED * delta * 50;
       vel.x = Math.sin(finalAngle) * WALK_SPEED * delta * 50;
+    } else {
+      setPlayerAnimation("idle");
     }
 
     character.current.rotation.y = lerpAngle(
@@ -163,32 +156,7 @@ const CharacterController = forwardRef((props, ref) => {
     }
     // ______________________ PARTICLES __________________/
 
-    if (particlesRef.current && character.current) {
-      const positions = particlesRef.current.geometry.attributes.position.array;
-
-      for (let i = 0; i < 1000; i++) {
-        // Décalage aléatoire pour effet fumée
-        positions[i * 3 + 0] += (Math.random() - 0.5) * 0.005;
-        positions[i * 3 + 1] += Math.random() * 0.005;
-        positions[i * 3 + 2] += Math.random() * 0.01;
-
-        // reset si trop loin
-        if (positions[i * 3 + 2] > 2) {
-          positions[i * 3 + 0] = 0;
-          positions[i * 3 + 1] = 0;
-          positions[i * 3 + 2] = 0;
-        }
-      }
-
-      particlesRef.current.geometry.attributes.position.needsUpdate = true;
-
-      // Position derrière le personnage
-      const dir = new THREE.Vector3(1, 1, -1);
-      dir.applyQuaternion(character.current.quaternion);
-
-      particlesRef.current.position.copy(character.current.position);
-      particlesRef.current.position.add(dir.multiplyScalar(-1));
-    }
+    setPlayerPosition(rb.current.translation());
   });
 
   return (
@@ -199,26 +167,9 @@ const CharacterController = forwardRef((props, ref) => {
           ref={cameraPosition}
           position-y={camera_position_y}
           position-z={camera_position_z}
-          // position-y={cameraPositions.y}
-          // position-z={cameraPositions.z}
         />
         <group ref={character}>
-          {/* <Character /> */}
           <Character ref={ref} />
-
-          {/* <Points
-            ref={particlesRef}
-            positions={particlePositions.current}
-            stride={3}
-          >
-            <PointMaterial
-              transparent
-              color="orange"
-              size={0.01}
-              sizeAttenuation
-              depthWrite={false}
-            />
-          </Points> */}
         </group>
       </group>
       <CapsuleCollider args={[0.5, 1]} />
