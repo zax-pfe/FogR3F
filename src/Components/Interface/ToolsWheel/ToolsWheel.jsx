@@ -1,11 +1,18 @@
-import { use, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import s from "./ToolsWheel.module.scss";
+import { AnimatePresence, motion, stagger } from "motion/react";
+
+const ToolVariants = {
+    initial: { opacity: 0, scale: 0.1, x: '50%', y: '50%', right: '82px', bottom: '82px' },
+    exit: { opacity: 0, scale: 0.1, x: '50%', y: '50%', right: '82px', bottom: '82px', transition: { duration: 0.2 } },
+};
+
 
 const ToolsWheel = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const toolsRadius = 132;
+    const toolsRadius = 140;
     const center = 82;
     const [currentTool, setCurrentTool] = useState(0);
     const [, forceUpdate] = useState(0);
@@ -15,13 +22,13 @@ const ToolsWheel = () => {
     const generateCirclePoints = (number, baseAngle = 0) => {
 
         let table = [];
-        let a = baseAngle;
+        let a = (Math.PI * 2) / (number + 2);
 
         let step = (Math.PI * 2) / (number + 2);
 
         for (let i = 0; i < number; i++) {
 
-            if (i === 4) {
+            if (i === 3) {
                 a += step * 2;
             }
 
@@ -44,12 +51,12 @@ const ToolsWheel = () => {
     const slot = useMemo(() => generateCirclePoints(6), []);
 
     const tools = useRef([
-        { name: "Tool 0", icon: "blue", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 1", icon: "red", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 2", icon: "green", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 3", icon: "orange", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 4", icon: "purple", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 5", icon: "yellow", x: 0, y: 0, dx: 0, dy: 0 }
+        { name: "Tool 0", icon: "blue", selectable: "true", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 1", icon: "red", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 2", icon: "green", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 3", icon: "orange", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 4", icon: "purple", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 5", icon: "yellow", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 }
     ]);
 
     const changeTool = (index) => {
@@ -59,7 +66,7 @@ const ToolsWheel = () => {
         // isArrived.current = tools.current.length; // Simulate instant arrival for testing
 
         for (let i = 0; i < tools.current.length; i++) {
-            const idx = (i - index) < 0 ? tools.current.length + (i - index) : (i - index);
+            const idx = (i - index + tools.current.length) % tools.current.length;
             if (i === index) {
                 console.log(`Tool ${i} will move to slot ${idx} (active)`);
             }
@@ -76,21 +83,28 @@ const ToolsWheel = () => {
 
             // tool.x += (tool.dx - tool.x) * 0.2;
             // tool.y += (tool.dy - tool.y) * 0.2;
-            
+
             const lx = tool.dx - tool.x;
             const ly = tool.dy - tool.y;
             const distance = Math.sqrt(lx * lx + ly * ly);
-            
-            const dx = tool.x + lx * 0.2;
-            const dy = tool.y + ly * 0.2;
 
-            const angle = Math.atan2(dy - center, dx - center);
+            // Angle courant et angle cible
+            const currentAngle = Math.atan2(tool.y - center, tool.x - center);
+            const targetAngle = Math.atan2(tool.dy - center, tool.dx - center);
 
-            // tool.x = center + Math.cos(angle) * toolsRadius;
-            // tool.y = center + Math.sin(angle) * toolsRadius;
+            // Interpoler l'angle (avec gestion de la direction la plus courte)
+            let angleDiff = targetAngle - currentAngle;
+            if (angleDiff > Math.PI) angleDiff -= Math.PI * 2; // Si la différence d'angle est supérieure à 180°, on prend le chemin inverse
+            if (angleDiff < -Math.PI) angleDiff += Math.PI * 2; // Si la différence d'angle est inférieure à -180°, on prend le chemin inverse
 
-            tool.x = dx;
-            tool.y = dy;
+            const interpolatedAngle = currentAngle + angleDiff * 0.3;
+
+            tool.x = center + Math.cos(interpolatedAngle) * toolsRadius;
+            tool.y = center + Math.sin(interpolatedAngle) * toolsRadius;
+
+
+            // tool.x = dx;
+            // tool.y = dy;
 
             if (distance < 0.5) {
                 tool.x = tool.dx;
@@ -154,29 +168,38 @@ const ToolsWheel = () => {
     }, []);
 
     return (
-        <div className={s.toolsWheel}>
+        <div className={s.toolsWheel} >
             {/* ToolsWheel content */}
             <button className={`${s.btn} ${isOpen ? s.open : ""}`} onClick={() => setIsOpen(!isOpen)}>
                 {/* <span className="sr-only">Open tool</span> */}
-                <span className="sr-only">{isOpen ? "Close" : "Open"} tool</span>
-            </button>
-            {
-                isOpen && tools.current.map((tool, index) => (
-                    <div
-                        key={index}
-                        className={s.tool}
-                        onClick={() => changeTool(index)}
-                        style={{
-                            backgroundColor: tool.icon,
-                            right: `${tool.x}px`,
-                            bottom: `${tool.y}px`
-                        }}
-                    >
-                        <span>{tool.name}</span>
-                    </div>
-                ))
-            }
-        </div>
+                <span className="sr-only" > {isOpen ? "Close" : "Open"} tool</span>
+            </button >
+            <AnimatePresence>
+                {
+                    isOpen && tools.current.map((tool, index) => (
+                        <motion.div
+                            key={index}
+                            className={`${s.tool} ${index === currentTool ? s.active : ""}`}
+                            onClick={() => changeTool(index)}
+                            style={{
+                                backgroundColor: tool.icon,
+                                right: `${tool.x}px`,
+                                bottom: `${tool.y}px`
+                            }}
+                            initial="initial"
+                            animate={{ opacity: 1, scale: 1, x: '50%', y: '50%', right: `${tool.x}px`, bottom: `${tool.y}px`, transition: { duration: 0.2 } }}
+                            exit="exit"
+                            variants={ToolVariants}
+                        >
+                            <span>{tool.name}</span>
+                            {
+                                tool.selectable === "false" && <span className={s.lock}>X</span>
+                            }
+                        </motion.div>
+                    ))
+                }
+            </AnimatePresence>
+        </div >
     );
 };
 

@@ -33,5 +33,17 @@
         background-color: blue;
         z-index: 3;
         // transition: all 0.3s ease;
+
+        .lock {
+            display: none;
+        }
+
+        &.active {
+            border: 2px solid black;
+
+            & .lock {
+                display: block;
+            }
+        }
     }
 }
