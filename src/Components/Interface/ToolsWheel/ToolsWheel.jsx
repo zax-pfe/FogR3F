@@ -73,10 +73,26 @@ const ToolsWheel = () => {
     const mouveTools = () => {
         for (let i = 0; i < tools.current.length; i++) {
             const tool = tools.current[i];
-            tool.x += (tool.dx - tool.x) * 0.2;
-            tool.y += (tool.dy - tool.y) * 0.2;
 
-            if (Math.abs(tool.dx - tool.x) < 0.5 && Math.abs(tool.dy - tool.y) < 0.5) {
+            // tool.x += (tool.dx - tool.x) * 0.2;
+            // tool.y += (tool.dy - tool.y) * 0.2;
+            
+            const lx = tool.dx - tool.x;
+            const ly = tool.dy - tool.y;
+            const distance = Math.sqrt(lx * lx + ly * ly);
+            
+            const dx = tool.x + lx * 0.2;
+            const dy = tool.y + ly * 0.2;
+
+            const angle = Math.atan2(dy - center, dx - center);
+
+            // tool.x = center + Math.cos(angle) * toolsRadius;
+            // tool.y = center + Math.sin(angle) * toolsRadius;
+
+            tool.x = dx;
+            tool.y = dy;
+
+            if (distance < 0.5) {
                 tool.x = tool.dx;
                 tool.y = tool.dy;
                 isArrived.current += 1;
@@ -115,12 +131,20 @@ const ToolsWheel = () => {
         setIsTransitioning(true);
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "e") {
+            setIsOpen(!isOpen);
+        }
+    };
+
     useEffect(() => {
         window.addEventListener("wheel", handleScroll);
+        window.addEventListener("keydown", handleKeyDown);
         return () => {
             window.removeEventListener("wheel", handleScroll);
+            window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [isOpen, isTransitioning]);
+    }, [isOpen, isTransitioning, currentTool]);
 
     useEffect(() => {
         for (let i = 0; i < tools.current.length; i++) {
