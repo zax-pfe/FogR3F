@@ -48,31 +48,6 @@ export default function Experience() {
   //   z: { value: 20, min: -50, max: 50, step: 0.1 },
   // });
 
-  // ______________________ CALCULATE DISTANCE __________________/
-
-  useFrame((state, delta) => {
-    if (cristalRef.current) {
-      cristalRef.current.rotation.y += delta * 0.5;
-    }
-    if (characterRef.current && cristalRef.current) {
-      const charWorldPos = new THREE.Vector3();
-      characterRef.current.getWorldPosition(charWorldPos);
-
-      const cristalWorldPos = new THREE.Vector3();
-      cristalRef.current.getWorldPosition(cristalWorldPos);
-
-      // don t care about y axis for distance calculation
-      charWorldPos.y = 0;
-      cristalWorldPos.y = 0;
-
-      const distance = charWorldPos.distanceTo(cristalWorldPos);
-
-      if (distance < 1) {
-        console.log("the cristal !");
-      }
-    }
-  });
-
   return (
     <>
       {/* ______________________ FOG__________________/ */}

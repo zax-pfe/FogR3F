@@ -18,34 +18,42 @@ extend({ InstancedMesh2 });
 import { useGameStore } from "../../store/store.js";
 
 export default function Smoke() {
-  const ref = useRef(null);
-  const lifeTime = 1.5;
-  const speed = 0.5;
-  let time = 0;
   const {
     speedGeneration,
+    lifeTime,
+    speed,
     offsetX,
     offsetY,
     offsetZ,
     particlesColor,
-    particlesOpacity,
-    particlesSizeX,
-    particlesSizeY,
-  } = useControls("Smoke", {
-    speedGeneration: { value: 0.1, min: 0.01, max: 1, step: 0.01 },
-    offsetX: { value: 3, min: 0, max: 10, step: 0.1 },
-    offsetY: { value: 1, min: 0, max: 10, step: 0.1 },
-    offsetZ: { value: 1, min: 0, max: 10, step: 0.1 },
-    particlesColor: "#e49c32",
-    particlesOpacity: { value: 0.8, min: 0, max: 1, step: 0.01 },
-    particlesSizeX: { value: 0.5, min: 0.01, max: 1, step: 0.01 },
-    particlesSizeY: { value: 0.3, min: 0.01, max: 1, step: 0.01 },
-  });
+    opacity,
+    sizeX,
+    sizeY,
+  } = useControls(
+    "Smoke",
+    {
+      speedGeneration: { value: 0.1, min: 0.01, max: 1, step: 0.01 },
+      lifeTime: { value: 1, min: 0.1, max: 5, step: 0.1 },
+      speed: { value: 1, min: 0.1, max: 5, step: 0.1 },
+      offsetX: { value: 3, min: 0, max: 10, step: 0.1 },
+      offsetY: { value: 1, min: 0, max: 10, step: 0.1 },
+      offsetZ: { value: 1, min: 0, max: 10, step: 0.1 },
+      particlesColor: "#e49c32",
+      opacity: { value: 0.8, min: 0, max: 1, step: 0.01 },
+      sizeX: { value: 0.5, min: 0.01, max: 1, step: 0.01 },
+      sizeY: { value: 0.3, min: 0.01, max: 1, step: 0.01 },
+    },
+    { collapsed: true },
+  );
 
-  const direction = new Vector3(0, 0.5, 0.5).normalize();
+  const ref = useRef(null);
+  // const lifeTime = 1;
+  // const speed = 1;
+  let time = 0;
+  const direction = new Vector3(0, 0.5, 0).normalize();
   const geometry = useMemo(
-    () => new PlaneGeometry(particlesSizeX, particlesSizeY),
-    [particlesSizeX, particlesSizeY],
+    () => new PlaneGeometry(sizeX, sizeY),
+    [sizeX, sizeY],
   );
   const texture = useLoader(TextureLoader, cloudImg);
 
@@ -57,9 +65,9 @@ export default function Smoke() {
         alphaMap: texture,
         depthWrite: false,
         transparent: true,
-        opacity: particlesOpacity,
+        opacity: opacity,
       }),
-    [texture, particlesColor, particlesOpacity],
+    [texture, particlesColor, opacity],
   );
 
   let landingAnimation = false;

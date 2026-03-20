@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useGameStore } from "../../store/store.js";
+import { useFrame } from "@react-three/fiber";
+ss;
 
 export default function Cristal(props) {
   const cristalRef = useRef();
@@ -10,6 +12,13 @@ export default function Cristal(props) {
   useEffect(() => {
     setCristalPosition(cristalRef.current.position);
   }, []);
+
+  useFrame((state, delta) => {
+    if (cristalRef.current) {
+      // console.log("Cristal position:", cristalRef.current.position);
+      cristalRef.current.rotation.y += delta * 0.5;
+    }
+  });
 
   return (
     <group {...props} dispose={null} ref={cristalRef}>
