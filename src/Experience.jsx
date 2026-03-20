@@ -1,11 +1,13 @@
+//imports par def
 import { OrbitControls } from "@react-three/drei";
-import Terrain from "./Components/3DModel/Terrain.jsx";
-import CharacterController from "./Components/CharacterController.jsx";
 import { useThree } from "@react-three/fiber";
-import Cristal from "./Components/3DModel/Cristal.jsx";
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useControls } from "leva";
 import { Perf } from "r3f-perf";
+
+//Post prod
+import { ToneMappingMode, BlendFunction } from "postprocessing";
+import { Physics } from "@react-three/rapier";
 import {
   EffectComposer,
   ToneMapping,
@@ -13,8 +15,13 @@ import {
   Vignette,
   DepthOfField,
 } from "@react-three/postprocessing";
-import { ToneMappingMode, BlendFunction } from "postprocessing";
-import { Physics } from "@react-three/rapier";
+
+//components
+import Terrain from "./Components/3DModel/Terrain.jsx";
+import CharacterController from "./Components/CharacterController.jsx";
+import Cristal from "./Components/3DModel/Cristal.jsx";
+import Trees from "./Components/3DModel/Trees.jsx";
+
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
@@ -51,6 +58,8 @@ export default function Experience() {
     focusLength: { value: 0.025, min: 0, max: 1, step: 0.001 },
     bokehScale: { value: 0.2, min: 0, max: 10, step: 0.1 },
   });
+
+
   return (
     <>
       <fog
@@ -89,6 +98,7 @@ export default function Experience() {
           <Terrain scale={controlFog.scaleModel} />
           <CharacterController />
           <Cristal position={[0, 10, 0]} />
+          <Trees scale={controlFog.scaleModel} />
         </Center>
       </Physics>
 
