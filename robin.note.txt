@@ -5,3 +5,5 @@ claque des view pour le Z-index :
 30 : 
 
 mettre ça en fixed 100%/100% et le reste en absolute dedans 
+
+pas le bon index à corriger

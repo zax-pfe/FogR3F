@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import s from "./ToolsWheel.module.scss";
 
 const ToolsWheel = () => {
@@ -36,26 +36,33 @@ const ToolsWheel = () => {
 
             a += step;
         }
+
+        console.log(table);
         return table;
     }
 
-    const [slot, setSlot] = useState(generateCirclePoints(6));
+    const slot = useMemo(() => generateCirclePoints(6), []);
 
     const tools = useRef([
-        { name: "Tool 1", icon: "blue", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 2", icon: "red", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 3", icon: "green", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 4", icon: "orange", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 5", icon: "purple", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 6", icon: "yellow", x: 0, y: 0, dx: 0, dy: 0 }
+        { name: "Tool 0", icon: "blue", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 1", icon: "red", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 2", icon: "green", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 3", icon: "orange", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 4", icon: "purple", x: 0, y: 0, dx: 0, dy: 0 },
+        { name: "Tool 5", icon: "yellow", x: 0, y: 0, dx: 0, dy: 0 }
     ]);
 
     const changeTool = (index) => {
+        console.log("Changing tool to index:", index);
         isArrived.current = 0;
         setCurrentTool(index);
+        // isArrived.current = tools.current.length; // Simulate instant arrival for testing
 
         for (let i = 0; i < tools.current.length; i++) {
-            const idx = (i + index) % slot.length;
+            const idx = (i - index) < 0 ? tools.current.length + (i - index) : (i - index);
+            if (i === index) {
+                console.log(`Tool ${i} will move to slot ${idx} (active)`);
+            }
             tools.current[i].dx = slot[idx].x;
             tools.current[i].dy = slot[idx].y;
         }
@@ -95,11 +102,13 @@ const ToolsWheel = () => {
 
         if (delta > 0) {
             console.log("Scroll down");
-            newTool = (currentTool - 1 + tools.current.length) % tools.current.length;
+            newTool = (currentTool - 1) < 0 ? tools.current.length - 1 : currentTool - 1;
+            console.log("New tool index:", newTool);
             changeTool(newTool);
         } else if (delta < 0) {
             console.log("Scroll up");
-            newTool = (currentTool + 1) % tools.current.length;
+            newTool = (currentTool + 1) >= tools.current.length ? 0 : currentTool + 1;
+            console.log("New tool index:", newTool);
             changeTool(newTool);
         }
 
@@ -132,7 +141,7 @@ const ToolsWheel = () => {
                     <div
                         key={index}
                         className={s.tool}
-                        onClick={() => changeTool((index - currentTool + tools.current.length) % tools.current.length)}
+                        onClick={() => changeTool(index)}
                         style={{
                             backgroundColor: tool.icon,
                             right: `${tool.x}px`,
