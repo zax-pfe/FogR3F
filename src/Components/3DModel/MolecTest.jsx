@@ -1,8 +1,12 @@
-import React from "react";
-import { useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { Center, PivotControls, Float } from "@react-three/drei";
+import React, { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Trail } from "@react-three/drei";
 import * as THREE from "three";
+
+import { extend } from "@react-three/fiber";
+import { MeshLineMaterial } from "meshline";
+
+extend({ MeshLineMaterial });
 
 export default function MolecTest({ targetRef }) {
   const meshRef = useRef();
@@ -24,17 +28,30 @@ export default function MolecTest({ targetRef }) {
 
     meshRef.current.position.lerp(desired.current, t);
   });
+
   return (
-    <Float
-      speed={4}
-      rotationIntensity={0}
-      floatIntensity={1}
-      floatingRange={[-0.3, 0.3]}
+    <Trail
+      width={10}
+      color={"lightblue"}
+      length={3}
+      decay={0.1}
+      local={true}
+      stride={0}
+      interval={1}
+      attenuation={(t) => t}
     >
+      <meshLineMaterial
+        color="#aee6ff"
+        transparent
+        opacity={0.08}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+        lineWidth={1}
+      />
       <mesh scale={0.2} ref={meshRef}>
         <sphereGeometry />
         <meshStandardMaterial color={"red"} />
       </mesh>
-    </Float>
+    </Trail>
   );
 }

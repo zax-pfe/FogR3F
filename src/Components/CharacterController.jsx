@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 import { MathUtils, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
@@ -8,6 +8,8 @@ import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { forwardRef } from "react";
 import MolecTest from "./3DModel/molecTest";
+import { Points, PointMaterial } from "@react-three/drei";
+import * as THREE from "three";
 
 // ______________________ UTILS __________________/
 
@@ -38,8 +40,22 @@ const CharacterController = forwardRef((props, ref) => {
   // ______________________ REFS & VARIABLES __________________/
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
-  // const character = ref;
   const character = useRef();
+
+  // ______________________ PARTICLES __________________/
+
+  const particlesRef = useRef();
+  const particlePositions = useRef(
+    new Float32Array(1000 * 3), // 100 particules
+  );
+
+  useEffect(() => {
+    for (let i = 0; i < 100; i++) {
+      particlePositions.current[i * 3 + 0] = 0;
+      particlePositions.current[i * 3 + 1] = 0;
+      particlePositions.current[i * 3 + 2] = 0;
+    }
+  }, []);
 
   // Camera refs
   const container = useRef();
@@ -145,6 +161,34 @@ const CharacterController = forwardRef((props, ref) => {
         camera.lookAt(cameraLookAt.current);
       }
     }
+    // ______________________ PARTICLES __________________/
+
+    if (particlesRef.current && character.current) {
+      const positions = particlesRef.current.geometry.attributes.position.array;
+
+      for (let i = 0; i < 1000; i++) {
+        // Décalage aléatoire pour effet fumée
+        positions[i * 3 + 0] += (Math.random() - 0.5) * 0.005;
+        positions[i * 3 + 1] += Math.random() * 0.005;
+        positions[i * 3 + 2] += Math.random() * 0.01;
+
+        // reset si trop loin
+        if (positions[i * 3 + 2] > 2) {
+          positions[i * 3 + 0] = 0;
+          positions[i * 3 + 1] = 0;
+          positions[i * 3 + 2] = 0;
+        }
+      }
+
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
+
+      // Position derrière le personnage
+      const dir = new THREE.Vector3(1, 1, -1);
+      dir.applyQuaternion(character.current.quaternion);
+
+      particlesRef.current.position.copy(character.current.position);
+      particlesRef.current.position.add(dir.multiplyScalar(-1));
+    }
   });
 
   return (
@@ -161,6 +205,20 @@ const CharacterController = forwardRef((props, ref) => {
         <group ref={character}>
           {/* <Character /> */}
           <Character ref={ref} />
+
+          {/* <Points
+            ref={particlesRef}
+            positions={particlePositions.current}
+            stride={3}
+          >
+            <PointMaterial
+              transparent
+              color="orange"
+              size={0.01}
+              sizeAttenuation
+              depthWrite={false}
+            />
+          </Points> */}
         </group>
       </group>
       <CapsuleCollider args={[0.5, 1]} />

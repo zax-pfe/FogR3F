@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import VFX from "./Components/VFX/VFX.jsx";
 
-import MolecTest from "./Components/3DModel/molecTest.jsx";
+import MolecTest from "./Components/3DModel/MolecTest.jsx";
 
 import Lights from "./Components/Lights/Lights.jsx";
 
