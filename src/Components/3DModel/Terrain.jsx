@@ -22,8 +22,8 @@ export default function Terrain(props) {
     <group {...props} dispose={null} position={[0, 0, 0]}>
       <RigidBody type="fixed" colliders="trimesh">
         <mesh
-          castShadow={true}
-          receiveShadow={true}
+          // castShadow={true}
+          // receiveShadow={true}
           geometry={nodes.Plane004.geometry}
           material={materials["Material.001"]}
         />

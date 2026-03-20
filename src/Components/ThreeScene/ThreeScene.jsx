@@ -34,14 +34,6 @@ const ThreeScene = ({ children }) => {
             antialias: true,
           }}
         >
-          {/* <OrthographicCamera
-          left={-22}
-          right={15}
-          top={10}
-          bottom={-20}
-          ref={shadowCameraRef}
-          attach={"shadow-camera"}
-        /> */}
           <Suspense fallback={null}>{children}</Suspense>
           {/* <Environment preset="night" /> */}
         </Canvas>

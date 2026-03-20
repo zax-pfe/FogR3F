@@ -6,8 +6,8 @@ export default function Cristal(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
-        castShadow
-        receiveShadow
+        // castShadow
+        // receiveShadow
         geometry={nodes.Icosphere.geometry}
         material={materials.cristal}
       />

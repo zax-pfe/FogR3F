@@ -73,11 +73,14 @@ export default function Experience() {
 
   return (
     <>
+      {/* ______________________ FOG__________________/ */}
+
       <fog
         attach="fog"
         args={[controlFog.color, controlFog.near, controlFog.far]}
       />
       <color attach="background" args={[controlFog.color]} />
+
       {/* ______________________ POST PROCESSING__________________/ */}
       <PostProcessing />
 

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useControls } from "leva";
+import { Environment, OrthographicCamera } from "@react-three/drei";
 
 export default function Lights() {
+  const shadowCameraRef = useRef();
+
   const {
     directionalLightIntensity,
     color,
@@ -27,11 +30,20 @@ export default function Lights() {
         position={[X_directionalLight, Y_directionalLight, Z_directionalLight]}
         intensity={directionalLightIntensity}
         color={color}
-        castShadow
+        // castShadow
         // shadow-mapSize-width={2048}
         // shadow-mapSize-height={2048}
-        // shadow-bias={-0.00005}
-      />
+        // shadow-bias={-0.000001}
+      >
+        {/* <OrthographicCamera
+          left={-80}
+          right={80}
+          top={80}
+          bottom={-80}
+          ref={shadowCameraRef}
+          attach={"shadow-camera"}
+        /> */}
+      </directionalLight>
       <ambientLight intensity={ambiantLightIntensity} color={color} />
     </>
   );

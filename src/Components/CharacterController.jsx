@@ -106,8 +106,8 @@ const CharacterController = forwardRef((props, ref) => {
     }
 
     // _________________________ TRANSLATION _________________________/
-    if (movement.z !== 0 || movement.x !== 0) {
-      //  if (movement.z !== 0) {
+    // if (movement.z !== 0 || movement.x !== 0) {
+    if (movement.z !== 0) {
       // unknown math to find the angle to rotate
       // the character to face the movement direction
       const moveAngle = Math.atan2(movement.x, movement.z);
