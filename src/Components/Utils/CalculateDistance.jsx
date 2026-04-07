@@ -25,24 +25,30 @@ export default function CalculateDistance() {
         0,
         playerPosition.z,
       );
+      {
+        /* ______________________ CRISTAL DISTANCE __________________/ */
+      }
+
       const cristalPositionWorld = new THREE.Vector3(
         cristalPosition.x,
         0,
         cristalPosition.z,
       );
-      const distance = playerPositionWorld.distanceTo(cristalPositionWorld);
-
-      if (distance < 2.5) {
-        console.log("the cristal !");
+      const distanceToCristal =
+        playerPositionWorld.distanceTo(cristalPositionWorld);
+      if (distanceToCristal < 2.5) {
         if (!cristalContacted) {
           setCristalContacted(true);
         }
       } else {
-        console.log("Distance to cristal:", distance);
         if (cristalContacted) {
           setCristalContacted(false);
         }
       }
+    }
+
+    {
+      /* ______________________ PANEL DISTANCE __________________/ */
     }
   }, [memoizedPosition]);
 
