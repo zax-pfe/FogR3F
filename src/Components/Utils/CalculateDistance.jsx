@@ -8,6 +8,10 @@ export default function CalculateDistance() {
   const playerPosition = useGameStore((state) => state.playerPosition);
   const playerAnimation = useGameStore((state) => state.playerAnimation);
   const cristalPosition = useGameStore((state) => state.cristalPosition);
+  const cristalContacted = useGameStore((state) => state.cristalContacted);
+  const setCristalContacted = useGameStore(
+    (state) => state.setCristalContacted,
+  );
 
   const memoizedPosition = useMemo(
     () => playerPosition,
@@ -28,10 +32,16 @@ export default function CalculateDistance() {
       );
       const distance = playerPositionWorld.distanceTo(cristalPositionWorld);
 
-      if (distance < 2) {
+      if (distance < 2.5) {
         console.log("the cristal !");
+        if (!cristalContacted) {
+          setCristalContacted(true);
+        }
       } else {
         console.log("Distance to cristal:", distance);
+        if (cristalContacted) {
+          setCristalContacted(false);
+        }
       }
     }
   }, [memoizedPosition]);

@@ -8,4 +8,6 @@ export const useGameStore = create((set) => ({
   setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
   cristalPosition: null,
   setCristalPosition: (position) => set({ cristalPosition: position }),
+  cristalContacted: false,
+  setCristalContacted: (contacted) => set({ cristalContacted: contacted }),
 }));

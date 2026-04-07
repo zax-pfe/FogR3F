@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Outlines } from "@react-three/drei";
 import { useGameStore } from "../../store/store.js";
 import { useFrame } from "@react-three/fiber";
 
@@ -7,6 +7,7 @@ export default function Cristal(props) {
   const cristalRef = useRef();
   const { nodes, materials } = useGLTF("/assets/3DModels/cristal_textured.glb");
   const setCristalPosition = useGameStore((state) => state.setCristalPosition);
+  const cristalContacted = useGameStore((state) => state.cristalContacted);
 
   useEffect(() => {
     setCristalPosition(cristalRef.current.position);
@@ -26,7 +27,9 @@ export default function Cristal(props) {
         // receiveShadow
         geometry={nodes.Icosphere.geometry}
         material={materials.cristal}
-      />
+      >
+        {cristalContacted && <Outlines thickness={2} color="lightblue" />}
+      </mesh>
     </group>
   );
 }

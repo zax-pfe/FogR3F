@@ -69,7 +69,7 @@ export default function Experience() {
         <Center>
           <Terrain scale={controlFog.scaleModel} />
           <CharacterController ref={characterRef} />
-          <Cristal position={[0, 10, 0]} ref={cristalRef} />
+          <Cristal position={[0, 7, 0]} ref={cristalRef} />
           <PivotControls anchor={[0, 0, 0]} depthTest={false}>
             <InvisibleWall />
           </PivotControls>

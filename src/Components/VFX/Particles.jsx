@@ -9,10 +9,10 @@ export default function Particles() {
   const { scale, size, speed, color } = useControls(
     "Particles",
     {
-      scale: { value: 0.06, min: 0.01, max: 2, step: 0.01 },
+      scale: { value: 0.2, min: 0.01, max: 2, step: 0.01 },
       size: { value: 50, min: 20, max: 100, step: 1 },
       speed: { value: 0.005, min: 0.001, max: 0.01, step: 0.001 },
-      color: "#ffffff",
+      color: "#501e1e",
     },
     { collapsed: true },
   );
