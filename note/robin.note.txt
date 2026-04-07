@@ -1,0 +1,14 @@
+claque des view pour le Z-index :
+1 : canvas 3D
+10 : analyse et canvas 2D
+20 : HUD avec la roue et les st et letterbox
+30 : 
+
+mettre ça en fixed 100%/100% et le reste en absolute dedans 
+
+----
+
+Note du 20 mars :
+- le carrousel est good normalement
+- Passer sur un store pour les tools
+- la prochiane fois faudrait commencer à intégrer l'UI de manière générale donc stylisé un peu tout, mettre la palette de couleur, ce genre de truc quoi...
