@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import VFX from "./Components/VFX/VFX.jsx";
 
-import MolecTest from "./Components/3DModel/MolecTest.jsx";
+import MolecTest from "./Components/3DModel/molecTest.jsx";
 
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
@@ -57,7 +57,7 @@ export default function Experience() {
       />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      <PostProcessing />
+      {/* <PostProcessing /> */}
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls makeDefault />
       <Perf position="top-left" />
