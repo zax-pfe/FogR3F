@@ -14,7 +14,6 @@ const keys = {
 };
 
 function App() {
-
   return (
     <>
       <KeyboardControls
@@ -32,7 +31,7 @@ function App() {
         {/* <Loader /> */}
       </KeyboardControls>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
