@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { useGLTF, Outlines } from "@react-three/drei";
-import { useGameStore } from "../../store/store.js";
+import { useGameStore } from "../../../store/store.js";
 import { useFrame } from "@react-three/fiber";
 
 export default function Cristal(props) {
   const cristalRef = useRef();
   const { nodes, materials } = useGLTF("/assets/3DModels/cristal_textured.glb");
   const setCristalPosition = useGameStore((state) => state.setCristalPosition);
-  const cristalContacted = useGameStore((state) => state.cristalContacted);
+  const elementContacted = useGameStore((state) => state.elementContacted);
 
   useEffect(() => {
     setCristalPosition(cristalRef.current.position);
@@ -22,13 +22,10 @@ export default function Cristal(props) {
 
   return (
     <group {...props} dispose={null} ref={cristalRef}>
-      <mesh
-        // castShadow
-        // receiveShadow
-        geometry={nodes.Icosphere.geometry}
-        material={materials.cristal}
-      >
-        {cristalContacted && <Outlines thickness={2} color="lightblue" />}
+      <mesh geometry={nodes.Icosphere.geometry} material={materials.cristal}>
+        {elementContacted === "cristal" && (
+          <Outlines thickness={2} color="lightblue" />
+        )}
       </mesh>
     </group>
   );

@@ -51,7 +51,7 @@ export default function MolecTest({ targetRef }) {
       <mesh scale={0.2} ref={meshRef}>
         <sphereGeometry />
         <meshStandardMaterial color={"red"} />
-        <Outlines thickness={1} color="hotpink" />
+        {/* <Outlines thickness={1} color="hotpink" /> */}
       </mesh>
     </Trail>
   );

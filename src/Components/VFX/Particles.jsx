@@ -65,7 +65,7 @@ export default function Particles() {
         color={color}
         sizeAttenuation
         transparent
-        opacity={0.7}
+        opacity={0.4}
         side={THREE.DoubleSide}
       />
     </points>

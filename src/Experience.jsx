@@ -1,22 +1,26 @@
+// ______________________ REACT & FIBER & DREI & UTILS __________________/
 import { OrbitControls } from "@react-three/drei";
-import Terrain from "./Components/3DModel/Terrain.jsx";
-import CharacterController from "./Components/CharacterController.jsx";
-import { useThree, useFrame } from "@react-three/fiber";
-import Cristal from "./Components/3DModel/Cristal.jsx";
-import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useControls } from "leva";
+import { useThree, useFrame } from "@react-three/fiber";
+import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
-import InvisibleWall from "./Components/InvisibleWall.jsx";
 import * as THREE from "three";
-import Particles from "./Components/VFX/Particles.jsx";
-
 import { Physics } from "@react-three/rapier";
 import { useEffect, useRef, useState } from "react";
+
+// ______________________ 3D MODELS __________________/
+import Terrain from "./Components/3DModel/Terrain.jsx";
+import CharacterController from "./Components/CharacterController.jsx";
+import MolecTest from "./Components/3DModel/MolecTest.jsx";
+// ________ POINTS OF INTEREST ________/
+import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
+import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
+
+// ______________________ EXPERIENCE __________________/
+import InvisibleWall from "./Components/InvisibleWall.jsx";
+import Particles from "./Components/VFX/Particles.jsx";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import VFX from "./Components/VFX/VFX.jsx";
-
-import MolecTest from "./Components/3DModel/MolecTest.jsx";
-
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
 import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
@@ -32,7 +36,6 @@ export default function Experience() {
   // ______________________ VARIABLES __________________/
 
   const characterRef = useRef();
-  const cristalRef = useRef();
 
   // ______________________ LEVA CONTROLS __________________/
   const controlFog = useControls("Fog", {
@@ -58,7 +61,7 @@ export default function Experience() {
       />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      <PostProcessing />
+      {/* <PostProcessing /> */}
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls makeDefault />
       <Perf position="top-left" />
@@ -69,7 +72,9 @@ export default function Experience() {
         <Center>
           <Terrain scale={controlFog.scaleModel} />
           <CharacterController ref={characterRef} />
-          <Cristal position={[0, 7, 0]} ref={cristalRef} />
+          <Cristal position={[0, 7, 0]} />
+          <Panel position={[10, 4, 10]} />
+
           <PivotControls anchor={[0, 0, 0]} depthTest={false}>
             <InvisibleWall />
           </PivotControls>

@@ -7,7 +7,7 @@ import { useControls } from "leva";
 import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { forwardRef } from "react";
-import MolecTest from "./3DModel/molecTest";
+import MolecTest from "./3DModel/MolecTest.jsx";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";

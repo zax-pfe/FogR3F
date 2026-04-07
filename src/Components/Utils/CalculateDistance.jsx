@@ -4,18 +4,22 @@ import * as THREE from "three";
 
 // Component to calculate the distance based on the position stored in the game store
 
+const DISTANCE_THRESHOLD = 5; // Distance threshold for interaction
 export default function CalculateDistance() {
+  // ______________________ PLAYER __________________/
   const playerPosition = useGameStore((state) => state.playerPosition);
-  const playerAnimation = useGameStore((state) => state.playerAnimation);
+  //______________________ CRISTAL __________________/
   const cristalPosition = useGameStore((state) => state.cristalPosition);
-  const cristalContacted = useGameStore((state) => state.cristalContacted);
-  const setCristalContacted = useGameStore(
-    (state) => state.setCristalContacted,
+  //______________________ PANEL __________________/
+  const panelPosition = useGameStore((state) => state.panelPosition);
+  //______________________ CONTACT __________________/
+  const setElementContacted = useGameStore(
+    (state) => state.setElementContacted,
   );
 
   const memoizedPosition = useMemo(
     () => playerPosition,
-    [playerPosition?.x, playerPosition?.z],
+    [playerPosition?.x, playerPosition?.y, playerPosition?.z],
   );
 
   useEffect(() => {
@@ -27,28 +31,30 @@ export default function CalculateDistance() {
       );
       {
         /* ______________________ CRISTAL DISTANCE __________________/ */
+        // faire une liste avec tout les cristalPosition
+        // par default elementContacted = null
+        // boucler dans la liste, et mettre a true l'element contacted si
+        // distance est
       }
 
-      const cristalPositionWorld = new THREE.Vector3(
-        cristalPosition.x,
-        0,
-        cristalPosition.z,
-      );
-      const distanceToCristal =
-        playerPositionWorld.distanceTo(cristalPositionWorld);
-      if (distanceToCristal < 2.5) {
-        if (!cristalContacted) {
-          setCristalContacted(true);
-        }
-      } else {
-        if (cristalContacted) {
-          setCristalContacted(false);
+      const objectPositions = [
+        {
+          name: "cristal",
+          position: new THREE.Vector3(cristalPosition.x, 0, cristalPosition.z),
+        },
+        {
+          name: "panel",
+          position: new THREE.Vector3(panelPosition.x, 0, panelPosition.z),
+        },
+      ];
+
+      setElementContacted(null);
+      for (const obj of objectPositions) {
+        const distance = playerPositionWorld.distanceTo(obj.position);
+        if (distance < DISTANCE_THRESHOLD) {
+          setElementContacted(obj.name);
         }
       }
-    }
-
-    {
-      /* ______________________ PANEL DISTANCE __________________/ */
     }
   }, [memoizedPosition]);
 
