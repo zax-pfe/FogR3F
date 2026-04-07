@@ -20,6 +20,16 @@
 	font-family: 'Poppins', sans-serif;
 }
 
+::selection {
+    background-color: var(--color--violet);
+    color: var(--color--white);
+}
+
+::-webkit-selection {
+	background-color: var(--color--violet);
+	color: var(--color--white);
+}
+
 
 *,
 *::before,
@@ -55,4 +65,24 @@ button {
 	background: none;
 	outline: none;
 	cursor: pointer;
+}
+
+.txt-italic {
+	font-style: italic;
+}
+
+.txt-light {
+	font-weight: 300;
+}
+
+.txt-medium {
+	font-weight: 500;
+}
+
+.txt-semi-bold {
+	font-weight: 600;
+}
+
+.txt-bold {
+	font-weight: 700;
 }
