@@ -5,8 +5,9 @@
 	--color--night-blue: #1A2F2A;
 	--color--blue: #4FD1C5;
 	--color--violet: #7B5CFF;
-	--color--Yellow: #FFD166;
+	--color--yellow: #FFD166;
 	--color--white: #F4F4F4;
+	// --color--gray-white: #878787;
 	--color--gray-low: #9C9C9C;
 	--color--gray-mid: #5E5E5E;
 	--color--gray-high: #202020;
@@ -16,6 +17,8 @@
 	--radius--sm: 12px;
 	--radius--md: 18px;
 	--radius--lg: 24px;
+
+	--easing : ease;
 
 	font-family: 'Poppins', sans-serif;
 }

@@ -1,49 +1,120 @@
 .toolsWheel {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    border: 1px solid red;
-    width: 300px;
-    height: 300px;
-    border-radius: 228px 0 0 0;
-    z-index: 2;
-    pointer-events: all;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	// border: 1px solid red;
+	width: 300px;
+	height: 300px;
+	border-radius: 228px 0 0 0;
+	z-index: 2;
+	pointer-events: all;
 
-    .btn {
-        position: absolute;
-        width: 72px;
-        height: 72px;
-        border-radius: 72px;
-        background-color: red;
-        bottom: 46px;
-        right: 46px;
-        z-index: 4;
+	&::after {
+		content: "";
+		position: absolute;
+		top: -50px;
+		left: -50px;
+        border-radius: 100%;
+		width: 1270px;
+		height: 1270px;
+        z-index: -1;
+		background: radial-gradient(
+			50% 50% at 50% 50%,
+			#111 8.65%,
+			rgba(0, 0, 0, 0) 100%
+		);
+        pointer-events: none;
+	}
+	.btn {
+		position: absolute;
+		width: 72px;
+		height: 72px;
+		border-radius: 72px;
+		background: url('/assets/images/MIL_Wheel.svg') no-repeat center center;
+        background-size: contain;
+        box-shadow: 0 0 44.2px 0 #FFF;
+		bottom: 46px;
+		right: 46px;
+        transition: box-shadow 0.2s var(--easing);
+		z-index: 4;
 
-        &.open {
-            background-color: green;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 11px;
+            height: 11px;
+            background: var(--color--white);
+            border-radius: 100%;
+            transition: 0.2s var(--easing);
+            filter: drop-shadow(0 0 44.2px #FFF);
         }
-    }
 
-    .tool {
-        position: absolute;
-        width: 74px;
-        height: 74px;
-        transform: translate(50%, 50%);
-        // border-radius: 74px;
-        background-color: blue;
-        z-index: 3;
-        // transition: all 0.3s ease;
-
-        .lock {
-            display: none;
+        &:hover {
+            box-shadow: 0 0 66.5px 0 #FFF, 0 0 44.2px 0 #FFF;
         }
 
-        &.active {
-            border: 2px solid black;
+		&.open {
+			box-shadow: 0 0 66.5px 0 #FFF, 0 0 44.2px 0 #FFF;
 
-            & .lock {
-                display: block;
+            &::before {
+                width: 21px;
+                height: 21px;
             }
-        }
-    }
+		}
+	}
+
+	.tool {
+		position: absolute;
+		width: 74px;
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+        gap: 8px;
+		border-radius: 74px 74px 0 0;
+		transform: translate(50%, 50%);
+		z-index: 3;
+		cursor: pointer;
+
+		&__icon {
+			width: 74px;
+			height: 74px;
+			border-radius: 74px;
+			background-color: rgba(0, 0, 0, 0.15);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: transparent 1px solid;
+			transition: border 0.2s var(--easing);
+		}
+
+		&__label {
+			font-size: 0.75rem;
+			text-align: center;
+			font-weight: 500;
+			color: var(--color--gray-low);
+			transition: color 0.2s var(--easing);
+		}
+
+		.lock {
+			display: none;
+		}
+
+		&.active {
+			.tool__icon {
+				border: var(--color--white) 1px solid;
+			}
+
+			.tool__label {
+				color: var(--color--white);
+			}
+
+			& .lock {
+				display: block;
+			}
+		}
+	}
 }
