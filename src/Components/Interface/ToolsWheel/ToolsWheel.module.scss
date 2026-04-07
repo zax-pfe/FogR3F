@@ -25,6 +25,7 @@
 		);
         pointer-events: none;
 	}
+
 	.btn {
 		position: absolute;
 		width: 72px;
@@ -102,7 +103,8 @@
 			height: 74px;
 			border-radius: 74px;
 			background-color: rgba(0, 0, 0, 0.15);
-			display: flex;
+			backdrop-filter: blur(4px);
+            display: flex;
 			align-items: center;
 			justify-content: center;
 			border: transparent 1px solid;
