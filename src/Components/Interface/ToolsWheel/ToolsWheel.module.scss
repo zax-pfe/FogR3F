@@ -52,6 +52,20 @@
             filter: drop-shadow(0 0 44.2px #FFF);
         }
 
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -28.5px;
+            right: 0px;
+            width: 12.5px;
+            height: 12.5px;
+            background: var(--color--white);
+            border-radius: 100%;
+            opacity: 0;
+            transition: opacity 0.2s var(--easing);
+            filter: drop-shadow(0 0 44.2px #FFF);
+        }
+
         &:hover {
             box-shadow: 0 0 66.5px 0 #FFF, 0 0 44.2px 0 #FFF;
         }
@@ -62,6 +76,10 @@
             &::before {
                 width: 21px;
                 height: 21px;
+            }
+
+            &::after {
+                opacity: 1;
             }
 		}
 	}
