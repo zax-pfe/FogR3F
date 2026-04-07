@@ -20,7 +20,7 @@ const ThreeScene = ({ children }) => {
     <>
       <KeyboardControls map={keyBoardMap}>
         <Canvas
-          shadows
+          // shadows
           framerate={60}
           camera={{
             fov: 45,

@@ -62,9 +62,9 @@ export default function Experience() {
       <OrbitControls makeDefault />
       <Perf position="top-left" />
       <Lights />
-      <CalculateDistance />
+      {/* <CalculateDistance /> */}
       {/* ______________________ MODELS __________________/ */}
-      <Physics>
+      <Physics debug>
         <Center>
           <Terrain scale={controlFog.scaleModel} />
           <CharacterController ref={characterRef} />

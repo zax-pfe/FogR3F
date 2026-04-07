@@ -31,7 +31,7 @@ export default function CalculateDistance() {
       if (distance < 2) {
         console.log("the cristal !");
       } else {
-        console.log("Distance to cristal:", distance);
+        // console.log("Distance to cristal:", distance);
       }
     }
   }, [memoizedPosition]);
