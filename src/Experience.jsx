@@ -8,6 +8,7 @@ import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 import InvisibleWall from "./Components/InvisibleWall.jsx";
 import * as THREE from "three";
+import Particles from "./Components/VFX/Particles.jsx";
 
 import { Physics } from "@react-three/rapier";
 import { useEffect, useRef, useState } from "react";
@@ -77,7 +78,8 @@ export default function Experience() {
       <Smoke />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
-      <VFX particlesColor={controlFog.color} />
+      {/* <VFX particlesColor={controlFog.color} /> */}
+      <Particles />
     </>
   );
 }
