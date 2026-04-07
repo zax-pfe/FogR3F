@@ -24,7 +24,7 @@ function App() {
           { name: "rightward", keys: ["ArrowRight", "KeyD"] },
         ]}
       >
-        <ThreeScene>
+        <ThreeScene placeholder>
           <Experience />
         </ThreeScene>
         <Hud />

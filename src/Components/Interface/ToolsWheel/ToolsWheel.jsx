@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import s from "./ToolsWheel.module.scss";
 import { AnimatePresence, motion, stagger } from "motion/react";
+import { useGameStore } from "../../../store/store";
 
 const ToolVariants = {
     initial: { opacity: 0, scale: 0.1, x: '50%', y: '50%', right: '82px', bottom: '82px' },
@@ -14,10 +15,11 @@ const ToolsWheel = () => {
     const [isTransitioning, setIsTransitioning] = useState(false);
     const toolsRadius = 140;
     const center = 82;
-    const [currentTool, setCurrentTool] = useState(0);
+    const [currentToolId, setCurrentToolId] = useState(0);
     const [, forceUpdate] = useState(0);
     const isArrived = useRef(0);
     const animationRef = useRef();
+    const { setCurrentTool } = useGameStore();
 
     const generateCirclePoints = (number, baseAngle = 0) => {
 
@@ -44,7 +46,7 @@ const ToolsWheel = () => {
             a += step;
         }
 
-        console.log(table);
+        // console.log(table);
         return table;
     }
 
@@ -60,9 +62,11 @@ const ToolsWheel = () => {
     ]);
 
     const changeTool = (index) => {
-        console.log("Changing tool to index:", index);
+        // console.log("Changing tool to index:", index);
         isArrived.current = 0;
-        setCurrentTool(index);
+        setCurrentToolId(index);
+        setCurrentTool(tools.current[index].name);
+
         // isArrived.current = tools.current.length; // Simulate instant arrival for testing
 
         for (let i = 0; i < tools.current.length; i++) {
@@ -128,17 +132,17 @@ const ToolsWheel = () => {
         if (!isOpen || isTransitioning) return;
 
         const delta = e.deltaY;
-        let newTool = currentTool;
+        let newTool = currentToolId;
 
         if (delta > 0) {
             console.log("Scroll down");
-            newTool = (currentTool - 1) < 0 ? tools.current.length - 1 : currentTool - 1;
-            console.log("New tool index:", newTool);
+            newTool = (currentToolId - 1) < 0 ? tools.current.length - 1 : currentToolId - 1;
+            // console.log("New tool index:", newTool);
             changeTool(newTool);
         } else if (delta < 0) {
             console.log("Scroll up");
-            newTool = (currentTool + 1) >= tools.current.length ? 0 : currentTool + 1;
-            console.log("New tool index:", newTool);
+            newTool = (currentToolId + 1) >= tools.current.length ? 0 : currentToolId + 1;
+            // console.log("New tool index:", newTool);
             changeTool(newTool);
         }
 
@@ -158,7 +162,7 @@ const ToolsWheel = () => {
             window.removeEventListener("wheel", handleScroll);
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [isOpen, isTransitioning, currentTool]);
+    }, [isOpen, isTransitioning, currentToolId]);
 
     useEffect(() => {
         for (let i = 0; i < tools.current.length; i++) {
@@ -179,7 +183,7 @@ const ToolsWheel = () => {
                     isOpen && tools.current.map((tool, index) => (
                         <motion.div
                             key={index}
-                            className={`${s.tool} ${index === currentTool ? s.active : ""}`}
+                            className={`${s.tool} ${index === currentToolId ? s.active : ""}`}
                             onClick={() => changeTool(index)}
                             style={{
                                 backgroundColor: tool.icon,
