@@ -62,7 +62,7 @@ export default function Experience() {
       />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      {/* <PostProcessing /> */}
+      <PostProcessing />
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls makeDefault />
       <Perf position="top-left" />
