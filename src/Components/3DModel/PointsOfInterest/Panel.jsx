@@ -17,10 +17,9 @@ export default function Panel(props) {
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
           <mesh
-            castShadow
-            receiveShadow
             geometry={nodes.Panneau__0.geometry}
             material={materials["Scene_-_Root"]}
+            position={[5.884, 100.155, 43.931]}
             rotation={[-Math.PI / 2, 0, 0]}
           >
             {elementContacted === "panel" && (

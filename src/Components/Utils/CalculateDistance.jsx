@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 // Component to calculate the distance based on the position stored in the game store
 
-const DISTANCE_THRESHOLD = 5; // Distance threshold for interaction
+const DISTANCE_THRESHOLD = 3; // Distance threshold for interaction
 export default function CalculateDistance() {
   // ______________________ PLAYER __________________/
   const playerPosition = useGameStore((state) => state.playerPosition);
@@ -12,6 +12,8 @@ export default function CalculateDistance() {
   const cristalPosition = useGameStore((state) => state.cristalPosition);
   //______________________ PANEL __________________/
   const panelPosition = useGameStore((state) => state.panelPosition);
+  //______________________ AMMO BOX __________________/
+  const ammoBoxPosition = useGameStore((state) => state.ammoBoxPosition);
   //______________________ CONTACT __________________/
   const setElementContacted = useGameStore(
     (state) => state.setElementContacted,
@@ -44,8 +46,16 @@ export default function CalculateDistance() {
         },
         {
           name: "panel",
-          position: new THREE.Vector3(panelPosition.x, 0, panelPosition.z),
+          position: new THREE.Vector3(panelPosition?.x, 0, panelPosition?.z),
         },
+        // {
+        //   name: "ammoBox",
+        //   position: new THREE.Vector3(
+        //     ammoBoxPosition?.x,
+        //     0,
+        //     ammoBoxPosition?.z,
+        //   ),
+        // },
       ];
 
       setElementContacted(null);

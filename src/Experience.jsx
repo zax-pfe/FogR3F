@@ -15,6 +15,7 @@ import MolecTest from "./Components/3DModel/MolecTest.jsx";
 // ________ POINTS OF INTEREST ________/
 import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
 import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
+import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import InvisibleWall from "./Components/InvisibleWall.jsx";
@@ -67,13 +68,15 @@ export default function Experience() {
       <Perf position="top-left" />
       <Lights />
       <CalculateDistance />
-      {/* ______________________ MODELS __________________/ */}
+      {/* ______________________ POINTS OF INTEREST __________________/ */}
+      <Cristal position={[0, 2, 0]} />
+      <Panel position={[10, -1, 10]} />
+      <AmmoBox position={[5, 20, 5]} />
       <Physics>
         <Center>
+          {/* ______________________ MODELS __________________/ */}
           <Terrain scale={controlFog.scaleModel} />
           <CharacterController ref={characterRef} />
-          <Cristal position={[0, 7, 0]} />
-          <Panel position={[10, 4, 10]} />
 
           <PivotControls anchor={[0, 0, 0]} depthTest={false}>
             <InvisibleWall />

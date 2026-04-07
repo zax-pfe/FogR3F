@@ -9,15 +9,14 @@ export const useGameStore = create((set) => ({
   playerAnimation: "idle",
   setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
 
-  // ______________________ CRISTAL __________________/
+  // ______________________ POINTS OF INTEREST __________________/
 
   cristalPosition: null,
   setCristalPosition: (position) => set({ cristalPosition: position }),
-
-  // ______________________ PANEL __________________/
-
   panelPosition: null,
   setPanelPosition: (position) => set({ panelPosition: position }),
+  ammoBoxPosition: null,
+  setAmmoBoxPosition: (position) => set({ ammoBoxPosition: position }),
 
   // ______________________ CONTACT __________________/
   elementContacted: null,
