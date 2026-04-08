@@ -7,7 +7,7 @@ import { useControls } from "leva";
 import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { forwardRef } from "react";
-import MolecTest from "./3DModel/molecTest";
+import MolecTest from "./3DModel/MolecTest.jsx";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";
@@ -71,7 +71,7 @@ const CharacterController = forwardRef((props, ref) => {
     cameraPositions,
     orbitControlsEnabled,
   } = useControls("Character Test Controls", {
-    WALK_SPEED: { value: 5, min: 0, max: 10, step: 0.1 },
+    WALK_SPEED: { value: 1, min: 0, max: 20, step: 0.1 },
     ROTATION_SPEED: {
       value: degToRad(1.5),
       min: degToRad(0.1),
@@ -115,16 +115,16 @@ const CharacterController = forwardRef((props, ref) => {
     // if (movement.z !== 0 || movement.x !== 0) {
     if (movement.z !== 0) {
       setPlayerAnimation("walk");
-      // unknown math to find the angle to rotate
-      // the character to face the movement direction
+
       const moveAngle = Math.atan2(movement.x, movement.z);
       const finalAngle = rotationTarget.current + moveAngle;
-      // characterRotationTarget.current = finalAngle;
 
-      vel.z = Math.cos(finalAngle) * WALK_SPEED * delta * 50;
-      vel.x = Math.sin(finalAngle) * WALK_SPEED * delta * 50;
+      vel.z = Math.cos(finalAngle) * WALK_SPEED;
+      vel.x = Math.sin(finalAngle) * WALK_SPEED;
     } else {
       setPlayerAnimation("idle");
+      vel.x = 0;
+      vel.z = 0;
     }
 
     character.current.rotation.y = lerpAngle(
@@ -160,7 +160,14 @@ const CharacterController = forwardRef((props, ref) => {
   });
 
   return (
-    <RigidBody colliders={false} position={[0, 5, 0]} lockRotations ref={rb}>
+    <RigidBody
+      colliders={false}
+      lockRotations
+      ref={rb}
+      linearDamping={4}
+      angularDamping={8}
+      position={[0, 5, 0]}
+    >
       <group ref={container}>
         <group ref={cameraTarget} position-z={camera_target_z} />
         <group
@@ -172,7 +179,7 @@ const CharacterController = forwardRef((props, ref) => {
           <Character ref={ref} />
         </group>
       </group>
-      <CapsuleCollider args={[0.5, 1]} />
+      <CapsuleCollider args={[0.01, 0.3]} />
     </RigidBody>
   );
   // }

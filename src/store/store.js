@@ -1,17 +1,28 @@
-import { Vector3 } from "three";
 import { create } from "zustand";
 import { c_Objects } from "../constant/objects";
-import { add } from "three/tsl";
 
 export const useGameStore = create((set) => ({
-	playerPosition: null,
-	setPlayerPosition: (position) => set({ playerPosition: position }),
-	playerAnimation: "idle",
-	setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
-	cristalPosition: null,
-	setCristalPosition: (position) => set({ cristalPosition: position }),
+  // ______________________ PLAYER __________________/
+  playerPosition: null,
+  setPlayerPosition: (position) => set({ playerPosition: position }),
+  playerAnimation: "idle",
+  setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
 
-	currentTool: "Tool 0",
+  // ______________________ POINTS OF INTEREST __________________/
+
+  cristalPosition: null,
+  setCristalPosition: (position) => set({ cristalPosition: position }),
+  panelPosition: null,
+  setPanelPosition: (position) => set({ panelPosition: position }),
+  ammoBoxPosition: null,
+  setAmmoBoxPosition: (position) => set({ ammoBoxPosition: position }),
+
+  // ______________________ CONTACT __________________/
+  elementContacted: null,
+  setElementContacted: (element) => set({ elementContacted: element }),
+
+  // ______________________ GAMEPLAY __________________/
+  currentTool: "Tool 0",
 	setCurrentTool: (tool) => {
 		set({ currentTool: tool }), console.log("Current tool set to:", tool);
 	},

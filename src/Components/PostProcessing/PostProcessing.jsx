@@ -30,11 +30,11 @@ export default function PostProcessing() {
           blendFunction={BlendFunction.NORMAL}
         />
 
-        <DepthOfField
+        {/* <DepthOfField
           focusDistance={controlDepthOfField.focusDistance}
           focusLength={controlDepthOfField.focusLength}
           bokehScale={controlDepthOfField.bokehScale}
-        />
+        /> */}
       </EffectComposer>
     </>
   );
