@@ -36,11 +36,9 @@ const ThreeScene = ({ children, placeholder = false }) => {
             far: 200,
             position: [-8.49, 20.13, 63.97],
             rotation: [-0.13, -0.05, -0.002],
-          }}
-          gl={{
-            powerPreference: "high-performance",
-            antialias: true,
-          }}
+          }} 
+            dpr={1}
+            gl={{ antialias:false }}
         >
           <Suspense fallback={null}>{children}</Suspense>
           {/* <Environment preset="night" /> */}

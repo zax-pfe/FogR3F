@@ -45,7 +45,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#cc7b32",
+    color: "#f2f2f2",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
@@ -64,8 +64,11 @@ export default function Experience() {
         args={[controlFog.color, controlFog.near, controlFog.far]}
       />
       <color attach="background" args={[controlFog.color]} />
+
+
       {/* ______________________ POST PROCESSING__________________/ */}
       {/* <PostProcessing /> */}
+
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls makeDefault />
       <Perf position="top-left" />

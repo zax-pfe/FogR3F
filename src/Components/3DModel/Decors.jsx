@@ -1,312 +1,249 @@
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React from "react";
+import { useGLTF } from "@react-three/drei";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 
 export default function Decors(props) {
-  const { nodes, materials } = useGLTF('/assets/3DModels/DECORS.glb')
-  return ( 
-     <group {...props} dispose={null}>
+  const { nodes, materials } = useGLTF("/assets/3DModels/DECORS.glb");
+
+  return (
+    <group {...props} dispose={null}>
+      {/* ================= VISUALS ================= */}
+ 
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Broken_roof'].geometry}
-        material={materials['WoodHandle.004']}
+        material={materials['+Wood_light']}
       />
       <mesh
-        castShadow
-        receiveShadow
+        geometry={nodes['+Ruins'].geometry}
+        material={materials['+Wood_dark']}
+      />
+      <mesh
         geometry={nodes['+Destroyed'].geometry}
-        material={materials['WoodBeam.003']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+dest'].geometry}
-        material={materials['WoodBeam.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Boat'].geometry}
-        material={materials['Boat_texture.001']}
-        position={[-0.03, 0.541, -3.491]}
-      />
-      <group position={[0.83, -0.533, 6.138]}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes['+Bridge_1'].geometry}
-          material={materials.bridge_wood05}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes['+Bridge_2'].geometry}
-          material={materials['BRIDGE MAT']}
-        />
-      </group>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['+river'].geometry}
-        material={materials['Material.015']}
+        material={materials['+Wood_dark']}
+        position={[-2.587, 0.541, -5.515]}
       />
       <mesh
-        castShadow
-        receiveShadow
+        geometry={nodes['+Bridge'].geometry}
+        material={materials['+Wood_dark']}
+        position={[0.83, -0.533, 6.138]}
+      />
+    
+      <mesh
         geometry={nodes['+scarecrow'].geometry}
-        material={materials.scarecrow_material}
+        material={materials['+Fiero']}
       />
       <mesh
-        castShadow
-        receiveShadow
+        geometry={nodes['+LeafsALL001'].geometry}
+        material={materials['+Leafs']}
+      />
+      <mesh
         geometry={nodes['+tronk'].geometry}
-        material={materials['Material.003']}
+        material={materials['+Tronk']}
         position={[29.045, 3.761, -10.396]}
         rotation={[-Math.PI / 2, 0, -1.458]}
         scale={0.371}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house3_1'].geometry}
-        material={materials['WoodPlank.002']}
+        material={materials['+Stone_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house3_2'].geometry}
-        material={materials['WoodBark.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house4_1'].geometry}
-        material={materials['WoodBark.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house4_2'].geometry}
-        material={materials['Thatch.002']}
+        material={materials['+BlueDark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house4_3'].geometry}
-        material={materials['WoodPlank.002']}
+        material={materials['+Stone']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house_1'].geometry}
-        material={materials['Black.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house_2'].geometry}
-        material={materials['WoodPlank.002']}
+        material={materials['+Stone_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house_3'].geometry}
-        material={materials['WoodBark.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house2_1'].geometry}
-        material={materials['WoodPlank.002']}
+        material={materials['+Stone']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+house2_2'].geometry}
-        material={materials['WoodBark.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['+Ruins_1'].geometry}
-        material={materials['WoodPlank.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['+Ruins_2'].geometry}
-        material={materials['WoodBark.004']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_dest_1'].geometry}
-        material={materials['WoodBeam.003']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_dest_2'].geometry}
-        material={materials['WoodWall.001']}
+        material={materials['+Wood_light']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_dest_3'].geometry}
-        material={materials.AxeHead}
+        material={materials['+Texture_stone_circle']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_dest_4'].geometry}
-        material={materials['WoodPlank.003']}
+        material={materials['+Stone']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_des1'].geometry}
-        material={materials['WoodBeam.003']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_des1_1'].geometry}
-        material={materials['WoodPlank.004']}
+        material={materials['+Stone']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+BigHouse_des1_2'].geometry}
-        material={materials['WoodWall.004']}
+        material={materials['+Green_walls']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+dest_house_1'].geometry}
-        material={materials['Thatch.005']}
+        material={materials['+BlueDark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+dest_house_2'].geometry}
-        material={materials['WoodBeam.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Tent_dest_1'].geometry}
-        material={materials['Straw.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Tent_dest_2'].geometry}
-        material={materials.Straw}
+        material={materials['+DarkGreen ']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Tent_dest_3'].geometry}
-        material={materials['WoodPlank.005']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Tent_dest_4'].geometry}
-        material={materials['WoodBark.002']}
+        material={materials['+Wood_light']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+barac_1'].geometry}
-        material={materials['WoodDark.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+barac_2'].geometry}
-        material={materials['WoodHandle.001']}
+        material={materials['+Wood_light']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_1'].geometry}
-        material={materials.CutStone}
+        material={materials['+Brics']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_2'].geometry}
-        material={materials.autumn_yellow_mat}
+        material={materials['+Stone']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_3'].geometry}
-        material={materials['rock_1_material.002']}
+        material={materials['+Stone_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_4'].geometry}
-        material={materials.rock_2_mat}
+        material={materials['+DarkGreen ']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_5'].geometry}
-        material={materials.grass3}
+        material={materials['+GreenDark2']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_6'].geometry}
-        material={materials.grass1}
+        material={materials['+GreenDark2']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_7'].geometry}
-        material={materials.grass2}
+        material={materials['+Texture_stone_circle']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+ROCKSALL2_8'].geometry}
-        material={materials['Material.007']}
+        material={materials['+Stone']}
       />
       <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['+ROCKSALL2_9'].geometry}
-        material={materials['material.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Pointer_1'].geometry}
-        material={materials['material.001']}
+        material={materials['+Wood_dark']}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes['+Pointer_2'].geometry}
         material={nodes['+Pointer_2'].material}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['+LeafsALL001_1'].geometry}
-        material={materials.leafs_mat}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes['+LeafsALL001_2'].geometry}
-        material={materials['autumn_yellow_mat.001']}
-      />
+      /> 
+      {/* ================= PHYSICS ONLY ================= */}
+
+      <group name="physics-obstacles">
+        <RigidBody type="fixed" colliders={false} position={[2.3, 4, 4]}>
+          <CuboidCollider args={[1.2, 0.5, 1]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[25.47, 3.98, 18.309]}>
+          <CuboidCollider args={[1, 0.4, 0.5]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[29.045, 3.761, -10.396]}>
+          <CuboidCollider args={[0.7, 0.7, 0.7]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[7.8, 2, -3]}>
+          <CuboidCollider args={[1.3, 2, 1.4]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[-3.7, 4.9, 5.7]}>
+          <CuboidCollider args={[1.1, 0.8, 1]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[-8.8, 4.1, -5.6]}>
+          <CuboidCollider args={[1.3, 0.8, 1.3]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[-4.4, 4.4, 13.6]}>
+          <CuboidCollider args={[1.3, 0.9, 1.3]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[17.7, 4.4, 19.5]}>
+          <CuboidCollider args={[2, 1, 1.1]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[0, 3.8, -4.5]}>
+          <CuboidCollider args={[2.1, 1, 1.2]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[32.1, 4.6, 7]}>
+          <CuboidCollider args={[1.5, 1, 1.6]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[-6.4, 4.8, -15]}>
+          <CuboidCollider args={[1.1, 1, 1.1]} />
+        </RigidBody>
+
+        <RigidBody type="fixed" colliders={false} position={[10.4, 4.5, 4.6]}>
+          <CuboidCollider args={[1.2, 1, 1.2]} />
+        </RigidBody>
+      </group>  
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/assets/3DModels/DECORS.glb')
+useGLTF.preload("/assets/3DModels/DECORS.glb");

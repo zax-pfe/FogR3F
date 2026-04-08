@@ -179,7 +179,7 @@ const CharacterController = forwardRef((props, ref) => {
           <Character ref={ref} />
         </group>
       </group>
-      <CapsuleCollider args={[0.01, 0.3]} />
+      <CapsuleCollider args={[0.1, 0.4]} />
     </RigidBody>
   );
   // }

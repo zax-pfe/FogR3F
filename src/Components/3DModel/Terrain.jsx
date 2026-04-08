@@ -1,5 +1,3 @@
-
-
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody, MeshCollider } from "@react-three/rapier";
@@ -11,9 +9,9 @@ export default function Terrain(props) {
     <group {...props} dispose={null}  >
      
           <mesh 
-            receiveShadow
+            // receiveShadow
             geometry={nodes.TERRAIN.geometry}
-            material={materials['Material.001']}
+            material={materials['Material.003']}
           /> 
 
         <RigidBody type="fixed"  colliders={false}>
