@@ -166,7 +166,7 @@ const CharacterController = forwardRef((props, ref) => {
       ref={rb}
       linearDamping={4}
       angularDamping={8}
-      position={[0, 30, 0]}
+      position={[0, 5, 0]}
     >
       <group ref={container}>
         <group ref={cameraTarget} position-z={camera_target_z} />

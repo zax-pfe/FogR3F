@@ -30,11 +30,10 @@ export default function CalculateDistance() {
         playerPosition.z,
       );
       {
-        /* ______________________ CRISTAL DISTANCE __________________/ */
         // faire une liste avec tout les cristalPosition
         // par default elementContacted = null
         // boucler dans la liste, et mettre a true l'element contacted si
-        // distance est
+        // distance est inf a x
       }
 
       const objectPositions = [

@@ -73,7 +73,7 @@ export default function Experience() {
       {/* ______________________ MODELS __________________/ */}
       {/* _____________ INTERACTIOn __________/ */}
 
-      <Cristal position={[0, 5, 0]} />
+      <Cristal />
       <Panel position={[3, 4, -3]} />
 
       <Physics gravity={[0, -30, 0]}>

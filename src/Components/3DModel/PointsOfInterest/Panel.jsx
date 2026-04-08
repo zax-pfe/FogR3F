@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import { useGameStore } from "../../../store/store.js";
 import { Outlines } from "@react-three/drei";
+import PressButtonUI from "./PressButtonUI.jsx";
 
 export default function Panel(props) {
   const panelRef = useRef();
@@ -29,8 +30,10 @@ export default function Panel(props) {
           </mesh>
         </group>
       </group>
+
+      <PressButtonUI element="panel" />
     </group>
   );
 }
 
-useGLTF.preload("/panneau_marecage.glb");
+useGLTF.preload("/assets/3DModels/panneau_marecage.glb");
