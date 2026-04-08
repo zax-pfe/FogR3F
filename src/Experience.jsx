@@ -24,6 +24,8 @@ import VFX from "./Components/VFX/VFX.jsx";
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
 import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
+import Decors from "./Components/3DModel/Decors.jsx";
+import Trees from "./Components/3DModel/Trees.jsx";
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
@@ -63,25 +65,27 @@ export default function Experience() {
       {/* ______________________ POST PROCESSING__________________/ */}
       {/* <PostProcessing /> */}
       {/* ______________________ SETUP __________________/ */}
-      <OrbitControls makeDefault />
+      {/* <OrbitControls makeDefault /> */}
       <Perf position="top-left" />
       <Lights />
       {/* <CalculateDistance /> */}
-      {/* ______________________ MODELS __________________/ */}
-      <Physics debug>
-        <Center>
-          <Terrain scale={controlFog.scaleModel} />
-          <CharacterController ref={characterRef} />
-          <Cristal position={[0, 7, 0]} />
-          <Panel position={[10, 4, 10]} />
 
-          <PivotControls anchor={[0, 0, 0]} depthTest={false}>
+      {/* ______________________ MODELS __________________/ */}
+      <Physics gravity={[0, -30, 0]}>
+        <Terrain />
+        <Decors />
+        <Trees />
+
+        <CharacterController ref={characterRef} />
+
+        {/* <Cristal position={[0, 10, 0]} ref={cristalRef} /> */}
+        {/* <PivotControls anchor={[0, 0, 0]} depthTest={false}>
             <InvisibleWall />
-          </PivotControls>
-        </Center>
+          </PivotControls> */}
       </Physics>
-      <Smoke />
-      <MolecTest targetRef={characterRef} />
+      {/* <Smoke /> */}
+      {/* <MolecTest targetRef={characterRef} /> */}
+
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
       <Particles />
