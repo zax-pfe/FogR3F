@@ -24,7 +24,7 @@ const TabObject = ({ viewObject, setViewObject }) => {
     return (
         <div className={s.tabObject}>
             {currentObject.map((object, index) => (
-                <div key={index} className={s.tabObject__btn} onClick={() => setViewObject(object)}>
+                <div key={index} className={`${s.tabObject__btn} ${object.type === "missing" ? s.missing : ""} ${object === viewObject ? s.active : ""}`} onClick={() => setViewObject(object)}>
                     {object.type != "missing" && (
                         <img className={s.tabObject__icon} src={object.image} alt="" />
                     )}
