@@ -1,0 +1,26 @@
+.closeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+
+    color: var(--color--white);
+    background: #202020;
+    border: 1px solid var(--color--gray-mid);
+    transition: 0.2s var(--easing);
+    border-radius: 4px;
+    
+    &:hover {
+        background: var(--color--gray-mid);
+        border: 1px solid var(--color--gray-low);
+    }
+
+    &__icon {
+        width: 16px;
+        height: 16px;
+        object-fit: cover;
+    }
+}

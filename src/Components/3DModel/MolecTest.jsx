@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Trail } from "@react-three/drei";
+import { Trail, Outlines } from "@react-three/drei";
 import * as THREE from "three";
 
 import { extend } from "@react-three/fiber";
@@ -16,6 +16,7 @@ export default function MolecTest({ targetRef }) {
   useFrame((state, delta) => {
     if (!meshRef.current || !targetRef?.current) return;
 
+    console.log("Position cible:", targetRef.current.position);
     // Position monde du personnage
     targetRef.current.getWorldPosition(targetWorld.current);
 
@@ -51,6 +52,7 @@ export default function MolecTest({ targetRef }) {
       <mesh scale={0.2} ref={meshRef}>
         <sphereGeometry />
         <meshStandardMaterial color={"red"} />
+        {/* <Outlines thickness={1} color="hotpink" /> */}
       </mesh>
     </Trail>
   );
