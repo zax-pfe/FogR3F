@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import { useGameStore } from "../../../store/store.js";
 import { Outlines } from "@react-three/drei";
+import PressButtonUI from "./PressButtonUI.jsx";
 
 export default function Panel(props) {
   const panelRef = useRef();
@@ -15,7 +16,7 @@ export default function Panel(props) {
   return (
     <group {...props} dispose={null} ref={panelRef}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={0.007}>
           <mesh
             geometry={nodes.Panneau__0.geometry}
             material={materials["Scene_-_Root"]}
@@ -28,8 +29,10 @@ export default function Panel(props) {
           </mesh>
         </group>
       </group>
+
+      <PressButtonUI element="panel" />
     </group>
   );
 }
 
-useGLTF.preload("/panneau_marecage.glb");
+useGLTF.preload("/assets/3DModels/panneau_marecage.glb");
