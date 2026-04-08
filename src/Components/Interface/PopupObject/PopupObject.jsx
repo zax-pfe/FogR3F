@@ -1,8 +1,8 @@
 import CloseBtn from "../Design/CloseBtn/CloseBtn";
 import Text from "../Design/Text/Text";
-import s from "./PopupClue.module.scss";
+import s from "./PopupObject.module.scss";
 
-const PopupClue = ({ image, title, text, closePopup }) => {
+const PopupObject = ({ image, title, text, closePopup }) => {
 
     return (
         <>
@@ -30,4 +30,4 @@ const PopupClue = ({ image, title, text, closePopup }) => {
     );
 };
 
-export default PopupClue;
+export default PopupObject;
