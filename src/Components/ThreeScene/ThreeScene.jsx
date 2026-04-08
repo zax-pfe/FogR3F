@@ -13,13 +13,17 @@ const keyBoardMap = [
   { name: "right", keys: ["d", "ArrowRight"] },
 ];
 
-const ThreeScene = ({ children }) => {
+const ThreeScene = ({ children, placeholder = false }) => {
   const shadowCameraRef = useRef();
 
-  return (
+  return placeholder ? (
+    <div className={`${s.canvas} ${s.placeholder}`}>
+      <p>Ici le jeu</p>
+    </div>
+  ) : (
     <>
       <KeyboardControls map={keyBoardMap}>
-        <Canvas
+        <Canvas className={s.canvas}
           // shadows
           framerate={60}
           camera={{

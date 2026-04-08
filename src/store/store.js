@@ -8,4 +8,10 @@ export const useGameStore = create((set) => ({
   setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
   cristalPosition: null,
   setCristalPosition: (position) => set({ cristalPosition: position }),
+
+  currentTool: "Tool 0",
+  setCurrentTool: (tool) => {
+    set({ currentTool: tool }),
+    console.log("Current tool set to:", tool);
+  },
 }));
