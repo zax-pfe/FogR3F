@@ -7,7 +7,7 @@ import { useControls } from "leva";
 import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { forwardRef } from "react";
-import MolecTest from "./3DModel/molecTest";
+import MolecTest from "./3DModel/MolecTest.jsx";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";
@@ -160,14 +160,14 @@ const CharacterController = forwardRef((props, ref) => {
   });
 
   return (
-    <RigidBody 
-        colliders={false}
-        lockRotations
-        ref={rb} 
-        linearDamping={4}
-        angularDamping={8}
-        position={[0, 10, 0]} 
-      >
+    <RigidBody
+      colliders={false}
+      lockRotations
+      ref={rb}
+      linearDamping={4}
+      angularDamping={8}
+      position={[0, 5, 0]}
+    >
       <group ref={container}>
         <group ref={cameraTarget} position-z={camera_target_z} />
         <group

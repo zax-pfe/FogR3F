@@ -1,21 +1,28 @@
+// ______________________ REACT & FIBER & DREI & UTILS __________________/
 import { OrbitControls } from "@react-three/drei";
-import Terrain from "./Components/3DModel/Terrain.jsx";
-import CharacterController from "./Components/CharacterController.jsx";
-import { useThree, useFrame } from "@react-three/fiber";
-import Cristal from "./Components/3DModel/Cristal.jsx";
-import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { useControls } from "leva";
+import { useThree, useFrame } from "@react-three/fiber";
+import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
-import InvisibleWall from "./Components/InvisibleWall.jsx";
 import * as THREE from "three";
-
 import { Physics } from "@react-three/rapier";
 import { useEffect, useRef, useState } from "react";
+
+// ______________________ 3D MODELS __________________/
+import Terrain from "./Components/3DModel/Terrain.jsx";
+import CharacterController from "./Components/CharacterController.jsx";
+import MolecTest from "./Components/3DModel/MolecTest.jsx";
+// ________ POINTS OF INTEREST ________/
+import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
+import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
+import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
+import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
+
+// ______________________ EXPERIENCE __________________/
+import InvisibleWall from "./Components/InvisibleWall.jsx";
+import Particles from "./Components/VFX/Particles.jsx";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import VFX from "./Components/VFX/VFX.jsx";
-
-import MolecTest from "./Components/3DModel/molecTest.jsx";
-
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
 import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
@@ -33,7 +40,6 @@ export default function Experience() {
   // ______________________ VARIABLES __________________/
 
   const characterRef = useRef();
-  const cristalRef = useRef();
 
   // ______________________ LEVA CONTROLS __________________/
   const controlFog = useControls("Fog", {
@@ -67,29 +73,32 @@ export default function Experience() {
       <OrbitControls makeDefault />
       <Perf position="top-left" />
       <Lights />
-      {/* <CalculateDistance /> */}
-
+      <CalculateDistance />
 
       {/* ______________________ MODELS __________________/ */}
-      <Physics gravity={[0, -30, 0]}   >
-        
-          <Terrain  />
-          <Decors />
-          <Trees />
+      {/* _____________ INTERACTION __________/ */}
+      <Cristal />
+      <Panel />
+      <Interaction />
 
-          <CharacterController ref={characterRef} />
+      <Physics gravity={[0, -30, 0]}>
+        <Terrain />
+        <Decors />
+        <Trees />
 
-          {/* <Cristal position={[0, 10, 0]} ref={cristalRef} /> */}
-          {/* <PivotControls anchor={[0, 0, 0]} depthTest={false}>
+        <CharacterController ref={characterRef} />
+
+        {/* <Cristal position={[0, 10, 0]} ref={cristalRef} /> */}
+        {/* <PivotControls anchor={[0, 0, 0]} depthTest={false}>
             <InvisibleWall />
           </PivotControls> */}
- 
       </Physics>
-      {/* <Smoke /> */}
-      {/* <MolecTest targetRef={characterRef} /> */}
+      <Smoke />
+      <MolecTest targetRef={characterRef} />
 
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
+      <Particles />
     </>
   );
 }
