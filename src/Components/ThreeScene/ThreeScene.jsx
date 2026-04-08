@@ -5,6 +5,7 @@ import { KeyboardControls } from "@react-three/drei";
 import { Environment, OrthographicCamera } from "@react-three/drei";
 import { useRef } from "react";
 import { Loader } from "@react-three/drei";
+import Text from "../Interface/Design/Text/Text";
 
 const keyBoardMap = [
   { name: "forward", keys: ["z", "ArrowUp"] },
@@ -19,7 +20,8 @@ const ThreeScene = ({ children, placeholder = false }) => {
 
   return placeholder ? (
     <div className={`${s.canvas} ${s.placeholder}`}>
-      <p>Ici le jeu</p>
+      <Text variant="h1" className={s.placeholder__text}>Ici le jeu</Text>
+      <Text>Supprimez la props <span className="txt-italic">"placeholder"</span> de l'objet <span className="txt-medium">ThreeScene</span> pour afficher la scène 3D.</Text>
     </div>
   ) : (
     <>

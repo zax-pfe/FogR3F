@@ -1,0 +1,85 @@
+.tabObject {
+	position: absolute;
+	top: 46px;
+	left: 46px;
+
+	display: flex;
+	align-items: center;
+	gap: 13px;
+
+	z-index: var(--zI--Objects);
+	pointer-events: all;
+
+	&__btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+		width: 68px;
+		height: 68px;
+		background-color: rgba(0, 0, 0, 0.15);
+		backdrop-filter: blur(4px);
+        border: var(--color--white) 2px solid;
+        outline: transparent 1px solid;
+        border-radius: 68px;
+        transition: 0.2s var(--easing);
+        cursor: pointer;
+
+
+        &.missing {
+            border: var(--color--gray-mid) 2px dashed;
+            outline: transparent 1px dashed;
+
+            &:hover {
+                border: var(--color--gray-mid) 2px dashed;
+                box-shadow: 0 0 16.3px 0 var(--color--gray-low);
+            }
+
+            &.active {
+                outline: var(--color--gray-mid) 1px dashed;
+                box-shadow: 0 0 16.3px 0 var(--color--gray-low);
+            }
+        }
+
+        .tabObject:has(.tabObject__btn.active) & {
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        &:hover {
+            box-shadow: 0 0 16.3px 0 var(--color--white);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background-color: var(--color--white);
+            opacity: 0;
+            transition: 0.2s var(--easing);
+        }
+
+        &.active {
+            outline: var(--color--white) 1px solid;
+            box-shadow: 0 0 16.3px 0 var(--color--white);
+            opacity: 1 !important;
+
+            &::after {
+                opacity: 1;
+            }
+        }
+	}
+
+	&__icon {
+		width: 40px;
+		height: 40px;
+		object-fit: contain;
+	}
+}

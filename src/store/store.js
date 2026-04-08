@@ -1,6 +1,5 @@
-import { Vector3 } from "three";
-import { element } from "three/tsl";
 import { create } from "zustand";
+import { c_Objects } from "../constant/objects";
 
 export const useGameStore = create((set) => ({
   // ______________________ PLAYER __________________/
@@ -21,4 +20,14 @@ export const useGameStore = create((set) => ({
   // ______________________ CONTACT __________________/
   elementContacted: null,
   setElementContacted: (element) => set({ elementContacted: element }),
+
+  // ______________________ GAMEPLAY __________________/
+  currentTool: "Tool 0",
+	setCurrentTool: (tool) => {
+		set({ currentTool: tool }), console.log("Current tool set to:", tool);
+	},
+
+	objectFind: [c_Objects[0], c_Objects[1]],
+	addObjectFind: (object) =>
+		set((state) => ({ objectFind: [...state.objectFind, object] })),
 }));

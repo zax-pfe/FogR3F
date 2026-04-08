@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import s from "./ToolsWheel.module.scss";
 import { AnimatePresence, motion, stagger } from "motion/react";
 import { useGameStore } from "../../../store/store";
+import { c_Tools } from "../../../constant/tools";
 
 const ToolVariants = {
     initial: { opacity: 0, scale: 0.1, x: '50%', y: '50%', right: '82px', bottom: '82px' },
@@ -13,7 +14,7 @@ const ToolsWheel = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const toolsRadius = 140;
+    const toolsRadius = 150;
     const center = 82;
     const [currentToolId, setCurrentToolId] = useState(0);
     const [, forceUpdate] = useState(0);
@@ -52,14 +53,11 @@ const ToolsWheel = () => {
 
     const slot = useMemo(() => generateCirclePoints(6), []);
 
-    const tools = useRef([
-        { name: "Tool 0", icon: "blue", selectable: "true", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 1", icon: "red", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 2", icon: "green", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 3", icon: "orange", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 4", icon: "purple", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 },
-        { name: "Tool 5", icon: "yellow", selectable: "false", x: 0, y: 0, dx: 0, dy: 0 }
-    ]);
+    const tools = useRef(c_Tools.map((tool, index) => ({
+        ...tool,
+        x: slot[index].x,
+        y: slot[index].y
+    })));
 
     const changeTool = (index) => {
         // console.log("Changing tool to index:", index);
@@ -71,9 +69,9 @@ const ToolsWheel = () => {
 
         for (let i = 0; i < tools.current.length; i++) {
             const idx = (i - index + tools.current.length) % tools.current.length;
-            if (i === index) {
-                console.log(`Tool ${i} will move to slot ${idx} (active)`);
-            }
+            // if (i === index) {
+            //     console.log(`Tool ${i} will move to slot ${idx} (active)`);
+            // }
             tools.current[i].dx = slot[idx].x;
             tools.current[i].dy = slot[idx].y;
         }
@@ -186,7 +184,6 @@ const ToolsWheel = () => {
                             className={`${s.tool} ${index === currentToolId ? s.active : ""}`}
                             onClick={() => changeTool(index)}
                             style={{
-                                backgroundColor: tool.icon,
                                 right: `${tool.x}px`,
                                 bottom: `${tool.y}px`
                             }}
@@ -195,10 +192,13 @@ const ToolsWheel = () => {
                             exit="exit"
                             variants={ToolVariants}
                         >
-                            <span>{tool.name}</span>
-                            {
+                            <div className={s.tool__icon}>
+                                <img src={tool.icon} style={{width: 37}} alt={tool.name}/>
+                            </div>
+                            <span className={s.tool__label}>{tool.name}</span>
+                            {/* {
                                 tool.selectable === "false" && <span className={s.lock}>X</span>
-                            }
+                            } */}
                         </motion.div>
                     ))
                 }
