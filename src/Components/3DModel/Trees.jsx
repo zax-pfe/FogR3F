@@ -10,8 +10,8 @@ export default function Trees(props) {
         console.log('INSTANCED MESH:', obj.name, 'count =', obj.count)
       }
       if (obj.isMesh) {
-        obj.castShadow = true
-        obj.receiveShadow = true
+        // obj.castShadow = true
+        // obj.receiveShadow = true
       }
     })
   }, [scene])

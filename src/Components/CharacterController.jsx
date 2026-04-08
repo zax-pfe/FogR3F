@@ -166,7 +166,7 @@ const CharacterController = forwardRef((props, ref) => {
         ref={rb} 
         linearDamping={4}
         angularDamping={8}
-        position={[0, 30, 0]} 
+        position={[0, 10, 0]} 
       >
       <group ref={container}>
         <group ref={cameraTarget} position-z={camera_target_z} />
@@ -179,7 +179,7 @@ const CharacterController = forwardRef((props, ref) => {
           <Character ref={ref} />
         </group>
       </group>
-      <CapsuleCollider args={[0.01, 0.3]} />
+      <CapsuleCollider args={[0.1, 0.4]} />
     </RigidBody>
   );
   // }

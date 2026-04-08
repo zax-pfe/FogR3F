@@ -39,7 +39,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#cc7b32",
+    color: "#f2f2f2",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
@@ -58,22 +58,24 @@ export default function Experience() {
         args={[controlFog.color, controlFog.near, controlFog.far]}
       />
       <color attach="background" args={[controlFog.color]} />
+
+
       {/* ______________________ POST PROCESSING__________________/ */}
       {/* <PostProcessing /> */}
+
       {/* ______________________ SETUP __________________/ */}
-      {/* <OrbitControls makeDefault /> */}
+      <OrbitControls makeDefault />
       <Perf position="top-left" />
       <Lights />
       {/* <CalculateDistance /> */}
 
 
       {/* ______________________ MODELS __________________/ */}
-      <Physics gravity={[0, -30, 0]} >
+      <Physics gravity={[0, -30, 0]}   >
         
           <Terrain  />
           <Decors />
           <Trees />
-
 
           <CharacterController ref={characterRef} />
 
@@ -87,7 +89,7 @@ export default function Experience() {
       {/* <MolecTest targetRef={characterRef} /> */}
 
       {/* ______________________ VFX __________________/ */}
-      <VFX particlesColor={controlFog.color} />
+      {/* <VFX particlesColor={controlFog.color} /> */}
     </>
   );
 }
