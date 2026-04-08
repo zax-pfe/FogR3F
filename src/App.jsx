@@ -12,7 +12,7 @@ const keys = {
   right: "arrowright",
   forward: "arrowup",
   backward: "arrowdown",
-  interact: "e",
+  interact: "a",
 };
 
 function App() {

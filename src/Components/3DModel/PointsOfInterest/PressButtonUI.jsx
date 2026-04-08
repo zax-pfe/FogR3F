@@ -31,7 +31,7 @@ export default function PressButtonUI({ element }) {
               transform: `scale(${elementContacted !== element ? 0.5 : 1})`,
             }}
           >
-            E
+            A
           </div>
         </Html>
       )}
