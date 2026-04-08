@@ -65,12 +65,17 @@ export default function Experience() {
       {/* ______________________ POST PROCESSING__________________/ */}
       {/* <PostProcessing /> */}
       {/* ______________________ SETUP __________________/ */}
-      {/* <OrbitControls makeDefault /> */}
+      <OrbitControls makeDefault />
       <Perf position="top-left" />
       <Lights />
-      {/* <CalculateDistance /> */}
+      <CalculateDistance />
 
       {/* ______________________ MODELS __________________/ */}
+      {/* _____________ INTERACTIOn __________/ */}
+
+      <Cristal position={[0, 5, 0]} />
+      <Panel position={[3, 4, -3]} />
+
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
         <Decors />
@@ -83,7 +88,7 @@ export default function Experience() {
             <InvisibleWall />
           </PivotControls> */}
       </Physics>
-      {/* <Smoke /> */}
+      <Smoke />
       {/* <MolecTest targetRef={characterRef} /> */}
 
       {/* ______________________ VFX __________________/ */}

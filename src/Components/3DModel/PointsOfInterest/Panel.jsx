@@ -15,7 +15,7 @@ export default function Panel(props) {
   return (
     <group {...props} dispose={null} ref={panelRef}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={0.007}>
           <mesh
             castShadow
             receiveShadow

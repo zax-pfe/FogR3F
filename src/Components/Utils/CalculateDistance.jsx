@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 // Component to calculate the distance based on the position stored in the game store
 
-const DISTANCE_THRESHOLD = 5; // Distance threshold for interaction
+const DISTANCE_THRESHOLD = 2; // Distance threshold for interaction
 export default function CalculateDistance() {
   // ______________________ PLAYER __________________/
   const playerPosition = useGameStore((state) => state.playerPosition);
