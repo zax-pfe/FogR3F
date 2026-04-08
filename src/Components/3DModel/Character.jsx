@@ -7,7 +7,7 @@ import { useControls, button } from "leva";
 const Character = forwardRef((props, ref) => {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
-    "/assets/3DModels/cap_test.glb",
+    "/assets/3DModels/PERSO.glb",
   );
 
   const { actions } = useAnimations(animations, group);
@@ -36,25 +36,17 @@ const Character = forwardRef((props, ref) => {
   }, [actions, currentAction]);
 
   return (
-    <group ref={group} {...props} dispose={null}>
-      <group ref={ref}>
-        <group name="Scene">
-          <group
-            name="Armature"
-            position={[0, 0, 2]}
-            rotation={[0, Math.PI, 0]}
-          >
-            <skinnedMesh
-              name="Cone"
-              geometry={nodes.Cone.geometry}
-              material={materials["Material.001"]}
-              skeleton={nodes.Cone.skeleton}
-              // castShadow={true}
-              // receiveShadow={true}
-            />
-            <primitive object={nodes.Bone} />
-            <primitive object={nodes.neutral_bone} />
-          </group>
+     <group ref={group} {...props} dispose={null}>
+      <group name="Scene">
+        <group name="Armature" scale={0.204}>
+          <skinnedMesh
+            name="Cone"
+            geometry={nodes.Cone.geometry}
+            material={materials['Material.002']}
+            skeleton={nodes.Cone.skeleton}
+          />
+          <primitive object={nodes.Bone} />
+          <primitive object={nodes.neutral_bone} />
         </group>
       </group>
     </group>
@@ -63,4 +55,4 @@ const Character = forwardRef((props, ref) => {
 });
 export default Character;
 
-useGLTF.preload("/assets/3DModels/cap_test.glb");
+useGLTF.preload("/assets/3DModels/PERSO.glb");
