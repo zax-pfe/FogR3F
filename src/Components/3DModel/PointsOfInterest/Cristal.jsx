@@ -33,21 +33,25 @@ export default function Cristal(props) {
   });
 
   return (
-    <group position={[2, 5, 2]}>
+    <group
+      {...props}
+      dispose={null}
+      ref={cristalRef}
+      scale={0.1}
+      position={[2, 5, 2]}
+    >
       <Sparkles size={1} count={50} speed={1} scale={[0.6, 0.6, 0.6]} />
-      <group {...props} dispose={null} ref={cristalRef} scale={0.1}>
-        <mesh
-          geometry={nodes.Icosphere.geometry}
-          material={materials.cristal}
-          frustumCulled={false}
-        >
-          {elementContacted === "cristal" && (
-            <Outlines thickness={2} color="lightblue" />
-          )}
-        </mesh>
+      <mesh
+        geometry={nodes.Icosphere.geometry}
+        material={materials.cristal}
+        frustumCulled={false}
+      >
+        {elementContacted === "cristal" && (
+          <Outlines thickness={2} color="lightblue" />
+        )}
+      </mesh>
 
-        <PressButtonUI element="cristal" />
-      </group>
+      <PressButtonUI element="cristal" />
     </group>
   );
 }

@@ -34,7 +34,7 @@ export default function Particles() {
   const noise3D = createNoise3D();
   const pointsRef = useRef();
 
-  const count = 5000;
+  const count = 2000;
 
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
