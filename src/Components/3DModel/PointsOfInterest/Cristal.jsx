@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useGLTF, Outlines, Html } from "@react-three/drei";
+import { useGLTF, Outlines, Html, Sparkles } from "@react-three/drei";
 import { useGameStore } from "../../../store/store.js";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -33,24 +33,21 @@ export default function Cristal(props) {
   });
 
   return (
-    <group
-      {...props}
-      dispose={null}
-      ref={cristalRef}
-      scale={0.1}
-      position={[2, 5, 2]}
-    >
-      <mesh
-        geometry={nodes.Icosphere.geometry}
-        material={materials.cristal}
-        frustumCulled={false}
-      >
-        {elementContacted === "cristal" && (
-          <Outlines thickness={2} color="lightblue" />
-        )}
-      </mesh>
+    <group position={[2, 5, 2]}>
+      <Sparkles size={1} count={50} speed={1} scale={[0.6, 0.6, 0.6]} />
+      <group {...props} dispose={null} ref={cristalRef} scale={0.1}>
+        <mesh
+          geometry={nodes.Icosphere.geometry}
+          material={materials.cristal}
+          frustumCulled={false}
+        >
+          {elementContacted === "cristal" && (
+            <Outlines thickness={2} color="lightblue" />
+          )}
+        </mesh>
 
-      <PressButtonUI element="cristal" />
+        <PressButtonUI element="cristal" />
+      </group>
     </group>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { useGLTF, Html } from "@react-three/drei";
+import { useGLTF, Html, Sparkles } from "@react-three/drei";
 import { useGameStore } from "../../../store/store.js";
 import { Outlines } from "@react-three/drei";
 import PressButtonUI from "./PressButtonUI.jsx";
@@ -14,7 +14,7 @@ export default function Panel(props) {
   }, []);
 
   return (
-    <group {...props} dispose={null} ref={panelRef} position={[3, 4, -3]}>
+    <group {...props} dispose={null} ref={panelRef} position={[3, 3.4, -3]}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.007}>
           <mesh
@@ -29,6 +29,7 @@ export default function Panel(props) {
           </mesh>
         </group>
       </group>
+      <Sparkles size={1} count={100} speed={1} scale={[1, 3, 1]} />
 
       <PressButtonUI element="panel" />
     </group>
