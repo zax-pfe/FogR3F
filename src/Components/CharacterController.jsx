@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 import { MathUtils, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
-import { useKeyboardControls, Outlines } from "@react-three/drei";
+import { useKeyboardControls } from "@react-three/drei";
 import { useControls } from "leva";
 import Character from "./3DModel/Character";
 import { degToRad } from "three/src/math/MathUtils.js";

@@ -16,6 +16,7 @@ import MolecTest from "./Components/3DModel/MolecTest.jsx";
 import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
 import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
 import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
+import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import InvisibleWall from "./Components/InvisibleWall.jsx";
@@ -64,7 +65,7 @@ export default function Experience() {
       />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      <PostProcessing />
+      {/* <PostProcessing /> */}
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls makeDefault />
       <Perf position="top-left" />
@@ -72,10 +73,10 @@ export default function Experience() {
       <CalculateDistance />
 
       {/* ______________________ MODELS __________________/ */}
-      {/* _____________ INTERACTIOn __________/ */}
-
+      {/* _____________ INTERACTION __________/ */}
       <Cristal />
-      <Panel position={[3, 4, -3]} />
+      <Panel />
+      <Interaction />
 
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
@@ -90,7 +91,7 @@ export default function Experience() {
           </PivotControls> */}
       </Physics>
       <Smoke />
-      {/* <MolecTest targetRef={characterRef} /> */}
+      <MolecTest targetRef={characterRef} />
 
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}

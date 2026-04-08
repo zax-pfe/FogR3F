@@ -16,6 +16,7 @@ export default function MolecTest({ targetRef }) {
   useFrame((state, delta) => {
     if (!meshRef.current || !targetRef?.current) return;
 
+    console.log("Position cible:", targetRef.current.position);
     // Position monde du personnage
     targetRef.current.getWorldPosition(targetWorld.current);
 

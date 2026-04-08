@@ -49,26 +49,7 @@ export default function Cristal(props) {
           <Outlines thickness={2} color="lightblue" />
         )}
       </mesh>
-      {/* <Html>
-        <div
-          style={{
-            color: "White",
-            backgroundColor: "rgba(0, 0, 0)",
-            height: "20px",
-            width: "20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "50%",
-            fontSize: "16px",
-            transition: "all 0.5s",
-            opacity: elementContacted !== "cristal" ? 0 : 0.5,
-            transform: `scale(${elementContacted !== "cristal" ? 0.5 : 1})`,
-          }}
-        >
-          E
-        </div>
-      </Html> */}
+
       <PressButtonUI element="cristal" />
     </group>
   );

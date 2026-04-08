@@ -14,7 +14,7 @@ export default function Panel(props) {
   }, []);
 
   return (
-    <group {...props} dispose={null} ref={panelRef}>
+    <group {...props} dispose={null} ref={panelRef} position={[3, 4, -3]}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]} scale={0.007}>
           <mesh

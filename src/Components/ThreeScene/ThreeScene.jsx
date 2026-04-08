@@ -11,6 +11,7 @@ const keyBoardMap = [
   { name: "backward", keys: ["s", "ArrowDown"] },
   { name: "left", keys: ["q", "ArrowLeft"] },
   { name: "right", keys: ["d", "ArrowRight"] },
+  { name: "interact", keys: ["a", "e"] },
 ];
 
 const ThreeScene = ({ children, placeholder = false }) => {
@@ -23,7 +24,8 @@ const ThreeScene = ({ children, placeholder = false }) => {
   ) : (
     <>
       <KeyboardControls map={keyBoardMap}>
-        <Canvas className={s.canvas}
+        <Canvas
+          className={s.canvas}
           // shadows
           framerate={60}
           camera={{
