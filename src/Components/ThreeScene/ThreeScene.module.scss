@@ -13,14 +13,14 @@
     left: 4px;
     width: calc(100% - 8px);
     height: calc(100% - 8px);
-    background: #E1E1E1;
+    background: var(--color--night-blue);
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 24px;
-    color: var(--color--black);
+    color: var(--color--gray-low);
 
     &__text {
         color: var(--color--violet);
