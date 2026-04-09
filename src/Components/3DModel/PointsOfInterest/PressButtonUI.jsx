@@ -18,8 +18,8 @@ export default function PressButtonUI({ element }) {
             style={{
               color: "White",
               backgroundColor: "rgba(0, 0, 0)",
-              height: "20px",
-              width: "20px",
+              height: "40px",
+              width: "40px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

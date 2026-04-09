@@ -36,13 +36,13 @@ const Character = forwardRef((props, ref) => {
   }, [actions, currentAction]);
 
   return (
-     <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <group name="Armature" scale={0.204}>
+        <group name="Armature" scale={0.204} rotation={[0, Math.PI / 2, 0]}>
           <skinnedMesh
             name="Cone"
             geometry={nodes.Cone.geometry}
-            material={materials['Material.002']}
+            material={materials["Material.002"]}
             skeleton={nodes.Cone.skeleton}
           />
           <primitive object={nodes.Bone} />

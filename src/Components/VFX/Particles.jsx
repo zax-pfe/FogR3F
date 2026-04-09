@@ -19,13 +19,13 @@ export default function Particles() {
   } = useControls(
     "Particles",
     {
-      scale: { value: 0.2, min: 0.01, max: 2, step: 0.01 },
+      scale: { value: 0.12, min: 0.01, max: 2, step: 0.01 },
       size_x: { value: 60, min: 2, max: 100, step: 1 },
       size_y: { value: 8, min: 2, max: 100, step: 1 },
       size_z: { value: 57, min: 2, max: 100, step: 1 },
       speed: { value: 0.005, min: 0.001, max: 0.01, step: 0.001 },
       position_x: { value: 11.3, min: -50, max: 50, step: 0.1 },
-      position_y: { value: 7.4, min: -50, max: 50, step: 0.1 },
+      position_y: { value: 2.7, min: -50, max: 50, step: 0.1 },
       position_z: { value: 5.4, min: -50, max: 50, step: 0.1 },
       color: "#501e1e",
     },
@@ -34,7 +34,7 @@ export default function Particles() {
   const noise3D = createNoise3D();
   const pointsRef = useRef();
 
-  const count = 2000;
+  const count = 5000;
 
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
