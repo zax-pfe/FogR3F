@@ -98,7 +98,7 @@ export default function Experience() {
 
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <Particles />
+      {/* <Particles /> */}
     </>
   );
 }
