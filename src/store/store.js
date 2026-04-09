@@ -27,6 +27,9 @@ export const useGameStore = create((set) => ({
 		set({ currentTool: tool }), console.log("Current tool set to:", tool);
 	},
 
+  showAnalyse: true,
+  setShowAnalyse: (show) => set({ showAnalyse: show }),
+
 	objectFind: [c_Objects[0], c_Objects[1]],
 	addObjectFind: (object) =>
 		set((state) => ({ objectFind: [...state.objectFind, object] })),
