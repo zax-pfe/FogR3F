@@ -129,24 +129,26 @@ export class WebGLTreeRenderer {
 	 */
 	_initBuffers() {
 		// Génère les données des points
-		const { bases, rings, offsets } = this._generatePointData();
+		const { bases, rings, offsets, colors } = this._generatePointData();
 
 		// Crée les buffers
 		this._createBuffer(bases, "aBase", 2);
 		this._createBuffer(rings, "aRingIndex", 1);
 		this._createBuffer(offsets, "aOffset", 1);
+        this._createBuffer(colors, "aColor", 3);
 	}
 
 	/**
 	 * Génère les données des points (cernes)
 	 */
 	_generatePointData() {
-		const { RINGS, MAX_RADIUS, STRIES } = this.config;
+		const { RINGS, MAX_RADIUS, STRIES, POINT_COLOR } = this.config;
 		const total = RINGS * STRIES;
 
 		const bases = new Float32Array(total * 2);
 		const rings = new Float32Array(total);
 		const offsets = new Float32Array(total);
+        const colors = new Float32Array(total * 3); // Couleur du point
 
 		let idx = 0;
 		for (let i = 1; i < RINGS; i++) {
@@ -160,15 +162,19 @@ export class WebGLTreeRenderer {
 
 			for (let j = 0; j < STRIES; j++) {
 				const angle = (j / STRIES) * Math.PI * 2;
-				bases[idx * 2] = radius * Math.cos(angle) + driftY;
-				bases[idx * 2 + 1] = radius * Math.sin(angle) + driftX;
-				rings[idx] = i;
-				offsets[idx] = Math.random() * 1000;
+				bases[idx * 2] = radius * Math.cos(angle) + driftY;  // définition de la position X du point
+				bases[idx * 2 + 1] = radius * Math.sin(angle) + driftX; // définition de la position Y du point
+				rings[idx] = i; // index du cerne (1 à RINGS-1)
+				offsets[idx ] = Math.random() * 1000; // offset aléatoire pour l'animation
+				colors[idx * 3] = POINT_COLOR[0]; // composante rouge
+				colors[idx * 3 + 1] = POINT_COLOR[1]; // composante verte
+				colors[idx * 3 + 2] = POINT_COLOR[2]; // composante bleue
+
 				idx++;
 			}
 		}
 
-		return { bases, rings, offsets };
+		return { bases, rings, offsets, colors };
 	}
 
 	/**

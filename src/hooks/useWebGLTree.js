@@ -27,7 +27,7 @@ export function useWebGLTree(canvasRef, config = {}, onHotspotClick = null) {
 			}
 
 			rendererRef.current.init();
-			console.log("✅ useWebGLTree initialized");
+			// console.log("✅ useWebGLTree initialized");
 		} catch (error) {
 			console.error("❌ useWebGLTree error:", error);
 		}

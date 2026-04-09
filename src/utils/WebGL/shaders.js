@@ -1,15 +1,17 @@
 // Vertex Shader
 export const vertexShaderSource = `
-  attribute vec2 aBase;
-  attribute float aRingIndex;
-  attribute float aOffset;
-  uniform float uTime;
-  uniform vec2 uMouse;
-  uniform vec2 uViewport;
-  uniform float uZoom;
-  uniform vec2 uPan;
-  varying float vAlpha;
-  varying float vRing;
+    attribute vec2 aBase;
+    attribute float aRingIndex;
+    attribute float aOffset;
+    attribute vec3 aColor;
+    uniform float uTime;
+    uniform vec2 uMouse;
+    uniform vec2 uViewport;
+    uniform float uZoom;
+    uniform vec2 uPan;
+    varying float vAlpha;
+    varying float vRing;
+    varying vec4 vColor;
 
   float hash(float n) { return fract(sin(n) * 43758.5453); }
 
@@ -65,6 +67,7 @@ export const vertexShaderSource = `
     float pulse = sin(uTime * 0.05 + aOffset);
     vAlpha = 0.59 + pulse * 0.2;
     vRing = aRingIndex;
+    vColor = vec4(aColor, vAlpha);
     float ptSize = mix(1.0, 2.5, aRingIndex / 35.0) * uZoom;
     gl_PointSize = ptSize;
     gl_Position = vec4(ndc, 0.0, 1.0);
@@ -74,10 +77,11 @@ export const vertexShaderSource = `
 // Fragment Shader
 export const fragmentShaderSource = `
   precision mediump float;
-  varying float vAlpha;
-  varying float vRing;
-  
+//   varying float vAlpha;
+//   varying float vRing;
+  varying vec4 vColor;
+
   void main() {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, vAlpha);
+    gl_FragColor = vColor;
   }
 `;

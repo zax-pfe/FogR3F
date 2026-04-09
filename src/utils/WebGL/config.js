@@ -4,8 +4,8 @@ export const WEBGL_CONFIG = {
 	MAX_RADIUS: 550, // Rayon maximal
 	STRIES: 150, // Points par cerne
 
-	// Colors (rgba)
-	POINT_COLOR: [1.0, 1.0, 1.0], // Blanc
+	// Colors (rgb)
+	POINT_COLOR: [1.0, 1.0, 1.0],
 
 	// Camera
 	INITIAL_ZOOM: 1.0,
@@ -25,7 +25,7 @@ export const WEBGL_CONFIG = {
 	BASE_ALPHA: 0.59,
 
 	// Smoothing
-	MOUSE_SMOOTH: 0.05,
+	MOUSE_SMOOTH: 0.8,
 	ZOOM_SMOOTH: 0.1,
 
 	// Reveal
