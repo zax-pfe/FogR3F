@@ -4,6 +4,7 @@ export const vertexShaderSource = `
     attribute float aRingIndex;
     attribute float aOffset;
     attribute vec3 aColor;
+    attribute float aAlpha;
     uniform float uTime;
     uniform vec2 uMouse;
     uniform vec2 uViewport;
@@ -65,9 +66,10 @@ export const vertexShaderSource = `
     }
     
     float pulse = sin(uTime * 0.05 + aOffset);
-    vAlpha = 0.59 + pulse * 0.2;
+    // vAlpha = (0.59 + pulse * 0.2) * aAlpha;
+    vAlpha = aAlpha; // Utilise l'alpha défini par l'image
     vRing = aRingIndex;
-    vColor = vec4(aColor, vAlpha);
+    vColor = vec4(vAlpha, vAlpha, vAlpha, 1.0);
     float ptSize = mix(1.0, 2.5, aRingIndex / 35.0) * uZoom;
     gl_PointSize = ptSize;
     gl_Position = vec4(ndc, 0.0, 1.0);

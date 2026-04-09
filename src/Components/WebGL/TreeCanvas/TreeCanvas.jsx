@@ -20,12 +20,14 @@ export function TreeCanvas({
     webglConfig = {},
 }) {
     const canvasRef = useRef(null);
+    const canvas2DRef = useRef(null);
     const [revealedHotspots, setRevealedHotspots] = useState(new Set());
     const hotspotsRef = useRef({});
 
     // Utilise le hook WebGL
     const { worldToScreen, getMousePosition } = useWebGLTree(
         canvasRef,
+        canvas2DRef,
         webglConfig,
         onHotspotClick
     );
@@ -84,6 +86,13 @@ export function TreeCanvas({
 
     return (
         <div className={styles.treeCanvasContainer}>
+
+            {/* Canvas 2D */}
+            <canvas
+                ref={canvas2DRef}
+                className={styles.canvas}
+            />
+
             {/* Canvas WebGL */}
             <canvas
                 ref={canvasRef}

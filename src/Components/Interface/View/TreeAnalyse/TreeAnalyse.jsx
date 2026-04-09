@@ -16,8 +16,8 @@ const TreeAnalyse = () => {
         <div className={s.treeAnalyse}>
             <TreeCanvas onHotspotClick={handleHotspotClick}
                 webglConfig={{
-                    RINGS: 35,
-                    STRIES: 150,
+                    RINGS: 50,
+                    STRIES: 200,
                 }}
             />
         </div>

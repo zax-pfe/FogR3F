@@ -1,8 +1,8 @@
 // Configuration WebGL Tree Renderer
 export const WEBGL_CONFIG = {
-	RINGS: 35, // Nombre de cernes
+	RINGS: 50, // Nombre de cernes
 	MAX_RADIUS: 550, // Rayon maximal
-	STRIES: 150, // Points par cerne
+	STRIES: 200, // Points par cerne
 
 	// Colors (rgb)
 	POINT_COLOR: [1.0, 1.0, 1.0],

@@ -7,9 +7,10 @@ import { WEBGL_CONFIG, TOTAL_POINTS } from "./config";
  * Aucune dépendance à React ou manipulation directe du DOM
  */
 export class WebGLTreeRenderer {
-	constructor(canvas, config = {}) {
+	constructor(canvas, config = {}, dataImg) {
 		this.canvas = canvas;
 		this.config = { ...WEBGL_CONFIG, ...config };
+		this.dataImg = dataImg;
 
 		// WebGL context
 		this.gl = null;
@@ -129,13 +130,15 @@ export class WebGLTreeRenderer {
 	 */
 	_initBuffers() {
 		// Génère les données des points
-		const { bases, rings, offsets, colors } = this._generatePointData();
+		const { bases, rings, offsets, colors, alpha } =
+			this._generatePointData();
 
 		// Crée les buffers
 		this._createBuffer(bases, "aBase", 2);
 		this._createBuffer(rings, "aRingIndex", 1);
 		this._createBuffer(offsets, "aOffset", 1);
-        this._createBuffer(colors, "aColor", 3);
+		this._createBuffer(colors, "aColor", 3);
+		this._createBuffer(alpha, "aAlpha", 1);
 	}
 
 	/**
@@ -148,33 +151,52 @@ export class WebGLTreeRenderer {
 		const bases = new Float32Array(total * 2);
 		const rings = new Float32Array(total);
 		const offsets = new Float32Array(total);
-        const colors = new Float32Array(total * 3); // Couleur du point
+		const colors = new Float32Array(total * 3); // Couleur du point
+		const alpha = new Float32Array(total); // Alpha du point
+
+		console.log(this.dataImg);
 
 		let idx = 0;
-		for (let i = 1; i < RINGS; i++) {
+		for (let i = 0; i < RINGS; i++) {
 			const longCycle = Math.sin(i * 0.15) * 0.4;
 			const shortCycle = Math.sin(i * 0.8) * 0.15;
-			const ageFactor = Math.pow(i / RINGS, 0.8);
+			// const ageFactor = Math.pow(i / RINGS, 0.8);
 			const growthVariation = 1.0 + longCycle + shortCycle;
-			const radius = ageFactor * MAX_RADIUS * growthVariation;
+			// const radius = ageFactor * MAX_RADIUS * growthVariation;
+			// const radius = ageFactor * MAX_RADIUS;
+			const step = MAX_RADIUS / RINGS;
+			const radius = i * step + step * 0.5;
 			const driftX = Math.sin(i * 0.05) * 15.0;
 			const driftY = Math.cos(i * 0.03) * 10.0;
 
 			for (let j = 0; j < STRIES; j++) {
 				const angle = (j / STRIES) * Math.PI * 2;
-				bases[idx * 2] = radius * Math.cos(angle) + driftY;  // définition de la position X du point
-				bases[idx * 2 + 1] = radius * Math.sin(angle) + driftX; // définition de la position Y du point
+				const x = radius * Math.cos(angle) + driftY;
+				const y = radius * Math.sin(angle) + driftX;
+
+				bases[idx * 2] = x; // définition de la position X du point
+				bases[idx * 2 + 1] = y; // définition de la position Y du point
 				rings[idx] = i; // index du cerne (1 à RINGS-1)
-				offsets[idx ] = Math.random() * 1000; // offset aléatoire pour l'animation
+				offsets[idx] = Math.random() * 1000; // offset aléatoire pour l'animation
+
+				let sXY = this.worldToScreen(x, y, true);
 				colors[idx * 3] = POINT_COLOR[0]; // composante rouge
 				colors[idx * 3 + 1] = POINT_COLOR[1]; // composante verte
 				colors[idx * 3 + 2] = POINT_COLOR[2]; // composante bleue
 
+                let alphaValue = this.dataImg[sXY.sy]?.[sXY.sx]?.a || 0;
+                if (alphaValue > 0) {
+                    alpha[idx] = 1.0; // point visible
+                } else {
+                    alpha[idx] = 0.0; // point transparent
+                }
+                
+				// console.log(alpha[idx]);
 				idx++;
 			}
 		}
 
-		return { bases, rings, offsets, colors };
+		return { bases, rings, offsets, colors, alpha };
 	}
 
 	/**
@@ -300,11 +322,16 @@ export class WebGLTreeRenderer {
 	/**
 	 * Convertit des coordonnées monde en écran
 	 */
-	worldToScreen(wx, wy) {
-		return {
-			sx: (wx + this.panX) * this.zoom + this.canvas.width / 2,
-			sy: (-wy - this.panY) * this.zoom + this.canvas.height / 2,
-		};
+	worldToScreen(wx, wy, floor) {
+		let sx = (wx + this.panX) * this.zoom + this.canvas.width / 2;
+		let sy = (-wy - this.panY) * this.zoom + this.canvas.height / 2;
+
+		if (floor) {
+			sx = Math.floor(sx);
+			sy = Math.floor(sy);
+		}
+
+		return { sx, sy };
 	}
 
 	/**
