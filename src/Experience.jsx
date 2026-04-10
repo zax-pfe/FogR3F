@@ -106,7 +106,7 @@ export default function Experience() {
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <Particles />
+      {/* <Particles /> */}
     </>
   );
 }
