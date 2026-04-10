@@ -53,7 +53,7 @@ export default function MolecTest({ targetRef }) {
         opacity={0.2}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
-        lineWidth={0.3}
+        lineWidth={0.35}
       />
       <mesh scale={0.07} ref={meshRef}>
         <sphereGeometry />
