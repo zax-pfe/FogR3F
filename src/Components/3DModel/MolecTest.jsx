@@ -14,7 +14,12 @@ export default function MolecTest({ targetRef }) {
   const desired = useRef(new THREE.Vector3());
 
   useFrame((state, delta) => {
-    if (!meshRef.current || !targetRef?.current) return;
+    if (!meshRef.current || !targetRef?.current) {
+      console.warn("Mesh or target not found");
+      return;
+    } else {
+      // console.log("Mesh position:", meshRef.current.position);
+    }
 
     // Position monde du personnage
     targetRef.current.getWorldPosition(targetWorld.current);
