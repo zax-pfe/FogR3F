@@ -36,8 +36,7 @@ const lerpAngle = (start, end, t) => {
   return normalizeAngle(start + (end - start) * t);
 };
 
-// export default function CharacterController({ characterRef }) {
-const CharacterController = forwardRef((props, ref) => {
+export default function CharacterController() {
   // ______________________ REFS & VARIABLES __________________/
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
@@ -48,10 +47,16 @@ const CharacterController = forwardRef((props, ref) => {
 
   const { camera } = useThree();
 
+  // ______________________ INIT CAMERA AND PLAYER POSITION __________________/
+
   useEffect(() => {
     // console.log(":", controlsRef);
     camera.position.set(0, 1.6, -5);
-  }, []);
+    if (rb.current) {
+      const pos = rb.current.translation();
+      setPlayerPosition(pos);
+    }
+  }, [rb.current]);
 
   // Camera refs
   const container = useRef();
@@ -152,12 +157,11 @@ const CharacterController = forwardRef((props, ref) => {
     >
       <group ref={container}>
         <group ref={character}>
-          <Character ref={ref} />
+          <Character />
         </group>
       </group>
       <CapsuleCollider args={[0.1, 0.4]} />
     </RigidBody>
   );
   // }
-});
-export default CharacterController;
+}

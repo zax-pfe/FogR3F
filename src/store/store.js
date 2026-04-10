@@ -7,6 +7,8 @@ export const useGameStore = create((set) => ({
   setPlayerPosition: (position) => set({ playerPosition: position }),
   playerAnimation: "idle",
   setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
+  playerRef: null,
+  setPlayerRef: (ref) => set({ playerRef: ref }),
 
   // ______________________ CAMERA __________________/
   controlsRef: null,
