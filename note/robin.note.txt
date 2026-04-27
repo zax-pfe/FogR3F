@@ -12,3 +12,19 @@ Note du 20 mars :
 - le carrousel est good normalement
 - Passer sur un store pour les tools
 - la prochiane fois faudrait commencer à intégrer l'UI de manière générale donc stylisé un peu tout, mettre la palette de couleur, ce genre de truc quoi...
+
+
+
+
+- pas forcément centré
+- plus naturel que robotique
+- variation distance entre les stries
+
+
+
+-------------------------------------
+
+- system point de l'interface 2D
+- system de sous-titre avec des tableau, ligne de texte et durée etc...
+
+- passer le son en mineur
