@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useGameStore } from "../../../../store/store";
 import s from "./TreeAnalyse.module.scss";
 import Button from "../../Design/Button/Button";
 import HotSpot from "../../Analyse/HotSpot/HotSpot";
+import SelectedItems from "../../Analyse/SelectedItems/SelectedItems";
 
 const HotSpots = [
     { x: -450, y: 300 },
@@ -17,6 +18,10 @@ const TreeAnalyse = () => {
 
     const { showAnalyse, setShowAnalyse } = useGameStore();
 
+    const [selectedItems, setSelectedItems] = useState([]);
+
+    const ref__selectedBox = useRef(null);
+
     const [origin, setOrigin] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
 
     return showAnalyse && (
@@ -24,9 +29,9 @@ const TreeAnalyse = () => {
             <Button onClick={() => setShowAnalyse(false)}>Fermer la machine</Button>
             {/* // Analyse du tronc */}
             {HotSpots.map((spot, index) => (
-                <HotSpot key={index} data={spot} coo={{ x: origin.x + spot.x, y: origin.y + spot.y }} />
+                <HotSpot key={index} data={spot} coo={{ x: origin.x + spot.x, y: origin.y + spot.y }} refBox={ref__selectedBox} setSelectedItems={setSelectedItems} />
             ))}
-            
+            <SelectedItems refBox={ref__selectedBox} selectedItems={selectedItems} />
         </div>
     );
 

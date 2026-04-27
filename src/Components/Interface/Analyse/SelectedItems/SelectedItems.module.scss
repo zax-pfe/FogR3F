@@ -1,0 +1,28 @@
+.selectedItems {
+    position: absolute;
+    bottom: 48px;
+    right: 84px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    color: var(--color--white);
+    z-index: 1;
+
+    &__box {
+        position: relative;
+        width: 206px;
+        height: 206px;
+        border-radius: var(--radius--full);
+        background: rgba(17, 17, 17, 0.6);
+    }
+
+    &__point {
+		position: absolute;
+		width: 32px;
+		height: 32px;
+		background-color: var(--color--violet);
+		border-radius: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
