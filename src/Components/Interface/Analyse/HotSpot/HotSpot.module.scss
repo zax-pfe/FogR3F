@@ -52,7 +52,7 @@
 
 .popUp {
 	position: absolute;
-	background-color: rgba(17, 17, 17, 0.6);
+	background-color: var(--color--bg-transparent-light);
 	color: var(--color--white);
 	width: 676px;
 	height: 295px;
