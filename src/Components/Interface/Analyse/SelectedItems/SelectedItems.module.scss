@@ -9,6 +9,11 @@
 	color: var(--color--white);
 	z-index: 1;
 
+    &__title {
+        color: var(--color--grey-low);
+        line-height: 1rem;
+    }
+
 	&__box {
 		position: relative;
 		width: 206px;

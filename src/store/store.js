@@ -30,6 +30,10 @@ export const useGameStore = create((set) => ({
   showAnalyse: false,
   setShowAnalyse: (show) => set({ showAnalyse: show }),
 
+  selectedItems: [],
+  addSelectedItems: (item) => set( (state) => ({ selectedItems: [...state.selectedItems, item] })),
+  resetSelectedItems: () => set({ selectedItems: [] }),
+
 	objectFind: [c_Objects[0], c_Objects[1]],
 	addObjectFind: (object) =>
 		set((state) => ({ objectFind: [...state.objectFind, object] })),

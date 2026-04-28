@@ -4,8 +4,12 @@ import CloseBtn from "../../Design/CloseBtn/CloseBtn";
 import Text from "../../Design/Text/Text";
 import Button from "../../Design/Button/Button";
 import gsap from "gsap";
+import { addScaleCorrector } from "motion";
+import { useGameStore } from "../../../../store/store";
 
-const HotSpot = ({ data, coo, refBox, setSelectedItems, isSelected }) => {
+const HotSpot = ({ data, coo, refBox, isSelected }) => {
+
+    const { addSelectedItems } = useGameStore();
 
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -49,7 +53,7 @@ const HotSpot = ({ data, coo, refBox, setSelectedItems, isSelected }) => {
                 duration: 1,
                 ease: "power2.inOut",
                 onComplete: () => {
-                    setSelectedItems(prev => [...prev, data]);
+                    addSelectedItems(data);
                     setSelected(false);
                 }
             });
@@ -77,13 +81,13 @@ const HotSpot = ({ data, coo, refBox, setSelectedItems, isSelected }) => {
                     <div className={s.overlay} onClick={handleClose}></div>
                     <div className={s.popUp} style={{ left: popUpX.current, top: popUpY.current }}>
                         <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
-                        <div className={s.popUp__img} ></div>
+                        <div className={s.popUp__img} style={{ backgroundImage: `url(${data.image})` }} ></div>
                         <div className={s.popUp__content}>
                             <Text className={s.popUp__title} variant="b2">
-                                HotSpot at ({coo.x}, {coo.y})
+                                {data.title}
                             </Text>
                             <Text variant="b3" className={s.popUp__text}>
-                                Le climat influence la variation annuelle dans la croissance du bois. Les cernes sont très étroits en raison d’une sécheresse qui frappe la région. Si la sécheresse perdure plusieurs années, on retrouvera une série de cernes qui seront consécutivement très étroits. Cela nous renseigne sur la durée et la gravité de l’évènement climatique.
+                                {data.text}
                             </Text>
                             {!isSelected && (
                                 <Button variant="xs" onClick={handleChosse}>

@@ -1,8 +1,11 @@
+import { useGameStore } from "../../../../store/store";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
 import s from "./SelectedItems.module.scss";
 
-const SelectedItems = ({ refBox, selectedItems }) => {
+const SelectedItems = ({ refBox }) => {
+
+    const { selectedItems } = useGameStore();
 
     const coefPos = 0.15;
 
