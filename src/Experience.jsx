@@ -22,6 +22,7 @@ import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
+import ParticlesShader from "./Components/VFX/ParticlesShader.jsx";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
@@ -53,7 +54,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#f2f2f2",
+    color: "#000000",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
@@ -65,7 +66,7 @@ export default function Experience() {
   // });
 
   const { CAMERA_LOCK } = useControls("camera lock ", {
-    CAMERA_LOCK: true,
+    CAMERA_LOCK: false,
   });
 
   return (
@@ -106,7 +107,7 @@ export default function Experience() {
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <Particles />
+      <ParticlesShader />
     </>
   );
 }
