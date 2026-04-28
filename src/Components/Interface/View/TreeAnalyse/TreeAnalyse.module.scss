@@ -8,4 +8,10 @@
 	overflow: hidden;
     background: url("/assets/images/MIL_Background2D.jpg") no-repeat center center;
     background-size: cover;
+
+	&__closeBtn {
+		position: absolute;
+		top: 24px;
+		left: 24px;
+	}
 }

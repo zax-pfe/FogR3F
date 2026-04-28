@@ -1,3 +1,110 @@
 .button {
-    color: var(--color--white);
+    position: relative;
+	display: block;
+	font-family: var(--font--primary);
+	color: var(--color--white);
+	padding: 4px;
+	background: var(--color--gray-high);
+	border-radius: var(--radius--xxs);
+
+	.content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius--3xs);
+		border: 1px solid var(--color--white);
+		font-weight: 500;
+		gap: 8px;
+        transition: box-shadow 0.2s var(--easing), border 0.2s var(--easing);
+	}
+
+	&.m {
+		.content {
+			padding: 16px 40px;
+			font-size: 1.125rem; // 18px
+			line-height: 1.5rem; // 24px
+		}
+	}
+
+	&.s {
+		.content {
+			padding: 16px 28px;
+			font-size: 0.875rem; // 14px
+			line-height: 1rem; // 16px
+			border: 1px solid var(--color--gray-low);
+		}
+	}
+
+	&.xs {
+		.content {
+			padding: 16px 20px;
+			font-size: 0.75rem; // 12px
+			line-height: 1rem; // 16px
+			border: 1px solid var(--color--gray-low);
+		}
+	}
+
+    &::before {
+		content: "";
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		right: 4px;
+		bottom: 4px;
+		pointer-events: none;
+        opacity: 0;
+        transition: 0.2s var(--easing);
+
+		--tri-color: var(--color--white);
+		--size: 14px;
+
+		background: linear-gradient(
+					135deg,
+					var(--tri-color) 0%,
+					var(--tri-color) 50%,
+					transparent 50%,
+					transparent 100%
+				)
+				top left,
+			linear-gradient(
+					225deg,
+					var(--tri-color) 0%,
+					var(--tri-color) 50%,
+					transparent 50%,
+					transparent 100%
+				)
+				top right,
+			linear-gradient(
+					315deg,
+					var(--tri-color) 0%,
+					var(--tri-color) 50%,
+					transparent 50%,
+					transparent 100%
+				)
+				bottom right,
+			linear-gradient(
+					45deg,
+					var(--tri-color) 0%,
+					var(--tri-color) 50%,
+					transparent 50%,
+					transparent 100%
+				)
+				bottom left;
+		background-size: var(--size) var(--size);
+		background-repeat: no-repeat;
+	}
+
+    &:hover {
+        .content {
+            box-shadow: 0 0 7.2px 0 rgba(255, 255, 255, 0.50);
+			border: 1px solid var(--color--white);
+        }
+        &::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 1;
+        }
+    }
 }

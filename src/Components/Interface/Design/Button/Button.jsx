@@ -1,10 +1,12 @@
 import s from "./Button.module.scss";
 
-const Button = ({ onClick, children }) => {
+const Button = ({ variant = 'm', onClick, className, children }) => {
 
     return (
-        <button className={s.button} onClick={onClick}>
-            {children}
+        <button className={`${s.button} ${s[variant]} ${className}`} onClick={onClick}>
+            <div className={s.content}>
+                {children}
+            </div>
         </button>
     );
 };

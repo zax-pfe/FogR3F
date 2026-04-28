@@ -10,17 +10,20 @@
 		position: absolute;
 		width: 32px;
 		height: 32px;
-		background-color: var(--color--violet);
+		background-color: var(--color--white);
 		border-radius: 50%;
 		transform: translate(-50%, -50%) scale(0.8);
 		top: 50%;
 		left: 50%;
 		opacity: 0;
 		cursor: pointer;
-		transition: opacity 0.5s ease, transform 0.5s ease;
+		transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.3s ease;
+		box-shadow: 0 0 84.435px 0 var(--color--white);
 
 		&.active {
 			opacity: 1;
+			background-color: var(--color--violet);
+			box-shadow: 0 0 84.435px 0 var(--color--violet);
 			transform: translate(-50%, -50%) scale(1);
 		}
 	}
@@ -148,6 +151,10 @@
 		align-items: flex-start;
 		justify-content: center;
 		gap: 12px;
+	}
+
+	&__title {
+		line-height: 1rem;
 	}
 
 	&__text {

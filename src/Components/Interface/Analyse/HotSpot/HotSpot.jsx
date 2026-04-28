@@ -5,7 +5,7 @@ import Text from "../../Design/Text/Text";
 import Button from "../../Design/Button/Button";
 import gsap from "gsap";
 
-const HotSpot = ({ data, coo, refBox, setSelectedItems }) => {
+const HotSpot = ({ data, coo, refBox, setSelectedItems, isSelected }) => {
 
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -70,7 +70,7 @@ const HotSpot = ({ data, coo, refBox, setSelectedItems }) => {
     return (
         <>
             <div className={s.hotSpot} style={{ left: coo.x, top: coo.y }}>
-                <div className={`${s.point} ${open ? s.active : ''}`} onClick={handleClickPoint}></div>
+                <div className={`${s.point} ${open || isSelected ? s.active : ''}`} onClick={handleClickPoint}></div>
             </div>
             {open && (
                 <>
@@ -79,13 +79,17 @@ const HotSpot = ({ data, coo, refBox, setSelectedItems }) => {
                         <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
                         <div className={s.popUp__img} ></div>
                         <div className={s.popUp__content}>
-                            <Text variant="b2">
+                            <Text className={s.popUp__title} variant="b2">
                                 HotSpot at ({coo.x}, {coo.y})
                             </Text>
                             <Text variant="b3" className={s.popUp__text}>
                                 Le climat influence la variation annuelle dans la croissance du bois. Les cernes sont très étroits en raison d’une sécheresse qui frappe la région. Si la sécheresse perdure plusieurs années, on retrouvera une série de cernes qui seront consécutivement très étroits. Cela nous renseigne sur la durée et la gravité de l’évènement climatique.
                             </Text>
-                            <Button onClick={handleChosse}>Récolter cet élément</Button>
+                            {!isSelected && (
+                                <Button variant="xs" onClick={handleChosse}>
+                                    Récolter cet élément
+                                </Button>
+                            )}
                         </div>
                     </div>
                 </>

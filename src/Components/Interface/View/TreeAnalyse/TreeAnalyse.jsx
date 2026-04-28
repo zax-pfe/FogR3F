@@ -26,10 +26,10 @@ const TreeAnalyse = () => {
 
     return showAnalyse && (
         <div className={s.treeAnalyse}>
-            <Button onClick={() => setShowAnalyse(false)}>Fermer la machine</Button>
+            <Button className={s.treeAnalyse__closeBtn} onClick={() => setShowAnalyse(false)}>Fermer la machine</Button>
             {/* // Analyse du tronc */}
             {HotSpots.map((spot, index) => (
-                <HotSpot key={index} data={spot} coo={{ x: origin.x + spot.x, y: origin.y + spot.y }} refBox={ref__selectedBox} setSelectedItems={setSelectedItems} />
+                <HotSpot key={index} data={spot} coo={{ x: origin.x + spot.x, y: origin.y + spot.y }} refBox={ref__selectedBox} setSelectedItems={setSelectedItems} isSelected={selectedItems.includes(spot)} />
             ))}
             <SelectedItems refBox={ref__selectedBox} selectedItems={selectedItems} />
         </div>
