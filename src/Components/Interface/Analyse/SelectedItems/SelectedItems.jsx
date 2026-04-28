@@ -3,7 +3,7 @@ import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
 import s from "./SelectedItems.module.scss";
 
-const SelectedItems = ({ refBox }) => {
+const SelectedItems = ({ refBox, analyse }) => {
 
     const { selectedItems } = useGameStore();
 
@@ -29,7 +29,7 @@ const SelectedItems = ({ refBox }) => {
                     </div>
                 ))}
             </div>
-            <Button>Analyser</Button>
+            <Button onClick={analyse}>Analyzer</Button>
         </div>
     );
 };

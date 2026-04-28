@@ -25,7 +25,7 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
 
     const handleClickPoint = () => {
         setOpen(!open);
-        console.log("HotSpot clicked at:", { x: coo.x, y: coo.y });
+        // console.log("HotSpot clicked at:", { x: coo.x, y: coo.y });
     };
 
     const handleClose = () => {
@@ -33,7 +33,7 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
     }
 
     const handleChosse = () => {
-        console.log("Element récolté at:", { x: coo.x, y: coo.y });
+        console.log(`Element récolté : ${data.title}`);
         setSelected(true);
         handleClose();
     }
@@ -43,7 +43,6 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
             let boxRect = refBox.current.getBoundingClientRect();
             let centerX = boxRect.left + boxRect.width / 2;
             let centerY = boxRect.top + boxRect.height / 2;
-            console.log("Déplacement de l'élément vers la sélection finale:", { centerX, centerY });
 
             gsap.to(ref_pointMove.current, {
                 left: centerX,

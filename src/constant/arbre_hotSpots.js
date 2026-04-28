@@ -40,7 +40,7 @@ export const c_Arbre_HotSpots = [
 		y: -300,
 	},
 	{
-		image: "/assets/images/MIL_Balle.png",
+		image: "/assets/images/MIL_Coupe.png",
 		title: "Coupe nette ou chute brute : qui est le responsable ?",
 		text: "Lorsqu’un arbre est abattu, la coupe est nette, lisse et régulière, avec des cernes bien visibles et intactes. À l’inverse, un arbre tombé de lui-même présente une cassure irrégulière : le bois est arraché, les fibres sont déchirées et il peut manquer une partie du tronc du côté où il a chuté, les cernes sont souvent abîmées ou incomplètes.",
 		mustBeFound: true,
@@ -48,3 +48,14 @@ export const c_Arbre_HotSpots = [
 		y: -200,
 	},
 ];
+
+export const c_Arbre_HotSpots_MustFind = c_Arbre_HotSpots.filter(spot => spot.mustBeFound).length;
+
+export const save_HotSpots = (data) => {
+	return {
+		title: data.title,
+		mustBeFound: data.mustBeFound,
+		x: data.x,
+		y: data.y,
+	}
+}

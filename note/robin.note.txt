@@ -28,3 +28,12 @@ Note du 20 mars :
 - system de sous-titre avec des tableau, ligne de texte et durée etc...
 
 - passer le son en mineur
+
+
+----
+
+box qui change quand les 4
+bouton reset 
+click pour rouvrir popup
+mention que limote atteinte
+bouton supprimer
