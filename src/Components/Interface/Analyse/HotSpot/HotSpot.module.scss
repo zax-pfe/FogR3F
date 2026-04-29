@@ -17,14 +17,26 @@
 		left: 50%;
 		opacity: 0;
 		cursor: pointer;
-		transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.3s ease;
+		transition: opacity 0.5s var(--easing), transform 0.3s var(--easing), background-color 0.3s var(--easing), outline-color 0.3s var(--easing);
 		box-shadow: 0 0 84.435px 0 var(--color--white);
+		outline: 1px solid transparent;
+		outline-offset: 3px;
+
+		&.open {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1) !important;
+			outline-color: var(--color--white);
+		}
 
 		&.active {
 			opacity: 1;
 			background-color: var(--color--violet);
 			box-shadow: 0 0 84.435px 0 var(--color--violet);
 			transform: translate(-50%, -50%) scale(1);
+
+			&.open {
+				outline-color: var(--color--violet);
+			}
 		}
 	}
 
@@ -71,7 +83,7 @@
 	justify-content: center;
 	gap: 32px;
 
-	transition: opacity 0.3s ease;
+	transition: opacity 0.3s var(--easing);
 	z-index: 2;
 
 	&::before {

@@ -5,7 +5,7 @@ import s from "./SelectedItems.module.scss";
 
 const SelectedItems = ({ refBox, analyse }) => {
 
-    const { selectedItems } = useGameStore();
+    const { selectedItems, maxSelectedItems, hotspotCurrent, setHotspotCurrent } = useGameStore();
 
     const coefPos = 0.15;
 
@@ -14,7 +14,7 @@ const SelectedItems = ({ refBox, analyse }) => {
             <Text variant="b1" className={s.selectedItems__title}>
                 Éléments sélectionnés
             </Text>
-            <div ref={refBox} className={s.selectedItems__box}>
+            <div ref={refBox} className={`${s.selectedItems__box} ${selectedItems.length >= maxSelectedItems ? s.highlight : ''}`}>
                 {/* Les éléments sélectionnés seront affichés ici */}
                 {selectedItems.map((item, index) => (
                     <div
@@ -24,12 +24,14 @@ const SelectedItems = ({ refBox, analyse }) => {
                             left: 'calc(50% + ' + (item.x * coefPos) + 'px)',
                             '--animation-delay': `${index * 0.2}s` 
                         }}
-                        className={s.selectedItems__point}
+                        className={`${s.selectedItems__point} ${hotspotCurrent === item ? s.active : ''}`}
+                        onClick={() => setHotspotCurrent(item)}
                     >
                     </div>
                 ))}
             </div>
-            <Button onClick={analyse}>Analyzer</Button>
+            <div className={s.selectedItems__boxDecoration}></div>
+            <Button onClick={analyse} hovered={selectedItems.length >= maxSelectedItems}>Analyzer</Button>
         </div>
     );
 };

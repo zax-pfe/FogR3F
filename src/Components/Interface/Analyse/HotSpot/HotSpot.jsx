@@ -7,11 +7,11 @@ import gsap from "gsap";
 import { addScaleCorrector } from "motion";
 import { useGameStore } from "../../../../store/store";
 
-const HotSpot = ({ data, coo, refBox, isSelected }) => {
+const HotSpot = ({ data, coo, refBox }) => {
 
-    const { selectedItems, addSelectedItems, maxSelectedItems, removeSelectedItem } = useGameStore();
+    const { selectedItems, addSelectedItems, maxSelectedItems, removeSelectedItem, setHotspotCurrent, hotspotCurrent } = useGameStore();
 
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(false);
 
     const safeArea = 24; // Zone de sécurité pour éviter que le pop-up ne sorte de l'écran
@@ -23,13 +23,18 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
 
     const ref_pointMove = useRef(null);
 
+    const iAmSelected = () => {return selectedItems.includes(data);};
+    const iAmCurrentHotspot = () => {return hotspotCurrent === data;};
+
     const handleClickPoint = () => {
-        setOpen(!open);
+        // setOpen(!open);
+        setHotspotCurrent(data);
         // console.log("HotSpot clicked at:", { x: coo.x, y: coo.y });
     };
 
     const handleClose = () => {
-        setOpen(false);
+        // setOpen(false);
+        setHotspotCurrent(null);
     }
 
     const handleChoose = () => {
@@ -40,11 +45,12 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
         setSelected(true);
         handleClose();
     }
-
+    
     const handleRemove = () => {
         console.log(`Element retiré : ${data.title}`);
         removeSelectedItem(data);
         setSelected(false);
+        handleClose();
     }
 
     useEffect(() => {
@@ -82,9 +88,9 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
     return (
         <>
             <div className={s.hotSpot} style={{ left: coo.x, top: coo.y }}>
-                <div className={`${s.point} ${open || isSelected ? s.active : ''}`} onClick={handleClickPoint}></div>
+                <div className={`${s.point} ${iAmCurrentHotspot() ? s.open : ''} ${iAmSelected() ? s.active : ''}`} onClick={handleClickPoint}></div>
             </div>
-            {open && (
+            {iAmCurrentHotspot() && (
                 <>
                     <div className={s.overlay} onClick={handleClose}></div>
                     <div className={s.popUp} style={{ left: popUpX.current, top: popUpY.current }}>
@@ -98,7 +104,7 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
                                 {data.text}
                             </Text>
                             <div className={s.popUp__buttonContainer}>
-                                {!isSelected ? (
+                                {!iAmSelected() ? (
                                     <Button className={s.popUp__button} variant="xs" onClick={handleChoose} disabled={selectedItems.length >= maxSelectedItems}>
                                         Récolter cet élément
                                     </Button>
@@ -107,7 +113,7 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
                                         Retirer cet élément
                                     </Button>
                                 )}
-                                {!isSelected && selectedItems.length >= maxSelectedItems && (
+                                {!iAmSelected() && selectedItems.length >= maxSelectedItems && (
                                     <Text variant="c3" className={s.warning}>
                                         Nombre maximum d'éléments sélectionnés atteint.
                                     </Text>

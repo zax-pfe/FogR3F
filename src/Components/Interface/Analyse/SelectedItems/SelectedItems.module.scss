@@ -9,10 +9,10 @@
 	color: var(--color--white);
 	z-index: 1;
 
-    &__title {
-        color: var(--color--grey-low);
-        line-height: 1rem;
-    }
+	&__title {
+		color: var(--color--grey-low);
+		line-height: 1rem;
+	}
 
 	&__box {
 		position: relative;
@@ -21,6 +21,24 @@
 		border-radius: var(--radius--full);
 		background: var(--color--bg-transparent-light);
 		overflow: hidden;
+		transition: box-shadow 0.3s var(--easing);
+
+		&.highlight {
+			box-shadow: 0 0 24px 0 rgba(255, 255, 255, 0.3);
+			// border-color: var(--color--white);
+		}
+	}
+
+	&__boxDecoration {
+		margin-top: -239px;
+		width: 210px;
+		height: 210px;
+		background-image: url("/assets/images/MIL_boxBg.svg");
+		background-size: 126%;
+		background-position: center;
+		overflow: visible;
+		pointer-events: none;
+		border-radius: var(--radius--full);
 	}
 
 	&__point {
@@ -32,10 +50,19 @@
 		transform: translate(-50%, -50%);
 		box-shadow: 0 0 24px 0 var(--color--violet);
 		animation: levitate 3s var(--easing) infinite;
-		animation-delay: var(
-			--animation-delay,
-			0s
-		);
+		animation-delay: var(--animation-delay, 0s);
+		outline: 1px solid transparent;
+		outline-offset: 3px;
+
+		transition: outline-color 0.3s var(--easing), scale 0.3s var(--easing);
+
+		cursor: pointer;
+
+		&.active {
+			outline-color: var(--color--violet);
+			scale: 1.2;
+			animation: none;
+		}
 	}
 }
 

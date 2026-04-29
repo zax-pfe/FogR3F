@@ -30,6 +30,8 @@ export const useGameStore = create((set) => ({
   showAnalyse: false,
   setShowAnalyse: (show) => set({ showAnalyse: show }),
 
+  hotspotCurrent: null,
+  setHotspotCurrent: (view) => set({ hotspotCurrent: view }),
   selectedItems: [],
   maxSelectedItems: 4,
   addSelectedItems: (item) => set( (state) => ({ selectedItems: [...state.selectedItems, item] })),

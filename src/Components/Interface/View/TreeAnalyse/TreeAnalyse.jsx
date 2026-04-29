@@ -37,7 +37,7 @@ const TreeAnalyse = () => {
             <Button className={s.treeAnalyse__closeBtn} onClick={() => setShowAnalyse(false)}>Fermer la machine</Button>
             {/* // Analyse du tronc */}
             {c_Arbre_HotSpots.map((spot, index) => (
-                <HotSpot key={index} data={spot} coo={{ x: origin.x + spot.x, y: origin.y + spot.y }} refBox={ref__selectedBox} isSelected={selectedItems.includes(spot)} />
+                <HotSpot key={index} data={spot} coo={{ x: origin.x + spot.x, y: origin.y + spot.y }} refBox={ref__selectedBox} />
             ))}
             <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
         </div>
