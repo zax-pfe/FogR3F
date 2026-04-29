@@ -9,7 +9,7 @@ export default function AnimatedSoren(props) {
     "/assets/3DModels/Soren/characterAnimation.glb",
   );
   const animationsNames = animations.map((anim) => anim.name);
-  console.log("Available animations:", animationsNames);
+  // console.log("Available animations:", animationsNames);
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {

@@ -30,10 +30,10 @@ export default function ParticlesShader() {
       "Particles",
       {
         size_x: { value: 60, min: 2, max: 100, step: 1 },
-        size_y: { value: 8, min: 2, max: 100, step: 1 },
+        size_y: { value: 6, min: 2, max: 100, step: 1 },
         size_z: { value: 57, min: 2, max: 100, step: 1 },
         position_x: { value: 11.3, min: -50, max: 50, step: 0.1 },
-        position_y: { value: 2.7, min: -50, max: 50, step: 0.1 },
+        position_y: { value: 5.5, min: -50, max: 50, step: 0.1 },
         position_z: { value: 5.4, min: -50, max: 50, step: 0.1 },
         color: "#b9a3a3",
       },
@@ -42,7 +42,7 @@ export default function ParticlesShader() {
   const noise3D = createNoise3D();
   const pointsRef = useRef();
 
-  const count = 5000;
+  const count = 2000;
 
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
@@ -66,7 +66,7 @@ export default function ParticlesShader() {
   const movement_speed = useMemo(() => {
     const arr = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      arr[i] = Math.random() * 3;
+      arr[i] = Math.random() * 2 + 1;
     }
     return arr;
   }, [count]);
@@ -80,6 +80,10 @@ export default function ParticlesShader() {
 
   return (
     <group position={[position_x, position_y, position_z]}>
+      {/* <mesh>
+        <boxGeometry args={[size_x, size_y, size_z]} />
+        <meshBasicMaterial color={color} wireframe />
+      </mesh> */}
       <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute
