@@ -31,7 +31,7 @@ const SelectedItems = ({ refBox, analyse }) => {
                 ))}
             </div>
             <div className={s.selectedItems__boxDecoration}></div>
-            <Button onClick={analyse} hovered={selectedItems.length >= maxSelectedItems}>Analyzer</Button>
+            <Button onClick={analyse} hovered={selectedItems.length >= maxSelectedItems} disabled={selectedItems.length < 1}>Analyzer</Button>
         </div>
     );
 };
