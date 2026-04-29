@@ -18,7 +18,7 @@ const Hud = () => {
             <TabObject viewObject={viewObject} setViewObject={setViewObject} />
             <ToolsWheel />
             <Letterbox show={showLetterbox} />
-            <Tronk />
+            {/* <Tronk /> */}
         </div>
     );
 };

@@ -5,6 +5,7 @@ import {
   Bloom,
   Vignette,
   DepthOfField,
+   Noise
 } from "@react-three/postprocessing";
 import { useControls } from "leva";
 import { ToneMappingMode, BlendFunction } from "postprocessing";
@@ -21,13 +22,25 @@ export default function PostProcessing() {
   );
   return (
     <>
-      <EffectComposer multisampling={8}>
-        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
-        <Bloom luminanceThreshold={1.1} mipmapBlur intensity={3} />
+      <EffectComposer multisampling={0}>
+        
+        <Bloom 
+            intensity={0.25}
+            luminanceThreshold={1.5}
+            luminanceSmoothing={0.05}
+            mipmapBlur
+            resolutionX={512}
+            resolutionY={512}
+         />
         <Vignette
-          offset={0.1}
-          darkness={0.5}
+          offset={0.05}
+          darkness={0.4}
           blendFunction={BlendFunction.NORMAL}
+        />
+
+        <Noise
+          opacity={0.2}
+          blendFunction={BlendFunction.SOFT_LIGHT}
         />
 
         {/* <DepthOfField
@@ -35,6 +48,7 @@ export default function PostProcessing() {
           focusLength={controlDepthOfField.focusLength}
           bokehScale={controlDepthOfField.bokehScale}
         /> */}
+        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
     </>
   );

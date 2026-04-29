@@ -30,7 +30,7 @@ export default function MolecTest({ targetRef }) {
     // Position monde du personnage
     // targetRef.current.getWorldPosition(targetWorld.current);
 
-    const followSpeed = 0.5; // plus petit = plus lent
+    const followSpeed = 0.8; // plus petit = plus lent
     const t = 1 - Math.exp(-followSpeed * delta);
 
     meshRef.current.position.lerp(desired.current, t);
@@ -55,11 +55,19 @@ export default function MolecTest({ targetRef }) {
         blending={THREE.AdditiveBlending}
         lineWidth={0.35}
       />
+
       <mesh scale={0.07} ref={meshRef}>
         <sphereGeometry />
-        <meshStandardMaterial color={"red"} />
-        <Outlines thickness={1} color="red" />
+        
+        <pointLight color={"#eae5c1"} intensity={7.5} distance={3} />
+        <meshStandardMaterial color={"#ffffff"} 
+           emissive={[1, 1, 1]}
+          emissiveIntensity={15}
+          toneMapped={false}/>
+        {/* <Outlines thickness={1} color="red" /> */}
       </mesh>
+
+
     </Trail>
   );
 }

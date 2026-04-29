@@ -13,6 +13,7 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
+
 // ________ POINTS OF INTEREST ________/
 import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
 import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
@@ -28,6 +29,7 @@ import Smoke from "./Components/3DModel/Smoke.jsx";
 import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
 import Decors from "./Components/3DModel/Decors.jsx";
 import Trees from "./Components/3DModel/Trees.jsx";
+import GroundFog from "./Components/3DModel/GroundFog.jsx";
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
@@ -53,7 +55,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#f2f2f2",
+    color: "#2c2c2c",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
@@ -77,7 +79,7 @@ export default function Experience() {
       />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      {/* <PostProcessing /> */}
+      <PostProcessing />
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls
         ref={controlsRef}
@@ -102,7 +104,13 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      <Smoke />
+      <Smoke /> 
+        {/* very light fig more in the air */}
+        <GroundFog position={[6, 4.1, 8]} opacity={0.05} scale={2} color="#aaaaaa"/>
+        {/* light fog next to the ground */}
+        <GroundFog position={[20, 3.8, 0]} scale={1} opacity={0.01} rotation={Math.PI }  color="#b0b0b0"/>
+        {/* thick fog next to the ground */}
+        <GroundFog position={[-2, 3.7, -0]} scale={2} opacity={0.05} color="#8a8a8a" />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}

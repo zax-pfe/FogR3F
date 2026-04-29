@@ -8,7 +8,7 @@ export default {
     plugins:
     [
         // Restart server on static/public file change
-        restart({ restart: [ '../public/**', ] }),
+        restart({ restart: [ '../public/**', 'src/**/*.glsl' ] }),
 
         // React support
         react(),
