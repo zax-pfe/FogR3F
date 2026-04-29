@@ -1,38 +1,42 @@
 .hotSpot {
 	position: absolute;
-	width: 200px;
-	height: 200px;
-	border: 1px solid rgba(123, 92, 255, 0.3);
+	width: 150px;
+	height: 150px;
+	// border: 1px solid rgba(123, 92, 255, 0.3);
 	border-radius: 50%;
 	transform: translate(-50%, -50%);
 
 	.point {
 		position: absolute;
-		width: 32px;
-		height: 32px;
+		width: calc(32px * 0.2);
+		height: calc(32px * 0.2);
 		background-color: var(--color--white);
 		border-radius: 50%;
-		transform: translate(-50%, -50%) scale(0.8);
+		transform: translate(-50%, -50%);
 		top: 50%;
 		left: 50%;
 		opacity: 0;
 		cursor: pointer;
-		transition: opacity 0.5s var(--easing), transform 0.3s var(--easing), background-color 0.3s var(--easing), outline-color 0.3s var(--easing);
-		box-shadow: 0 0 84.435px 0 var(--color--white);
+		transition: opacity 0.5s var(--easing), width 0.3s var(--easing),
+			height 0.3s var(--easing), background-color 0.3s var(--easing),
+			outline-color 0.3s var(--easing);
+		box-shadow: 0 0 24px 0 var(--color--white);
 		outline: 1px solid transparent;
 		outline-offset: 3px;
 
 		&.open {
 			opacity: 1;
-			transform: translate(-50%, -50%) scale(1.1) !important;
+			width: calc(32px * 1.1) !important;
+			height: calc(32px * 1.1) !important;
 			outline-color: var(--color--white);
 		}
 
 		&.active {
 			opacity: 1;
 			background-color: var(--color--violet);
-			box-shadow: 0 0 84.435px 0 var(--color--violet);
-			transform: translate(-50%, -50%) scale(1);
+			box-shadow: 0 0 24px 0 var(--color--violet);
+			width: calc(32px * 0.8);
+			height: calc(32px * 0.8);
 
 			&.open {
 				outline-color: var(--color--violet);
@@ -42,7 +46,8 @@
 
 	&:hover .point {
 		opacity: 1;
-		transform: translate(-50%, -50%) scale(1);
+		width: calc(32px * 1);
+		height: calc(32px * 1);
 	}
 }
 

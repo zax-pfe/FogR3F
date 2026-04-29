@@ -4,6 +4,7 @@ import { OrbitControls } from "@react-three/drei";
 import Particles from "../Particles/Particles";
 
 export default function Tronk(props) {
+  
   return (
     <div className={s.tronk} {...props}>
       <Canvas
@@ -11,11 +12,11 @@ export default function Tronk(props) {
         gl={{ antialias: true }}
         dpr={[1, 2]}
       >
-        <color attach="background" args={["#181818"]} />
+        {/* <color attach="background" args={["#181818"]} /> */}
 
         <Particles />
 
-        <OrbitControls />
+        {/* <OrbitControls /> */}
       </Canvas>
     </div>
   );
