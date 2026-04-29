@@ -1,26 +1,41 @@
-// our image texture, which will be used to color the particles.
-uniform sampler2D uPictureTexture;
-uniform vec2 uMouse;
+// Fragment shader for particles: beginner-friendly comments.
 
-// uv coordinates of the current vertex, passed from the geometry shader.
-varying vec2 vUv;
+// The texture used to color particles. We sample this per particle using UV.
+uniform sampler2D uPictureTexture; // image texture for particle color
+// Mouse position in UV space (0..1). This lets the shader know where the cursor is.
+uniform vec2 uMouse; // mouse UV position sent from JS
+
+// UV coordinates from the vertex shader.
+varying vec2 vUv; // UV for this fragment
 
 void main() {
-    // we take the color from the texture using the uv coordinates of the current vertex.
+    // Sample the base color from the image using the particle's UV.
     vec4 pictureColor = texture2D(uPictureTexture, vUv);
 
-    // distance from the exact vertex to the center of the point, which is used to create a circular shape for the particles.
+    // Distance from this particle's UV to the mouse UV (0 = at cursor, larger = farther).
+    float mouseDistance = distance(vUv, uMouse);
+
+    // Compute a soft glow value: 1 near the mouse, 0 far away.
+    float glow = 1.0 - smoothstep(0.0, 0.22, mouseDistance);
+    // Square the glow to make the center brighter and the falloff smoother.
+    glow = glow * glow;
+
+    // Blend texture color with a slight gray for subtlety (mostly texture, slight desaturation).
+    vec3 baseColor = mix(pictureColor.rgb, vec3(0.62), 0.2);
+
+    // Compute alpha (transparency) so particles are more visible near the cursor.
+    // Alpha ranges from 0.85 (far) to 1.0 (near) based on glow, for brighter bloom.
+    float alpha = mix(0.85, 1.0, glow);
+
+    // Keep the particle shape round: discard fragments outside the point circle.
     float distanceToCenter = distance(gl_PointCoord, vec2(0.5));
-
-    // distance from the particle to the cursor in UV space.
-    float d = distance(vUv, uMouse);
-    // transparency: the closer the cursor, the stronger the particle is visible.
-    float alpha = 1.3 - smoothstep(0.0, 0.2, d);
-
-    // make every particle rounded cutting all after radius of 05.5
-    if(distanceToCenter > 0.5) {
-        discard;
+    if (distanceToCenter > 0.5) {
+        discard; // stop drawing pixels outside the circular point
     }
-    //we color the vertex with the color from the texture and apply transparency based on the distance to the cursor. The closer to the cursor, the more visible the particle is.
-    gl_FragColor = vec4(pictureColor.rgb, alpha);
+
+    // Final color: base color, much brighter near the cursor for strong bloom effect.
+    gl_FragColor = vec4(
+        baseColor * (1.0 + glow * 2.2), // strong bloom multiplier
+        pictureColor.a * alpha // use texture alpha multiplied by our alpha
+    );
 }
