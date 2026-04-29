@@ -5,7 +5,7 @@ import { createNoise3D } from "simplex-noise";
 import { useControls } from "leva";
 
 export default function Particles() {
-  const texture = useLoader(THREE.TextureLoader, "./textures/circle_05.png");
+  const texture = useLoader(THREE.TextureLoader, "/textures/circle_05.png");
   const {
     scale,
     size_x,
