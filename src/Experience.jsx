@@ -15,8 +15,7 @@ import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
 import AnimatedSoren from "./Components/3DModel/animatedSoren/Soren.jsx";
 // ________ POINTS OF INTEREST ________/
-import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
-import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
+
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
 import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
@@ -69,7 +68,7 @@ export default function Experience() {
   // });
 
   const { CAMERA_LOCK } = useControls("camera lock ", {
-    CAMERA_LOCK: false,
+    CAMERA_LOCK: true,
   });
 
   return (
@@ -95,13 +94,12 @@ export default function Experience() {
       <CalculateDistance />
       {/* ______________________ MODELS __________________/ */}
       {/* _____________ INTERACTION __________/ */}
-      {/* <Cristal /> */}
-      {/* <Panel /> */}
+
       <Pointer />
       <AmmoBox />
       <BrokenRobot />
       <Poster />
-      {/* <Interaction /> */}
+      <Interaction />
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
         <Decors />

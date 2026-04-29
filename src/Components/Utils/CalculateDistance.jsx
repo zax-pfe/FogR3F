@@ -75,8 +75,8 @@ export default function CalculateDistance() {
         const distance = playerPositionWorld.distanceTo(obj.position);
         if (distance < DISTANCE_THRESHOLD) {
           setElementContacted(obj.name);
-          console.log(`Player is close to ${obj.name}`);
-          break; // Stop checking after the first match
+          // console.log(`Player is close to ${obj.name}`);
+          // break; // Stop checking after the first match
         }
       }
     }

@@ -67,7 +67,7 @@ export default function CharacterController() {
   // ______________________ LEVA CONTROLS __________________/
   const { WALK_SPEED, CAMERA_LOCK } = useControls("Character Test Controls", {
     WALK_SPEED: { value: 1, min: 0, max: 20, step: 0.1 },
-    CAMERA_LOCK: false,
+    CAMERA_LOCK: true,
   });
 
   // ______________________ FRAME UPDATE __________________/
