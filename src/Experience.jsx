@@ -13,6 +13,8 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
+// import AnimatedSoren from "./Components/3DModel/animatedSoren/SorenMultipleAnim.jsx";
+import AnimatedSoren from "./Components/3DModel/animatedSoren/Soren.jsx";
 // ________ POINTS OF INTEREST ________/
 import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
 import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
@@ -87,7 +89,6 @@ export default function Experience() {
         maxPolarAngle={CAMERA_LOCK ? Math.PI / 2.4 : Math.PI} // empêche de regarder trop vers le haut
         enableZoom={CAMERA_LOCK ? false : true}
       />
-
       <Perf position="top-left" />
       <Lights />
       <CalculateDistance />
@@ -107,7 +108,8 @@ export default function Experience() {
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <ParticlesShader />
+      {/* <ParticlesShader /> */}
+      {/* <AnimatedSoren /> */}
     </>
   );
 }

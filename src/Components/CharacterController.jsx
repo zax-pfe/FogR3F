@@ -11,7 +11,8 @@ import MolecTest from "./3DModel/MolecTest.jsx";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";
-import AnimatedSoren from "./3DModel/AnimatedSoren.jsx";
+
+import AnimatedSoren from "./3DModel/animatedSoren/Soren.jsx";
 
 // ______________________ UTILS __________________/
 
