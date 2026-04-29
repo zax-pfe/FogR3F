@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { RigidBody, CapsuleCollider } from "@react-three/rapier";
 import { MathUtils, Vector3 } from "three";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import { useControls } from "leva";
 import Character from "./3DModel/Character";
@@ -36,65 +36,74 @@ const lerpAngle = (start, end, t) => {
   return normalizeAngle(start + (end - start) * t);
 };
 
-// export default function CharacterController({ characterRef }) {
-const CharacterController = forwardRef((props, ref) => {
+export default function CharacterController() {
   // ______________________ REFS & VARIABLES __________________/
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
   const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
+  const controlsRef = useGameStore((state) => state.controlsRef);
 
-  // ______________________ PARTICLES __________________/
+  const { camera } = useThree();
+
+  // ______________________ INIT CAMERA AND PLAYER POSITION __________________/
+
+  useEffect(() => {
+    // console.log(":", controlsRef);
+    camera.position.set(0, 1.6, -5);
+    if (rb.current) {
+      const pos = rb.current.translation();
+      setPlayerPosition(pos);
+    }
+  }, [rb.current]);
 
   // Camera refs
   const container = useRef();
-  const cameraTarget = useRef();
-  const cameraPosition = useRef();
-  const cameraWorldPosition = useRef(new Vector3());
-  const cameraLookAtWorldPosition = useRef(new Vector3());
-  const cameraLookAt = useRef(new Vector3());
-
-  // Rotation
-  const characterRotationTarget = useRef(0);
-  const rotationTarget = useRef(0);
-
   const [, get] = useKeyboardControls(); // Get input controls
 
   // ______________________ LEVA CONTROLS __________________/
-  const {
-    WALK_SPEED,
-    ROTATION_SPEED,
-    camera_target_z,
-    camera_position_y,
-    camera_position_z,
-    cameraPositions,
-    orbitControlsEnabled,
-  } = useControls("Character Test Controls", {
+  const { WALK_SPEED, CAMERA_LOCK } = useControls("Character Test Controls", {
     WALK_SPEED: { value: 1, min: 0, max: 20, step: 0.1 },
-    ROTATION_SPEED: {
-      value: degToRad(1.5),
-      min: degToRad(0.1),
-      max: degToRad(5),
-      step: degToRad(0.1),
-    },
-    camera_target_z: { value: 4, min: -10, max: 10, step: 0.1 },
-    camera_position_y: { value: 7, min: 0, max: 20, step: 0.1 },
-    camera_position_z: { value: -15, min: -50, max: 0, step: 0.1 },
-    // cameraPositions: {
-    //   value: { z: 7, y: -15 },
-    //   step: 0.1,
-    //   joystick: "invertY"z,
-    // },
-    orbitControlsEnabled: true,
+    CAMERA_LOCK: true,
   });
 
   // ______________________ FRAME UPDATE __________________/
 
   useFrame(({ camera }, delta) => {
-    // ______________________ OBJECT CONTROLS __________________/
+    // ______________________ CAMERA CONTROLS __________________/
 
-    if (!rb.current) return;
+    if (!rb.current || !controlsRef?.current) return;
+    const controls = controlsRef.current;
+
+    if (CAMERA_LOCK) {
+      const playerPos = rb.current.translation();
+      // console.log("Player position:", playerPos);
+      const target = new THREE.Vector3(playerPos.x, playerPos.y, playerPos.z);
+
+      const offset = new THREE.Vector3().subVectors(
+        controls.object.position,
+        controls.target,
+      );
+      const newCameraPos = target.clone().add(offset);
+
+      controls.object.position.copy(newCameraPos);
+
+      controls.target.copy(target);
+
+      controls.update();
+    }
+
+    // ______________________ PLAYER CONTROLS __________________/
+    const cameraDirection = new THREE.Vector3();
+    camera.getWorldDirection(cameraDirection);
+    cameraDirection.y = 0;
+    cameraDirection.normalize();
+    // console.log("Camera direction:", cameraDirection);
+
+    const right = new THREE.Vector3();
+    right.crossVectors(cameraDirection, new THREE.Vector3(0, 1, 0));
+    right.normalize();
 
     const vel = rb.current.linvel();
 
@@ -102,59 +111,37 @@ const CharacterController = forwardRef((props, ref) => {
     // Inputs
     if (get().forward) movement.z = 1;
     if (get().backward) movement.z = -1;
-    if (get().left) movement.x = 1;
-    if (get().right) movement.x = -1;
+    if (get().left) movement.x = -1;
+    if (get().right) movement.x = 1;
 
     // _________________________ ROTATION _________________________/
 
-    if (movement.x !== 0) {
-      rotationTarget.current += ROTATION_SPEED * movement.x * delta * 50;
-    }
+    const moveDirection = new THREE.Vector3();
 
-    // _________________________ TRANSLATION _________________________/
-    // if (movement.z !== 0 || movement.x !== 0) {
-    if (movement.z !== 0) {
-      setPlayerAnimation("walk");
-
-      const moveAngle = Math.atan2(movement.x, movement.z);
-      const finalAngle = rotationTarget.current + moveAngle;
-
-      vel.z = Math.cos(finalAngle) * WALK_SPEED;
-      vel.x = Math.sin(finalAngle) * WALK_SPEED;
-    } else {
+    moveDirection.addScaledVector(cameraDirection, movement.z);
+    moveDirection.addScaledVector(right, movement.x);
+    // console.log("Move direction:", moveDirection);
+    if (moveDirection.length() === 0) {
       setPlayerAnimation("idle");
-      vel.x = 0;
-      vel.z = 0;
+      return;
     }
 
-    character.current.rotation.y = lerpAngle(
-      character.current.rotation.y,
-      characterRotationTarget.current,
+    const targetAngle = Math.atan2(moveDirection.x, moveDirection.z);
+
+    container.current.rotation.y = lerpAngle(
+      container.current.rotation.y,
+      targetAngle,
       0.1,
     );
+    setPlayerAnimation("walk");
+
+    vel.x =
+      (cameraDirection.x * movement.z + right.x * movement.x) * WALK_SPEED;
+
+    vel.z =
+      (cameraDirection.z * movement.z + right.z * movement.x) * WALK_SPEED;
 
     rb.current.setLinvel(vel, true);
-
-    // ______________________ CAMERA CONTROLS __________________/
-    container.current.rotation.y = MathUtils.lerp(
-      container.current.rotation.y,
-      rotationTarget.current,
-      0.1,
-    );
-    if (orbitControlsEnabled) {
-      cameraPosition.current.getWorldPosition(cameraWorldPosition.current);
-      camera.position.lerp(cameraWorldPosition.current, 0.1);
-
-      if (cameraTarget.current) {
-        cameraTarget.current.getWorldPosition(
-          cameraLookAtWorldPosition.current,
-        );
-        cameraLookAt.current.lerp(cameraLookAtWorldPosition.current, 0.1);
-
-        camera.lookAt(cameraLookAt.current);
-      }
-    }
-    // ______________________ PARTICLES __________________/
 
     setPlayerPosition(rb.current.translation());
   });
@@ -166,22 +153,15 @@ const CharacterController = forwardRef((props, ref) => {
       ref={rb}
       linearDamping={4}
       angularDamping={8}
-      position={[0, 5, 0]}
+      position={[-6.058, 5, 24.83]}
     >
       <group ref={container}>
-        <group ref={cameraTarget} position-z={camera_target_z} />
-        <group
-          ref={cameraPosition}
-          position-y={camera_position_y}
-          position-z={camera_position_z}
-        />
         <group ref={character}>
-          <Character ref={ref} />
+          <Character />
         </group>
       </group>
       <CapsuleCollider args={[0.1, 0.4]} />
     </RigidBody>
   );
   // }
-});
-export default CharacterController;
+}

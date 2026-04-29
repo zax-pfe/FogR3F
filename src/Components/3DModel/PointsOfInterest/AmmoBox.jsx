@@ -6,7 +6,7 @@ import { Outlines } from "@react-three/drei";
 export default function AmmoBox(props) {
   const ammoBoxRef = useRef();
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/military_supply_box.glb",
+    "/assets/3DModels/Interactive/military_supply_box.glb",
   );
 
   const setAmmoBoxPosition = useGameStore((state) => state.setAmmoBoxPosition);
@@ -39,4 +39,4 @@ export default function AmmoBox(props) {
   );
 }
 
-useGLTF.preload("/military_supply_box.glb");
+useGLTF.preload("/assets/3DModels/Interactive/military_supply_box.glb");

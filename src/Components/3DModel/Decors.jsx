@@ -1,6 +1,12 @@
-import React from "react";
+import { useRef, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
+import { useGameStore } from "../../store/store.js";
+import { Outlines, Sparkles } from "@react-three/drei";
+import PressButtonUI from "./PointsOfInterest/PressButtonUI.jsx";
+import { useFrame } from "@react-three/fiber";
+
+import * as THREE from "three";
 
 export default function Decors(props) {
   const { nodes, materials } = useGLTF("/assets/3DModels/DECORS.glb");
@@ -8,189 +14,194 @@ export default function Decors(props) {
   return (
     <group {...props} dispose={null}>
       {/* ================= VISUALS ================= */}
- 
+
       <mesh
-        geometry={nodes['+Broken_roof'].geometry}
-        material={materials['+Wood_light']}
+        geometry={nodes["+Broken_roof"].geometry}
+        material={materials["+Wood_light"]}
       />
       <mesh
-        geometry={nodes['+Ruins'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+Ruins"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+Destroyed'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+Destroyed"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+dest'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+dest"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+Boat'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+Boat"].geometry}
+        material={materials["+Wood_dark"]}
         position={[-2.587, 0.541, -5.515]}
       />
       <mesh
-        geometry={nodes['+Bridge'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+Bridge"].geometry}
+        material={materials["+Wood_dark"]}
         position={[0.83, -0.533, 6.138]}
       />
-    
+
       <mesh
-        geometry={nodes['+scarecrow'].geometry}
-        material={materials['+Fiero']}
+        geometry={nodes["+scarecrow"].geometry}
+        material={materials["+Fiero"]}
       />
       <mesh
-        geometry={nodes['+LeafsALL001'].geometry}
-        material={materials['+Leafs']}
+        geometry={nodes["+LeafsALL001"].geometry}
+        material={materials["+Leafs"]}
       />
       <mesh
-        geometry={nodes['+tronk'].geometry}
-        material={materials['+Tronk']}
+        geometry={nodes["+tronk"].geometry}
+        material={materials["+Tronk"]}
         position={[29.045, 3.761, -10.396]}
         rotation={[-Math.PI / 2, 0, -1.458]}
         scale={0.371}
       />
       <mesh
-        geometry={nodes['+house3_1'].geometry}
-        material={materials['+Stone_dark']}
+        geometry={nodes["+house3_1"].geometry}
+        material={materials["+Stone_dark"]}
       />
       <mesh
-        geometry={nodes['+house3_2'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+house3_2"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+house4_1'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+house4_1"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+house4_2'].geometry}
-        material={materials['+BlueDark']}
+        geometry={nodes["+house4_2"].geometry}
+        material={materials["+BlueDark"]}
       />
       <mesh
-        geometry={nodes['+house4_3'].geometry}
-        material={materials['+Stone']}
+        geometry={nodes["+house4_3"].geometry}
+        material={materials["+Stone"]}
       />
       <mesh
-        geometry={nodes['+house_1'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+house_1"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+house_2'].geometry}
-        material={materials['+Stone_dark']}
+        geometry={nodes["+house_2"].geometry}
+        material={materials["+Stone_dark"]}
       />
       <mesh
-        geometry={nodes['+house_3'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+house_3"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+house2_1'].geometry}
-        material={materials['+Stone']}
+        geometry={nodes["+house2_1"].geometry}
+        material={materials["+Stone"]}
       />
       <mesh
-        geometry={nodes['+house2_2'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+house2_2"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_dest_1'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+BigHouse_dest_1"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_dest_2'].geometry}
-        material={materials['+Wood_light']}
+        geometry={nodes["+BigHouse_dest_2"].geometry}
+        material={materials["+Wood_light"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_dest_3'].geometry}
-        material={materials['+Texture_stone_circle']}
+        geometry={nodes["+BigHouse_dest_3"].geometry}
+        material={materials["+Texture_stone_circle"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_dest_4'].geometry}
-        material={materials['+Stone']}
+        geometry={nodes["+BigHouse_dest_4"].geometry}
+        material={materials["+Stone"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_des1'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+BigHouse_des1"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_des1_1'].geometry}
-        material={materials['+Stone']}
+        geometry={nodes["+BigHouse_des1_1"].geometry}
+        material={materials["+Stone"]}
       />
       <mesh
-        geometry={nodes['+BigHouse_des1_2'].geometry}
-        material={materials['+Green_walls']}
+        geometry={nodes["+BigHouse_des1_2"].geometry}
+        material={materials["+Green_walls"]}
       />
       <mesh
-        geometry={nodes['+dest_house_1'].geometry}
-        material={materials['+BlueDark']}
+        geometry={nodes["+dest_house_1"].geometry}
+        material={materials["+BlueDark"]}
       />
       <mesh
-        geometry={nodes['+dest_house_2'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+dest_house_2"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+Tent_dest_1'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+Tent_dest_1"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+Tent_dest_2'].geometry}
-        material={materials['+DarkGreen ']}
+        geometry={nodes["+Tent_dest_2"].geometry}
+        material={materials["+DarkGreen "]}
       />
       <mesh
-        geometry={nodes['+Tent_dest_3'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+Tent_dest_3"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+Tent_dest_4'].geometry}
-        material={materials['+Wood_light']}
+        geometry={nodes["+Tent_dest_4"].geometry}
+        material={materials["+Wood_light"]}
       />
       <mesh
-        geometry={nodes['+barac_1'].geometry}
-        material={materials['+Wood_dark']}
+        geometry={nodes["+barac_1"].geometry}
+        material={materials["+Wood_dark"]}
       />
       <mesh
-        geometry={nodes['+barac_2'].geometry}
-        material={materials['+Wood_light']}
+        geometry={nodes["+barac_2"].geometry}
+        material={materials["+Wood_light"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_1'].geometry}
-        material={materials['+Brics']}
+        geometry={nodes["+ROCKSALL2_1"].geometry}
+        material={materials["+Brics"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_2'].geometry}
-        material={materials['+Stone']}
+        geometry={nodes["+ROCKSALL2_2"].geometry}
+        material={materials["+Stone"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_3'].geometry}
-        material={materials['+Stone_dark']}
+        geometry={nodes["+ROCKSALL2_3"].geometry}
+        material={materials["+Stone_dark"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_4'].geometry}
-        material={materials['+DarkGreen ']}
+        geometry={nodes["+ROCKSALL2_4"].geometry}
+        material={materials["+DarkGreen "]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_5'].geometry}
-        material={materials['+GreenDark2']}
+        geometry={nodes["+ROCKSALL2_5"].geometry}
+        material={materials["+GreenDark2"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_6'].geometry}
-        material={materials['+GreenDark2']}
+        geometry={nodes["+ROCKSALL2_6"].geometry}
+        material={materials["+GreenDark2"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_7'].geometry}
-        material={materials['+Texture_stone_circle']}
+        geometry={nodes["+ROCKSALL2_7"].geometry}
+        material={materials["+Texture_stone_circle"]}
       />
       <mesh
-        geometry={nodes['+ROCKSALL2_8'].geometry}
-        material={materials['+Stone']}
+        geometry={nodes["+ROCKSALL2_8"].geometry}
+        material={materials["+Stone"]}
       />
-      <mesh
-        geometry={nodes['+Pointer_1'].geometry}
-        material={materials['+Wood_dark']}
-      />
-      <mesh
-        geometry={nodes['+Pointer_2'].geometry}
-        material={nodes['+Pointer_2'].material}
-      /> 
+      {/* ================= POINT OF INTEREST ================= */}
+
+      {/* <group>
+        <mesh
+          geometry={nodes["+Pointer_1"].geometry}
+          material={materials["+Wood_dark"]}
+        />
+        <mesh
+          geometry={nodes["+Pointer_2"].geometry}
+          material={nodes["+Pointer_2"].material}
+        />
+      </group> */}
+
       {/* ================= PHYSICS ONLY ================= */}
 
       <group name="physics-obstacles">
@@ -198,11 +209,19 @@ export default function Decors(props) {
           <CuboidCollider args={[1.2, 0.5, 1]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[25.47, 3.98, 18.309]}>
+        <RigidBody
+          type="fixed"
+          colliders={false}
+          position={[25.47, 3.98, 18.309]}
+        >
           <CuboidCollider args={[1, 0.4, 0.5]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[29.045, 3.761, -10.396]}>
+        <RigidBody
+          type="fixed"
+          colliders={false}
+          position={[29.045, 3.761, -10.396]}
+        >
           <CuboidCollider args={[0.7, 0.7, 0.7]} />
         </RigidBody>
 
@@ -241,7 +260,7 @@ export default function Decors(props) {
         <RigidBody type="fixed" colliders={false} position={[10.4, 4.5, 4.6]}>
           <CuboidCollider args={[1.2, 1, 1.2]} />
         </RigidBody>
-      </group>  
+      </group>
     </group>
   );
 }

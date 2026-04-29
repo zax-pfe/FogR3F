@@ -13,5 +13,9 @@ export default function Interaction() {
     }
   }, [interact, elementContacted]);
 
+  useEffect(() => {
+    console.log("Element contacted changed:", elementContacted);
+  }, [elementContacted]);
+
   return null;
 }

@@ -4,6 +4,7 @@ import Letterbox from "../Letterbox/Letterbox";
 import ToolsWheel from "../ToolsWheel/ToolsWheel";
 import PopupObject from "../PopupObject/PopupObject";
 import TabObject from "../TabObject/TabObject";
+import Tronk from "../Tronk/Tronk";
 
 const Hud = () => {
 
@@ -17,6 +18,7 @@ const Hud = () => {
             <TabObject viewObject={viewObject} setViewObject={setViewObject} />
             <ToolsWheel />
             <Letterbox show={showLetterbox} />
+            <Tronk />
         </div>
     );
 };

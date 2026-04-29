@@ -6,7 +6,8 @@ import { Center, Sparkles, PivotControls } from "@react-three/drei";
 import { Perf } from "r3f-perf";
 import * as THREE from "three";
 import { Physics } from "@react-three/rapier";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
+import { useGameStore } from "./store/store.js";
 
 // ______________________ 3D MODELS __________________/
 import Terrain from "./Components/3DModel/Terrain.jsx";
@@ -17,12 +18,11 @@ import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
 import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
 import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
+import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
 
 // ______________________ EXPERIENCE __________________/
-import InvisibleWall from "./Components/InvisibleWall.jsx";
 import Particles from "./Components/VFX/Particles.jsx";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
-import VFX from "./Components/VFX/VFX.jsx";
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
 import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
@@ -40,6 +40,14 @@ export default function Experience() {
   // ______________________ VARIABLES __________________/
 
   const characterRef = useRef();
+  const controlsRef = useRef();
+
+  // ______________ ZUSTAND _____________/
+  const setControlsRef = useGameStore((state) => state.setControlsRef);
+
+  useEffect(() => {
+    setControlsRef(controlsRef);
+  }, [setControlsRef]);
 
   // ______________________ LEVA CONTROLS __________________/
   const controlFog = useControls("Fog", {
@@ -56,6 +64,10 @@ export default function Experience() {
   //   z: { value: 20, min: -50, max: 50, step: 0.1 },
   // });
 
+  const { CAMERA_LOCK } = useControls("camera lock ", {
+    CAMERA_LOCK: true,
+  });
+
   return (
     <>
       {/* ______________________ FOG__________________/ */}
@@ -64,41 +76,37 @@ export default function Experience() {
         args={[controlFog.color, controlFog.near, controlFog.far]}
       />
       <color attach="background" args={[controlFog.color]} />
-
-
       {/* ______________________ POST PROCESSING__________________/ */}
       {/* <PostProcessing /> */}
-
       {/* ______________________ SETUP __________________/ */}
-      <OrbitControls makeDefault />
+      <OrbitControls
+        ref={controlsRef}
+        makeDefault
+        minPolarAngle={CAMERA_LOCK ? Math.PI / 6 : 0} // empêche de regarder trop vers le bas
+        maxPolarAngle={CAMERA_LOCK ? Math.PI / 2.4 : Math.PI} // empêche de regarder trop vers le haut
+        enableZoom={CAMERA_LOCK ? false : true}
+      />
+
       <Perf position="top-left" />
       <Lights />
       <CalculateDistance />
-
       {/* ______________________ MODELS __________________/ */}
       {/* _____________ INTERACTION __________/ */}
       <Cristal />
       <Panel />
+      <Pointer />
       <Interaction />
-
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
         <Decors />
         <Trees />
-
         <CharacterController ref={characterRef} />
-
-        {/* <Cristal position={[0, 10, 0]} ref={cristalRef} /> */}
-        {/* <PivotControls anchor={[0, 0, 0]} depthTest={false}>
-            <InvisibleWall />
-          </PivotControls> */}
       </Physics>
       <Smoke />
       <MolecTest targetRef={characterRef} />
-
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <Particles />
+      {/* <Particles /> */}
     </>
   );
 }

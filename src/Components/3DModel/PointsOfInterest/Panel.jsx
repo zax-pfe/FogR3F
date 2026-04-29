@@ -6,9 +6,12 @@ import PressButtonUI from "./PressButtonUI.jsx";
 
 export default function Panel(props) {
   const panelRef = useRef();
-  const { nodes, materials } = useGLTF("/assets/3DModels/panneau_marecage.glb");
+  const { nodes, materials } = useGLTF(
+    "/assets/3DModels/Interactive/panneau_marecage.glb",
+  );
   const setPanelPosition = useGameStore((state) => state.setPanelPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
+
   useEffect(() => {
     setPanelPosition(panelRef.current.position);
   }, []);
@@ -36,4 +39,4 @@ export default function Panel(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/panneau_marecage.glb");
+useGLTF.preload("/assets/3DModels/Interactive/panneau_marecage.glb");

@@ -7,7 +7,9 @@ import PressButtonUI from "./PressButtonUI.jsx";
 
 export default function Cristal(props) {
   const cristalRef = useRef();
-  const { nodes, materials } = useGLTF("/assets/3DModels/cristal_textured.glb");
+  const { nodes, materials } = useGLTF(
+    "/assets/3DModels/Interactive/cristal_textured.glb",
+  );
   const setCristalPosition = useGameStore((state) => state.setCristalPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
 
@@ -56,4 +58,4 @@ export default function Cristal(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/cristal_textured.glb");
+useGLTF.preload("/assets/3DModels/Interactive/cristal_textured.glb");

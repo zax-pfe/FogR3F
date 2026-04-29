@@ -10,10 +10,10 @@ export default function CalculateDistance() {
   const playerPosition = useGameStore((state) => state.playerPosition);
   //______________________ CRISTAL __________________/
   const cristalPosition = useGameStore((state) => state.cristalPosition);
-  //______________________ PANEL __________________/
   const panelPosition = useGameStore((state) => state.panelPosition);
-  //______________________ AMMO BOX __________________/
   const ammoBoxPosition = useGameStore((state) => state.ammoBoxPosition);
+  const pointerPosition = useGameStore((state) => state.pointerPosition);
+
   //______________________ CONTACT __________________/
   const setElementContacted = useGameStore(
     (state) => state.setElementContacted,
@@ -46,6 +46,14 @@ export default function CalculateDistance() {
         {
           name: "panel",
           position: new THREE.Vector3(panelPosition?.x, 0, panelPosition?.z),
+        },
+        {
+          name: "pointer",
+          position: new THREE.Vector3(
+            pointerPosition?.x,
+            0,
+            pointerPosition?.z,
+          ),
         },
         // {
         //   name: "ammoBox",

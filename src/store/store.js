@@ -7,6 +7,12 @@ export const useGameStore = create((set) => ({
   setPlayerPosition: (position) => set({ playerPosition: position }),
   playerAnimation: "idle",
   setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
+  playerRef: null,
+  setPlayerRef: (ref) => set({ playerRef: ref }),
+
+  // ______________________ CAMERA __________________/
+  controlsRef: null,
+  setControlsRef: (ref) => set({ controlsRef: ref }),
 
   // ______________________ POINTS OF INTEREST __________________/
 
@@ -16,6 +22,8 @@ export const useGameStore = create((set) => ({
   setPanelPosition: (position) => set({ panelPosition: position }),
   ammoBoxPosition: null,
   setAmmoBoxPosition: (position) => set({ ammoBoxPosition: position }),
+  pointerPosition: null,
+  setPointerPosition: (position) => set({ pointerPosition: position }),
 
   // ______________________ CONTACT __________________/
   elementContacted: null,
@@ -42,7 +50,7 @@ export const useGameStore = create((set) => ({
     return { selectedItems: newSelectedItems };
   }),
 
-	objectFind: [c_Objects[0], c_Objects[1]],
-	addObjectFind: (object) =>
-		set((state) => ({ objectFind: [...state.objectFind, object] })),
+  objectFind: [c_Objects[0], c_Objects[1]],
+  addObjectFind: (object) =>
+    set((state) => ({ objectFind: [...state.objectFind, object] })),
 }));
