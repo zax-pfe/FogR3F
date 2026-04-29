@@ -4,6 +4,7 @@ import { useMemo, useRef, useEffect } from "react";
 
 import particlesVertexShader from "../../../shaders/particles/vertex.glsl?raw";
 import particlesFragmentShader from "../../../shaders/particles/fragment.glsl?raw";
+import { useGameStore } from "../../../store/store";
 
 const SIZE = 6;
 const COUNT = 260;
@@ -12,6 +13,7 @@ const DISPLACEMENT_SIZE = 128; // Size of the canvas used for the displacement t
 
 export default function Particles() {
   const { camera } = useThree();
+  const {hotspotCurrent} = useGameStore();
 
   const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
 
@@ -61,6 +63,13 @@ export default function Particles() {
 
   uniforms.uPictureTexture.value = pictureTexture;
   uniforms.uDisplacementTexture.value = displacementTexture;
+
+  useEffect(() => {
+    if (hotspotCurrent) {
+      console.log("Hotspot current changed, updating texture:", hotspotCurrent);
+      uniforms.uPictureTexture.value = hotspotCurrent.logTexture ? new THREE.TextureLoader().load(hotspotCurrent.logTexture) : pictureTexture;
+    }
+  }, [hotspotCurrent]);
 
   useFrame((state) => {
     uniforms.uTime.value = state.clock.elapsedTime;
@@ -139,6 +148,7 @@ export default function Particles() {
     const intersection = new THREE.Vector3();
 
     const handleMouseMove = (event) => {
+
       const canvas = document.querySelector('canvas');
       if (!canvas) return;
 
