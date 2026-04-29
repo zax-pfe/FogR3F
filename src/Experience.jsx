@@ -13,14 +13,15 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
-// import AnimatedSoren from "./Components/3DModel/animatedSoren/SorenMultipleAnim.jsx";
 import AnimatedSoren from "./Components/3DModel/animatedSoren/Soren.jsx";
 // ________ POINTS OF INTEREST ________/
 import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
 import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
-import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
+import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
+import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
+import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
@@ -55,7 +56,7 @@ export default function Experience() {
   // ______________________ LEVA CONTROLS __________________/
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
-    far: { value: 61, min: 1, max: 150, step: 0.1 },
+    far: { value: 150, min: 1, max: 150, step: 0.1 },
     color: "#000000",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
@@ -94,10 +95,13 @@ export default function Experience() {
       <CalculateDistance />
       {/* ______________________ MODELS __________________/ */}
       {/* _____________ INTERACTION __________/ */}
-      <Cristal />
-      <Panel />
+      {/* <Cristal /> */}
+      {/* <Panel /> */}
       <Pointer />
-      <Interaction />
+      <AmmoBox />
+      <BrokenRobot />
+      <Poster />
+      {/* <Interaction /> */}
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
         <Decors />

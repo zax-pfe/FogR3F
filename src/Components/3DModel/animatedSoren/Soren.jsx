@@ -30,7 +30,6 @@ export default function AnimatedSoren(props) {
 
     if (playerAnimation === "walk") {
       idle_action.fadeOut(0.2);
-      console.log("Playing walk animation");
 
       walking_action.reset().fadeIn(0.2).play();
       // setCurrentAction("none");
@@ -38,7 +37,6 @@ export default function AnimatedSoren(props) {
     } else if (playerAnimation === "idle") {
       walking_action.fadeOut(1);
       idle_action.reset().fadeIn(0.2).play();
-      console.log("Playing idle animation");
     }
     return () => {
       walking_action.fadeOut(0.2);

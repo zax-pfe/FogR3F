@@ -50,7 +50,7 @@ export default function Pointer(props) {
           material={nodes["+Pointer_2"].material}
         />
       </group>
-      <Sparkles size={1} count={100} speed={1} scale={[1, 3, 1]} />
+      <Sparkles size={1} count={100} speed={1} scale={[1, 2, 1]} />
 
       <PressButtonUI element="pointer" />
     </group>

@@ -10,7 +10,7 @@ import { FileLoader } from "three";
 export default function ParticlesShader() {
   const vertexShader = useLoader(
     FileLoader,
-    "../../shaders/particles/vertex.glsl",
+    "../../shaders/environment_particles/vertex.glsl",
   );
 
   const fragmentShader = useLoader(
@@ -74,7 +74,8 @@ export default function ParticlesShader() {
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
     if (pointsRef.current) {
-      pointsRef.current.material.uniforms.uTime.value = time;
+      // pointsRef.current.material.uniforms.uTime.value = time;
+      pointsRef.current.material.uniforms.uTime.value = time % 100;
     }
   });
 

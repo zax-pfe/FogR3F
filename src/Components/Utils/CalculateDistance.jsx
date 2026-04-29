@@ -8,24 +8,25 @@ const DISTANCE_THRESHOLD = 2; // Distance threshold for interaction
 export default function CalculateDistance() {
   // ______________________ PLAYER __________________/
   const playerPosition = useGameStore((state) => state.playerPosition);
-  //______________________ CRISTAL __________________/
-  const cristalPosition = useGameStore((state) => state.cristalPosition);
-  const panelPosition = useGameStore((state) => state.panelPosition);
+  //______________________ INTERACTIONS OBJECTS __________________/
+  const posterPosition = useGameStore((state) => state.posterPosition);
   const ammoBoxPosition = useGameStore((state) => state.ammoBoxPosition);
   const pointerPosition = useGameStore((state) => state.pointerPosition);
-
+  const brokenRobotPosition = useGameStore(
+    (state) => state.brokenRobotPosition,
+  );
   //______________________ CONTACT __________________/
   const setElementContacted = useGameStore(
     (state) => state.setElementContacted,
   );
 
-  const memoizedPosition = useMemo(
+  const memorizedPosition = useMemo(
     () => playerPosition,
     [playerPosition?.x, playerPosition?.y, playerPosition?.z],
   );
 
   useEffect(() => {
-    if (memoizedPosition) {
+    if (memorizedPosition) {
       const playerPositionWorld = new THREE.Vector3(
         playerPosition.x,
         0,
@@ -40,12 +41,8 @@ export default function CalculateDistance() {
 
       const objectPositions = [
         {
-          name: "cristal",
-          position: new THREE.Vector3(cristalPosition.x, 0, cristalPosition.z),
-        },
-        {
-          name: "panel",
-          position: new THREE.Vector3(panelPosition?.x, 0, panelPosition?.z),
+          name: "poster",
+          position: new THREE.Vector3(posterPosition?.x, 0, posterPosition?.z),
         },
         {
           name: "pointer",
@@ -55,14 +52,22 @@ export default function CalculateDistance() {
             pointerPosition?.z,
           ),
         },
-        // {
-        //   name: "ammoBox",
-        //   position: new THREE.Vector3(
-        //     ammoBoxPosition?.x,
-        //     0,
-        //     ammoBoxPosition?.z,
-        //   ),
-        // },
+        {
+          name: "ammoBox",
+          position: new THREE.Vector3(
+            ammoBoxPosition?.x,
+            0,
+            ammoBoxPosition?.z,
+          ),
+        },
+        {
+          name: "brokenRobot",
+          position: new THREE.Vector3(
+            brokenRobotPosition?.x,
+            0,
+            brokenRobotPosition?.z,
+          ),
+        },
       ];
 
       setElementContacted(null);
@@ -70,10 +75,12 @@ export default function CalculateDistance() {
         const distance = playerPositionWorld.distanceTo(obj.position);
         if (distance < DISTANCE_THRESHOLD) {
           setElementContacted(obj.name);
+          console.log(`Player is close to ${obj.name}`);
+          break; // Stop checking after the first match
         }
       }
     }
-  }, [memoizedPosition]);
+  }, [memorizedPosition]);
 
   return <></>;
 }
