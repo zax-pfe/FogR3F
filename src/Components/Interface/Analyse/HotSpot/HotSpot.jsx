@@ -9,7 +9,7 @@ import { useGameStore } from "../../../../store/store";
 
 const HotSpot = ({ data, coo, refBox, isSelected }) => {
 
-    const { addSelectedItems } = useGameStore();
+    const { selectedItems, addSelectedItems, maxSelectedItems, removeSelectedItem } = useGameStore();
 
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -32,10 +32,19 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
         setOpen(false);
     }
 
-    const handleChosse = () => {
+    const handleChoose = () => {
+        if (selectedItems.length >= maxSelectedItems) {
+            return;
+        }
         console.log(`Element récolté : ${data.title}`);
         setSelected(true);
         handleClose();
+    }
+
+    const handleRemove = () => {
+        console.log(`Element retiré : ${data.title}`);
+        removeSelectedItem(data);
+        setSelected(false);
     }
 
     useEffect(() => {
@@ -88,11 +97,22 @@ const HotSpot = ({ data, coo, refBox, isSelected }) => {
                             <Text variant="b3" className={s.popUp__text}>
                                 {data.text}
                             </Text>
-                            {!isSelected && (
-                                <Button variant="xs" onClick={handleChosse}>
-                                    Récolter cet élément
-                                </Button>
-                            )}
+                            <div className={s.popUp__buttonContainer}>
+                                {!isSelected ? (
+                                    <Button className={s.popUp__button} variant="xs" onClick={handleChoose} disabled={selectedItems.length >= maxSelectedItems}>
+                                        Récolter cet élément
+                                    </Button>
+                                ) : (
+                                    <Button className={s.popUp__button} variant="xs" onClick={handleRemove} active={true}>
+                                        Retirer cet élément
+                                    </Button>
+                                )}
+                                {!isSelected && selectedItems.length >= maxSelectedItems && (
+                                    <Text variant="c3" className={s.warning}>
+                                        Nombre maximum d'éléments sélectionnés atteint.
+                                    </Text>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </>

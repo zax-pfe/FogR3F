@@ -161,4 +161,17 @@
 	&__text {
 		color: var(--color--gray-low);
 	}
+
+	&__button {
+		flex-shrink: 0;
+	}
+
+	&__buttonContainer {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 16px;
+
+		color: var(--color--gray-low);
+	}
 }
