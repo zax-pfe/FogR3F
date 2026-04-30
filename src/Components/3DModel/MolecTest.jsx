@@ -52,12 +52,12 @@ export default function MolecTest({ targetRef }) {
     <Trail
       width={10}
       color={"lightblue"}
-      length={3}
+      length={4}
       decay={0.1}
       local={true}
       stride={0}
       interval={1}
-      attenuation={(t) => t}
+      attenuation={(t) => t * t}
     >
       <meshLineMaterial
         color="#ecf9ff"

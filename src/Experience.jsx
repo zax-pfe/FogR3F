@@ -36,10 +36,6 @@ import GroundFog from "./Components/3DModel/GroundFog.jsx";
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
   const { camera } = useThree();
-  // console.log("Position caméra:", camera.position);
-  // console.log("Rotation caméra:", camera.rotation);
-  // console.log("FOV caméra:", camera.fov);
-  // console.log("Aspect caméra:", camera.);
 
   // ______________________ VARIABLES __________________/
 
