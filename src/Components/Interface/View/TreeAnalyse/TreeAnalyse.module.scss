@@ -1,0 +1,17 @@
+.treeAnalyse {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+	overflow: hidden;
+    background: url("/assets/images/MIL_Background2D.webp") no-repeat center center;
+    background-size: cover;
+
+	&__closeBtn {
+		position: absolute;
+		top: 24px;
+		left: 24px;
+	}
+}
