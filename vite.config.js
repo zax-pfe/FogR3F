@@ -4,11 +4,12 @@ import restart from "vite-plugin-restart";
 import glsl from "vite-plugin-glsl";
 
 export default {
-  root: "src/",
-  publicDir: "../public/",
-  plugins: [
-    // Restart server on static/public file change
-    restart({ restart: ["../public/**"] }),
+    root: 'src/',
+    publicDir: '../public/',
+    plugins:
+    [
+        // Restart server on static/public file change
+        restart({ restart: [ '../public/**', 'src/**/*.glsl' ] }),
 
     glsl(),
 
