@@ -1,20 +1,25 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Trail, Outlines } from "@react-three/drei";
+import { Trail, useHelper } from "@react-three/drei";
 import * as THREE from "three";
 
 import { extend } from "@react-three/fiber";
 import { MeshLineMaterial } from "meshline";
 import { useGameStore } from "../../store/store";
 
+import { MolecBody } from "./MolecBody.jsx";
+
 extend({ MeshLineMaterial });
 
 export default function MolecTest({ targetRef }) {
   const meshRef = useRef();
+  const lightRef = useRef();
   const targetWorld = useRef(new THREE.Vector3());
   const desired = useRef(new THREE.Vector3());
   const playerPosition = useGameStore((state) => state.playerPosition);
   const [initialized, setInitialized] = useState(false);
+
+  // useHelper(lightRef, THREE.PointLightHelper, 0.4, "#38ff15");
 
   useFrame((state, delta) => {
     // if (!meshRef.current || !targetRef?.current) {
@@ -48,7 +53,7 @@ export default function MolecTest({ targetRef }) {
       attenuation={(t) => t}
     >
       <meshLineMaterial
-        color="#aee6ff"
+        color="#ecf9ff"
         transparent
         opacity={0.2}
         depthWrite={false}
@@ -56,18 +61,23 @@ export default function MolecTest({ targetRef }) {
         lineWidth={0.35}
       />
 
-      <mesh scale={0.07} ref={meshRef}>
-        <sphereGeometry />
-        
-        <pointLight color={"#eae5c1"} intensity={7.5} distance={3} />
-        <meshStandardMaterial color={"#ffffff"} 
-           emissive={[1, 1, 1]}
-          emissiveIntensity={15}
-          toneMapped={false}/>
-        {/* <Outlines thickness={1} color="red" /> */}
-      </mesh>
-
-
+      <MolecBody ref={meshRef} scale={0.15}   >
+        <pointLight
+         
+          color="#b94fe3"
+          intensity={10}
+          distance={0.13}
+          position={[0, 0, 0]}
+        />
+       
+        <pointLight
+          ref={lightRef}
+          color="#ebebf3"
+          intensity={100}
+          distance={100}
+          position={[-4, 7, -12]}
+        />
+      </MolecBody>
     </Trail>
   );
 }

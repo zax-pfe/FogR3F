@@ -39,7 +39,7 @@ export default function PostProcessing() {
         />
 
         <Noise
-          opacity={0.2}
+          opacity={0.1}
           blendFunction={BlendFunction.SOFT_LIGHT}
         />
 

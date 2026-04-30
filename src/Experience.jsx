@@ -55,7 +55,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#2c2c2c",
+    color: "#4c5559",
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
@@ -108,9 +108,9 @@ export default function Experience() {
         {/* very light fig more in the air */}
         <GroundFog position={[6, 4.1, 8]} opacity={0.05} scale={2} color="#aaaaaa"/>
         {/* light fog next to the ground */}
-        <GroundFog position={[20, 3.8, 0]} scale={1} opacity={0.01} rotation={Math.PI }  color="#b0b0b0"/>
+        <GroundFog position={[20, 3.8, 0]} scale={1} opacity={0.03} rotation={Math.PI }  color="#b0b0b0"/>
         {/* thick fog next to the ground */}
-        <GroundFog position={[-2, 3.7, -0]} scale={2} opacity={0.05} color="#8a8a8a" />
+        <GroundFog position={[-2, 3.7, -0]} scale={2} opacity={0.09} color="#8a8a8a" />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}

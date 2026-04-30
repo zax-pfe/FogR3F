@@ -20,7 +20,7 @@ export default function Lights() {
       Y_directionalLight: { value: 8, min: 0, max: 10, step: 0.1 },
       Z_directionalLight: { value: 1.7, min: 0, max: 10, step: 0.1 },
       color: "#6d707f"  ,
-      ambiantLightIntensity: { value: 2.2, min: 0, max: 10, step: 0.1 },
+      ambiantLightIntensity: { value: 3.5, min: 0, max: 10, step: 0.1 },
     },
     { collapsed: true },
   );
