@@ -4,6 +4,7 @@ import { c_Dialogue } from "../../../constant/audio";
 import { convertSRT } from "../../../utils/convertSRT";
 import { useGameStore } from "../../../store/store";
 import Text from "../Design/Text/Text";
+import Subtitle from "../Design/Subtitle/Subtitle";
 
 const SubtitleManager = () => {
 
@@ -53,9 +54,13 @@ const SubtitleManager = () => {
             {subtitles.map((subtitleArray) => (
                 subtitleArray.index === currentAudio && (
                     subtitleArray.caption.map((subtitle, index) => (
-                        <Text variant="c1" key={index} className={s.subtitle}>
-                            {subtitle.text}
-                        </Text>
+                        <Subtitle
+                            key={index}
+                            text={subtitle.text}
+                            start={subtitle.start}
+                            duration={subtitle.duration}
+                            latest={subtitle.latest}
+                        />
                     ))
                 )
             ))}
