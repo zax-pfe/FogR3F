@@ -1,0 +1,12 @@
+.subtitleContainer {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 200px;
+    color: var(--color--white);
+    background: linear-gradient(to top, var(--color--bg-transparent-medium) 0%, transparent 100%);
+    z-index: 20;
+    pointer-events: none;
+}
