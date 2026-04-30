@@ -5,6 +5,12 @@ import { convertSRT } from "../../../utils/convertSRT";
 import { useGameStore } from "../../../store/store";
 import Text from "../Design/Text/Text";
 import Subtitle from "../Design/Subtitle/Subtitle";
+import { AnimatePresence, motion } from "motion/react";
+
+const SubtitleVariants = {
+    hidden: { opacity: 0, transition: { duration: 0.3 } },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+}
 
 const SubtitleManager = () => {
 
@@ -49,23 +55,27 @@ const SubtitleManager = () => {
         };
     }, []);
 
-    return currentAudio && (
-        <div className={s.subtitleContainer}>
-            {subtitles.map((subtitleArray) => (
-                subtitleArray.index === currentAudio && (
-                    subtitleArray.caption.map((subtitle, index) => (
-                        <Subtitle
-                            key={index}
-                            text={subtitle.text}
-                            start={subtitle.start}
-                            duration={subtitle.duration}
-                            latest={subtitle.latest}
-                        />
-                    ))
-                )
-            ))}
-        </div>
-    );
+    return (
+        <AnimatePresence>
+            {currentAudio && (
+                <motion.div key="subtitleContainer" className={s.subtitleContainer} initial="hidden" animate="visible" exit="hidden" variants={SubtitleVariants}>
+                    {subtitles.map((subtitleArray) => (
+                        subtitleArray.index === currentAudio && (
+                            subtitleArray.caption.map((subtitle, index) => (
+                                <Subtitle
+                                    key={index}
+                                    text={subtitle.text}
+                                    start={subtitle.start}
+                                    duration={subtitle.duration}
+                                    latest={subtitle.latest}
+                                />
+                            ))
+                        )
+                    ))}
+                </motion.div>
+            )}
+        </AnimatePresence>
+    )
 };
 
 export default SubtitleManager;
