@@ -12,7 +12,8 @@ import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";
 
-import AnimatedSoren from "./3DModel/animatedSoren/Soren.jsx";
+// import AnimatedSoren from "./3DModel/animatedSoren/Soren.jsx";
+import AnimatedSoren from "./3DModel/animatedSoren/UpdatedSoren.jsx";
 
 // ______________________ UTILS __________________/
 
@@ -66,7 +67,7 @@ export default function CharacterController() {
 
   // ______________________ LEVA CONTROLS __________________/
   const { WALK_SPEED, CAMERA_LOCK } = useControls("Character Test Controls", {
-    WALK_SPEED: { value: 2.9, min: 0, max: 20, step: 0.1 },
+    WALK_SPEED: { value: 1.3, min: 0, max: 20, step: 0.1 },
     CAMERA_LOCK: true,
   });
 

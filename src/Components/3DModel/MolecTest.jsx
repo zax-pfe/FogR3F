@@ -68,10 +68,10 @@ export default function MolecTest({ targetRef }) {
         lineWidth={0.35}
       />
 
-      <MolecBody ref={meshRef} scale={0.15}>
+      <MolecBody ref={meshRef} scale={0.12}>
         <pointLight
           color="#b94fe3"
-          intensity={10}
+          intensity={5}
           distance={0.13}
           position={[0, 0, 0]}
         />
@@ -79,7 +79,7 @@ export default function MolecTest({ targetRef }) {
         <pointLight
           ref={lightRef}
           color="#ebebf3"
-          intensity={100}
+          intensity={50}
           distance={100}
           position={[-4, 7, -12]}
         />
