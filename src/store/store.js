@@ -53,4 +53,9 @@ export const useGameStore = create((set) => ({
   objectFind: [c_Objects[0], c_Objects[1]],
   addObjectFind: (object) =>
     set((state) => ({ objectFind: [...state.objectFind, object] })),
+
+  // ______________________ AUDIO __________________/
+
+  currentAudio: null,
+  setCurrentAudio: (audio) => set({ currentAudio: audio }),
 }));

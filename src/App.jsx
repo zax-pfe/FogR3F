@@ -8,6 +8,8 @@ import { KeyboardControls } from "@react-three/drei";
 import Hud from "./Components/Interface/Hud/Hud";
 import { int } from "three/tsl";
 import { useGameStore } from "./store/store";
+import { convertSRT } from "./utils/convertSRT";
+import SubtitleManager from "./Components/Interface/SubtitleManager/SubtitleManager";
 
 const keys = {
   left: "arrowleft",
@@ -42,6 +44,7 @@ function App() {
       </ThreeScene>
       <ThreeAnalyse />
       <Hud />
+      <SubtitleManager />
       {/* <Loader /> */}
     </>
   );
