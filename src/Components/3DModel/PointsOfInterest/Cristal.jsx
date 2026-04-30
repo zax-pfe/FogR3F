@@ -45,9 +45,14 @@ export default function Cristal(props) {
       <Sparkles size={1} count={50} speed={1} scale={[0.6, 0.6, 0.6]} />
       <mesh
         geometry={nodes.Icosphere.geometry}
-        material={materials.cristal}
         frustumCulled={false}
       >
+        <meshStandardMaterial
+          map={materials.cristal.map}
+          emissive={new THREE.Color(1, 2, 10)}
+          emissiveIntensity={10}
+          toneMapped={false}
+        />
         {elementContacted === "cristal" && (
           <Outlines thickness={2} color="lightblue" />
         )}

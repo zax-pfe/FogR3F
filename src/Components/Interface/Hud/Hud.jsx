@@ -6,6 +6,8 @@ import PopupObject from "../PopupObject/PopupObject";
 import TabObject from "../TabObject/TabObject";
 
 const Hud = () => {
+  const [showLetterbox, setShowLetterbox] = useState(false);
+  const [viewObject, setViewObject] = useState(false);
 
     const [showLetterbox, setShowLetterbox] = useState(false);
     const [viewObject, setViewObject] = useState(false);

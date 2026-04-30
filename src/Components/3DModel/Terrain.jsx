@@ -19,7 +19,13 @@ export default function Terrain(props) {
          <mesh 
           geometry={nodes.RIDGID.geometry} 
         >
-          <meshBasicMaterial transparent opacity={0} />
+          <meshBasicMaterial
+            transparent
+            opacity={0}
+            depthWrite={false}
+            depthTest={false}
+            visible={false}
+          />
         </mesh>
         </MeshCollider>
       </RigidBody>
