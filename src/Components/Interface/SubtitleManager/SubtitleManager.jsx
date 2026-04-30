@@ -34,7 +34,7 @@ const SubtitleManager = () => {
                     return {
                         index: dialogue.index,
                         srcSubtitle: dialogue.srcSubtitle,
-                        caption: captions  // ✅ Maintenant c'est les vraies données
+                        caption: captions
                     };
                 })
             );
@@ -43,10 +43,6 @@ const SubtitleManager = () => {
 
         loadAllSubtitles();
     }, []);
-
-    useEffect(() => {
-        console.log("Subtitles in SubtitleManager: ", subtitles);
-    }, [subtitles]);
 
     useEffect(() => {
         document.addEventListener("keydown", handleDebugKeyDown);

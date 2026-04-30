@@ -10,6 +10,7 @@ import { int } from "three/tsl";
 import { useGameStore } from "./store/store";
 import { convertSRT } from "./utils/convertSRT";
 import SubtitleManager from "./Components/Interface/SubtitleManager/SubtitleManager";
+import AudioController from "./Components/AudioController";
 
 const keys = {
   left: "arrowleft",
@@ -45,6 +46,7 @@ function App() {
       <ThreeAnalyse />
       <Hud />
       <SubtitleManager />
+      <AudioController />
       {/* <Loader /> */}
     </>
   );
