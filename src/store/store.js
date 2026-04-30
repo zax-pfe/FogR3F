@@ -16,14 +16,14 @@ export const useGameStore = create((set) => ({
 
   // ______________________ POINTS OF INTEREST __________________/
 
-  cristalPosition: null,
-  setCristalPosition: (position) => set({ cristalPosition: position }),
-  panelPosition: null,
-  setPanelPosition: (position) => set({ panelPosition: position }),
   ammoBoxPosition: null,
   setAmmoBoxPosition: (position) => set({ ammoBoxPosition: position }),
   pointerPosition: null,
   setPointerPosition: (position) => set({ pointerPosition: position }),
+  brokenRobotPosition: null,
+  setBrokenRobotPosition: (position) => set({ brokenRobotPosition: position }),
+  posterPosition: null,
+  setPosterPosition: (position) => set({ posterPosition: position }),
 
   // ______________________ CONTACT __________________/
   elementContacted: null,

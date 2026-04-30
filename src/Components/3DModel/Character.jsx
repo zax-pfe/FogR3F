@@ -12,6 +12,7 @@ const Character = forwardRef((props, ref) => {
 
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState(null);
+
   const animationsNames = animations.map((anim) => anim.name);
 
   const { animationName } = useControls("soren", {

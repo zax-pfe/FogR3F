@@ -13,16 +13,18 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
-
+import AnimatedSoren from "./Components/3DModel/animatedSoren/Soren.jsx";
 // ________ POINTS OF INTEREST ________/
-import Panel from "./Components/3DModel/PointsOfInterest/Panel.jsx";
-import Cristal from "./Components/3DModel/PointsOfInterest/Cristal.jsx";
-import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
+
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
+import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
+import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
+import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
+import ParticlesShader from "./Components/VFX/ParticlesShader.jsx";
 import PostProcessing from "./Components/PostProcessing/PostProcessing.jsx";
 import Lights from "./Components/Lights/Lights.jsx";
 import Smoke from "./Components/3DModel/Smoke.jsx";
@@ -88,15 +90,16 @@ export default function Experience() {
         maxPolarAngle={CAMERA_LOCK ? Math.PI / 2.4 : Math.PI} // empêche de regarder trop vers le haut
         enableZoom={CAMERA_LOCK ? false : true}
       />
-
       <Perf position="top-left" />
       <Lights />
       <CalculateDistance />
       {/* ______________________ MODELS __________________/ */}
       {/* _____________ INTERACTION __________/ */}
-      <Cristal />
-      <Panel />
+
       <Pointer />
+      <AmmoBox />
+      <BrokenRobot />
+      <Poster />
       <Interaction />
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
@@ -114,7 +117,7 @@ export default function Experience() {
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      {/* <Particles /> */}
+      <ParticlesShader />
     </>
   );
 }

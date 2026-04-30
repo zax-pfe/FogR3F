@@ -12,6 +12,8 @@ import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";
 
+import AnimatedSoren from "./3DModel/animatedSoren/Soren.jsx";
+
 // ______________________ UTILS __________________/
 
 const normalizeAngle = (angle) => {
@@ -157,7 +159,8 @@ export default function CharacterController() {
     >
       <group ref={container}>
         <group ref={character}>
-          <Character />
+          {/* <Character /> */}
+          <AnimatedSoren />
         </group>
       </group>
       <CapsuleCollider args={[0.1, 0.4]} />
