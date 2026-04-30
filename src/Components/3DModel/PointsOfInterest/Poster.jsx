@@ -10,7 +10,7 @@ export default function Poster(props) {
   const posterRef = useRef();
 
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/poster3.glb",
+    "/assets/3DModels/Interactive/posters/posterRouge.glb",
   );
 
   const setPosterPosition = useGameStore((state) => state.setPosterPosition);
@@ -59,15 +59,15 @@ export default function Poster(props) {
       ref={posterRef}
     >
       <Sparkles size={1} count={100} speed={1} scale={[1, 1, 1]} />
-      <group scale={0.15} rotation={[-1.03, -1.5, 0.53]}>
+      <group scale={[0.15, 0.15, 0.15]} rotation={[-1.03, -1.5, 0.53]}>
         <PressButtonUI element="poster" />
 
         <mesh
           // castShadow
           // receiveShadow
-          geometry={nodes.Plane001.geometry}
+          geometry={nodes.planeBlanc.geometry}
           material={materials.posterMaterial2}
-          scale={[1.986, 1, 1.489]}
+          scale={[-1.986, 1, -1.489]}
         ></mesh>
 
         <mesh rotation={[-1.63, 0, 0]}>
@@ -84,4 +84,4 @@ export default function Poster(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/poster3.glb");
+useGLTF.preload("/assets/3DModels/Interactive/posters/posterBlanc.glb");

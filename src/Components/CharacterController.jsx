@@ -46,6 +46,7 @@ export default function CharacterController() {
   const character = useRef();
   const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
   const controlsRef = useGameStore((state) => state.controlsRef);
 
   const { camera } = useThree();
@@ -125,7 +126,9 @@ export default function CharacterController() {
     moveDirection.addScaledVector(right, movement.x);
     // console.log("Move direction:", moveDirection);
     if (moveDirection.length() === 0) {
-      setPlayerAnimation("idle");
+      if (playerAnimation !== "interaction") {
+        setPlayerAnimation("idle");
+      }
       return;
     }
 

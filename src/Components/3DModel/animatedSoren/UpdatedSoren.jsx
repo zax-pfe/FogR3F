@@ -9,11 +9,10 @@ export default function AnimatedSoren(props) {
     "/assets/3DModels/Soren/animated_soren.glb",
   );
   const animationsNames = animations.map((anim) => anim.name);
-  console.log("Available animations:", animationsNames);
 
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
-    const action = actions["action_calm_idle"];
+    const action = actions["action_looking_idle"];
 
     action.reset().fadeIn(0.2).play();
   }, []);
@@ -21,26 +20,36 @@ export default function AnimatedSoren(props) {
   const playerAnimation = useGameStore((state) => state.playerAnimation);
   const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
 
-  useEffect(() => {
-    // console.log("currentAction changed to:", currentAction);
-    // console.log("Player animation changed to:", playerAnimation);
+  // "action_calm_idle"
+  // "action_interaction"
+  // "action_looking_idle"
+  // "action_walking"
 
+  useEffect(() => {
     const walking_action = actions["action_walking"];
     const idle_action = actions["action_looking_idle"];
+    const interaction_action = actions["action_interaction"];
+
+    console.log("Current player animation:", playerAnimation);
 
     if (playerAnimation === "walk") {
       idle_action.fadeOut(0.2);
-
+      interaction_action.fadeOut(0.2);
       walking_action.reset().fadeIn(0.2).play();
-      // setCurrentAction("none");
-      // return;
     } else if (playerAnimation === "idle") {
       walking_action.fadeOut(1);
+      interaction_action.fadeOut(0.2);
       idle_action.reset().fadeIn(0.2).play();
+    } else if (playerAnimation === "interaction") {
+      walking_action.fadeOut(1);
+      idle_action.fadeOut(1);
+      interaction_action.reset().fadeIn(0.2).play();
     }
+
     return () => {
       walking_action.fadeOut(0.2);
       idle_action.fadeOut(0.2);
+      interaction_action.fadeOut(0.2);
     };
   }, [playerAnimation]);
 

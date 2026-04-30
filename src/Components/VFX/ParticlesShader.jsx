@@ -113,6 +113,7 @@ export default function ParticlesShader() {
           // transparent
           // opacity={0.4}
           // side={THREE.DoubleSide}
+          depthWrite={false}
           blending={THREE.AdditiveBlending}
           vertexColors={true}
           vertexShader={vertexShader}
