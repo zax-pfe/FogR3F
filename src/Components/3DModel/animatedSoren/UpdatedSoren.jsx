@@ -9,6 +9,7 @@ export default function AnimatedSoren(props) {
     "/assets/3DModels/Soren/animated_soren.glb",
   );
   const animationsNames = animations.map((anim) => anim.name);
+  console.log("Available animations:", animationsNames);
 
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
@@ -24,13 +25,14 @@ export default function AnimatedSoren(props) {
   // "action_interaction"
   // "action_looking_idle"
   // "action_walking"
+  // "action_interaction_2"
 
   useEffect(() => {
     const walking_action = actions["action_walking"];
     const idle_action = actions["action_looking_idle"];
-    const interaction_action = actions["action_interaction"];
+    const interaction_action = actions["action_interaction_2"];
 
-    console.log("Current player animation:", playerAnimation);
+    // console.log("Current player animation:", playerAnimation);
 
     if (playerAnimation === "walk") {
       idle_action.fadeOut(0.2);

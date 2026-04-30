@@ -13,7 +13,6 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
-import AnimatedSoren from "./Components/3DModel/animatedSoren/Soren.jsx";
 // ________ POINTS OF INTEREST ________/
 
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
