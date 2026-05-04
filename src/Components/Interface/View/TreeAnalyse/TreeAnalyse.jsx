@@ -6,6 +6,7 @@ import HotSpot from "../../Analyse/HotSpot/HotSpot";
 import SelectedItems from "../../Analyse/SelectedItems/SelectedItems";
 import { c_Arbre_HotSpots, c_Arbre_HotSpots_MustFind, coo_Ratio } from "../../../../constant/arbre_hotSpots";
 import Tronk from "../../Tronk/Tronk";
+import { c_AudioUI, c_Click } from "../../../../constant/audio";
 
 const TreeAnalyse = () => {
 
@@ -50,7 +51,10 @@ const TreeAnalyse = () => {
     return showAnalyse && (
         <div className={s.treeAnalyse}>
             <Tronk />
-            <Button className={s.treeAnalyse__closeBtn} onClick={() => setShowAnalyse(false)}>Fermer la machine</Button>
+            <Button className={s.treeAnalyse__closeBtn} onClick={() => {
+                c_AudioUI.play('remove');
+                setShowAnalyse(false)
+            }}>Fermer la machine</Button>
             {/* // Analyse du tronc */}
             {c_Arbre_HotSpots.map((spot, index) => (
                 <HotSpot key={index} data={spot} coo={{ x: origin.x + coo_Ratio(spot.x), y: origin.y + coo_Ratio(spot.y) }} refBox={ref__selectedBox} />

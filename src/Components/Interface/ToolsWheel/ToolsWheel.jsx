@@ -3,6 +3,7 @@ import s from "./ToolsWheel.module.scss";
 import { AnimatePresence, motion, stagger } from "motion/react";
 import { useGameStore } from "../../../store/store";
 import { c_Tools } from "../../../constant/tools";
+import { c_AudioUI } from "../../../constant/audio";
 
 const ToolVariants = {
     initial: { opacity: 0, scale: 0.1, x: '50%', y: '50%', right: '82px', bottom: '82px' },
@@ -144,6 +145,8 @@ const ToolsWheel = () => {
             changeTool(newTool);
         }
 
+        c_AudioUI.play('toolRoll');
+
         setIsTransitioning(true);
     };
 
@@ -182,7 +185,10 @@ const ToolsWheel = () => {
                         <motion.div
                             key={index}
                             className={`${s.tool} ${index === currentToolId ? s.active : ""}`}
-                            onClick={() => changeTool(index)}
+                            onClick={() => {
+                                changeTool(index);
+                                c_AudioUI.play('toolSelect');
+                            }}
                             style={{
                                 right: `${tool.x}px`,
                                 bottom: `${tool.y}px`
