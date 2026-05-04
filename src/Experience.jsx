@@ -74,7 +74,7 @@ export default function Experience() {
 
   return (
     <>
-    <Environment preset="night" intensity={0.55} />
+    <Environment preset="night" />
       {/* ______________________ FOG__________________/ */}
       <fog
         attach="fog"
