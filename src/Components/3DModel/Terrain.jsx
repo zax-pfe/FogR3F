@@ -6,13 +6,15 @@ import { MeshBasicMaterial } from 'three';
 export default function Terrain(props) {
   const { nodes, materials } = useGLTF('/assets/3DModels/TERRAIN.glb')
   return (
-    <group {...props} dispose={null}  >
-     
-        <mesh 
-          // receiveShadow
+    <group {...props} dispose={null}  > 
+      <mesh 
           geometry={nodes.TERRAIN.geometry}
-          material={materials['Material.003']}
-        /> 
+          material={materials['Material.003']}>
+        <mesh 
+          geometry={nodes.Plane.geometry}
+          material={materials.Material}
+        />
+      </mesh>
 
         <RigidBody type="fixed"  colliders={false}>
          <MeshCollider type="trimesh" >
