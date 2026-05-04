@@ -11,6 +11,8 @@ import { convertSRT } from "./utils/convertSRT";
 import SubtitleManager from "./Components/Interface/SubtitleManager/SubtitleManager";
 import AudioController from "./Components/AudioController";
 
+import StartScreen from "./Components/Interface/View/StartScreen/StartScreen";
+
 // const keys = {
 //   left: "arrowleft",
 //   right: "arrowright",
@@ -38,13 +40,14 @@ function App() {
 
   return (
     <>
-      <ThreeScene>
+      {/* <ThreeScene>
         <Experience />
       </ThreeScene>
       <ThreeAnalyse />
       <Hud />
-      <SubtitleManager />
-      <AudioController />
+      <SubtitleManager /> */}
+      {/* <AudioController /> */}
+      <StartScreen />
       {/* <Loader /> */}
     </>
   );

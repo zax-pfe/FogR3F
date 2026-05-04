@@ -70,10 +70,7 @@ export default function Experience() {
   return (
     <>
       {/* ______________________ FOG__________________/ */}
-      <fog
-        attach="fog"
-        args={[controlFog.color, controlFog.near, controlFog.far]}
-      />
+      <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
       <PostProcessing />
@@ -104,27 +101,11 @@ export default function Experience() {
       </Physics>
       <Smoke />
       {/* very light fig more in the air */}
-      <GroundFog
-        position={[6, 4.1, 8]}
-        opacity={0.05}
-        scale={2}
-        color="#aaaaaa"
-      />
+      <GroundFog position={[6, 4.1, 8]} opacity={0.05} scale={2} color="#aaaaaa" />
       {/* light fog next to the ground */}
-      <GroundFog
-        position={[20, 3.8, 0]}
-        scale={1}
-        opacity={0.03}
-        rotation={Math.PI}
-        color="#b0b0b0"
-      />
+      <GroundFog position={[20, 3.8, 0]} scale={1} opacity={0.03} rotation={Math.PI} color="#b0b0b0" />
       {/* thick fog next to the ground */}
-      <GroundFog
-        position={[-2, 3.7, -0]}
-        scale={2}
-        opacity={0.09}
-        color="#8a8a8a"
-      />
+      <GroundFog position={[-2, 3.7, -0]} scale={2} opacity={0.09} color="#8a8a8a" />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}

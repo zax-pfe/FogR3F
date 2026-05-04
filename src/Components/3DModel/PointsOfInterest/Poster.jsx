@@ -10,7 +10,7 @@ export default function Poster(props) {
   const posterRef = useRef();
 
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/posters/posterRouge.glb",
+    "/assets/3DModels/Interactive/posters/posterBlanc.glb",
   );
 
   const setPosterPosition = useGameStore((state) => state.setPosterPosition);
@@ -21,37 +21,6 @@ export default function Poster(props) {
   }, []);
 
   return (
-    // <PivotControls
-    //   anchor={[0, 0, 0]}
-    //   depthTest={false}
-    //   onDrag={(localMatrix) => {
-    //     const position = new THREE.Vector3();
-    //     position.setFromMatrixPosition(localMatrix);
-    //     console.log("real position:", position);
-    //     const rotation = new THREE.Euler();
-    //     rotation.setFromRotationMatrix(localMatrix);
-    //     console.log("real rotation:", rotation);
-    //   }}
-    // >
-    //   <group
-    //     {...props}
-    //     dispose={null}
-    //     position={[17.37, 3.65, 18.97]}
-    //     scale={0.7}
-    //   >
-    //     <group rotation={[-Math.PI / 2, 0, Math.PI]}>
-    //       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-    //         <mesh
-    //           castShadow
-    //           receiveShadow
-    //           geometry={nodes.Poster_Poster_0.geometry}
-    //           material={materials.Poster}
-    //           position={[0, 96.131, 1.706]}
-    //         />
-    //       </group>
-    //     </group>
-    //   </group>
-
     <group
       {...props}
       dispose={null}

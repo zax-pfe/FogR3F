@@ -8,10 +8,7 @@ import { FileLoader } from "three";
 // import particlesFragmentShader from "../../shaders/particles/fragment.glsl";
 
 export default function ParticlesShader() {
-  const vertexShader = useLoader(
-    FileLoader,
-    "../../shaders/environment_particles/vertex.glsl",
-  );
+  const vertexShader = useLoader(FileLoader, "../../shaders/environment_particles/vertex.glsl");
 
   const fragmentShader = useLoader(
     FileLoader,
@@ -25,20 +22,19 @@ export default function ParticlesShader() {
   // console.log("fragmentShader:", fragmentShader);
 
   const texture = useLoader(THREE.TextureLoader, "./textures/circle_05.png");
-  const { size_x, size_y, size_z, position_x, position_y, position_z, color } =
-    useControls(
-      "Particles",
-      {
-        size_x: { value: 60, min: 2, max: 100, step: 1 },
-        size_y: { value: 6, min: 2, max: 100, step: 1 },
-        size_z: { value: 57, min: 2, max: 100, step: 1 },
-        position_x: { value: 11.3, min: -50, max: 50, step: 0.1 },
-        position_y: { value: 5.5, min: -50, max: 50, step: 0.1 },
-        position_z: { value: 5.4, min: -50, max: 50, step: 0.1 },
-        color: "#b9a3a3",
-      },
-      { collapsed: true },
-    );
+  const { size_x, size_y, size_z, position_x, position_y, position_z, color } = useControls(
+    "Particles",
+    {
+      size_x: { value: 60, min: 2, max: 100, step: 1 },
+      size_y: { value: 6, min: 2, max: 100, step: 1 },
+      size_z: { value: 57, min: 2, max: 100, step: 1 },
+      position_x: { value: 11.3, min: -50, max: 50, step: 0.1 },
+      position_y: { value: 5.5, min: -50, max: 50, step: 0.1 },
+      position_z: { value: 5.4, min: -50, max: 50, step: 0.1 },
+      color: "#b9a3a3",
+    },
+    { collapsed: true },
+  );
   const noise3D = createNoise3D();
   const pointsRef = useRef();
 
@@ -87,24 +83,9 @@ export default function ParticlesShader() {
       </mesh> */}
       <points ref={pointsRef}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={positions.length / 3}
-            array={positions}
-            itemSize={3}
-          />
-          <bufferAttribute
-            attach="attributes-aScale"
-            count={scales.length}
-            array={scales}
-            itemSize={1}
-          />
-          <bufferAttribute
-            attach="attributes-aSpeed"
-            count={movement_speed.length}
-            array={movement_speed}
-            itemSize={1}
-          />
+          <bufferAttribute attach="attributes-position" count={positions.length / 3} array={positions} itemSize={3} />
+          <bufferAttribute attach="attributes-aScale" count={scales.length} array={scales} itemSize={1} />
+          <bufferAttribute attach="attributes-aSpeed" count={movement_speed.length} array={movement_speed} itemSize={1} />
         </bufferGeometry>
 
         <shaderMaterial
