@@ -13,13 +13,15 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
-// ________ POINTS OF INTEREST ________/
 
+// ________ POINTS OF INTEREST ________/
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
 import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
-import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
+import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx"; 
+import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
+
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
@@ -32,9 +34,12 @@ import Decors from "./Components/3DModel/Decors.jsx";
 import Trees from "./Components/3DModel/Trees.jsx";
 import GroundFog from "./Components/3DModel/GroundFog.jsx";
 
+import { Environment } from '@react-three/drei'
+
+
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
-  const { camera } = useThree();
+  const { camera } = useThree(); 
 
   // ______________________ VARIABLES __________________/
 
@@ -69,6 +74,7 @@ export default function Experience() {
 
   return (
     <>
+    <Environment preset="night" intensity={0.55} />
       {/* ______________________ FOG__________________/ */}
       <fog
         attach="fog"
@@ -93,6 +99,7 @@ export default function Experience() {
 
       <Pointer />
       <AmmoBox />
+      <Tronk />
       <BrokenRobot />
       <Poster />
       <Interaction />
@@ -105,7 +112,7 @@ export default function Experience() {
       <Smoke />
       {/* very light fig more in the air */}
       <GroundFog
-        position={[6, 4.1, 8]}
+        position={[6, 3.9, 8]}
         opacity={0.05}
         scale={2}
         color="#aaaaaa"
