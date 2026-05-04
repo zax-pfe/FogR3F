@@ -40,7 +40,7 @@ function App() {
 
   return (
     <>
-      <ThreeScene>
+      <ThreeScene placeholder>
         <Experience />
       </ThreeScene>
       <ThreeAnalyse />

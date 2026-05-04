@@ -21,6 +21,7 @@
 			height 0.3s var(--easing), background-color 0.3s var(--easing),
 			outline-color 0.3s var(--easing);
 		box-shadow: 0 0 24px 0 var(--color--white);
+		// filter: blur(1px);
 		outline: 1px solid transparent;
 		outline-offset: 3px;
 
@@ -34,7 +35,7 @@
 		&.active {
 			opacity: 1;
 			background-color: var(--color--violet);
-			box-shadow: 0 0 24px 0 var(--color--violet);
+			box-shadow: 0 0 24px 0 #9685ff;
 			width: calc(32px * 0.8);
 			height: calc(32px * 0.8);
 
