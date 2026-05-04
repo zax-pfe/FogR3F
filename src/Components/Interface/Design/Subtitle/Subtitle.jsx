@@ -7,7 +7,7 @@ import { useGameStore } from "../../../../store/store";
 
 const Subtitle = ({ text, start, duration, latest }) => {
 
-    const { setCurrentAudio } = useGameStore();
+    const { setCurrentDialogue } = useGameStore();
 
     const multiLine = text.split("\r\n");
     const r_Subtitle = useRef();
@@ -27,7 +27,7 @@ const Subtitle = ({ text, start, duration, latest }) => {
             onComplete: () => {
                 if (latest) {
                     console.log("Last subtitle finished, resetting current audio.");
-                    setCurrentAudio(null); // Reset current audio to hide subtitles
+                    setCurrentDialogue(null); // Reset current audio to hide subtitles
                 }
             }
         });

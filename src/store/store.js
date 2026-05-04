@@ -56,6 +56,6 @@ export const useGameStore = create((set) => ({
 
   // ______________________ AUDIO __________________/
 
-  currentAudio: null,
-  setCurrentAudio: (audio) => set({ currentAudio: audio }),
+  currentDialogue: null,
+  setCurrentDialogue: (audio) => set({ currentDialogue: audio }),
 }));

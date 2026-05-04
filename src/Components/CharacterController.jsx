@@ -45,7 +45,7 @@ export default function CharacterController() {
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
 
-  const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentAudio } = useGameStore();
+  const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } = useGameStore();
 
   const { camera } = useThree();
 
@@ -77,8 +77,8 @@ export default function CharacterController() {
 
   useFrame(({ camera }, delta) => {
 
-    if(currentAudio) {
-      console.log("Current audio in CharacterController:", currentAudio);
+    if(currentDialogue) {
+      // console.log("Current audio in CharacterController:", currentDialogue);
       return;
     }
 

@@ -14,14 +14,14 @@ const SubtitleVariants = {
 
 const SubtitleManager = () => {
 
-    const { currentAudio, setCurrentAudio } = useGameStore();
+    const { currentDialogue, setCurrentDialogue } = useGameStore();
     const [subtitles, setSubtitles] = useState([]);
     const subtitleLoaded = useRef(0);
 
     const handleDebugKeyDown = (e) => {
         if (e.key === "s") {
             console.log("Debug: Setting current audio to forest ambience");
-            setCurrentAudio(c_Dialogue[0].index);
+            setCurrentDialogue(c_Dialogue[0].index);
         }
     };
 
@@ -52,15 +52,15 @@ const SubtitleManager = () => {
     // }, []);
 
     useEffect(() => {
-        console.log("Current audio changed in SubtitleManager: ", currentAudio);
-    }, [currentAudio]);
+        console.log("Current audio changed in SubtitleManager: ", currentDialogue);
+    }, [currentDialogue]);
 
     return (
         <AnimatePresence>
-            {currentAudio && (
+            {currentDialogue && (
                 <motion.div key="subtitleContainer" className={s.subtitleContainer} initial="hidden" animate="visible" exit="hidden" variants={SubtitleVariants}>
                     {subtitles.map((subtitleArray) => (
-                        subtitleArray.index === currentAudio && (
+                        subtitleArray.index === currentDialogue && (
                             subtitleArray.caption.map((subtitle, index) => (
                                 <Subtitle
                                     key={index}
