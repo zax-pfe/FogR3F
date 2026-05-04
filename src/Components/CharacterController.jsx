@@ -46,6 +46,7 @@ export default function CharacterController() {
   const character = useRef();
   const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
   const controlsRef = useGameStore((state) => state.controlsRef);
 
   const { camera } = useThree();
@@ -54,12 +55,15 @@ export default function CharacterController() {
 
   useEffect(() => {
     // console.log(":", controlsRef);
-    camera.position.set(0, 1.6, -5);
+    camera.position.set(0, 1.6, 5);
     if (rb.current) {
       const pos = rb.current.translation();
       setPlayerPosition(pos);
     }
-  }, [rb.current]);
+    // if (container.current) {
+    //   container.current.rotation.y = Math.PI;
+    // }
+  }, []);
 
   // Camera refs
   const container = useRef();
@@ -125,7 +129,9 @@ export default function CharacterController() {
     moveDirection.addScaledVector(right, movement.x);
     // console.log("Move direction:", moveDirection);
     if (moveDirection.length() === 0) {
-      setPlayerAnimation("idle");
+      if (playerAnimation !== "interaction") {
+        setPlayerAnimation("idle");
+      }
       return;
     }
 
@@ -158,7 +164,7 @@ export default function CharacterController() {
       angularDamping={8}
       position={[-6.058, 5, 24.83]}
     >
-      <group ref={container}>
+      <group ref={container} rotation={[0, Math.PI, 0]}>
         <group ref={character}>
           {/* <Character /> */}
           <AnimatedSoren />
