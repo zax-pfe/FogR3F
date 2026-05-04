@@ -8,11 +8,11 @@ export default function Terrain(props) {
   return (
     <group {...props} dispose={null}  >
      
-          <mesh 
-            // receiveShadow
-            geometry={nodes.TERRAIN.geometry}
-            material={materials['Material.003']}
-          /> 
+        <mesh 
+          // receiveShadow
+          geometry={nodes.TERRAIN.geometry}
+          material={materials['Material.003']}
+        /> 
 
         <RigidBody type="fixed"  colliders={false}>
          <MeshCollider type="trimesh" >
@@ -26,6 +26,7 @@ export default function Terrain(props) {
             depthTest={false}
             visible={false}
           />
+        
         </mesh>
         </MeshCollider>
       </RigidBody>
