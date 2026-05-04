@@ -4,7 +4,6 @@ import Experience from "./Experience";
 import ThreeScene from "./Components/ThreeScene/ThreeScene";
 import ThreeAnalyse from "./Components/Interface/View/TreeAnalyse/TreeAnalyse";
 
-import { KeyboardControls } from "@react-three/drei";
 import Hud from "./Components/Interface/Hud/Hud";
 import { int } from "three/tsl";
 import { useGameStore } from "./store/store";
