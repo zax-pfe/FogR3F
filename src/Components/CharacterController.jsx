@@ -44,10 +44,8 @@ export default function CharacterController() {
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
-  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
-  const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
-  const playerAnimation = useGameStore((state) => state.playerAnimation);
-  const controlsRef = useGameStore((state) => state.controlsRef);
+
+  const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentAudio } = useGameStore();
 
   const { camera } = useThree();
 
@@ -71,13 +69,19 @@ export default function CharacterController() {
 
   // ______________________ LEVA CONTROLS __________________/
   const { WALK_SPEED, CAMERA_LOCK } = useControls("Character Test Controls", {
-    WALK_SPEED: { value: 1.3, min: 0, max: 20, step: 0.1 },
+    WALK_SPEED: { value: 2, min: 0, max: 20, step: 0.1 },
     CAMERA_LOCK: true,
   });
 
   // ______________________ FRAME UPDATE __________________/
 
   useFrame(({ camera }, delta) => {
+
+    if(currentAudio) {
+      console.log("Current audio in CharacterController:", currentAudio);
+      return;
+    }
+
     // ______________________ CAMERA CONTROLS __________________/
 
     if (!rb.current || !controlsRef?.current) return;
