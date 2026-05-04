@@ -14,7 +14,7 @@ const SubtitleVariants = {
 
 const SubtitleManager = () => {
 
-    const { currentDialogue, setCurrentDialogue } = useGameStore();
+    const { currentDialogue, setCurrentDialogue, whoSpeaks } = useGameStore();
     const [subtitles, setSubtitles] = useState([]);
     const subtitleLoaded = useRef(0);
 
@@ -52,6 +52,10 @@ const SubtitleManager = () => {
     // }, []);
 
     useEffect(() => {
+        console.log("Who speaks: ", whoSpeaks);
+    }, [whoSpeaks]);
+
+    useEffect(() => {
         console.log("Current audio changed in SubtitleManager: ", currentDialogue);
     }, [currentDialogue]);
 
@@ -64,6 +68,7 @@ const SubtitleManager = () => {
                             subtitleArray.caption.map((subtitle, index) => (
                                 <Subtitle
                                     key={index}
+                                    person={subtitle.person}
                                     text={subtitle.text}
                                     start={subtitle.start}
                                     duration={subtitle.duration}

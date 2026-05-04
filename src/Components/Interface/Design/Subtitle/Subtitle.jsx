@@ -5,9 +5,9 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGameStore } from "../../../../store/store";
 
-const Subtitle = ({ text, start, duration, latest }) => {
+const Subtitle = ({ person, text, start, duration, latest }) => {
 
-    const { setCurrentDialogue } = useGameStore();
+    const { setCurrentDialogue, setWhoSpeaks } = useGameStore();
 
     const multiLine = text.split("\r\n");
     const r_Subtitle = useRef();
@@ -18,13 +18,17 @@ const Subtitle = ({ text, start, duration, latest }) => {
         tl.from(r_Subtitle.current, {
             opacity: 0,
             delay: start,
-            duration: 0.3
+            duration: 0.3,
+            onStart: () => {
+                setWhoSpeaks(person);
+            }
         })
         tl.to(r_Subtitle.current, {
             opacity: 0,
             delay: duration - 0.5,
             duration: 0.3,
             onComplete: () => {
+                setWhoSpeaks(null);
                 if (latest) {
                     console.log("Last subtitle finished, resetting current audio.");
                     setCurrentDialogue(null); // Reset current audio to hide subtitles

@@ -25,6 +25,7 @@ export default function PressButtonUI({ element }) {
               justifyContent: "center",
               borderRadius: "50%",
               fontSize: "16px",
+              pointerEvents: "none",
 
               transition: "all 0.5s",
               opacity: elementContacted !== element ? 0 : 0.5,

@@ -13,7 +13,7 @@ const AudioController = () => {
         c_Dialogue.forEach(dialogue => {
             dialogueArray.push({
                 index: dialogue.index,
-                audio: new Howl({ src: [dialogue.src], volume: c_Mix.dialogue }),
+                audio: new Howl({ src: [dialogue.src], volume: c_Mix.dialogue, preload : true }),
             });
         });
         setDialogues(dialogueArray);
