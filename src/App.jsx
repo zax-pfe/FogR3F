@@ -20,21 +20,6 @@ import AudioController from "./Components/AudioController";
 // };
 
 function App() {
-  // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
-  // const { showAnalyse, setShowAnalyse } = useGameStore();
-
-  // const handleKeyDown = (e) => {
-  //   if (e.key === "t") {
-  //     setShowAnalyse(!showAnalyse);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("keydown", handleKeyDown);
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [showAnalyse]);
 
   return (
     <>

@@ -57,7 +57,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#4c5559",
+    color: "#49636d", // "#4c5559"
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
