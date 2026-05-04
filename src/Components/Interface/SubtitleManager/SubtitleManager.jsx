@@ -44,12 +44,16 @@ const SubtitleManager = () => {
         loadAllSubtitles();
     }, []);
 
+    // useEffect(() => {
+    //     document.addEventListener("keydown", handleDebugKeyDown);
+    //     return () => {
+    //         document.removeEventListener("keydown", handleDebugKeyDown);
+    //     };
+    // }, []);
+
     useEffect(() => {
-        document.addEventListener("keydown", handleDebugKeyDown);
-        return () => {
-            document.removeEventListener("keydown", handleDebugKeyDown);
-        };
-    }, []);
+        console.log("Current audio changed in SubtitleManager: ", currentAudio);
+    }, [currentAudio]);
 
     return (
         <AnimatePresence>

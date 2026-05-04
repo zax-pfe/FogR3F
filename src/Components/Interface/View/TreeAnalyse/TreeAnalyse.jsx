@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGameStore } from "../../../../store/store";
 import s from "./TreeAnalyse.module.scss";
 import Button from "../../Design/Button/Button";
@@ -10,6 +10,20 @@ import Tronk from "../../Tronk/Tronk";
 const TreeAnalyse = () => {
 
     const { showAnalyse, setShowAnalyse, selectedItems, resetSelectedItems } = useGameStore();
+    // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
+
+    const handleKeyDown = (e) => {
+        if (e.key === "t") {
+            setShowAnalyse(!showAnalyse);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [showAnalyse]);
 
     const ref__selectedBox = useRef(null);
 
