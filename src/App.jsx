@@ -12,31 +12,30 @@ import { convertSRT } from "./utils/convertSRT";
 import SubtitleManager from "./Components/Interface/SubtitleManager/SubtitleManager";
 import AudioController from "./Components/AudioController";
 
-const keys = {
-  left: "arrowleft",
-  right: "arrowright",
-  forward: "arrowup",
-  backward: "arrowdown",
-  interact: "a",
-};
+// const keys = {
+//   left: "arrowleft",
+//   right: "arrowright",
+//   forward: "arrowup",
+//   backward: "arrowdown",
+//   interact: "a",
+// };
 
 function App() {
-
   // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
-  const { showAnalyse, setShowAnalyse } = useGameStore();
+  // const { showAnalyse, setShowAnalyse } = useGameStore();
 
-  const handleKeyDown = (e) => {
-    if (e.key === "t") {
-      setShowAnalyse(!showAnalyse);
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "t") {
+  //     setShowAnalyse(!showAnalyse);
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [showAnalyse]);
+  // useEffect(() => {
+  //   window.addEventListener("keydown", handleKeyDown);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, [showAnalyse]);
 
   return (
     <>
