@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import { useGameStore } from "../../../store/store";
 import { c_MissingObject, c_Objects } from "../../../constant/objects";
 import s from "./TabObject.module.scss";
+import { c_AudioUI } from "../../../constant/audio";
 
 const TabObject = ({ viewObject, setViewObject }) => {
     const { objectFind } = useGameStore();
 
     const [currentObject, setCurrentObject] = useState([]);
+
+    const handleClick = (object) => {
+        setViewObject(object);
+        c_AudioUI.play('open');
+    }
 
     useEffect(() => {
         if (objectFind.length < c_Objects.length) {
@@ -24,7 +30,7 @@ const TabObject = ({ viewObject, setViewObject }) => {
     return (
         <div className={s.tabObject}>
             {currentObject.map((object, index) => (
-                <div key={index} className={`${s.tabObject__btn} ${object.type === "missing" ? s.missing : ""} ${object === viewObject ? s.active : ""}`} onClick={() => setViewObject(object)}>
+                <div key={index} className={`${s.tabObject__btn} ${object.type === "missing" ? s.missing : ""} ${object === viewObject ? s.active : ""}`} onClick={() => handleClick(object)}>
                     {object.type != "missing" && (
                         <img className={s.tabObject__icon} src={object.image} alt="" />
                     )}

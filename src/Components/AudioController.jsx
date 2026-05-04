@@ -5,7 +5,7 @@ import { c_Dialogue, c_Mix } from '../constant/audio';
 
 const AudioController = () => {
 
-    const { currentAudio, setCurrentAudio } = useGameStore();
+    const { currentDialogue, setCurrentDialogue } = useGameStore();
     const [dialogues, setDialogues] = useState([]);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const AudioController = () => {
         c_Dialogue.forEach(dialogue => {
             dialogueArray.push({
                 index: dialogue.index,
-                audio: new Howl({ src: [dialogue.src], volume: c_Mix.dialogue }),
+                audio: new Howl({ src: [dialogue.src], volume: c_Mix.dialogue, preload : true }),
             });
         });
         setDialogues(dialogueArray);
@@ -24,15 +24,15 @@ const AudioController = () => {
     }, [dialogues]);
 
     useEffect(() => {
-        if (currentAudio) {
-            const dialogue = dialogues.find(d => d.index === currentAudio);
+        if (currentDialogue) {
+            const dialogue = dialogues.find(d => d.index === currentDialogue);
             if (dialogue) {
                 dialogue.audio.play();
             } else {
-                console.warn(`Audio with index ${currentAudio} not found.`);
+                console.warn(`Audio with index ${currentDialogue} not found.`);
             }
         }
-    }, [currentAudio]);
+    }, [currentDialogue]);
 
     return (
         <></>

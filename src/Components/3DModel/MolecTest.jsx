@@ -35,7 +35,7 @@ export default function MolecTest({ targetRef }) {
     // Position monde du personnage
     // targetRef.current.getWorldPosition(targetWorld.current);
 
-    const followSpeed = 0.8; // plus petit = plus lent
+    const followSpeed = 1.8; // plus petit = plus lent
     const t = 1 - Math.exp(-followSpeed * delta);
 
     meshRef.current.position.lerp(desired.current, t);
