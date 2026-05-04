@@ -13,7 +13,6 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
-import AnimatedSoren from "./Components/3DModel/animatedSoren/Soren.jsx";
 // ________ POINTS OF INTEREST ________/
 
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
@@ -36,10 +35,6 @@ import GroundFog from "./Components/3DModel/GroundFog.jsx";
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
   const { camera } = useThree();
-  // console.log("Position caméra:", camera.position);
-  // console.log("Rotation caméra:", camera.rotation);
-  // console.log("FOV caméra:", camera.fov);
-  // console.log("Aspect caméra:", camera.);
 
   // ______________________ VARIABLES __________________/
 
@@ -107,13 +102,29 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      <Smoke /> 
-        {/* very light fig more in the air */}
-        <GroundFog position={[6, 4.1, 8]} opacity={0.05} scale={2} color="#aaaaaa"/>
-        {/* light fog next to the ground */}
-        <GroundFog position={[20, 3.8, 0]} scale={1} opacity={0.03} rotation={Math.PI }  color="#b0b0b0"/>
-        {/* thick fog next to the ground */}
-        <GroundFog position={[-2, 3.7, -0]} scale={2} opacity={0.09} color="#8a8a8a" />
+      <Smoke />
+      {/* very light fig more in the air */}
+      <GroundFog
+        position={[6, 4.1, 8]}
+        opacity={0.05}
+        scale={2}
+        color="#aaaaaa"
+      />
+      {/* light fog next to the ground */}
+      <GroundFog
+        position={[20, 3.8, 0]}
+        scale={1}
+        opacity={0.03}
+        rotation={Math.PI}
+        color="#b0b0b0"
+      />
+      {/* thick fog next to the ground */}
+      <GroundFog
+        position={[-2, 3.7, -0]}
+        scale={2}
+        opacity={0.09}
+        color="#8a8a8a"
+      />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}

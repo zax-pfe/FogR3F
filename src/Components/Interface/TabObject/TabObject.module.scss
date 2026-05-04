@@ -16,7 +16,7 @@
         justify-content: center;
 		width: 68px;
 		height: 68px;
-		background-color: rgba(0, 0, 0, 0.15);
+		background-color: var(--color--bg-transparent-light);
 		backdrop-filter: blur(4px);
         border: var(--color--white) 2px solid;
         outline: transparent 1px solid;

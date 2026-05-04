@@ -1,38 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Syne:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Syne:wght@400..800&display=swap");
 
 :root {
-	--color--black: #0B1C26;
-	--color--night-blue: #1A2F2A;
-	--color--blue: #4FD1C5;
-	--color--violet: #7B5CFF;
-	--color--yellow: #FFD166;
-	--color--white: #F4F4F4;
+	--color--black: #0b1c26;
+	--color--night-blue: #1a2f2a;
+	--color--blue: #4fd1c5;
+	--color--violet: #7b5cff;
+	--color--yellow: #ffd166;
+	--color--white: #f4f4f4;
 	// --color--gray-white: #878787;
-	--color--gray-low: #9C9C9C;
-	--color--gray-mid: #5E5E5E;
+	--color--gray-low: #9c9c9c;
+	--color--gray-mid: #5e5e5e;
 	--color--gray-high: #202020;
 
-	--radius--xxs: 2px;
+	--color--bg-transparent-light: rgba(0, 0, 0, 0.15);
+	--color--bg-transparent-medium: rgba(17, 17, 17, 0.6);
+	--color--bg-transparent-dark: rgba(17, 17, 17, 0.9);
+
+	--radius--3xs: 2px;
+	--radius--xxs: 4px;
 	--radius--xs: 8px;
 	--radius--sm: 12px;
 	--radius--md: 18px;
 	--radius--lg: 24px;
+	--radius--full: 9999px;
 
-	--easing : ease;
+	--easing: ease;
 
-	font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
+
+	--font--primary: "Poppins", sans-serif;
 }
 
 ::selection {
-    background-color: var(--color--violet);
-    color: var(--color--white);
+	background-color: var(--color--violet);
+	color: var(--color--white);
 }
 
 ::-webkit-selection {
 	background-color: var(--color--violet);
 	color: var(--color--white);
 }
-
 
 *,
 *::before,
@@ -88,4 +95,22 @@ button {
 
 .txt-bold {
 	font-weight: 700;
+}
+
+@keyframes levitate {
+	0% {
+		transform: translate(-50%, -50%);
+	}
+	25% {
+		transform: translate(-30%, -70%);
+	}
+	50% {
+		transform: translate(10%, -40%);
+	}
+	75% {
+		transform: translate(-20%, -60%);
+	}
+	100% {
+		transform: translate(-50%, -50%);
+	}
 }

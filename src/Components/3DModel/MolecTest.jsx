@@ -14,12 +14,12 @@ extend({ MeshLineMaterial });
 export default function MolecTest({ targetRef }) {
   const meshRef = useRef();
   const lightRef = useRef();
-  const targetWorld = useRef(new THREE.Vector3());
   const desired = useRef(new THREE.Vector3());
   const playerPosition = useGameStore((state) => state.playerPosition);
   const [initialized, setInitialized] = useState(false);
 
   // useHelper(lightRef, THREE.PointLightHelper, 0.4, "#38ff15");
+  const target = new THREE.Vector3();
 
   useFrame((state, delta) => {
     // if (!meshRef.current || !targetRef?.current) {
@@ -39,18 +39,25 @@ export default function MolecTest({ targetRef }) {
     const t = 1 - Math.exp(-followSpeed * delta);
 
     meshRef.current.position.lerp(desired.current, t);
+    // meshRef.current.lookAt(new THREE.Vector3(...playerPosition));
+    target.copy(playerPosition);
+
+    if (meshRef.current.position.distanceTo(target) > 0.001) {
+      meshRef.current.lookAt(target);
+      meshRef.current.rotateY(-Math.PI / 2); // ou autre valeur
+    }
   });
 
   return (
     <Trail
       width={10}
       color={"lightblue"}
-      length={3}
+      length={4}
       decay={0.1}
       local={true}
       stride={0}
       interval={1}
-      attenuation={(t) => t}
+      attenuation={(t) => t * t}
     >
       <meshLineMaterial
         color="#ecf9ff"
@@ -61,19 +68,18 @@ export default function MolecTest({ targetRef }) {
         lineWidth={0.35}
       />
 
-      <MolecBody ref={meshRef} scale={0.15}   >
+      <MolecBody ref={meshRef} scale={0.12}>
         <pointLight
-         
           color="#b94fe3"
-          intensity={10}
+          intensity={5}
           distance={0.13}
           position={[0, 0, 0]}
         />
-       
+
         <pointLight
           ref={lightRef}
           color="#ebebf3"
-          intensity={100}
+          intensity={50}
           distance={100}
           position={[-4, 7, -12]}
         />

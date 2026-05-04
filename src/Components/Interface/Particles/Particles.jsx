@@ -1,9 +1,10 @@
 import * as THREE from "three";
-import { useLoader, useFrame } from "@react-three/fiber";
+import { useLoader, useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef, useEffect } from "react";
 
 import particlesVertexShader from "../../../shaders/particles/vertex.glsl?raw";
 import particlesFragmentShader from "../../../shaders/particles/fragment.glsl?raw";
+import { useGameStore } from "../../../store/store";
 
 const SIZE = 6;
 const COUNT = 260;
@@ -11,7 +12,10 @@ const NOISE = 0.025;
 const DISPLACEMENT_SIZE = 128; // Size of the canvas used for the displacement texture
 
 export default function Particles() {
-  const pictureTexture = useLoader(THREE.TextureLoader, "/textures/tronk.png");
+  const { camera } = useThree();
+  const {hotspotCurrent} = useGameStore();
+
+  const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
 
   // Create a small offscreen canvas that we will draw the mouse "glow" into.
   // This canvas is converted to a Three.js texture and sampled by the vertex shader
@@ -59,6 +63,13 @@ export default function Particles() {
 
   uniforms.uPictureTexture.value = pictureTexture;
   uniforms.uDisplacementTexture.value = displacementTexture;
+
+  useEffect(() => {
+    if (hotspotCurrent) {
+      console.log("Hotspot current changed, updating texture:", hotspotCurrent);
+      uniforms.uPictureTexture.value = hotspotCurrent.logTexture ? new THREE.TextureLoader().load(hotspotCurrent.logTexture) : pictureTexture;
+    }
+  }, [hotspotCurrent]);
 
   useFrame((state) => {
     uniforms.uTime.value = state.clock.elapsedTime;
@@ -128,6 +139,53 @@ export default function Particles() {
     return geometry;
   }, []);
 
+  useEffect(() => {
+    const raycaster = new THREE.Raycaster();
+    const mouse3D = new THREE.Vector2();
+    const planeNormal = new THREE.Vector3(0, 0, 1); // le plane est perpendiculaire à Z
+    const planePoint = new THREE.Vector3(0, 0, 0); // le plane est à Z=0
+    const plane = new THREE.Plane(planeNormal, 0);
+    const intersection = new THREE.Vector3();
+
+    const handleMouseMove = (event) => {
+
+      const canvas = document.querySelector('canvas');
+      if (!canvas) return;
+
+      const rect = canvas.getBoundingClientRect();
+
+      // Convertir en coordonnées normalisées (-1 à 1)
+      mouse3D.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse3D.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      // Créer le rayon
+      raycaster.setFromCamera(mouse3D, camera);
+
+      // Trouver l'intersection avec le plan
+      raycaster.ray.intersectPlane(plane, intersection);
+
+      // Convertir en coordonnées UV (0 à 1)
+      const x = (intersection.x / SIZE) + 0.5;
+      const y = (intersection.y / SIZE) + 0.5;
+
+      mouse.current.set(x, y);
+      mouseStrength.current = 1;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.current.set(9999, 9999);
+      mouseStrength.current = 0;
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [camera]);
+
   return (
     <group>
       {/* Render particles as points using a custom shader material. */}
@@ -143,18 +201,7 @@ export default function Particles() {
       </points>
 
       {/* Invisible interactive plane: captures pointer events and updates mouse refs. */}
-      <mesh
-        onPointerMove={(event) => {
-          // Pointer UV coordinates are used so shaders work in UV space.
-          mouse.current.set(event.uv.x, event.uv.y);
-          mouseStrength.current = 1; // enable the mouse effect
-        }}
-        onPointerLeave={() => {
-          // When pointer leaves, move mouse offscreen and disable effect.
-          mouse.current.set(9999, 9999);
-          mouseStrength.current = 0;
-        }}
-      >
+      <mesh>
         <planeGeometry args={[SIZE, SIZE]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>

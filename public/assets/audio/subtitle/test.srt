@@ -1,0 +1,12 @@
+1
+00:00:0,500 --> 00:00:2,045
+Bonjour, bienvenue sur notre vidéo !
+
+2
+00:00:2,045 --> 00:00:5,500
+Plongeons-nous dans le sujet.
+
+3
+00:00:8,045 --> 00:00:20,500
+Lorem ipsum dolor sit amet
+Lorem ispum
