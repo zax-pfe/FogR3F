@@ -10,6 +10,10 @@ export const useGameStore = create((set) => ({
   playerRef: null,
   setPlayerRef: (ref) => set({ playerRef: ref }),
 
+  // ______________________ MOLEC __________________/
+  molecSpeaking: false,
+  setMolecSpeaking: (speaking) => set({ molecSpeaking: speaking }),
+
   // ______________________ CAMERA __________________/
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
@@ -31,9 +35,9 @@ export const useGameStore = create((set) => ({
 
   // ______________________ GAMEPLAY __________________/
   currentTool: "Tool 0",
-	setCurrentTool: (tool) => {
-		set({ currentTool: tool }), console.log("Current tool set to:", tool);
-	},
+  setCurrentTool: (tool) => {
+    (set({ currentTool: tool }), console.log("Current tool set to:", tool));
+  },
 
   showAnalyse: false,
   setShowAnalyse: (show) => set({ showAnalyse: show }),
@@ -42,13 +46,15 @@ export const useGameStore = create((set) => ({
   setHotspotCurrent: (view) => set({ hotspotCurrent: view }),
   selectedItems: [],
   maxSelectedItems: 4,
-  addSelectedItems: (item) => set( (state) => ({ selectedItems: [...state.selectedItems, item] })),
+  addSelectedItems: (item) =>
+    set((state) => ({ selectedItems: [...state.selectedItems, item] })),
   resetSelectedItems: () => set({ selectedItems: [] }),
-  removeSelectedItem: (item) => set((state) => {
-    const originalSelectedItems = [...state.selectedItems];
-    const newSelectedItems = originalSelectedItems.filter(i => i !== item);
-    return { selectedItems: newSelectedItems };
-  }),
+  removeSelectedItem: (item) =>
+    set((state) => {
+      const originalSelectedItems = [...state.selectedItems];
+      const newSelectedItems = originalSelectedItems.filter((i) => i !== item);
+      return { selectedItems: newSelectedItems };
+    }),
 
   objectFind: [c_Objects[0], c_Objects[1]],
   addObjectFind: (object) =>

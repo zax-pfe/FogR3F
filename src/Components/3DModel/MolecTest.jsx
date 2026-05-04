@@ -18,11 +18,12 @@ export default function MolecTest({ targetRef }) {
   const playerPosition = useGameStore((state) => state.playerPosition);
   const [initialized, setInitialized] = useState(false);
 
+  const molecSpeaking = useGameStore((state) => state.molecSpeaking);
+
   // useHelper(lightRef, THREE.PointLightHelper, 0.4, "#38ff15");
   const target = new THREE.Vector3();
 
   useFrame((state, delta) => {
-    // if (!meshRef.current || !targetRef?.current) {
     if (!meshRef.current || !playerPosition) {
       // console.warn("Mesh  not found");
       return;
@@ -32,19 +33,16 @@ export default function MolecTest({ targetRef }) {
       meshRef.current.position.copy(desired.current);
       setInitialized(true);
     }
-    // Position monde du personnage
-    // targetRef.current.getWorldPosition(targetWorld.current);
 
     const followSpeed = 0.8; // plus petit = plus lent
     const t = 1 - Math.exp(-followSpeed * delta);
 
     meshRef.current.position.lerp(desired.current, t);
-    // meshRef.current.lookAt(new THREE.Vector3(...playerPosition));
     target.copy(playerPosition);
 
     if (meshRef.current.position.distanceTo(target) > 0.001) {
       meshRef.current.lookAt(target);
-      meshRef.current.rotateY(-Math.PI / 2); // ou autre valeur
+      meshRef.current.rotateY(-Math.PI / 2);
     }
   });
 
@@ -70,7 +68,7 @@ export default function MolecTest({ targetRef }) {
 
       <MolecBody ref={meshRef} scale={0.12}>
         <pointLight
-          color="#b94fe3"
+          color={molecSpeaking ? "#ffffff" : "#b94fe3"}
           intensity={5}
           distance={0.13}
           position={[0, 0, 0]}
