@@ -24,14 +24,14 @@ export default function Decors(props) {
       {/* ================= PHYSICS ONLY ================= */}
 
       <group name="physics-obstacles">
-        <RigidBody type="fixed" colliders={false} position={[2.3, 4, 4]}>
-          <CuboidCollider args={[1.2, 0.5, 1]} />
+        <RigidBody type="fixed" colliders={false} position={[4.5, 4, 4.7]}>
+          <CuboidCollider args={[1.8, 0.5, 1.6]} />
         </RigidBody>
 
         <RigidBody
           type="fixed"
           colliders={false}
-          position={[25.47, 3.98, 18.309]}
+          position={[23.47, 3.98, 16.309]}
         >
           <CuboidCollider args={[1, 0.4, 0.5]} />
         </RigidBody>
@@ -44,40 +44,37 @@ export default function Decors(props) {
           <CuboidCollider args={[0.7, 0.7, 0.7]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[7.8, 2, -3]}>
-          <CuboidCollider args={[1.3, 2, 1.4]} />
+        <RigidBody type="fixed" colliders={false} position={[8.8, 2, -1.9]} rotation={[0, Math.PI * 1.3, 0]}>
+          <CuboidCollider args={[2.3, 2, 2.4]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[-3.7, 4.9, 5.7]}>
-          <CuboidCollider args={[1.1, 0.8, 1]} />
+        <RigidBody type="fixed" colliders={false} position={[-2.0, 4.9, 5.7]}>
+          <CuboidCollider args={[1.8, 0.8, 1.6]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[-8.8, 4.1, -5.6]}>
-          <CuboidCollider args={[1.3, 0.8, 1.3]} />
+        <RigidBody type="fixed" colliders={false} position={[-10.8, 4.1, -7.0]}>
+          <CuboidCollider args={[2.3, 0.8, 2.7]} />
+        </RigidBody>
+ 
+
+        <RigidBody type="fixed" colliders={false} position={[16.1, 4.4, 19.5]}>
+          <CuboidCollider args={[3, 1, 2.1]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[-4.4, 4.4, 13.6]}>
-          <CuboidCollider args={[1.3, 0.9, 1.3]} />
-        </RigidBody>
-
-        <RigidBody type="fixed" colliders={false} position={[17.7, 4.4, 19.5]}>
-          <CuboidCollider args={[2, 1, 1.1]} />
-        </RigidBody>
-
-        <RigidBody type="fixed" colliders={false} position={[0, 3.8, -4.5]}>
-          <CuboidCollider args={[2.1, 1, 1.2]} />
+        <RigidBody type="fixed" colliders={false} position={[0, 3.8, -3.7]}>
+          <CuboidCollider args={[3.1, 1, 1.8]} />
         </RigidBody>
 
         <RigidBody type="fixed" colliders={false} position={[32.1, 4.6, 7]}>
-          <CuboidCollider args={[1.5, 1, 1.6]} />
+          <CuboidCollider args={[1.8, 1, 1.8]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[-6.4, 4.8, -15]}>
-          <CuboidCollider args={[1.1, 1, 1.1]} />
+        <RigidBody type="fixed" colliders={false} position={[-4.4, 4.8, -13]}>
+          <CuboidCollider args={[2.1, 1, 2.1]} />
         </RigidBody>
 
-        <RigidBody type="fixed" colliders={false} position={[10.4, 4.5, 4.6]}>
-          <CuboidCollider args={[1.2, 1, 1.2]} />
+        <RigidBody type="fixed" colliders={false} position={[13.4, 4.5, 5]} rotation={[0, -14.7, 0]}>
+          <CuboidCollider args={[2.2, 1, 1.8]} />
         </RigidBody>
       </group>
     </group>
