@@ -8,10 +8,22 @@
 	overflow: hidden;
     background: url("/assets/images/MIL_Background2D.webp") no-repeat center center;
     background-size: cover;
+	cursor: none;
 
 	&__closeBtn {
 		position: absolute;
 		top: 24px;
 		left: 24px;
 	}
+}
+
+.pointer {
+	position: fixed;
+	width: 42px;
+	height: 42px;
+	background: url("/assets/icons/tools/MIL_Loupe.svg") no-repeat center center;
+	background-size: contain;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	z-index: 30;
 }

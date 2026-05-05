@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useGLTF, Html, Sparkles, PivotControls } from "@react-three/drei";
 import { useGameStore } from "../../../store/store.js";
 import { Outlines } from "@react-three/drei";
@@ -16,12 +16,39 @@ export default function Tronk(props) {
     `/assets/3DModels/Interactive/${objName}.glb`,
   ); 
 
-  const setTronkPosition = useGameStore((state) => state.setTronkPosition);
-  const elementContacted = useGameStore((state) => state.elementContacted);
+  const { setTronkPosition, elementContacted, setCurrentScreen, currentTool, toolOpen, setCurrentDialogue } = useGameStore();
+
+  const handleClick = () => {
+    if (elementContacted != "tronk" || !toolOpen) return;
+
+    if (currentTool === toolNeeded) {
+      setCurrentScreen("analyse");
+    } else {
+      setCurrentDialogue("wrongTool");
+    }
+  };
+
+  const handleMouseOver = () => {
+    if (elementContacted != "tronk" || !toolOpen) return;
+
+    setOutlineColor("#7b5cff");
+  }
+
+  const handleMouseOut = () => {
+
+    setOutlineColor("lightblue");
+  }
+
+  useEffect(() => {
+    if (!toolOpen) {
+      setOutlineColor("lightblue");
+    }
+  }, [toolOpen]);
 
   useEffect(() => {
     setTronkPosition(tronkRef.current.position);
   }, []);
+
   return (
     // <PivotControls
     //   anchor={[0, 0, 0]}
@@ -35,18 +62,21 @@ export default function Tronk(props) {
     <group
       {...props}
       dispose={null}
-      position={[28.892, 3.715, -10.492]} 
+      position={[28.892, 3.715, -10.492]}
       scale={1.2}
       ref={tronkRef}
     >
       <mesh
         // castShadow
         // receiveShadow
-         geometry={nodes['+tronk'].geometry}
-        material={materials['+Tronk']} 
+        geometry={nodes['+tronk'].geometry}
+        material={materials['+Tronk']}
+        onClick={handleClick}
+        onPointerEnter={handleMouseOver}
+        onPointerLeave={handleMouseOut}
       >
         {elementContacted === "tronk" && (
-          <Outlines thickness={2} color="lightblue" />
+          <Outlines thickness={2} color={outlineColor} />
         )}
       </mesh>
       <Sparkles size={1} count={50} speed={1} scale={[1, 1, 1]} />

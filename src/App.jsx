@@ -24,11 +24,10 @@ import { preloadMediaAssets } from "./utils/assetsPreloader";
 
 function App() {
   const { active, progress, loaded, total, item } = useProgress();
-  const { currentScreen, setCurrentScreen, mediaFinished,
-    setMediaLoading } = useGameStore();
+  const { currentScreen, setCurrentScreen, mediaFinished, setMediaLoading } = useGameStore();
   // for current screen - loading | menu | game
 
-   useEffect(() => {
+  useEffect(() => {
     preloadMediaAssets((data) => {
       setMediaLoading({
         mediaProgress: data.progress,
@@ -47,29 +46,23 @@ function App() {
       }, 500);
 
       return () => clearTimeout(timeout);
-    } 
-  }, [active, progress, currentScreen, mediaFinished]); 
+    }
+  }, [active, progress, currentScreen, mediaFinished]);
 
   return (
     <>
       {currentScreen === "loading" && <LoadingScreen />}
 
-      {currentScreen === "menu" && (
-        <StartScreen />
-      )}
+      {currentScreen === "menu" && <StartScreen />}
 
-       <ThreeScene>
+      <ThreeScene>
         <Experience />
       </ThreeScene>
 
-      {currentScreen === "game" && (
-        <>
-          <ThreeAnalyse />
-          <Hud />
-          <SubtitleManager />
-          <AudioController />
-        </>
-      )}
+      <ThreeAnalyse />
+      {currentScreen === "game" && <Hud />}
+      <SubtitleManager />
+      <AudioController />
     </>
   );
 }
