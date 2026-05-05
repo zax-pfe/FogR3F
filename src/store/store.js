@@ -90,5 +90,9 @@ export const useGameStore = create((set) => ({
   mediaFinished: false,
 
   setMediaLoading: (data) => set(data),
+
+  //compressed objects management
+  isCompressed: true, 
+  setIsCompressed: (isCompressed) => set({ isCompressed }),
  
 }));

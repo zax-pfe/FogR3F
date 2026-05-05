@@ -7,11 +7,14 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function Poster(props) {
-  const posterRef = useRef();
+  const posterRef = useRef(); 
 
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "posterRouge_compressed" : "posterRouge";
+      
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/posters/posterBlanc.glb",
-  );
+    `/assets/3DModels/Interactive/posters/${objName}.glb`,
+  ); 
 
   const setPosterPosition = useGameStore((state) => state.setPosterPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);

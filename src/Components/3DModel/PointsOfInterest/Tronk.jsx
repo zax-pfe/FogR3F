@@ -8,13 +8,18 @@ import * as THREE from "three";
 
 export default function Tronk(props) {
   const tronkRef = useRef();
-  const toolNeeded = 'Loupe';
-  const [outlineColor, setOutlineColor] = useState("lightblue");
-
+ 
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "tronk_new_compressed" : "tronk_new";
+  
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/tronk_new.glb",
-  );
-
+    `/assets/3DModels/Interactive/${objName}.glb`,
+  ); 
+  
+    
+  const toolNeeded = 'Loupe';
+  const [outlineColor, setOutlineColor] = useState("lightblue"); 
+  
   const { setTronkPosition, elementContacted, setCurrentScreen, currentTool, toolOpen, setCurrentDialogue } = useGameStore();
 
   const handleClick = () => {

@@ -4,12 +4,18 @@ import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { useGameStore } from "../../store/store.js";
 import { Outlines, Sparkles } from "@react-three/drei";
 import PressButtonUI from "./PointsOfInterest/PressButtonUI.jsx";
-import { useFrame } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber"; 
 
 import * as THREE from "three";
 
-export default function Decors(props) {
-  const { nodes, materials } = useGLTF("/assets/3DModels/DECORS.glb");
+export default function Decors(props) { 
+
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "DECORS_compressed" : "DECORS";
+    
+  const { nodes, materials } = useGLTF(
+    `/assets/3DModels/${objName}.glb`,
+  ); 
 
   return (
     <group {...props} dispose={null}>

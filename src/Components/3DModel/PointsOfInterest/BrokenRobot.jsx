@@ -7,11 +7,14 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function BrokenRobot(props) {
-  const brokenRobotRef = useRef();
-
+  const brokenRobotRef = useRef(); 
+  
+   const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "brokenBot_compressed" : "brokenBot";
+    
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/brokenBot.glb",
-  );
+    `/assets/3DModels/Interactive/${objName}.glb`,
+  ); 
 
   const setBrokenRobotPosition = useGameStore(
     (state) => state.setBrokenRobotPosition,
