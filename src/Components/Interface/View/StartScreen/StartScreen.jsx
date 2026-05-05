@@ -2,8 +2,15 @@ import s from "./StartScreen.module.scss";
 import { useFrame, useThree, extend, Canvas, useLoader } from "@react-three/fiber";
 import { useRef, useState, useCallback } from "react";
 import * as THREE from "three";
-import { OrbitControls, useGLTF, Float } from "@react-three/drei";
-import { EffectComposer, ToneMapping, Bloom, Vignette, DepthOfField, Noise } from "@react-three/postprocessing";
+import { OrbitControls, useGLTF, Float, Image } from "@react-three/drei";
+import {
+  EffectComposer,
+  ToneMapping,
+  Bloom,
+  Vignette,
+  DepthOfField,
+  Noise,
+} from "@react-three/postprocessing";
 import { ToneMappingMode, BlendFunction } from "postprocessing";
 import { useControls } from "leva";
 import { FileLoader } from "three";
@@ -68,13 +75,38 @@ function InterfaceOverlay({ onHover }) {
 
   return (
     <div className={s.startScreen__interface}>
-      <div className={s.startScreen__button} onMouseEnter={() => onHover("play")} onMouseLeave={() => onHover("none")}>
+      <div
+        className={s.startScreen__button}
+        onMouseEnter={() => onHover("play")}
+        onMouseLeave={() => onHover("none")}
+      >
         <Button onClick={handlePlayClick}>Reprendre</Button>
       </div>
       {/* <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
         <Button>Credit</Button>
       </div> */}
     </div>
+  );
+}
+
+{
+  /* ______________________ TITLE __________________/ */
+}
+
+function Title() {
+  const imagePath = "/assets/images/starting_screen/Milaghail.png";
+  const titleRef = useRef(null);
+  return (
+    <Image
+      url={imagePath}
+      // depthWrite={true}
+      ref={titleRef}
+      transparent
+      position={[0, -3, -2]}
+      scale={[17, 5, 1]}
+      rotation={[-Math.PI / 15, 0, 0]}
+      side={THREE.DoubleSide}
+    />
   );
 }
 
@@ -113,8 +145,16 @@ function StartScreenContent({ buttonHoveredRef }) {
 
     const lerpFactor = 0.02;
 
-    currentRotation.current.x = THREE.MathUtils.lerp(currentRotation.current.x, targetRotation.current.x, lerpFactor);
-    currentRotation.current.y = THREE.MathUtils.lerp(currentRotation.current.y, targetRotation.current.y, lerpFactor);
+    currentRotation.current.x = THREE.MathUtils.lerp(
+      currentRotation.current.x,
+      targetRotation.current.x,
+      lerpFactor,
+    );
+    currentRotation.current.y = THREE.MathUtils.lerp(
+      currentRotation.current.y,
+      targetRotation.current.y,
+      lerpFactor,
+    );
 
     if (groupRef.current) {
       groupRef.current.rotation.x = currentRotation.current.x;
@@ -129,8 +169,14 @@ function StartScreenContent({ buttonHoveredRef }) {
       <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={6} />
       <ambientLight intensity={2} />
-
-      <Float speed={2} floatIntensity={0.5} rotationIntensity={1} floatingRange={[1, 1.5]} position={[0, -7.5, 1]}>
+      <Title />
+      <Float
+        speed={2}
+        floatIntensity={0.5}
+        rotationIntensity={1}
+        floatingRange={[1, 1.5]}
+        position={[0, -7.5, 1]}
+      >
         <group ref={groupRef} scale={5} rotation={[rotation_x, rotation_y, rotation_z]}>
           <ModelTextured buttonHoveredRef={buttonHoveredRef} />
         </group>
@@ -157,7 +203,14 @@ function PostProcessingStartScreen() {
   return (
     <>
       <EffectComposer multisampling={0}>
-        <Bloom intensity={0.15} luminanceThreshold={1.5} luminanceSmoothing={0.05} mipmapBlur resolutionX={512} resolutionY={512} />
+        <Bloom
+          intensity={0.15}
+          luminanceThreshold={1.5}
+          luminanceSmoothing={0.05}
+          mipmapBlur
+          resolutionX={512}
+          resolutionY={512}
+        />
         <Vignette offset={0.5} darkness={0.5} blendFunction={BlendFunction.NORMAL} />
 
         <Noise opacity={0.1} blendFunction={BlendFunction.SOFT_LIGHT} />
@@ -212,9 +265,24 @@ function ModelTextured({ buttonHoveredRef, ...props }) {
     <group {...props} dispose={null} rotation={[0, -Math.PI / 2, 0]}>
       <pointLight ref={pointLightRef} intensity={50} distance={8} />
       <group scale={1.904}>
-        <mesh castShadow receiveShadow geometry={nodes.Sphere001.geometry} material={materials["Material.004"]} />
-        <mesh castShadow receiveShadow geometry={nodes.Sphere001_1.geometry} material={materials["Material.005"]} />
-        <mesh castShadow receiveShadow geometry={nodes.Icosphere001.geometry} material={materials.Crystal} />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Sphere001.geometry}
+          material={materials["Material.004"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Sphere001_1.geometry}
+          material={materials["Material.005"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Icosphere001.geometry}
+          material={materials.Crystal}
+        />
       </group>
     </group>
   );
@@ -241,7 +309,7 @@ function StartScreenFog() {
       <shaderMaterial
         ref={materialRef}
         transparent
-        depthWrite={true}
+        depthWrite={false}
         uniforms={{
           uTime: { value: 0 },
           uMeshPosition: { value: new THREE.Vector3(0, -7.5, 1.5) },
