@@ -2,7 +2,7 @@ import s from "./StartScreen.module.scss";
 import { useFrame, useThree, extend, Canvas, useLoader } from "@react-three/fiber";
 import { useRef, useState, useCallback } from "react";
 import * as THREE from "three";
-import { OrbitControls, useGLTF, Float, Image } from "@react-three/drei";
+import { OrbitControls, useGLTF, Float, Image, Environment } from "@react-three/drei";
 import {
   EffectComposer,
   ToneMapping,
@@ -166,7 +166,7 @@ function StartScreenContent({ buttonHoveredRef }) {
 
       <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={6} />
-      <ambientLight intensity={2} />
+      <ambientLight intensity={5} />
       <Title />
       <Float
         speed={2}
@@ -242,7 +242,7 @@ function PostProcessingStartScreen() {
   /* ______________________ MODEL TEXTURED __________________/ */
 }
 function ModelTextured({ buttonHoveredRef, ...props }) {
-  const { nodes, materials } = useGLTF("/assets/3DModels/Molec/MolecEmissiveTextured.glb");
+  const { nodes, materials } = useGLTF("/assets/3DModels/Molec/MolecEmissive.glb");
   const pointLightRef = useRef();
   const colors = {
     play: new THREE.Color(0xff69b4),
@@ -286,7 +286,7 @@ function ModelTextured({ buttonHoveredRef, ...props }) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Molec/MolecEmissiveTextured.glb");
+useGLTF.preload("/assets/3DModels/Molec/MolecEmissive.glb");
 
 {
   /* ______________________ VOLUMETRIC FOG __________________/ */
