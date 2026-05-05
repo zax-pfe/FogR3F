@@ -13,13 +13,14 @@ import { useGameStore } from "./store/store.js";
 import Terrain from "./Components/3DModel/Terrain.jsx";
 import CharacterController from "./Components/CharacterController.jsx";
 import MolecTest from "./Components/3DModel/MolecTest.jsx";
-// ________ POINTS OF INTEREST ________/
 
+// ________ POINTS OF INTEREST ________/
 import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
 import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
 import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
+import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
@@ -31,6 +32,8 @@ import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
 import Decors from "./Components/3DModel/Decors.jsx";
 import Trees from "./Components/3DModel/Trees.jsx";
 import GroundFog from "./Components/3DModel/GroundFog.jsx";
+
+import { Environment } from "@react-three/drei";
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
@@ -52,7 +55,7 @@ export default function Experience() {
   const controlFog = useControls("Fog", {
     near: { value: -15, min: -15, max: 150, step: 0.1 },
     far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#4c5559",
+    color: "#49636d", // "#4c5559"
     scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
   });
 
@@ -69,6 +72,7 @@ export default function Experience() {
 
   return (
     <>
+      <Environment preset="night" />
       {/* ______________________ FOG__________________/ */}
       <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />
       <color attach="background" args={[controlFog.color]} />
@@ -90,6 +94,7 @@ export default function Experience() {
 
       <Pointer />
       <AmmoBox />
+      <Tronk />
       <BrokenRobot />
       <Poster />
       <Interaction />
@@ -101,7 +106,7 @@ export default function Experience() {
       </Physics>
       <Smoke />
       {/* very light fig more in the air */}
-      <GroundFog position={[6, 4.1, 8]} opacity={0.05} scale={2} color="#aaaaaa" />
+      <GroundFog position={[6, 3.9, 8]} opacity={0.05} scale={2} color="#aaaaaa" />
       {/* light fog next to the ground */}
       <GroundFog position={[20, 3.8, 0]} scale={1} opacity={0.03} rotation={Math.PI} color="#b0b0b0" />
       {/* thick fog next to the ground */}

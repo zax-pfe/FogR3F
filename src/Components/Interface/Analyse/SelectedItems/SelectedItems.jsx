@@ -1,3 +1,4 @@
+import { c_AudioUI } from "../../../../constant/audio";
 import { useGameStore } from "../../../../store/store";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
@@ -22,10 +23,14 @@ const SelectedItems = ({ refBox, analyse }) => {
                         style={{
                             top: 'calc(50% + ' + (item.y * coefPos) + 'px)',
                             left: 'calc(50% + ' + (item.x * coefPos) + 'px)',
-                            '--animation-delay': `${index * 0.2}s` 
+                            '--animation-delay': `${index * 0.2}s`
                         }}
                         className={`${s.selectedItems__point} ${hotspotCurrent === item ? s.active : ''}`}
-                        onClick={() => setHotspotCurrent(item)}
+                        onClick={() => {
+                            setHotspotCurrent(item)
+                            c_AudioUI.play('open');
+                        }}
+                        onMouseEnter={() => c_AudioUI.play('toolRoll')}
                     >
                     </div>
                 ))}

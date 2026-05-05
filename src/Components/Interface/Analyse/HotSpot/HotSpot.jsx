@@ -6,6 +6,7 @@ import Button from "../../Design/Button/Button";
 import gsap from "gsap";
 import { addScaleCorrector } from "motion";
 import { useGameStore } from "../../../../store/store";
+import { c_AudioUI, c_Click } from "../../../../constant/audio";
 
 const HotSpot = ({ data, coo, refBox }) => {
 
@@ -28,12 +29,14 @@ const HotSpot = ({ data, coo, refBox }) => {
 
     const handleClickPoint = () => {
         // setOpen(!open);
+        c_AudioUI.play('open');
         setHotspotCurrent(data);
         // console.log("HotSpot clicked at:", { x: coo.x, y: coo.y });
     };
 
     const handleClose = () => {
         // setOpen(false);
+        c_AudioUI.play('close');
         setHotspotCurrent(null);
     }
 
@@ -41,12 +44,14 @@ const HotSpot = ({ data, coo, refBox }) => {
         if (selectedItems.length >= maxSelectedItems) {
             return;
         }
+        c_AudioUI.play('click');
         console.log(`Element récolté : ${data.title}`);
         setSelected(true);
         handleClose();
     }
     
     const handleRemove = () => {
+        c_AudioUI.play('remove');
         console.log(`Element retiré : ${data.title}`);
         removeSelectedItem(data);
         setSelected(false);
@@ -88,7 +93,11 @@ const HotSpot = ({ data, coo, refBox }) => {
     return (
         <>
             <div className={s.hotSpot} style={{ left: coo.x, top: coo.y }}>
-                <div className={`${s.point} ${iAmCurrentHotspot() ? s.open : ''} ${iAmSelected() ? s.active : ''}`} onClick={handleClickPoint}></div>
+                <div 
+                className={`${s.point} ${iAmCurrentHotspot() ? s.open : ''} ${iAmSelected() ? s.active : ''}`} 
+                onClick={handleClickPoint}
+                onMouseEnter={() => c_AudioUI.play('toolRoll')}
+                ></div>
             </div>
             {iAmCurrentHotspot() && (
                 <>

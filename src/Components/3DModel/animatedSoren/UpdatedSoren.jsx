@@ -60,8 +60,8 @@ export default function AnimatedSoren(props) {
       ref={group}
       {...props}
       dispose={null}
-      scale={0.35}
-      position={[0, -0.8, 0]}
+      scale={0.37}
+      position={[0, -0.4, 0]}
     >
       <group name="Scene">
         <group name="character">

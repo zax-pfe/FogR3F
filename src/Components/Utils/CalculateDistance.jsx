@@ -11,6 +11,7 @@ export default function CalculateDistance() {
   //______________________ INTERACTIONS OBJECTS __________________/
   const posterPosition = useGameStore((state) => state.posterPosition);
   const ammoBoxPosition = useGameStore((state) => state.ammoBoxPosition);
+  const tronkPosition = useGameStore((state) => state.tronkPosition);
   const pointerPosition = useGameStore((state) => state.pointerPosition);
   const brokenRobotPosition = useGameStore(
     (state) => state.brokenRobotPosition,
@@ -58,6 +59,14 @@ export default function CalculateDistance() {
             ammoBoxPosition?.x,
             0,
             ammoBoxPosition?.z,
+          ),
+        },
+        {
+          name: "tronk",
+          position: new THREE.Vector3(
+            tronkPosition?.x,
+            0,
+            tronkPosition?.z,
           ),
         },
         {

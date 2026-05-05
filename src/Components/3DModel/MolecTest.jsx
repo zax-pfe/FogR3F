@@ -34,7 +34,7 @@ export default function MolecTest({ targetRef }) {
       setInitialized(true);
     }
 
-    const followSpeed = 0.8; // plus petit = plus lent
+    const followSpeed = 1.8; // plus petit = plus lent
     const t = 1 - Math.exp(-followSpeed * delta);
 
     meshRef.current.position.lerp(desired.current, t);

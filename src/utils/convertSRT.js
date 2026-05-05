@@ -17,7 +17,8 @@ export async function convertSRT(srtPath) {
 				start: timeToSeconds(timecode[0]),
 				end: timeToSeconds(timecode[1]),
                 duration: timeToSeconds(timecode[1]) - timeToSeconds(timecode[0]),
-				text: lines.slice(2).join("\r\n"),
+				person: lines[2],
+				text: lines.slice(3).join("\r\n"),
                 latest: index === srtEntries.length - 1
 			});
 		}

@@ -30,6 +30,8 @@ export const useGameStore = create((set) => ({
 
   ammoBoxPosition: null,
   setAmmoBoxPosition: (position) => set({ ammoBoxPosition: position }),
+  tronkPosition: null,
+  setTronkPosition: (position) => set({ tronkPosition: position }),
   pointerPosition: null,
   setPointerPosition: (position) => set({ pointerPosition: position }),
   brokenRobotPosition: null,
@@ -68,6 +70,9 @@ export const useGameStore = create((set) => ({
 
   // ______________________ AUDIO __________________/
 
-  currentAudio: null,
-  setCurrentAudio: (audio) => set({ currentAudio: audio }),
+  currentDialogue: null,
+  setCurrentDialogue: (audio) => set({ currentDialogue: audio }),
+
+  whoSpeaks: null,
+  setWhoSpeaks: (who) => set({ whoSpeaks: who }),
 }));
