@@ -65,7 +65,9 @@ export default StartScreen;
 }
 
 function InterfaceOverlay({ onHover }) {
-  const { currentScreen, setCurrentScreen } = useGameStore();
+  // const { currentScreen, setCurrentScreen } = useGameStore();
+  const currentScreen = useGameStore((state) => state.currentScreen);
+  const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
 
   function handlePlayClick() {
     setCurrentScreen("game");

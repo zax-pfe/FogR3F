@@ -13,7 +13,8 @@ const DISPLACEMENT_SIZE = 128; // Size of the canvas used for the displacement t
 
 export default function Particles() {
   const { camera } = useThree();
-  const {hotspotCurrent} = useGameStore();
+  // const {hotspotCurrent} = useGameStore();
+  const setHotspotCurrent = useGameStore((state) => state.setHotspotCurrent);
 
   const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
 
@@ -67,7 +68,9 @@ export default function Particles() {
   useEffect(() => {
     if (hotspotCurrent) {
       console.log("Hotspot current changed, updating texture:", hotspotCurrent);
-      uniforms.uPictureTexture.value = hotspotCurrent.logTexture ? new THREE.TextureLoader().load(hotspotCurrent.logTexture) : pictureTexture;
+      uniforms.uPictureTexture.value = hotspotCurrent.logTexture
+        ? new THREE.TextureLoader().load(hotspotCurrent.logTexture)
+        : pictureTexture;
     }
   }, [hotspotCurrent]);
 
@@ -94,7 +97,7 @@ export default function Particles() {
         mouse.current.x * DISPLACEMENT_SIZE - glowSize * 0.5,
         (1 - mouse.current.y) * DISPLACEMENT_SIZE - glowSize * 0.5,
         glowSize,
-        glowSize
+        glowSize,
       );
     }
 
@@ -131,10 +134,7 @@ export default function Particles() {
     // Attach attributes so the vertex shader can read them as 'aIntensity' and 'aAngle'.
     geometry.setAttribute("aIntensity", new THREE.BufferAttribute(intensitiesArray, 1));
 
-    geometry.setAttribute(
-      "aAngle",
-      new THREE.BufferAttribute(anglesArray, 1)
-    );
+    geometry.setAttribute("aAngle", new THREE.BufferAttribute(anglesArray, 1));
 
     return geometry;
   }, []);
@@ -148,8 +148,7 @@ export default function Particles() {
     const intersection = new THREE.Vector3();
 
     const handleMouseMove = (event) => {
-
-      const canvas = document.querySelector('canvas');
+      const canvas = document.querySelector("canvas");
       if (!canvas) return;
 
       const rect = canvas.getBoundingClientRect();
@@ -165,8 +164,8 @@ export default function Particles() {
       raycaster.ray.intersectPlane(plane, intersection);
 
       // Convertir en coordonnées UV (0 à 1)
-      const x = (intersection.x / SIZE) + 0.5;
-      const y = (intersection.y / SIZE) + 0.5;
+      const x = intersection.x / SIZE + 0.5;
+      const y = intersection.y / SIZE + 0.5;
 
       mouse.current.set(x, y);
       mouseStrength.current = 1;
@@ -177,12 +176,12 @@ export default function Particles() {
       mouseStrength.current = 0;
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [camera]);
 

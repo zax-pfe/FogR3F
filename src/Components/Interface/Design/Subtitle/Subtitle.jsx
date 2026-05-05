@@ -6,48 +6,47 @@ import gsap from "gsap";
 import { useGameStore } from "../../../../store/store";
 
 const Subtitle = ({ person, text, start, duration, latest }) => {
+  // const { setCurrentDialogue, setWhoSpeaks } = useGameStore();
+  const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
+  const setWhoSpeaks = useGameStore((state) => state.setWhoSpeaks);
 
-    const { setCurrentDialogue, setWhoSpeaks } = useGameStore();
+  const multiLine = text.split("\r\n");
+  const r_Subtitle = useRef();
 
-    const multiLine = text.split("\r\n");
-    const r_Subtitle = useRef();
+  useGSAP(() => {
+    let tl = gsap.timeline();
 
-    useGSAP(() => {
-        let tl = gsap.timeline();
-
-        tl.from(r_Subtitle.current, {
-            opacity: 0,
-            delay: start,
-            duration: 0.3,
-            onStart: () => {
-                setWhoSpeaks(person);
-            }
-        })
-        tl.to(r_Subtitle.current, {
-            opacity: 0,
-            delay: duration - 0.5,
-            duration: 0.3,
-            onComplete: () => {
-                setWhoSpeaks(null);
-                if (latest) {
-                    console.log("Last subtitle finished, resetting current audio.");
-                    setCurrentDialogue(null); // Reset current audio to hide subtitles
-                }
-            }
-        });
+    tl.from(r_Subtitle.current, {
+      opacity: 0,
+      delay: start,
+      duration: 0.3,
+      onStart: () => {
+        setWhoSpeaks(person);
+      },
     });
+    tl.to(r_Subtitle.current, {
+      opacity: 0,
+      delay: duration - 0.5,
+      duration: 0.3,
+      onComplete: () => {
+        setWhoSpeaks(null);
+        if (latest) {
+          console.log("Last subtitle finished, resetting current audio.");
+          setCurrentDialogue(null); // Reset current audio to hide subtitles
+        }
+      },
+    });
+  });
 
-    return (
-        <div ref={r_Subtitle} className={s.subtitle}>
-            {
-                multiLine.map((line, index) => (
-                    <Text variant="c1" key={index} className={s.subtitle__line}>
-                        {line}
-                    </Text>
-                ))
-            }
-        </div>
-    );
-}
+  return (
+    <div ref={r_Subtitle} className={s.subtitle}>
+      {multiLine.map((line, index) => (
+        <Text variant="c1" key={index} className={s.subtitle__line}>
+          {line}
+        </Text>
+      ))}
+    </div>
+  );
+};
 
 export default Subtitle;
