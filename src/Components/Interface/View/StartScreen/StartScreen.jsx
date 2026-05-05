@@ -14,7 +14,7 @@ import {
 import { ToneMappingMode, BlendFunction } from "postprocessing";
 import { useControls } from "leva";
 import { FileLoader } from "three";
-import { Perf } from "r3f-perf";
+// import { Perf } from "r3f-perf";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
 import { useGameStore } from "../../../../store/store";
@@ -28,9 +28,6 @@ const StartScreen = () => {
   // const [buttonHovered, setButtonHovered] = useState("none");
 
   const buttonHoveredRef = useRef("none");
-
-  const setCurrentView = useGameStore((state) => state.setCurrentView);
-  const setTransitionView = useGameStore((state) => state.setTransitionView);
 
   const handleHover = useCallback((value) => {
     buttonHoveredRef.current = value;
@@ -47,6 +44,7 @@ const StartScreen = () => {
             toneMapping: THREE.ACESFilmicToneMapping,
             outputColorSpace: THREE.sRGBEncoding,
           }}
+          style={{ background: "#252922" }}
           camera={{
             fov: 45,
             near: 0.1,
@@ -67,10 +65,10 @@ export default StartScreen;
 }
 
 function InterfaceOverlay({ onHover }) {
-  const setCurrentView = useGameStore((state) => state.setCurrentView);
+  const { currentScreen, setCurrentScreen } = useGameStore();
 
   function handlePlayClick() {
-    setCurrentView("game");
+    setCurrentScreen("game");
   }
 
   return (
@@ -164,7 +162,7 @@ function StartScreenContent({ buttonHoveredRef }) {
 
   return (
     <>
-      <Perf position="top-left" />
+      {/* <Perf position="top-left" /> */}
 
       <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={6} />
