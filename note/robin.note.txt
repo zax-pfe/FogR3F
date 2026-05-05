@@ -40,7 +40,7 @@ bouton supprimer
 
 -------
 
-- interaction avec arbre :
+- interaction avec arbre : ✅
     - audio + st qui dit d'utiliser les outils ✅
     - click sur l'objet quand outils ouvert ✅
     - audio + st si mauvais outils ✅
