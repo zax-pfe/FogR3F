@@ -15,7 +15,11 @@ export default function Tronk(props) {
   const { nodes, materials } = useGLTF(
     `/assets/3DModels/Interactive/${objName}.glb`,
   ); 
-
+  
+    
+  const toolNeeded = 'Loupe';
+  const [outlineColor, setOutlineColor] = useState("lightblue"); 
+  
   const { setTronkPosition, elementContacted, setCurrentScreen, currentTool, toolOpen, setCurrentDialogue } = useGameStore();
 
   const handleClick = () => {
