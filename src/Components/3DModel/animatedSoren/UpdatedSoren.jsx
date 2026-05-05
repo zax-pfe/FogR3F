@@ -5,11 +5,9 @@ import { useControls, button } from "leva";
 
 export default function AnimatedSoren(props) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF(
-    "/assets/3DModels/Soren/animated_soren.glb",
-  );
+  const { nodes, materials, animations } = useGLTF("/assets/3DModels/Soren/animated_soren.glb");
   const animationsNames = animations.map((anim) => anim.name);
-  // console.log("Available animations:", animationsNames);
+  console.log("Available animations:", animationsNames);
 
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
@@ -56,13 +54,7 @@ export default function AnimatedSoren(props) {
   }, [playerAnimation]);
 
   return (
-    <group
-      ref={group}
-      {...props}
-      dispose={null}
-      scale={0.35}
-      position={[0, -0.8, 0]}
-    >
+    <group ref={group} {...props} dispose={null} scale={0.35} position={[0, -0.8, 0]}>
       <group name="Scene">
         <group name="character">
           <skinnedMesh
