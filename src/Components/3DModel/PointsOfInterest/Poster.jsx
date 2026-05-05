@@ -84,4 +84,4 @@ export default function Poster(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/posters/posterBlanc.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/posters/posterBlanc.glb");

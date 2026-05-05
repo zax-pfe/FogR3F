@@ -34,4 +34,4 @@ export const MolecBody = forwardRef(function MolecBody({ children, ...props }, r
   )
 })
 
-useGLTF.preload('/assets/3DModels/molec.glb')
+// useGLTF.preload('/assets/3DModels/molec.glb')

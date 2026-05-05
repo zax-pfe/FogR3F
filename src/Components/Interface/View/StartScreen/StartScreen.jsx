@@ -1,10 +1,16 @@
 import s from "./StartScreen.module.scss";
+import { useGameStore } from "../../../../store/store";
 
 const StartScreen = () => {
+        const { setCurrentScreen } = useGameStore();
 
     return (
         <>
-            {/* // Logo + bouton démarrer */}
+            <div className={s.screen}>
+                <button onClick={() => setCurrentScreen("game")} className={s.startButton}>
+                Commencer
+                </button>
+            </div>
         </>
     );
 };

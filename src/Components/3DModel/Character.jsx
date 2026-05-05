@@ -56,4 +56,4 @@ const Character = forwardRef((props, ref) => {
 });
 export default Character;
 
-useGLTF.preload("/assets/3DModels/PERSO.glb");
+// useGLTF.preload("/assets/3DModels/PERSO.glb");

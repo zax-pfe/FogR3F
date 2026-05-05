@@ -54,4 +54,4 @@ export default function Tronk(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/tronk_new.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/tronk_new.glb");

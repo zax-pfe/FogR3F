@@ -60,4 +60,4 @@ export default function BrokenRobot(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/brokenBot.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/brokenBot.glb");

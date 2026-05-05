@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { c_Objects } from "../constant/objects";
 
 export const useGameStore = create((set) => ({
+
+
   // ______________________ PLAYER __________________/
   playerPosition: null,
   setPlayerPosition: (position) => set({ playerPosition: position }),
@@ -63,4 +65,19 @@ export const useGameStore = create((set) => ({
 
   whoSpeaks: null,
   setWhoSpeaks: (who) => set({ whoSpeaks: who }),
+
+  // ______________________ SCREENS MANAGEMENT __________________/
+
+  currentScreen: "loading", // loading | menu | game
+  setCurrentScreen: (screen) => set({ currentScreen: screen }),
+
+  // ______________________ MEDIAS LOADING __________________/
+  mediaProgress: 0,
+  mediaLoaded: 0,
+  mediaTotal: 0,
+  mediaItem: "",
+  mediaFinished: false,
+
+  setMediaLoading: (data) => set(data),
+ 
 }));
