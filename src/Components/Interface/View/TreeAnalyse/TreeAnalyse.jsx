@@ -10,14 +10,14 @@ import { c_AudioUI, c_Click } from "../../../../constant/audio";
 
 const TreeAnalyse = () => {
 
-    const { currentView, setCurrentView, selectedItems, resetSelectedItems } = useGameStore();
+    const { currentScreen, setCurrentScreen, selectedItems, resetSelectedItems } = useGameStore();
     // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
 
     const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
     const handleKeyDown = (e) => {
         if (e.key === "t") {
-            setCurrentView(currentView != "analyse" && "analyse");
+            setCurrentScreen(currentScreen != "analyse" && "analyse");
         }
     };
 
@@ -33,7 +33,7 @@ const TreeAnalyse = () => {
             window.removeEventListener("keydown", handleKeyDown);
             window.removeEventListener("mousemove", handleMouseMove);
         };
-    }, [currentView]);
+    }, [currentScreen]);
 
     const ref__selectedBox = useRef(null);
 
@@ -57,12 +57,12 @@ const TreeAnalyse = () => {
         }
     }
 
-    return currentView === "analyse" && (
+    return currentScreen === "analyse" && (
         <div className={s.treeAnalyse}>
             <Tronk />
             <Button className={s.treeAnalyse__closeBtn} onClick={() => {
                 c_AudioUI.play('remove');
-                setCurrentView("game");
+                setCurrentScreen("game");
             }}>Fermer la machine</Button>
             {/* // Analyse du tronc */}
             {c_Arbre_HotSpots.map((spot, index) => (

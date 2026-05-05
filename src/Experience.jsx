@@ -3,7 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
-import { Perf } from "r3f-perf";
+// import { Perf } from "r3f-perf";
 import * as THREE from "three";
 import { Physics } from "@react-three/rapier";
 import { use, useEffect, useRef, useState } from "react";
@@ -22,7 +22,6 @@ import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
 import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
 
-
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
 import ParticlesShader from "./Components/VFX/ParticlesShader.jsx";
@@ -34,9 +33,8 @@ import Decors from "./Components/3DModel/Decors.jsx";
 import Trees from "./Components/3DModel/Trees.jsx";
 import GroundFog from "./Components/3DModel/GroundFog.jsx";
 
-import { Environment } from '@react-three/drei'
+import { Environment } from "@react-three/drei";
 import Fog from "./Components/3DModel/Fog.jsx";
-
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
@@ -75,12 +73,9 @@ export default function Experience() {
 
   return (
     <>
-      {/* <Environment preset="night" /> */}
+      <Environment preset="night" />
       {/* ______________________ FOG__________________/ */}
-      <fog
-        attach="fog"
-        args={[controlFog.color, controlFog.near, controlFog.far]}
-      />
+      <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
       <PostProcessing />
@@ -92,7 +87,7 @@ export default function Experience() {
         maxPolarAngle={CAMERA_LOCK ? Math.PI / 2.4 : Math.PI} // empêche de regarder trop vers le haut
         enableZoom={CAMERA_LOCK ? false : true}
       />
-      <Perf position="top-left" />
+      {/* <Perf position="top-left" /> */}
       <Lights />
       <CalculateDistance />
       {/* ______________________ MODELS __________________/ */}
@@ -104,7 +99,7 @@ export default function Experience() {
       <BrokenRobot />
       <Poster />
       <Interaction />
-      <Physics gravity={[0, -30, 0]}  >
+      <Physics gravity={[0, -30, 0]}>
         <Terrain />
         <Decors />
         <Trees />
@@ -115,7 +110,15 @@ export default function Experience() {
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      {/* <ParticlesShader /> */}
+      <ParticlesShader
+        size={{ x: 60, y: 6, z: 57 }}
+        scale={1}
+        count={2000}
+        color="#b9a3a3"
+        position={{ x: 11.3, y: 5.5, z: 5.4 }}
+        speed={2}
+        opacity={0.8}
+      />
     </>
   );
 }

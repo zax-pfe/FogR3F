@@ -81,4 +81,4 @@ export default function Decors(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/DECORS.glb");
+// useGLTF.preload("/assets/3DModels/DECORS.glb");

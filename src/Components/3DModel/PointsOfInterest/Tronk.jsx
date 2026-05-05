@@ -15,13 +15,13 @@ export default function Tronk(props) {
     "/assets/3DModels/Interactive/tronk_new.glb",
   );
 
-  const { setTronkPosition, elementContacted, setCurrentView, currentTool, toolOpen, setCurrentDialogue } = useGameStore();
+  const { setTronkPosition, elementContacted, setCurrentScreen, currentTool, toolOpen, setCurrentDialogue } = useGameStore();
 
   const handleClick = () => {
     if (elementContacted != "tronk" || !toolOpen) return;
 
     if (currentTool === toolNeeded) {
-      setCurrentView("analyse");
+      setCurrentScreen("analyse");
     } else {
       setCurrentDialogue("wrongTool");
     }
@@ -86,4 +86,4 @@ export default function Tronk(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/tronk_new.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/tronk_new.glb");

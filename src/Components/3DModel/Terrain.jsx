@@ -36,5 +36,5 @@ export default function Terrain(props) {
   )
 }
 
-useGLTF.preload('/assets/3DModels/TERRAIN.glb')
+// useGLTF.preload('/assets/3DModels/TERRAIN.glb')
 

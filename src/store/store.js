@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { c_Objects } from "../constant/objects";
 
 export const useGameStore = create((set) => ({
+
+
   // ______________________ PLAYER __________________/
   playerPosition: null,
   setPlayerPosition: (position) => set({ playerPosition: position }),
@@ -10,9 +12,21 @@ export const useGameStore = create((set) => ({
   playerRef: null,
   setPlayerRef: (ref) => set({ playerRef: ref }),
 
+  // ______________________ MOLEC __________________/
+  molecSpeaking: false,
+  setMolecSpeaking: (speaking) => set({ molecSpeaking: speaking }),
+
   // ______________________ CAMERA __________________/
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
+
+  // ______________________ VIEW __________________/
+
+  currentView: "startScreen",
+  setCurrentView: (view) => set({ currentView: view }),
+
+  transitionView: null,
+  setTransitionView: (transition) => set({ transitionView: transition }),
 
   // ______________________ POINTS OF INTEREST __________________/
 
@@ -39,24 +53,21 @@ export const useGameStore = create((set) => ({
   toolOpen: false,
   setToolOpen: (isOpen) => set({ toolOpen: isOpen }),
 
-  currentView: "game",
-  setCurrentView: (view) => set({ currentView: view }),
-
   hotspotCurrent: null,
   setHotspotCurrent: (view) => set({ hotspotCurrent: view }),
   selectedItems: [],
   maxSelectedItems: 4,
-  addSelectedItems: (item) => set( (state) => ({ selectedItems: [...state.selectedItems, item] })),
+  addSelectedItems: (item) => set((state) => ({ selectedItems: [...state.selectedItems, item] })),
   resetSelectedItems: () => set({ selectedItems: [] }),
-  removeSelectedItem: (item) => set((state) => {
-    const originalSelectedItems = [...state.selectedItems];
-    const newSelectedItems = originalSelectedItems.filter(i => i !== item);
-    return { selectedItems: newSelectedItems };
-  }),
+  removeSelectedItem: (item) =>
+    set((state) => {
+      const originalSelectedItems = [...state.selectedItems];
+      const newSelectedItems = originalSelectedItems.filter((i) => i !== item);
+      return { selectedItems: newSelectedItems };
+    }),
 
   objectFind: [c_Objects[0], c_Objects[1]],
-  addObjectFind: (object) =>
-    set((state) => ({ objectFind: [...state.objectFind, object] })),
+  addObjectFind: (object) => set((state) => ({ objectFind: [...state.objectFind, object] })),
 
   // ______________________ AUDIO __________________/
 
@@ -65,4 +76,19 @@ export const useGameStore = create((set) => ({
 
   whoSpeaks: null,
   setWhoSpeaks: (who) => set({ whoSpeaks: who }),
+
+  // ______________________ SCREENS MANAGEMENT __________________/
+
+  currentScreen: "loading", // loading | menu | game
+  setCurrentScreen: (screen) => set({ currentScreen: screen }),
+
+  // ______________________ MEDIAS LOADING __________________/
+  mediaProgress: 0,
+  mediaLoaded: 0,
+  mediaTotal: 0,
+  mediaItem: "",
+  mediaFinished: false,
+
+  setMediaLoading: (data) => set(data),
+ 
 }));

@@ -58,4 +58,4 @@ export default function Pointer(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/Pointer.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/Pointer.glb");

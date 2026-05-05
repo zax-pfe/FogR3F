@@ -54,4 +54,4 @@ export default function AmmoBox(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/ammo_box.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/ammo_box.glb");

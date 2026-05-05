@@ -4,9 +4,9 @@ import { Suspense } from "react";
 import { KeyboardControls } from "@react-three/drei";
 import { Environment, OrthographicCamera } from "@react-three/drei";
 import { useRef } from "react";
-import { Loader } from "@react-three/drei";
+import { Loader, useProgress } from "@react-three/drei";
 import Text from "../Interface/Design/Text/Text";
-
+ 
 const keyBoardMap = [
   { name: "forward", keys: ["z", "Z", "ArrowUp"] },
   { name: "backward", keys: ["s", "S", "ArrowDown"] },
@@ -15,7 +15,10 @@ const keyBoardMap = [
   { name: "interact", keys: ["a", "A"] },
 ];
 
+
+
 const ThreeScene = ({ children, placeholder = false }) => {
+
   return placeholder ? (
     <div className={`${s.canvas} ${s.placeholder}`}>
       <Text variant="h1" className={s.placeholder__text}>
@@ -44,11 +47,11 @@ const ThreeScene = ({ children, placeholder = false }) => {
           dpr={1}
           gl={{ antialias: false }}
         >
-          <Suspense fallback={null}>{children}</Suspense>
-          {/* <Environment preset="night" /> */}
+          <Suspense fallback={null}>
+            {children}
+          </Suspense>
         </Canvas>
-      </KeyboardControls>
-      {/* <Loader /> */}
+      </KeyboardControls>  
     </>
   );
 };
