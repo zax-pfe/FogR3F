@@ -8,10 +8,13 @@ import * as THREE from "three";
 
 export default function Tronk(props) {
   const tronkRef = useRef();
-
+ 
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "tronk_new_compressed" : "tronk_new";
+    
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/tronk_new.glb",
-  );
+    `/assets/3DModels/Interactive/${objName}.glb`,
+  ); 
 
   const setTronkPosition = useGameStore((state) => state.setTronkPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);

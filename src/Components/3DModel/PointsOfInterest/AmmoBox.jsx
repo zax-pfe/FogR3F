@@ -9,8 +9,11 @@ import * as THREE from "three";
 export default function AmmoBox(props) {
   const ammoBoxRef = useRef();
 
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "ammo_box_compressed" : "ammo_box";
+  
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/ammo_box.glb",
+    `/assets/3DModels/Interactive/${objName}.glb`,
   );
 
   const setAmmoBoxPosition = useGameStore((state) => state.setAmmoBoxPosition);

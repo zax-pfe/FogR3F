@@ -1,8 +1,15 @@
 import React, { useEffect } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useGameStore } from '../../store/store.js';
 
-export default function Trees(props) {
-  const { scene } = useGLTF('/assets/3DModels/TREES.glb')
+export default function Trees(props) { 
+
+    const { isCompressed, setIsCompressed } = useGameStore( );
+    const objName = isCompressed ? "TREES_compressed" : "TREES";
+      
+    const{ scene } = useGLTF(
+      `/assets/3DModels/${objName}.glb`,
+    ); 
 
   // useEffect(() => {
   //   scene.traverse((obj) => {

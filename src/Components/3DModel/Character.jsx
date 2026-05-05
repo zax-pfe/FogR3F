@@ -1,14 +1,19 @@
 import { useRef, useEffect, useState, forwardRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useControls, button } from "leva";
+import { useGameStore } from "../../store/store.js";
 
 // export default function Character(props) {
 
 const Character = forwardRef((props, ref) => {
   const group = useRef();
+
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "PERSO_compressed" : "PERSO";
+    
   const { nodes, materials, animations } = useGLTF(
-    "/assets/3DModels/PERSO.glb",
-  );
+    `/assets/3DModels/${objName}.glb`,
+  );  
 
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState(null);
