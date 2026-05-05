@@ -35,6 +35,7 @@ import Trees from "./Components/3DModel/Trees.jsx";
 import GroundFog from "./Components/3DModel/GroundFog.jsx";
 
 import { Environment } from '@react-three/drei'
+import Fog from "./Components/3DModel/Fog.jsx";
 
 
 export default function Experience() {
@@ -109,33 +110,12 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      <Smoke />
-      {/* very light fig more in the air */}
-      <GroundFog
-        position={[6, 3.9, 8]}
-        opacity={0.05}
-        scale={2}
-        color="#aaaaaa"
-      />
-      {/* light fog next to the ground */}
-      <GroundFog
-        position={[20, 3.8, 0]}
-        scale={1}
-        opacity={0.03}
-        rotation={Math.PI}
-        color="#b0b0b0"
-      />
-      {/* thick fog next to the ground */}
-      <GroundFog
-        position={[-2, 3.7, -0]}
-        scale={2}
-        opacity={0.09}
-        color="#8a8a8a"
-      />
+      {/* <Smoke /> */}
+      {/* <Fog /> */}
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <ParticlesShader />
+      {/* <ParticlesShader /> */}
     </>
   );
 }
