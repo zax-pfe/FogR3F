@@ -164,7 +164,7 @@ function StartScreenContent({ buttonHoveredRef }) {
     <>
       {/* <Perf position="top-left" /> */}
 
-      <OrbitControls args={[camera, gl.domElement]} />
+      {/* <OrbitControls args={[camera, gl.domElement]} /> */}
       <directionalLight position={[1, 2, 3]} intensity={6} />
       <ambientLight intensity={5} />
       <Title />

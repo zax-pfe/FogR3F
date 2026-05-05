@@ -45,7 +45,8 @@ export default function CharacterController() {
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
 
-  const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } = useGameStore();
+  const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } =
+    useGameStore();
 
   const { camera } = useThree();
 
@@ -76,8 +77,7 @@ export default function CharacterController() {
   // ______________________ FRAME UPDATE __________________/
 
   useFrame(({ camera }, delta) => {
-
-    if(currentDialogue) {
+    if (currentDialogue) {
       // console.log("Current audio in CharacterController:", currentDialogue);
       return;
     }
@@ -92,10 +92,7 @@ export default function CharacterController() {
       // console.log("Player position:", playerPos);
       const target = new THREE.Vector3(playerPos.x, playerPos.y, playerPos.z);
 
-      const offset = new THREE.Vector3().subVectors(
-        controls.object.position,
-        controls.target,
-      );
+      const offset = new THREE.Vector3().subVectors(controls.object.position, controls.target);
       const newCameraPos = target.clone().add(offset);
 
       controls.object.position.copy(newCameraPos);
@@ -133,7 +130,7 @@ export default function CharacterController() {
     moveDirection.addScaledVector(right, movement.x);
     // console.log("Move direction:", moveDirection);
     if (moveDirection.length() === 0) {
-      if (playerAnimation !== "interaction") {
+      if (playerAnimation !== "interaction" && playerAnimation !== "idle") {
         setPlayerAnimation("idle");
       }
       return;
@@ -141,18 +138,12 @@ export default function CharacterController() {
 
     const targetAngle = Math.atan2(moveDirection.x, moveDirection.z);
 
-    container.current.rotation.y = lerpAngle(
-      container.current.rotation.y,
-      targetAngle,
-      0.1,
-    );
-    setPlayerAnimation("walk");
+    container.current.rotation.y = lerpAngle(container.current.rotation.y, targetAngle, 0.1);
+    if (playerAnimation !== "walk") setPlayerAnimation("walk");
 
-    vel.x =
-      (cameraDirection.x * movement.z + right.x * movement.x) * WALK_SPEED;
+    vel.x = (cameraDirection.x * movement.z + right.x * movement.x) * WALK_SPEED;
 
-    vel.z =
-      (cameraDirection.z * movement.z + right.z * movement.x) * WALK_SPEED;
+    vel.z = (cameraDirection.z * movement.z + right.z * movement.x) * WALK_SPEED;
 
     rb.current.setLinvel(vel, true);
 
