@@ -1,0 +1,39 @@
+﻿1
+00:00:00,000 --> 00:00:02,160
+SOREN
+Des caisses scellées ? 
+
+2
+00:00:02,160 --> 00:00:04,000
+SOREN
+Attends, laisse-moi voir... 
+
+3
+00:00:04,800 --> 00:00:06,080
+MOLEC
+Danger ! Danger ! Danger !
+
+4
+00:00:06,080 --> 00:00:08,080
+MOLEC
+Attention : Contenu probable : munitions.
+
+5
+00:00:08,160 --> 00:00:09,880
+SOREN
+La phrase sur la caisse est illisible...
+
+6
+00:00:09,880 --> 00:00:11,880
+SOREN
+Molec tu peux faire une analyse !
+
+7
+00:00:12,000 --> 00:00:14,640
+MOLEC
+Analyse en cours ...
+
+8
+00:00:15,240 --> 00:00:19,960
+MOLEC
+Résultat : munitions Baile-Novaris

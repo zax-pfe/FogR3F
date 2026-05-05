@@ -48,6 +48,6 @@ bouton supprimer
 - cursor
     - cursor icon + quand qqch hover
     - icon outil current à coté souris ✅
-    - cursor analyse
+    - cursor analyse ✅
 - résoudre bug déplacemnt ✅
-- ajout des dernier audio
+- ajout des dernier audio ✅

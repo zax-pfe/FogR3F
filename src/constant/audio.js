@@ -3,33 +3,33 @@ import { Howl, Howler } from "howler";
 export const c_Dialogue = [
 	{
 		index: "ammoBox",
-		src: "/assets/audio/dialogue/RobotvoixCropped.mp3",
-		srcSubtitle: "/assets/audio/dialogue/subtitle/test.srt",
+		src: "/assets/audio/dialogue/miliBox.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/miliBox.srt",
 	},
 	{
-		index: "brokenRobot",
-		src: "/assets/audio/dialogue/RobotvoixCropped.mp3",
-		srcSubtitle: "/assets/audio/dialogue/subtitle/test.srt",
-	},
-	{
-		index: "cristal",
-		src: "/assets/audio/dialogue/RobotvoixCropped.mp3",
-		srcSubtitle: "/assets/audio/dialogue/subtitle/test.srt",
-	},
-	{
-		index: "panel",
-		src: "/assets/audio/dialogue/RobotvoixCropped.mp3",
-		srcSubtitle: "/assets/audio/dialogue/subtitle/test.srt",
-	},
-	{
-		index: "pointer",
+		index: "balancoire",
 		src: "/assets/audio/dialogue/balancoire.mp3",
 		srcSubtitle: "/assets/audio/dialogue/subtitle/balancoire.srt",
 	},
 	{
-		index: "poster",
-		src: "/assets/audio/dialogue/RobotvoixCropped.mp3",
-		srcSubtitle: "/assets/audio/dialogue/subtitle/test.srt",
+		index: "brokenRobot",
+		src: "/assets/audio/dialogue/peluche.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/peluche.srt",
+	},
+	{
+		index: "peluche",
+		src: "/assets/audio/dialogue/peluche.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/peluche.srt",
+	},
+	{
+		index: "tank",
+		src: "/assets/audio/dialogue/tank.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/tank.srt",
+	},
+	{
+		index: "pointer",
+		src: "/assets/audio/dialogue/pointer.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/pointer.srt",
 	},
 	{
 		index: "tronk",
@@ -37,10 +37,10 @@ export const c_Dialogue = [
 		srcSubtitle: "/assets/audio/dialogue/subtitle/tronk.srt",
 	},
 	{
-		index: 'wrongTool',
-		src: "/assets/audio/dialogue/tronk.mp3",
+		index: "wrongTool",
+		src: "/assets/audio/dialogue/tronk.mp3", // A changer
 		srcSubtitle: "/assets/audio/dialogue/subtitle/wrongTool.srt",
-	}
+	},
 ];
 
 export const c_Mix = {
