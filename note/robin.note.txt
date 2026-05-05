@@ -47,7 +47,7 @@ bouton supprimer
     - ouverture écran analyse ✅
 - cursor
     - cursor icon + quand qqch hover
-    - icon outil current à coté souris
+    - icon outil current à coté souris ✅
     - cursor analyse
 - résoudre bug déplacemnt ✅
 - ajout des dernier audio

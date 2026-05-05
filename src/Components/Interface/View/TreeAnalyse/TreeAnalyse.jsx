@@ -13,16 +13,25 @@ const TreeAnalyse = () => {
     const { currentView, setCurrentView, selectedItems, resetSelectedItems } = useGameStore();
     // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
 
+    const [pointer, setPointer] = useState({ x: 0, y: 0 });
+
     const handleKeyDown = (e) => {
         if (e.key === "t") {
             setCurrentView(currentView != "analyse" && "analyse");
         }
     };
 
+    const handleMouseMove = (e) => {
+        setPointer({ x: e.clientX, y: e.clientY });
+    };
+
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("mousemove", handleMouseMove);
+
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("mousemove", handleMouseMove);
         };
     }, [currentView]);
 
@@ -60,6 +69,7 @@ const TreeAnalyse = () => {
                 <HotSpot key={index} data={spot} coo={{ x: origin.x + coo_Ratio(spot.x), y: origin.y + coo_Ratio(spot.y) }} refBox={ref__selectedBox} />
             ))}
             <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
+            <div className={s.pointer} style={{ top: pointer.y, left: pointer.x}}></div>
         </div>
     );
 
