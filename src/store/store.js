@@ -37,8 +37,8 @@ export const useGameStore = create((set) => ({
 		set({ currentTool: tool }), console.log("Current tool set to:", tool);
 	},
 
-  showAnalyse: false,
-  setShowAnalyse: (show) => set({ showAnalyse: show }),
+  currentView: "game",
+  setCurrentView: (view) => set({ currentView: view }),
 
   hotspotCurrent: null,
   setHotspotCurrent: (view) => set({ hotspotCurrent: view }),
