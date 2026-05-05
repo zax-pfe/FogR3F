@@ -10,7 +10,7 @@ export default function Tronk(props) {
   const tronkRef = useRef();
 
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/tronk.glb",
+    "/assets/3DModels/Interactive/tronk_new.glb",
   );
 
   const setTronkPosition = useGameStore((state) => state.setTronkPosition);
@@ -54,4 +54,4 @@ export default function Tronk(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/tronk.glb");
+useGLTF.preload("/assets/3DModels/Interactive/tronk_new.glb");

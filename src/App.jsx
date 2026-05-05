@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <ThreeScene>
-        <Experience />
+      <Experience />
       </ThreeScene>
       <ThreeAnalyse />
       <Hud />
