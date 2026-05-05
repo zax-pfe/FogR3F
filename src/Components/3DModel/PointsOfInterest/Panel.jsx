@@ -39,4 +39,4 @@ export default function Panel(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Interactive/panneau_marecage.glb");
+// useGLTF.preload("/assets/3DModels/Interactive/panneau_marecage.glb");
