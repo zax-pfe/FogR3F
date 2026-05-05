@@ -19,7 +19,7 @@ const ToolVariants = {
 };
 
 const ToolsWheel = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [toolOpen, setToolOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const toolsRadius = 150;
   const center = 82;
@@ -27,19 +27,12 @@ const ToolsWheel = () => {
   const [, forceUpdate] = useState(0);
   const isArrived = useRef(0);
   const animationRef = useRef();
-    // const { setCurrentTool, toolOpen, setToolOpen } = useGameStore();
-  const setCurrentTool = useGameStore((state) => state.setCurrentTool);
-const toolOpen = useGameStore((state) => state.toolOpen);
-const setToolOpen = useGameStore((state) => state.setToolOpen);
-    // const [toolOpen, setToolOpen] = useState(false);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const toolsRadius = 150;
-    const center = 82;
-    const [currentToolId, setCurrentToolId] = useState(0);
-    const [, forceUpdate] = useState(0);
-    const isArrived = useRef(0);
-    const animationRef = useRef();
-    const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const { setCurrentTool, toolOpen, setToolOpen } = useGameStore();
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+
+  const generateCirclePoints = (number, baseAngle = 0) => {
+    let table = [];
+    let a = (Math.PI * 2) / (number + 2);
 
     let step = (Math.PI * 2) / (number + 2);
 
@@ -94,7 +87,9 @@ const setToolOpen = useGameStore((state) => state.setToolOpen);
     animationRef.current = requestAnimationFrame(mouveTools);
   };
 
-        if (!toolOpen || isTransitioning) return;
+  const mouveTools = () => {
+    for (let i = 0; i < tools.current.length; i++) {
+      const tool = tools.current[i];
 
       // tool.x += (tool.dx - tool.x) * 0.2;
       // tool.y += (tool.dy - tool.y) * 0.2;
@@ -138,7 +133,7 @@ const setToolOpen = useGameStore((state) => state.setToolOpen);
   };
 
   const handleScroll = (e) => {
-    if (!isOpen || isTransitioning) return;
+    if (!toolOpen || isTransitioning) return;
 
     const delta = e.deltaY;
     let newTool = currentToolId;
@@ -162,100 +157,97 @@ const setToolOpen = useGameStore((state) => state.setToolOpen);
 
   const handleKeyDown = (e) => {
     if (e.key === "e") {
-      setIsOpen(!isOpen);
+      setToolOpen(!toolOpen);
     }
+  };
+
+  const handleMouseMove = (e) => {
+    setPointer({ x: e.clientX, y: e.clientY });
   };
 
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("mousemove", handleMouseMove);
+
     return () => {
       window.removeEventListener("wheel", handleScroll);
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isOpen, isTransitioning, currentToolId]);
+  }, [toolOpen, isTransitioning, currentToolId]);
 
-    const handleKeyDown = (e) => {
-        if (e.key === "e") {
-            setToolOpen(!toolOpen);
-        }
-    };
+  useEffect(() => {
+    for (let i = 0; i < tools.current.length; i++) {
+      tools.current[i].x = slot[i].x;
+      tools.current[i].y = slot[i].y;
+    }
+  }, []);
 
-    const handleMouseMove = (e) => {
-        setPointer({ x: e.clientX, y: e.clientY });
-    };
-
-    useEffect(() => {
-        window.addEventListener("wheel", handleScroll);
-        window.addEventListener("keydown", handleKeyDown);
-        window.addEventListener("mousemove", handleMouseMove);
-
-        return () => {
-            window.removeEventListener("wheel", handleScroll);
-            window.removeEventListener("keydown", handleKeyDown);
-            window.removeEventListener("mousemove", handleMouseMove);
-        };
-    }, [toolOpen, isTransitioning, currentToolId]);
-
-    useEffect(() => {
-        for (let i = 0; i < tools.current.length; i++) {
-            tools.current[i].x = slot[i].x;
-            tools.current[i].y = slot[i].y;
-        }
-    }, []);
-
-    return (
-        <>
-            {toolOpen && <div
-                className={s.pointer}
-                style={{ 
-                    top: pointer.y + 12, 
-                    left: pointer.x + 12, 
-                    WebkitMaskImage: `url(${tools.current[currentToolId].icon})`, 
-                    maskImage: `url(${tools.current[currentToolId].icon})`,
-                    color: "white" 
+  return (
+    <>
+      {toolOpen && (
+        <div
+          className={s.pointer}
+          style={{
+            top: pointer.y + 12,
+            left: pointer.x + 12,
+            WebkitMaskImage: `url(${tools.current[currentToolId].icon})`,
+            maskImage: `url(${tools.current[currentToolId].icon})`,
+            color: "white",
+          }}
+          alt={tools.current[currentToolId].name}
+        ></div>
+      )}
+      <div className={s.toolsWheel}>
+        {/* ToolsWheel content */}
+        <button
+          className={`${s.btn} ${toolOpen ? s.open : ""}`}
+          onClick={() => setToolOpen(!toolOpen)}
+        >
+          {/* <span className="sr-only">Open tool</span> */}
+          <span className="sr-only"> {toolOpen ? "Close" : "Open"} tool</span>
+        </button>
+        <AnimatePresence>
+          {toolOpen &&
+            tools.current.map((tool, index) => (
+              <motion.div
+                key={index}
+                className={`${s.tool} ${index === currentToolId ? s.active : ""}`}
+                onClick={() => {
+                  changeTool(index);
+                  c_AudioUI.play("toolSelect");
                 }}
-                alt={tools.current[currentToolId].name}
-            ></div>}
-            <div className={s.toolsWheel} >
-                {/* ToolsWheel content */}
-                <button className={`${s.btn} ${toolOpen ? s.open : ""}`} onClick={() => setToolOpen(!toolOpen)}>
-                    {/* <span className="sr-only">Open tool</span> */}
-                    <span className="sr-only" > {toolOpen ? "Close" : "Open"} tool</span>
-                </button >
-                <AnimatePresence>
-                    {
-                        toolOpen && tools.current.map((tool, index) => (
-                            <motion.div
-                                key={index}
-                                className={`${s.tool} ${index === currentToolId ? s.active : ""}`}
-                                onClick={() => {
-                                    changeTool(index);
-                                    c_AudioUI.play('toolSelect');
-                                }}
-                                style={{
-                                    right: `${tool.x}px`,
-                                    bottom: `${tool.y}px`
-                                }}
-                                initial="initial"
-                                animate={{ opacity: 1, scale: 1, x: '50%', y: '50%', right: `${tool.x}px`, bottom: `${tool.y}px`, transition: { duration: 0.2 } }}
-                                exit="exit"
-                                variants={ToolVariants}
-                            >
-                                <div className={s.tool__icon}>
-                                    <img src={tool.icon} style={{ width: 37 }} alt={tool.name} />
-                                </div>
-                                <span className={s.tool__label}>{tool.name}</span>
-                                {/* {
+                style={{
+                  right: `${tool.x}px`,
+                  bottom: `${tool.y}px`,
+                }}
+                initial="initial"
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  x: "50%",
+                  y: "50%",
+                  right: `${tool.x}px`,
+                  bottom: `${tool.y}px`,
+                  transition: { duration: 0.2 },
+                }}
+                exit="exit"
+                variants={ToolVariants}
+              >
+                <div className={s.tool__icon}>
+                  <img src={tool.icon} style={{ width: 37 }} alt={tool.name} />
+                </div>
+                <span className={s.tool__label}>{tool.name}</span>
+                {/* {
                                 tool.selectable === "false" && <span className={s.lock}>X</span>
                             } */}
-                            </motion.div>
-                        ))
-                    }
-                </AnimatePresence>
-            </div >
-        </>
-    );
+              </motion.div>
+            ))}
+        </AnimatePresence>
+      </div>
+    </>
+  );
 };
 
 export default ToolsWheel;

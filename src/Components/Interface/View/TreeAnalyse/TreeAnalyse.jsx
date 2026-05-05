@@ -13,78 +13,30 @@ import Tronk from "../../Tronk/Tronk";
 import { c_AudioUI, c_Click } from "../../../../constant/audio";
 
 const TreeAnalyse = () => {
-  //   const { showAnalyse, setShowAnalyse, selectedItems, resetSelectedItems } = useGameStore();
-  const showAnalyse = useGameStore((state) => state.showAnalyse);
-  const setShowAnalyse = useGameStore((state) => state.setShowAnalyse);
-  const selectedItems = useGameStore((state) => state.selectedItems);
-  const resetSelectedItems = useGameStore((state) => state.resetSelectedItems);
+  const { currentScreen, setCurrentScreen, selectedItems, resetSelectedItems } = useGameStore();
   // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
 
-    // const { currentScreen, setCurrentScreen, selectedItems, resetSelectedItems } = useGameStore();
-    const currentScreen = useGameStore((state) => state.currentScreen);
-    const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
-    // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
-    const [pointer, setPointer] = useState({ x: 0, y: 0 });
-
-    const handleKeyDown = (e) => {
-        if (e.key === "t") {
-            setCurrentScreen(currentScreen != "analyse" && "analyse");
-        }
-    };
-
-    const handleMouseMove = (e) => {
-        setPointer({ x: e.clientX, y: e.clientY });
-    };
-
-    useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown);
-        window.addEventListener("mousemove", handleMouseMove);
-
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-            window.removeEventListener("mousemove", handleMouseMove);
-        };
-    }, [currentScreen]);
-
-    const ref__selectedBox = useRef(null);
-
-    const [origin, setOrigin] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-
-    const startAnalyse = () => {
-        if (selectedItems.length > 0) {
-            console.log(selectedItems);
-            console.log(`Nombre d'infos à trouver : ${c_Arbre_HotSpots_MustFind}`);
-            const foundCount = selectedItems.filter(item => item.mustBeFound).length;
-            console.log(`Nombre d'infos trouvées : ${foundCount}`);
-
-            if (foundCount >= c_Arbre_HotSpots_MustFind) {
-                console.log("Cinématique");
-            } else {
-                alert(`Analyse incomplète. Il vous manque ${c_Arbre_HotSpots_MustFind - foundCount} éléments à trouver.`);
-                resetSelectedItems();
-            }
-        } else {
-            return alert("Aucun élément sélectionné pour l'analyse. Veuillez sélectionner au moins un élément avant de lancer l'analyse.");
-        }
+  const handleKeyDown = (e) => {
+    if (e.key === "t") {
+      setCurrentScreen(currentScreen != "analyse" && "analyse");
     }
   };
 
-    return currentScreen === "analyse" && (
-        <div className={s.treeAnalyse}>
-            <Tronk />
-            <Button className={s.treeAnalyse__closeBtn} onClick={() => {
-                c_AudioUI.play('remove');
-                setCurrentScreen("game");
-            }}>Fermer la machine</Button>
-            {/* // Analyse du tronc */}
-            {c_Arbre_HotSpots.map((spot, index) => (
-                <HotSpot key={index} data={spot} coo={{ x: origin.x + coo_Ratio(spot.x), y: origin.y + coo_Ratio(spot.y) }} refBox={ref__selectedBox} />
-            ))}
-            <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
-            <div className={s.pointer} style={{ top: pointer.y, left: pointer.x}}></div>
-        </div>
-    );
+  const handleMouseMove = (e) => {
+    setPointer({ x: e.clientX, y: e.clientY });
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [currentScreen]);
 
   const ref__selectedBox = useRef(null);
 
@@ -113,14 +65,14 @@ const TreeAnalyse = () => {
   };
 
   return (
-    showAnalyse && (
+    currentScreen === "analyse" && (
       <div className={s.treeAnalyse}>
         <Tronk />
         <Button
           className={s.treeAnalyse__closeBtn}
           onClick={() => {
             c_AudioUI.play("remove");
-            setShowAnalyse(false);
+            setCurrentScreen("game");
           }}
         >
           Fermer la machine
@@ -135,6 +87,7 @@ const TreeAnalyse = () => {
           />
         ))}
         <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
+        <div className={s.pointer} style={{ top: pointer.y, left: pointer.x }}></div>
       </div>
     )
   );
