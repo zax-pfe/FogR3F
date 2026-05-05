@@ -4,15 +4,21 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+}
 
-  .startScreen__interface {
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    align-items: center;
+.startScreen__interface {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  z-index: 1;
+  pointer-events: none;
+  padding-bottom: 100px;
+  .startScreen__button {
+    margin: 20px;
+    pointer-events: all;
   }
 }

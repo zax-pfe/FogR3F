@@ -114,7 +114,15 @@ export default function Experience() {
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <ParticlesShader />
+      <ParticlesShader
+        size={{ x: 60, y: 6, z: 57 }}
+        scale={1}
+        count={2000}
+        color="#b9a3a3"
+        position={{ x: 11.3, y: 5.5, z: 5.4 }}
+        speed={2}
+        opacity={0.8}
+      />
     </>
   );
 }

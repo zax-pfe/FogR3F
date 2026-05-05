@@ -11,6 +11,7 @@ import { Perf } from "r3f-perf";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
 import { useGameStore } from "../../../../store/store";
+import ParticlesShader from "../../../VFX/ParticlesShader";
 
 {
   /* ______________________ CANVAS __________________/ */
@@ -29,25 +30,27 @@ const StartScreen = () => {
   }, []);
 
   return (
-    <div className={s.startScreen}>
+    <>
       <InterfaceOverlay onHover={handleHover} />
-      <Canvas
-        dpr={[1, 2]}
-        gl={{
-          antialias: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          outputColorSpace: THREE.sRGBEncoding,
-        }}
-        camera={{
-          fov: 45,
-          near: 0.1,
-          far: 100,
-          position: [0, -3, 18],
-        }}
-      >
-        <StartScreenContent buttonHoveredRef={buttonHoveredRef} />
-      </Canvas>
-    </div>
+      <div className={s.startScreen}>
+        <Canvas
+          dpr={[1, 2]}
+          gl={{
+            antialias: true,
+            toneMapping: THREE.ACESFilmicToneMapping,
+            outputColorSpace: THREE.sRGBEncoding,
+          }}
+          camera={{
+            fov: 45,
+            near: 0.1,
+            far: 100,
+            position: [0, -3, 18],
+          }}
+        >
+          <StartScreenContent buttonHoveredRef={buttonHoveredRef} />
+        </Canvas>
+      </div>
+    </>
   );
 };
 export default StartScreen;
@@ -66,11 +69,11 @@ function InterfaceOverlay({ onHover }) {
   return (
     <div className={s.startScreen__interface}>
       <div className={s.startScreen__button} onMouseEnter={() => onHover("play")} onMouseLeave={() => onHover("none")}>
-        <Button onClick={handlePlayClick}>Play</Button>
+        <Button onClick={handlePlayClick}>Reprendre</Button>
       </div>
-      <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
+      {/* <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
         <Button>Credit</Button>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -134,6 +137,15 @@ function StartScreenContent({ buttonHoveredRef }) {
       </Float>
       <PostProcessingStartScreen />
       <StartScreenFog />
+      <ParticlesShader
+        size={{ x: 30, y: 15, z: 8 }}
+        scale={5}
+        count={200}
+        color="#b9a3a3"
+        position={{ x: 0, y: -7.5, z: 0 }}
+        speed={8}
+        opacity={0.2}
+      />
     </>
   );
 }
@@ -182,8 +194,8 @@ function ModelTextured({ buttonHoveredRef, ...props }) {
   const { nodes, materials } = useGLTF("/assets/3DModels/Molec/MolecEmissiveTextured.glb");
   const pointLightRef = useRef();
   const colors = {
-    play: new THREE.Color(0x00f00f),
-    credit: new THREE.Color(0xff6666),
+    play: new THREE.Color(0xff69b4),
+    credit: new THREE.Color(0x00f00f),
     none: new THREE.Color(0x00ffff),
   };
 
