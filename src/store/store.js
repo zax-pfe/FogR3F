@@ -18,6 +18,10 @@ export const useGameStore = create((set) => ({
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
 
+  // ______________________ VIEW __________________/
+  controlsRef: null,
+  setControlsRef: (ref) => set({ controlsRef: ref }),
+
   // ______________________ POINTS OF INTEREST __________________/
 
   ammoBoxPosition: null,
@@ -46,8 +50,7 @@ export const useGameStore = create((set) => ({
   setHotspotCurrent: (view) => set({ hotspotCurrent: view }),
   selectedItems: [],
   maxSelectedItems: 4,
-  addSelectedItems: (item) =>
-    set((state) => ({ selectedItems: [...state.selectedItems, item] })),
+  addSelectedItems: (item) => set((state) => ({ selectedItems: [...state.selectedItems, item] })),
   resetSelectedItems: () => set({ selectedItems: [] }),
   removeSelectedItem: (item) =>
     set((state) => {
@@ -57,8 +60,7 @@ export const useGameStore = create((set) => ({
     }),
 
   objectFind: [c_Objects[0], c_Objects[1]],
-  addObjectFind: (object) =>
-    set((state) => ({ objectFind: [...state.objectFind, object] })),
+  addObjectFind: (object) => set((state) => ({ objectFind: [...state.objectFind, object] })),
 
   // ______________________ AUDIO __________________/
 

@@ -1,4 +1,10 @@
 varying vec3 vPosition;
+uniform float uTime;
+
+uniform vec3 uMeshPosition;
+uniform float uGlowRadius;
+uniform float uGlowIntensity;
+
 
 
 // ________________ PERLIN NOISE __________________ //
@@ -79,11 +85,27 @@ float cnoise(vec3 P){
 
 void main()
 {
-    float n = cnoise(vPosition * 0.2);
+
+  float dist = length(vPosition - uMeshPosition);
+  float glow = 1.0 - smoothstep(0.0, uGlowRadius, dist);
+
+
+    float timeRatio = 0.2;
+    float alphaRatio = 0.15;
+    float scaleRatio = 0.2;
+
+
+
+    float n = cnoise(vPosition * scaleRatio + uTime * timeRatio);
+
     n = n * 0.5 + 0.5;
-    float alpha = n * 0.2;
+    // float alpha = n * alphaRatio;
+    float baseAlpha = 0.05;
+float alpha = baseAlpha + n * alphaRatio * vPosition.y * vPosition.y * 0.025;
 
 
     gl_FragColor = vec4(0.52, 0.49, 0.49, alpha);
+    // gl_FragColor.rgb += vec3(0, 1.0, 1.0) * glow * uGlowIntensity;
+
     #include <colorspace_fragment>
 }

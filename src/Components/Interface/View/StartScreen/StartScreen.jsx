@@ -1,16 +1,32 @@
 import s from "./StartScreen.module.scss";
 import { useFrame, useThree, extend, Canvas, useLoader } from "@react-three/fiber";
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import { OrbitControls, useGLTF, Float } from "@react-three/drei";
 import { EffectComposer, ToneMapping, Bloom, Vignette, DepthOfField, Noise } from "@react-three/postprocessing";
 import { ToneMappingMode, BlendFunction } from "postprocessing";
 import { useControls } from "leva";
 import { FileLoader } from "three";
+import { Perf } from "r3f-perf";
+import Button from "../../Design/Button/Button";
+import Text from "../../Design/Text/Text";
+
+{
+  /* ______________________ CANVAS __________________/ */
+}
 
 const StartScreen = () => {
+  // const [buttonHovered, setButtonHovered] = useState("none");
+
+  const buttonHoveredRef = useRef("none");
+
+  const handleHover = useCallback((value) => {
+    buttonHoveredRef.current = value;
+  }, []);
+
   return (
     <div className={s.startScreen}>
+      <InterfaceOverlay onHover={handleHover} />
       <Canvas
         dpr={[1, 2]}
         gl={{
@@ -22,18 +38,37 @@ const StartScreen = () => {
           fov: 45,
           near: 0.1,
           far: 100,
-          position: [0, 2, 10],
+          position: [0, -3, 18],
         }}
       >
-        <StartScreenContent />
+        <StartScreenContent buttonHoveredRef={buttonHoveredRef} />
       </Canvas>
     </div>
   );
 };
-
 export default StartScreen;
 
-function StartScreenContent() {
+{
+  /* ______________________ INTERFACE __________________/ */
+}
+
+function InterfaceOverlay({ onHover }) {
+  return (
+    <div className={s.startScreen__interface}>
+      <div className={s.startScreen__button} onMouseEnter={() => onHover("play")} onMouseLeave={() => onHover("none")}>
+        <Button>Play</Button>
+      </div>
+      <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
+        <Button>Credit</Button>
+      </div>
+    </div>
+  );
+}
+
+{
+  /* ______________________ EXPERIENCE __________________/ */
+}
+function StartScreenContent({ buttonHoveredRef }) {
   const { camera, gl, mouse } = useThree();
   const sphereRef = useRef();
   const groupRef = useRef();
@@ -56,6 +91,8 @@ function StartScreenContent() {
   }
 
   useFrame((state, delta) => {
+    camera.lookAt(0, -7.5, 0);
+
     const maxRot = Math.PI / 5;
 
     targetRotation.current.x = -mouse.y * maxRot;
@@ -74,13 +111,15 @@ function StartScreenContent() {
 
   return (
     <>
+      <Perf position="top-left" />
+
       <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={6} />
       <ambientLight intensity={2} />
 
-      <Float speed={2} floatIntensity={0.5} rotationIntensity={1} floatingRange={[1, 1.5]}>
-        <group ref={groupRef} scale={2} rotation={[rotation_x, rotation_y, rotation_z]} position={[0, 0, 1.5]}>
-          <ModelTextured />
+      <Float speed={2} floatIntensity={0.5} rotationIntensity={1} floatingRange={[1, 1.5]} position={[0, -7.5, 1.5]}>
+        <group ref={groupRef} scale={4} rotation={[rotation_x, rotation_y, rotation_z]}>
+          <ModelTextured buttonHoveredRef={buttonHoveredRef} />
         </group>
       </Float>
       <PostProcessingStartScreen />
@@ -89,6 +128,9 @@ function StartScreenContent() {
   );
 }
 
+{
+  /* ______________________ POST PROCESSING __________________/ */
+}
 function PostProcessingStartScreen() {
   return (
     <>
@@ -103,7 +145,9 @@ function PostProcessingStartScreen() {
     </>
   );
 }
-
+{
+  /* ______________________ MODEL NON TEXTURED __________________/ */
+}
 // function ModelTextured(props) {
 //   const { nodes, materials } = useGLTF("/assets/3DModels/Molec/MolecEmissive.glb");
 //   materials.Crystal.emissive = new THREE.Color(0x00ffff);
@@ -121,12 +165,32 @@ function PostProcessingStartScreen() {
 
 // useGLTF.preload("/assets/3DModels/Molec/MolecEmissive.glb");
 
-function ModelTextured(props) {
+{
+  /* ______________________ MODEL TEXTURED __________________/ */
+}
+function ModelTextured({ buttonHoveredRef, ...props }) {
   const { nodes, materials } = useGLTF("/assets/3DModels/Molec/MolecEmissiveTextured.glb");
-  materials.Crystal.emissive = new THREE.Color(0x00ffff);
-  materials.Crystal.emissiveIntensity = 10;
+  const pointLightRef = useRef();
+  const colors = {
+    play: new THREE.Color(0x00f00f),
+    credit: new THREE.Color(0xff6666),
+    none: new THREE.Color(0x00ffff),
+  };
+
+  useFrame(() => {
+    const color = colors[buttonHoveredRef.current] || colors.none;
+    materials.Crystal.emissive = color;
+    materials.Crystal.emissiveIntensity = 10;
+    if (pointLightRef.current) {
+      pointLightRef.current.color = color;
+    }
+  });
+
+  // materials.Crystal.emissive = colors[buttonHovered] || colors.none;
+  // materials.Crystal.emissiveIntensity = 10;
   return (
     <group {...props} dispose={null} rotation={[0, -Math.PI / 2, 0]}>
+      <pointLight ref={pointLightRef} intensity={50} distance={8} />
       <group scale={1.904}>
         <mesh castShadow receiveShadow geometry={nodes.Sphere001.geometry} material={materials["Material.004"]} />
         <mesh castShadow receiveShadow geometry={nodes.Sphere001_1.geometry} material={materials["Material.005"]} />
@@ -138,18 +202,32 @@ function ModelTextured(props) {
 
 useGLTF.preload("/assets/3DModels/Molec/MolecEmissiveTextured.glb");
 
+{
+  /* ______________________ VOLUMETRIC FOG __________________/ */
+}
+
 function StartScreenFog() {
   const vertexShader = useLoader(FileLoader, "../../shaders/fogStartScreen/vertex.glsl");
   const fragmentShader = useLoader(FileLoader, "../../shaders/fogStartScreen/fragment.glsl");
   const materialRef = useRef();
+
+  useFrame((state) => {
+    materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+  });
   return (
-    <mesh rotation={[0, 0, 0]} position={[0, 0, 0]} scale={1}>
+    <mesh rotation={[0, 0, 0]} position={[0, -7.5, 0]} scale={1}>
       {/* <planeGeometry args={[15, 15]} /> */}
-      <boxGeometry args={[15, 15, 15]} />
+      <boxGeometry args={[30, 15, 8]} />
       <shaderMaterial
         ref={materialRef}
         transparent
         depthWrite={true}
+        uniforms={{
+          uTime: { value: 0 },
+          uMeshPosition: { value: new THREE.Vector3(0, -7.5, 1.5) },
+          uGlowRadius: { value: 7.0 },
+          uGlowIntensity: { value: 0.3 },
+        }}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         blending={THREE.AdditiveBlending}

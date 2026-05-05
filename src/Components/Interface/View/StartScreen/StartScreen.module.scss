@@ -4,4 +4,15 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+
+  .startScreen__interface {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+  }
 }
