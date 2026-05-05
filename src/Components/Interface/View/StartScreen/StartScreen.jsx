@@ -74,7 +74,7 @@ function StartScreenContent() {
 
   return (
     <>
-      {/* <OrbitControls args={[camera, gl.domElement]} /> */}
+      <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={6} />
       <ambientLight intensity={2} />
 
@@ -146,7 +146,14 @@ function StartScreenFog() {
     <mesh rotation={[0, 0, 0]} position={[0, 0, 0]} scale={1}>
       {/* <planeGeometry args={[15, 15]} /> */}
       <boxGeometry args={[15, 15, 15]} />
-      <shaderMaterial ref={materialRef} transparent depthWrite={true} vertexShader={vertexShader} fragmentShader={fragmentShader} />
+      <shaderMaterial
+        ref={materialRef}
+        transparent
+        depthWrite={true}
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        blending={THREE.AdditiveBlending}
+      />
     </mesh>
   );
 }
