@@ -37,3 +37,10 @@ bouton reset
 click pour rouvrir popup
 mention que limote atteinte
 bouton supprimer
+
+-------
+
+- interaction avec arbre + audio
+- cursor
+- résoudre bug déplacemnt
+- ajout des dernier audio
