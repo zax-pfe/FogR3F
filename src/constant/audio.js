@@ -31,6 +31,11 @@ export const c_Dialogue = [
 		src: "/assets/audio/dialogue/RobotvoixCropped.mp3",
 		srcSubtitle: "/assets/audio/dialogue/subtitle/test.srt",
 	},
+	{
+		index: "tronk",
+		src: "/assets/audio/dialogue/tronk.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/tronk.srt",
+	}
 ];
 
 export const c_Mix = {
