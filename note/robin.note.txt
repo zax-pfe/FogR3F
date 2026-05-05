@@ -41,10 +41,10 @@ bouton supprimer
 -------
 
 - interaction avec arbre :
-    - audio + st qui dit d'utiliser les outils
-    - click sur l'objet quand outils ouvert
-    - audio + st si mauvais outils
-    - ouverture écran analyse
+    - audio + st qui dit d'utiliser les outils ✅
+    - click sur l'objet quand outils ouvert ✅
+    - audio + st si mauvais outils ✅
+    - ouverture écran analyse ✅
 - cursor
     - cursor icon + quand qqch hover
     - icon outil current à coté souris

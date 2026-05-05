@@ -19,7 +19,7 @@ import Interaction from "./Components/3DModel/PointsOfInterest/Interaction.jsx";
 import Pointer from "./Components/3DModel/PointsOfInterest/Pointer.jsx";
 import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
-import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx"; 
+import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
 
 
@@ -40,7 +40,7 @@ import Fog from "./Components/3DModel/Fog.jsx";
 
 export default function Experience() {
   // ______________________ LOG CAMERA POSITION __________________/
-  const { camera } = useThree(); 
+  const { camera } = useThree();
 
   // ______________________ VARIABLES __________________/
 
@@ -75,7 +75,7 @@ export default function Experience() {
 
   return (
     <>
-    <Environment preset="night" />
+      {/* <Environment preset="night" /> */}
       {/* ______________________ FOG__________________/ */}
       <fog
         attach="fog"

@@ -12,7 +12,7 @@ const keyBoardMap = [
   { name: "backward", keys: ["s", "S", "ArrowDown"] },
   { name: "left", keys: ["q", "Q", "ArrowLeft"] },
   { name: "right", keys: ["d", "D", "ArrowRight"] },
-  { name: "interact", keys: ["a", "A", "e", "E"] },
+  { name: "interact", keys: ["a", "A"] },
 ];
 
 const ThreeScene = ({ children, placeholder = false }) => {

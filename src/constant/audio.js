@@ -35,6 +35,11 @@ export const c_Dialogue = [
 		index: "tronk",
 		src: "/assets/audio/dialogue/tronk.mp3",
 		srcSubtitle: "/assets/audio/dialogue/subtitle/tronk.srt",
+	},
+	{
+		index: 'wrongTool',
+		src: "/assets/audio/dialogue/tronk.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/wrongTool.srt",
 	}
 ];
 
