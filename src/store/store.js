@@ -47,12 +47,11 @@ export const useGameStore = create((set) => ({
 
   // ______________________ GAMEPLAY __________________/
   currentTool: "Tool 0",
-  setCurrentTool: (tool) => {
-    (set({ currentTool: tool }), console.log("Current tool set to:", tool));
-  },
-
-  showAnalyse: false,
-  setShowAnalyse: (show) => set({ showAnalyse: show }),
+	setCurrentTool: (tool) => {
+		set({ currentTool: tool }), console.log("Current tool set to:", tool);
+	},
+  toolOpen: false,
+  setToolOpen: (isOpen) => set({ toolOpen: isOpen }),
 
   hotspotCurrent: null,
   setHotspotCurrent: (view) => set({ hotspotCurrent: view }),

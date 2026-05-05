@@ -37,3 +37,17 @@ bouton reset
 click pour rouvrir popup
 mention que limote atteinte
 bouton supprimer
+
+-------
+
+- interaction avec arbre : ✅
+    - audio + st qui dit d'utiliser les outils ✅
+    - click sur l'objet quand outils ouvert ✅
+    - audio + st si mauvais outils ✅
+    - ouverture écran analyse ✅
+- cursor
+    - cursor icon + quand qqch hover
+    - icon outil current à coté souris ✅
+    - cursor analyse ✅
+- résoudre bug déplacemnt ✅
+- ajout des dernier audio ✅
