@@ -5,14 +5,7 @@ import { extend, useFrame, useLoader } from "@react-three/fiber";
 // import cloudImg from "../../../public/images/smoke.png";
 import cloudImg from "../../../public/textures/circle_05.png";
 
-import {
-  MeshBasicMaterial,
-  PlaneGeometry,
-  Quaternion,
-  TextureLoader,
-  Vector3,
-  Euler,
-} from "three";
+import { MeshBasicMaterial, PlaneGeometry, Quaternion, TextureLoader, Vector3, Euler } from "three";
 import * as THREE from "three";
 import { useControls } from "leva";
 
@@ -51,10 +44,7 @@ export default function Smoke() {
   const ref = useRef(null);
 
   let time = 0;
-  const geometry = useMemo(
-    () => new PlaneGeometry(sizeX, sizeY),
-    [sizeX, sizeY],
-  );
+  const geometry = useMemo(() => new PlaneGeometry(sizeX, sizeY), [sizeX, sizeY]);
   const texture = useLoader(TextureLoader, cloudImg);
 
   const material = useMemo(
@@ -81,10 +71,7 @@ export default function Smoke() {
 
     const elapsedTime = state.clock.getElapsedTime();
 
-    if (
-      elapsedTime - time > Math.random() * speedGeneration &&
-      playerAnimation === "walk"
-    ) {
+    if (elapsedTime - time > Math.random() * speedGeneration && playerAnimation === "walk") {
       time = elapsedTime;
       ref.current.addInstances(2, (obj) => {
         obj.position.copy({
@@ -113,17 +100,13 @@ export default function Smoke() {
         // obj.position.addScaledVector(direction, speed * delta);
 
         const playerPos = new Vector3(x, y, z);
-        const dir = new Vector3()
-          .subVectors(playerPos, obj.position)
-          .normalize();
+        const dir = new Vector3().subVectors(playerPos, obj.position).normalize();
         obj.position.addScaledVector(dir, speed * delta * slowFactor);
       }
 
       obj.rotation += obj.rotationSpeed * slowFactor * delta;
 
-      const toCamera = new Vector3()
-        .subVectors(camera.position, obj.position)
-        .normalize();
+      const toCamera = new Vector3().subVectors(camera.position, obj.position).normalize();
 
       const particleQuaternion = new Quaternion().setFromUnitVectors(
         new Vector3(0, 0, 1),

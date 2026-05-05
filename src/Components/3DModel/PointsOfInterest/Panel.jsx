@@ -38,7 +38,7 @@ export default function Panel(props) {
           </mesh>
         </group>
       </group>
-      <Sparkles size={1} count={100} speed={1} scale={[1, 3, 1]} />
+      <Sparkles size={1} count={50} speed={1} scale={[1, 3, 1]} />
 
       <PressButtonUI element="panel" />
     </group>

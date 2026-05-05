@@ -12,9 +12,21 @@ export const useGameStore = create((set) => ({
   playerRef: null,
   setPlayerRef: (ref) => set({ playerRef: ref }),
 
+  // ______________________ MOLEC __________________/
+  molecSpeaking: false,
+  setMolecSpeaking: (speaking) => set({ molecSpeaking: speaking }),
+
   // ______________________ CAMERA __________________/
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
+
+  // ______________________ VIEW __________________/
+
+  currentView: "startScreen",
+  setCurrentView: (view) => set({ currentView: view }),
+
+  transitionView: null,
+  setTransitionView: (transition) => set({ transitionView: transition }),
 
   // ______________________ POINTS OF INTEREST __________________/
 
@@ -38,25 +50,24 @@ export const useGameStore = create((set) => ({
 	setCurrentTool: (tool) => {
 		set({ currentTool: tool }), console.log("Current tool set to:", tool);
 	},
-
-  showAnalyse: false,
-  setShowAnalyse: (show) => set({ showAnalyse: show }),
+  toolOpen: false,
+  setToolOpen: (isOpen) => set({ toolOpen: isOpen }),
 
   hotspotCurrent: null,
   setHotspotCurrent: (view) => set({ hotspotCurrent: view }),
   selectedItems: [],
   maxSelectedItems: 4,
-  addSelectedItems: (item) => set( (state) => ({ selectedItems: [...state.selectedItems, item] })),
+  addSelectedItems: (item) => set((state) => ({ selectedItems: [...state.selectedItems, item] })),
   resetSelectedItems: () => set({ selectedItems: [] }),
-  removeSelectedItem: (item) => set((state) => {
-    const originalSelectedItems = [...state.selectedItems];
-    const newSelectedItems = originalSelectedItems.filter(i => i !== item);
-    return { selectedItems: newSelectedItems };
-  }),
+  removeSelectedItem: (item) =>
+    set((state) => {
+      const originalSelectedItems = [...state.selectedItems];
+      const newSelectedItems = originalSelectedItems.filter((i) => i !== item);
+      return { selectedItems: newSelectedItems };
+    }),
 
   objectFind: [c_Objects[0], c_Objects[1]],
-  addObjectFind: (object) =>
-    set((state) => ({ objectFind: [...state.objectFind, object] })),
+  addObjectFind: (object) => set((state) => ({ objectFind: [...state.objectFind, object] })),
 
   // ______________________ AUDIO __________________/
 

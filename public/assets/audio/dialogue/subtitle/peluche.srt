@@ -1,0 +1,29 @@
+﻿1
+00:00:00,000 --> 00:00:01,680
+SOREN
+...
+
+2
+00:00:02,160 --> 00:00:06,960
+MOLEC
+Objet identifié : peluche enfant
+
+3
+00:00:07,280 --> 00:00:09,120
+SOREN
+Merci Molec j’avais remarqué. 
+
+4
+00:00:09,120 --> 00:00:11,800
+SOREN
+Quand on abandonne ça, c’est rarement un choix.
+
+5
+00:00:12,800 --> 00:00:15,000
+MOLEC
+Activité émotionnelle élevée.
+
+6
+00:00:15,000 --> 00:00:17,240
+MOLEC
+Tristesse.

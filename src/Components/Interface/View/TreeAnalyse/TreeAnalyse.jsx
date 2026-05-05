@@ -10,21 +10,30 @@ import { c_AudioUI, c_Click } from "../../../../constant/audio";
 
 const TreeAnalyse = () => {
 
-    const { showAnalyse, setShowAnalyse, selectedItems, resetSelectedItems } = useGameStore();
+    const { currentScreen, setCurrentScreen, selectedItems, resetSelectedItems } = useGameStore();
     // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
+
+    const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
     const handleKeyDown = (e) => {
         if (e.key === "t") {
-            setShowAnalyse(!showAnalyse);
+            setCurrentScreen(currentScreen != "analyse" && "analyse");
         }
+    };
+
+    const handleMouseMove = (e) => {
+        setPointer({ x: e.clientX, y: e.clientY });
     };
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("mousemove", handleMouseMove);
+
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("mousemove", handleMouseMove);
         };
-    }, [showAnalyse]);
+    }, [currentScreen]);
 
     const ref__selectedBox = useRef(null);
 
@@ -48,18 +57,19 @@ const TreeAnalyse = () => {
         }
     }
 
-    return showAnalyse && (
+    return currentScreen === "analyse" && (
         <div className={s.treeAnalyse}>
             <Tronk />
             <Button className={s.treeAnalyse__closeBtn} onClick={() => {
                 c_AudioUI.play('remove');
-                setShowAnalyse(false)
+                setCurrentScreen("game");
             }}>Fermer la machine</Button>
             {/* // Analyse du tronc */}
             {c_Arbre_HotSpots.map((spot, index) => (
                 <HotSpot key={index} data={spot} coo={{ x: origin.x + coo_Ratio(spot.x), y: origin.y + coo_Ratio(spot.y) }} refBox={ref__selectedBox} />
             ))}
             <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
+            <div className={s.pointer} style={{ top: pointer.y, left: pointer.x}}></div>
         </div>
     );
 

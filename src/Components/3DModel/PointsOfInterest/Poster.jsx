@@ -24,45 +24,28 @@ export default function Poster(props) {
   }, []);
 
   return (
-    // <PivotControls
-    //   anchor={[0, 0, 0]}
-    //   depthTest={false}
-    //   onDrag={(localMatrix) => {
-    //     const position = new THREE.Vector3();
-    //     position.setFromMatrixPosition(localMatrix);
-    //     console.log("real position:", position);
-    //     const rotation = new THREE.Euler();
-    //     rotation.setFromRotationMatrix(localMatrix);
-    //     console.log("real rotation:", rotation);
-    //   }}
-    // >
-    //   <group
-    //     {...props}
-    //     dispose={null}
-    //     position={[17.37, 3.65, 18.97]}
-    //     scale={0.7}
-    //   >
-    //     <group rotation={[-Math.PI / 2, 0, Math.PI]}>
-    //       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-    //         <mesh
-    //           castShadow
-    //           receiveShadow
-    //           geometry={nodes.Poster_Poster_0.geometry}
-    //           material={materials.Poster}
-    //           position={[0, 96.131, 1.706]}
-    //         />
-    //       </group>
-    //     </group>
-    //   </group>
+
+      // <PivotControls
+      //   anchor={[0, 0, 0]}
+      //   depthTest={false}
+      //   onDrag={(localMatrix) => {
+      //     const position = new THREE.Vector3();
+      //     position.setFromMatrixPosition(localMatrix);
+      //     console.log("real position:", position);
+      //     const rotation = new THREE.Euler();
+      //     rotation.setFromRotationMatrix(localMatrix);
+      //     console.log("real rotation:", rotation);
+      //   }}
+      // >
 
     <group
       {...props}
       dispose={null}
-      position={[17.34, 4.06, 18.99]}
+      position={[16.33, 4.5, 18.14]}
       ref={posterRef}
     >
-      <Sparkles size={1} count={100} speed={1} scale={[1, 1, 1]} />
-      <group scale={[0.15, 0.15, 0.15]} rotation={[-1.03, -1.5, 0.53]}>
+      <Sparkles size={1} count={50} speed={1} scale={[1, 1, 1]} />
+      <group scale={[0.15, 0.15, 0.15]} rotation={[-1.05, -1.5, 0.53]}>
         <PressButtonUI element="poster" />
 
         <mesh
@@ -84,6 +67,7 @@ export default function Poster(props) {
         </mesh>
       </group>
     </group>
+    // </PivotControls >
   );
 }
 
