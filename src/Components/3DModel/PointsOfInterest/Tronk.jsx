@@ -11,7 +11,7 @@ export default function Tronk(props) {
  
   const { isCompressed, setIsCompressed } = useGameStore( );
   const objName = isCompressed ? "tronk_new_compressed" : "tronk_new";
-  
+    
   const { nodes, materials } = useGLTF(
     `/assets/3DModels/Interactive/${objName}.glb`,
   ); 
