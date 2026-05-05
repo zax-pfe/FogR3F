@@ -32,13 +32,13 @@
 }
 
 ::selection {
-	background-color: var(--color--violet);
-	color: var(--color--white);
+	background-color: transparent;
+	color: inherit;
 }
 
 ::-webkit-selection {
-	background-color: var(--color--violet);
-	color: var(--color--white);
+	background-color: transparent;
+	color: inherit;
 }
 
 *,

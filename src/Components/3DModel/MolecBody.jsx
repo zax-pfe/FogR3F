@@ -1,12 +1,19 @@
 import React, { forwardRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three';
+import { useGameStore } from '../../store/store.js';
 
 export const MolecBody = forwardRef(function MolecBody({ children, ...props }, ref) {
-    const { nodes, materials } = useGLTF('/assets/3DModels/molec.glb')
+  
+    const { isCompressed, setIsCompressed } = useGameStore( );
+    const objName = isCompressed ? "molec_compressed" : "molec";
+        
+    const { nodes, materials } = useGLTF(
+        `/assets/3DModels/${objName}.glb`,
+    );  
+    
     return (
-
-
+ 
         <group {...props} ref={ref} dispose={null}>
             <group scale={1.904}>
                 <mesh

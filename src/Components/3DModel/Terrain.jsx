@@ -2,9 +2,17 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody, MeshCollider } from "@react-three/rapier";
 import { MeshBasicMaterial } from 'three';
+import { useGameStore } from '../../store/store.js';
 
-export default function Terrain(props) {
-  const { nodes, materials } = useGLTF('/assets/3DModels/TERRAIN.glb')
+export default function Terrain(props) { 
+
+  const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "TERRAIN_compressed" : "TERRAIN";
+    
+  const { nodes, materials } = useGLTF(
+    `/assets/3DModels/${objName}.glb`,
+  ); 
+
   return (
     <group {...props} dispose={null}  > 
       <mesh 

@@ -7,10 +7,14 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function Pointer(props) {
-  const pointerRef = useRef();
+  const pointerRef = useRef(); 
+
+   const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "Pointer_compressed" : "Pointer";
+    
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/Pointer.glb",
-  );
+    `/assets/3DModels/Interactive/${objName}.glb`,
+  ); 
 
   const setPointerPosition = useGameStore((state) => state.setPointerPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
@@ -50,7 +54,7 @@ export default function Pointer(props) {
           material={nodes["+Pointer_2"].material}
         />
       </group>
-      <Sparkles size={1} count={100} speed={1} scale={[1, 2, 1]} />
+      <Sparkles size={1} count={50} speed={1} scale={[1, 2, 1]} />
 
       <PressButtonUI element="pointer" />
     </group>

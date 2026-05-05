@@ -18,6 +18,15 @@ export default function Particles() {
 
   const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
 
+  const tronkTexture = {
+    base: useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png"),
+    climat: useLoader(THREE.TextureLoader, "/textures/MIL_tronkClimat.png"),
+    feu: useLoader(THREE.TextureLoader, "/textures/MIL_tronkFeu.png"),
+    age: useLoader(THREE.TextureLoader, "/textures/MIL_tronkAge.png"),
+    insectes: useLoader(THREE.TextureLoader, "/textures/MIL_tronkInsectes.png"),
+    balle: useLoader(THREE.TextureLoader, "/textures/MIL_tronkBalle.png"),
+  };
+
   // Create a small offscreen canvas that we will draw the mouse "glow" into.
   // This canvas is converted to a Three.js texture and sampled by the vertex shader
   const displacementCanvas = useMemo(() => {
@@ -62,15 +71,15 @@ export default function Particles() {
     };
   }, []);
 
-  uniforms.uPictureTexture.value = pictureTexture;
+  uniforms.uPictureTexture.value = tronkTexture.base;
   uniforms.uDisplacementTexture.value = displacementTexture;
 
   useEffect(() => {
     if (hotspotCurrent) {
       console.log("Hotspot current changed, updating texture:", hotspotCurrent);
       uniforms.uPictureTexture.value = hotspotCurrent.logTexture
-        ? new THREE.TextureLoader().load(hotspotCurrent.logTexture)
-        : pictureTexture;
+        ? tronkTexture[hotspotCurrent.logTexture]
+        : tronkTexture.base;
     }
   }, [hotspotCurrent]);
 

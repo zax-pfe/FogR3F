@@ -63,14 +63,10 @@ function App() {
         <Experience />
       </ThreeScene>
 
-      {currentScreen === "game" && (
-        <>
-          {/* <ThreeAnalyse />
-          <Hud />
-          <SubtitleManager />
-          <AudioController /> */}
-        </>
-      )}
+      <ThreeAnalyse />
+      {currentScreen === "game" && <Hud />}
+      <SubtitleManager />
+      <AudioController />
     </>
   );
 }

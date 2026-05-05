@@ -14,16 +14,16 @@
 		position: absolute;
 		top: -50px;
 		left: -50px;
-        border-radius: 100%;
+		border-radius: 100%;
 		width: 1270px;
 		height: 1270px;
-        z-index: -1;
+		z-index: -1;
 		background: radial-gradient(
 			50% 50% at 50% 50%,
 			#111 8.65%,
 			rgba(0, 0, 0, 0) 100%
 		);
-        pointer-events: none;
+		pointer-events: none;
 	}
 
 	.btn {
@@ -31,57 +31,59 @@
 		width: 72px;
 		height: 72px;
 		border-radius: 72px;
-		background: url('/assets/images/MIL_Wheel.svg') no-repeat center center;
-        background-size: contain;
-        box-shadow: 0 0 44.2px 0 var(--color--white);
+		background: url("/assets/images/MIL_Wheel.svg") no-repeat center center;
+		background-size: contain;
+		box-shadow: 0 0 44.2px 0 var(--color--white);
 		bottom: 46px;
 		right: 46px;
-        transition: box-shadow 0.2s var(--easing);
+		transition: box-shadow 0.2s var(--easing);
 		z-index: 4;
 
-        &::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 11px;
-            height: 11px;
-            background: var(--color--white);
-            border-radius: 100%;
-            transition: 0.2s var(--easing);
-            filter: drop-shadow(0 0 44.2px var(--color--white));
-        }
+		&::before {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 11px;
+			height: 11px;
+			background: var(--color--white);
+			border-radius: 100%;
+			transition: 0.2s var(--easing);
+			filter: drop-shadow(0 0 44.2px var(--color--white));
+		}
 
-        &::after {
-            content: "";
-            position: absolute;
-            bottom: -28.5px;
-            right: 0px;
-            width: 12.5px;
-            height: 12.5px;
-            background: var(--color--white);
-            border-radius: 100%;
-            opacity: 0;
-            transition: opacity 0.2s var(--easing);
-            filter: drop-shadow(0 0 44.2px var(--color--white));
-        }
+		&::after {
+			content: "";
+			position: absolute;
+			bottom: -28.5px;
+			right: 0px;
+			width: 12.5px;
+			height: 12.5px;
+			background: var(--color--white);
+			border-radius: 100%;
+			opacity: 0;
+			transition: opacity 0.2s var(--easing);
+			filter: drop-shadow(0 0 44.2px var(--color--white));
+		}
 
-        &:hover {
-            box-shadow: 0 0 66.5px 0 var(--color--white), 0 0 44.2px 0 var(--color--white);
-        }
+		&:hover {
+			box-shadow: 0 0 66.5px 0 var(--color--white),
+				0 0 44.2px 0 var(--color--white);
+		}
 
 		&.open {
-			box-shadow: 0 0 66.5px 0 var(--color--white), 0 0 44.2px 0 var(--color--white);
+			box-shadow: 0 0 66.5px 0 var(--color--white),
+				0 0 44.2px 0 var(--color--white);
 
-            &::before {
-                width: 21px;
-                height: 21px;
-            }
+			&::before {
+				width: 21px;
+				height: 21px;
+			}
 
-            &::after {
-                opacity: 1;
-            }
+			&::after {
+				opacity: 1;
+			}
 		}
 	}
 
@@ -92,7 +94,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-        gap: 8px;
+		gap: 8px;
 		border-radius: 74px 74px 0 0;
 		transform: translate(50%, 50%);
 		z-index: 3;
@@ -104,7 +106,7 @@
 			border-radius: 74px;
 			background-color: var(--color--bg-transparent-light);
 			backdrop-filter: blur(4px);
-            display: flex;
+			display: flex;
 			align-items: center;
 			justify-content: center;
 			border: transparent 1px solid;
@@ -137,4 +139,18 @@
 			}
 		}
 	}
+}
+
+.pointer {
+	position: fixed;
+	width: 24px;
+	height: 24px;
+	object-fit: contain;
+	pointer-events: none;
+	background: currentColor;
+	-webkit-mask: no-repeat center center;
+			mask: no-repeat center center;
+	-webkit-mask-size: contain;
+			mask-size: contain;
+			z-index: var(--zI--ToolWheel);
 }

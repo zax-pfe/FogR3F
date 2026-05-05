@@ -15,7 +15,9 @@ export default function Interaction() {
     if (interact && elementContacted) {
       console.log("Interaction key pressed:", elementContacted);
       setPlayerAnimation("interaction");
-      setCurrentDialogue(elementContacted);
+      if (elementContacted !== "poster") {
+        setCurrentDialogue(elementContacted);
+      }
     }
   }, [interact, elementContacted]);
 

@@ -5,10 +5,16 @@ import { Outlines } from "@react-three/drei";
 import PressButtonUI from "./PressButtonUI.jsx";
 
 export default function Panel(props) {
-  const panelRef = useRef();
+  const panelRef = useRef(); 
+
+   const { isCompressed, setIsCompressed } = useGameStore( );
+  const objName = isCompressed ? "panneau_marecage_compressed" : "panneau_marecage";
+    
   const { nodes, materials } = useGLTF(
-    "/assets/3DModels/Interactive/panneau_marecage.glb",
-  );
+    `/assets/3DModels/Interactive/${objName}.glb`,
+  ); 
+
+
   const setPanelPosition = useGameStore((state) => state.setPanelPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
 
@@ -32,7 +38,7 @@ export default function Panel(props) {
           </mesh>
         </group>
       </group>
-      <Sparkles size={1} count={100} speed={1} scale={[1, 3, 1]} />
+      <Sparkles size={1} count={50} speed={1} scale={[1, 3, 1]} />
 
       <PressButtonUI element="panel" />
     </group>

@@ -53,6 +53,7 @@ export default function CharacterController() {
   const playerAnimation = useGameStore((state) => state.playerAnimation);
   const controlsRef = useGameStore((state) => state.controlsRef);
   const currentDialogue = useGameStore((state) => state.currentDialogue);
+  const currentScreen = useGameStore((state) => state.currentScreen);
 
   const { camera } = useThree();
 
@@ -83,7 +84,7 @@ export default function CharacterController() {
   // ______________________ FRAME UPDATE __________________/
 
   useFrame(({ camera }, delta) => {
-    if (currentDialogue) {
+    if (currentDialogue || currentScreen != "game") {
       // console.log("Current audio in CharacterController:", currentDialogue);
       return;
     }
