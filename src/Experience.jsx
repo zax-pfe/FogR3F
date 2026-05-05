@@ -105,8 +105,8 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      {/* <Smoke /> */}
-      {/* <Fog /> */}
+      <Smoke />
+      <Fog />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
