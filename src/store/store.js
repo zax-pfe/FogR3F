@@ -19,8 +19,12 @@ export const useGameStore = create((set) => ({
   setControlsRef: (ref) => set({ controlsRef: ref }),
 
   // ______________________ VIEW __________________/
-  controlsRef: null,
-  setControlsRef: (ref) => set({ controlsRef: ref }),
+
+  currentView: "startScreen",
+  setCurrentView: (view) => set({ currentView: view }),
+
+  transitionView: null,
+  setTransitionView: (transition) => set({ transitionView: transition }),
 
   // ______________________ POINTS OF INTEREST __________________/
 

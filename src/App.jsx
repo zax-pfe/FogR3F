@@ -22,6 +22,7 @@ import StartScreen from "./Components/Interface/View/StartScreen/StartScreen";
 // };
 
 function App() {
+  const currentView = useGameStore((state) => state.currentView);
   // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
   // const { showAnalyse, setShowAnalyse } = useGameStore();
 
@@ -40,14 +41,19 @@ function App() {
 
   return (
     <>
-      {/* <ThreeScene>
-        <Experience />
-      </ThreeScene>
-      <ThreeAnalyse />
-      <Hud />
-      <SubtitleManager /> */}
-      {/* <AudioController /> */}
-      <StartScreen />
+      {currentView === "startScreen" && <StartScreen />}
+      {currentView === "game" && (
+        <>
+          <ThreeScene>
+            <Experience />
+          </ThreeScene>
+          <ThreeAnalyse />
+          <Hud />
+          <SubtitleManager />
+          <AudioController />
+        </>
+      )}
+
       {/* <Loader /> */}
     </>
   );

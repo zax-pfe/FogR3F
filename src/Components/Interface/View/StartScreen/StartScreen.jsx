@@ -10,6 +10,7 @@ import { FileLoader } from "three";
 import { Perf } from "r3f-perf";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
+import { useGameStore } from "../../../../store/store";
 
 {
   /* ______________________ CANVAS __________________/ */
@@ -19,6 +20,9 @@ const StartScreen = () => {
   // const [buttonHovered, setButtonHovered] = useState("none");
 
   const buttonHoveredRef = useRef("none");
+
+  const setCurrentView = useGameStore((state) => state.setCurrentView);
+  const setTransitionView = useGameStore((state) => state.setTransitionView);
 
   const handleHover = useCallback((value) => {
     buttonHoveredRef.current = value;
@@ -53,10 +57,16 @@ export default StartScreen;
 }
 
 function InterfaceOverlay({ onHover }) {
+  const setCurrentView = useGameStore((state) => state.setCurrentView);
+
+  function handlePlayClick() {
+    setCurrentView("game");
+  }
+
   return (
     <div className={s.startScreen__interface}>
       <div className={s.startScreen__button} onMouseEnter={() => onHover("play")} onMouseLeave={() => onHover("none")}>
-        <Button>Play</Button>
+        <Button onClick={handlePlayClick}>Play</Button>
       </div>
       <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
         <Button>Credit</Button>
@@ -117,8 +127,8 @@ function StartScreenContent({ buttonHoveredRef }) {
       <directionalLight position={[1, 2, 3]} intensity={6} />
       <ambientLight intensity={2} />
 
-      <Float speed={2} floatIntensity={0.5} rotationIntensity={1} floatingRange={[1, 1.5]} position={[0, -7.5, 1.5]}>
-        <group ref={groupRef} scale={4} rotation={[rotation_x, rotation_y, rotation_z]}>
+      <Float speed={2} floatIntensity={0.5} rotationIntensity={1} floatingRange={[1, 1.5]} position={[0, -7.5, 1]}>
+        <group ref={groupRef} scale={5} rotation={[rotation_x, rotation_y, rotation_z]}>
           <ModelTextured buttonHoveredRef={buttonHoveredRef} />
         </group>
       </Float>
@@ -136,9 +146,9 @@ function PostProcessingStartScreen() {
     <>
       <EffectComposer multisampling={0}>
         <Bloom intensity={0.15} luminanceThreshold={1.5} luminanceSmoothing={0.05} mipmapBlur resolutionX={512} resolutionY={512} />
-        <Vignette offset={0.05} darkness={0.4} blendFunction={BlendFunction.NORMAL} />
+        <Vignette offset={0.5} darkness={0.5} blendFunction={BlendFunction.NORMAL} />
 
-        {/* <Noise opacity={0.1} blendFunction={BlendFunction.SOFT_LIGHT} /> */}
+        <Noise opacity={0.1} blendFunction={BlendFunction.SOFT_LIGHT} />
 
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
@@ -186,8 +196,6 @@ function ModelTextured({ buttonHoveredRef, ...props }) {
     }
   });
 
-  // materials.Crystal.emissive = colors[buttonHovered] || colors.none;
-  // materials.Crystal.emissiveIntensity = 10;
   return (
     <group {...props} dispose={null} rotation={[0, -Math.PI / 2, 0]}>
       <pointLight ref={pointLightRef} intensity={50} distance={8} />
