@@ -111,4 +111,4 @@ export default function AnimatedSoren(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Soren/animated_soren.glb");
+// useGLTF.preload("/assets/3DModels/Soren/animated_soren.glb");

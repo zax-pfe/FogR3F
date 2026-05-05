@@ -3,7 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
 import { useThree, useFrame } from "@react-three/fiber";
 import { Center, Sparkles, PivotControls } from "@react-three/drei";
-import { Perf } from "r3f-perf";
+// import { Perf } from "r3f-perf";
 import * as THREE from "three";
 import { Physics } from "@react-three/rapier";
 import { use, useEffect, useRef, useState } from "react";
@@ -38,6 +38,7 @@ import { Environment } from '@react-three/drei'
 
 
 export default function Experience() {
+  
   // ______________________ LOG CAMERA POSITION __________________/
   const { camera } = useThree(); 
 
@@ -91,7 +92,7 @@ export default function Experience() {
         maxPolarAngle={CAMERA_LOCK ? Math.PI / 2.4 : Math.PI} // empêche de regarder trop vers le haut
         enableZoom={CAMERA_LOCK ? false : true}
       />
-      <Perf position="top-left" />
+      {/* <Perf position="top-left" /> */}
       <Lights />
       <CalculateDistance />
       {/* ______________________ MODELS __________________/ */}
