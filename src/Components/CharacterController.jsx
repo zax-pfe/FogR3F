@@ -45,8 +45,14 @@ export default function CharacterController() {
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
 
-  const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } =
-    useGameStore();
+  // const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } =
+  //   useGameStore();
+
+  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
+  const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
+  const controlsRef = useGameStore((state) => state.controlsRef);
+  const currentDialogue = useGameStore((state) => state.currentDialogue);
 
   const { camera } = useThree();
 

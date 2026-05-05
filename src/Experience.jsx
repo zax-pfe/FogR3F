@@ -104,7 +104,7 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      {/* <Smoke /> */}
+      <Smoke />
       {/* very light fog more in the air */}
       <GroundFog position={[6, 3.9, 8]} opacity={0.05} scale={2} color="#aaaaaa" />
       {/* light fog next to the ground */}
