@@ -11,6 +11,7 @@ export default function Swing(props) {
   const isCompressed = useGameStore((state) => state.isCompressed);
   const setSwingPosition = useGameStore((state) => state.setSwingPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
 
   const objName = isCompressed ? "Swing_compressed" : "Swing";
   const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/${objName}.glb`);
@@ -32,7 +33,8 @@ export default function Swing(props) {
         position={[0, 0.5, 0]}
       />
       <group rotation={[-Math.PI, 1.22, -Math.PI + 0.07]} scale={0.7}>
-        <PressButtonUI element="swing" />
+        {playerAnimation !== "interaction" && <PressButtonUI element="swing" />}
+
         <mesh
           // castShadow
           // receiveShadow
