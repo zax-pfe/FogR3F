@@ -191,4 +191,13 @@
 
 		color: var(--color--gray-low);
 	}
+
+	&.active {
+		border: 1px solid var(--color--violet);
+		box-shadow: 0 0 24px 0 var(--color--violet);
+
+		&::before {
+			--tri-color: var(--color--violet);
+		}
+	}
 }

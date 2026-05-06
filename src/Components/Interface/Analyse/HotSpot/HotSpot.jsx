@@ -104,13 +104,13 @@ const HotSpot = ({ data, coo, refBox }) => {
         <div
           className={`${s.point} ${iAmCurrentHotspot() ? s.open : ""} ${iAmSelected() ? s.active : ""}`}
           onClick={handleClickPoint}
-          onMouseEnter={() => c_AudioUI.play("toolRoll")}
+          onMouseEnter={() => c_AudioUI.play("hover")}
         ></div>
       </div>
       {iAmCurrentHotspot() && (
         <>
           <div className={s.overlay} onClick={handleClose}></div>
-          <div className={s.popUp} style={{ left: popUpX.current, top: popUpY.current }}>
+          <div className={`${s.popUp} ${iAmSelected() ? s.active : ""}`} style={{ left: popUpX.current, top: popUpY.current }}>
             <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
             <div className={s.popUp__img} style={{ backgroundImage: `url(${data.image})` }}></div>
             <div className={s.popUp__content}>
