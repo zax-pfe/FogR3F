@@ -98,7 +98,7 @@
 		border-radius: 74px 74px 0 0;
 		transform: translate(50%, 50%);
 		z-index: 3;
-		cursor: pointer;
+		cursor: none;
 
 		&__icon {
 			width: 74px;
@@ -143,14 +143,18 @@
 
 .pointer {
 	position: fixed;
-	width: 24px;
-	height: 24px;
+	width: 18px;
+	height: 18px;
 	object-fit: contain;
 	pointer-events: none;
-	background: currentColor;
+	background: var(--color--white);
 	-webkit-mask: no-repeat center center;
 			mask: no-repeat center center;
 	-webkit-mask-size: contain;
 			mask-size: contain;
 			z-index: var(--zI--ToolWheel);
+
+	&.active {
+		background: var(--color--violet);
+	}
 }

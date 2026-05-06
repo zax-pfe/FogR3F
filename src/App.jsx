@@ -13,6 +13,7 @@ import AudioController from "./Components/AudioController";
 import LoadingScreen from "./Components/Interface/View/LoadingScreen/LoadingScreen";
 import StartScreen from "./Components/Interface/View/StartScreen/StartScreen";
 import { preloadMediaAssets } from "./utils/assetsPreloader";
+import CustomCursor from "./Components/Interface/Design/CustomCursor/CustomCursor";
 
 // const keys = {
 //   left: "arrowleft",
@@ -67,6 +68,7 @@ function App() {
       {currentScreen === "game" && <Hud />}
       <SubtitleManager />
       <AudioController />
+      <CustomCursor />
     </>
   );
 }

@@ -46,7 +46,7 @@ const SelectedItems = ({ refBox, analyse }) => {
         hovered={selectedItems.length >= maxSelectedItems}
         disabled={selectedItems.length < 1}
       >
-        Analyzer
+        Analyser
       </Button>
     </div>
   );

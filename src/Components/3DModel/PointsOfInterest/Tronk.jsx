@@ -10,7 +10,7 @@ import { c_AudioUI } from "../../../constant/audio.js";
 export default function Tronk(props) {
   const tronkRef = useRef();
  
-  const { isCompressed, setIsCompressed } = useGameStore( );
+  const { isCompressed, setIsCompressed, setSmthgIsHovered } = useGameStore( );
   const objName = isCompressed ? "tronk_new_compressed" : "tronk_new";
     
   const { nodes, materials } = useGLTF(
@@ -37,10 +37,11 @@ export default function Tronk(props) {
     if (elementContacted != "tronk" || !toolOpen) return;
     c_AudioUI.play("hover");
     setOutlineColor("#7b5cff");
+    setSmthgIsHovered('interactable');
   }
 
   const handleMouseOut = () => {
-
+    setSmthgIsHovered(false);
     setOutlineColor("lightblue");
   }
 

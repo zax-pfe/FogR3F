@@ -27,6 +27,11 @@ export const useGameStore = create((set) => ({
 
   transitionView: null,
   setTransitionView: (transition) => set({ transitionView: transition }),
+  
+  // ______________________ CURSOR __________________/
+
+  smthgIsHovered: false,
+  setSmthgIsHovered: (hovered) => set({ smthgIsHovered: hovered }),
 
   // ______________________ POINTS OF INTEREST __________________/
 
@@ -80,7 +85,10 @@ export const useGameStore = create((set) => ({
   // ______________________ SCREENS MANAGEMENT __________________/
 
   currentScreen: "loading", // loading | menu | game
-  setCurrentScreen: (screen) => set({ currentScreen: screen }),
+  setCurrentScreen: (screen) => {
+    set({ currentScreen: screen });
+    set({ smthgIsHovered: false });
+  },
 
   // ______________________ MEDIAS LOADING __________________/
   mediaProgress: 0,
