@@ -10,7 +10,7 @@ export default function Poster(props) {
   const posterRef = useRef(); 
 
   const { isCompressed, setIsCompressed } = useGameStore( );
-  const objName = isCompressed ? "posterRouge_compressed" : "posterRouge";
+  const objName = isCompressed ? "posterBlanc_compressed" : "posterBlanc";
       
   const { nodes, materials } = useGLTF(
     `/assets/3DModels/Interactive/posters/${objName}.glb`,
@@ -41,7 +41,7 @@ export default function Poster(props) {
     <group
       {...props}
       dispose={null}
-      position={[16.33, 4.5, 18.14]}
+      position={[16.33, 4.5, 18.13]}
       ref={posterRef}
     >
       <Sparkles size={1} count={50} speed={1} scale={[1, 1, 1]} />
