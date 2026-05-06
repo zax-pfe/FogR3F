@@ -82,6 +82,11 @@ export default function Decors(props) {
         <RigidBody type="fixed" colliders={false} position={[13.4, 4.5, 5]} rotation={[0, -14.7, 0]}>
           <CuboidCollider args={[2.2, 1, 1.8]} />
         </RigidBody>
+
+        {/* ammobox */}
+        <RigidBody debug type="fixed" colliders={false} position={[-4.85, 3.55, -9.8]}>
+        <CuboidCollider args={[0.25, 0.2, 0.25]} />
+      </RigidBody>
       </group>
     </group>
   );

@@ -41,9 +41,10 @@ export default function BrokenRobot(props) {
     <group
       {...props}
       dispose={null}
-      position={[-9.86, 3.48, 6.61]}
+      position={[-9.76, 3.98, 6.25]}
       rotation={[-1.56, 0, 2.63]}
       ref={brokenRobotRef}
+      scale={0.8}
     >
       <Sparkles size={1} count={50} speed={1} scale={[1, 1, 1]} />
       <PressButtonUI element="brokenRobot" />

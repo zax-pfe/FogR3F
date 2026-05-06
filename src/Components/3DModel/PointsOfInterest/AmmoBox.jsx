@@ -38,12 +38,13 @@ export default function AmmoBox(props) {
       position={[-4.89, 3.53, -9.83]}
       ref={ammoBoxRef}
     >
+      
       <mesh
         // castShadow
         // receiveShadow
         geometry={nodes.Object_2.geometry}
         material={materials["Material.001"]}
-        rotation={[-Math.PI / 2, 0, 0]}
+        rotation={[-Math.PI / 2, 0, Math.PI  ]}
       >
         {elementContacted === "ammoBox" && (
           <Outlines thickness={2} color="lightblue" />

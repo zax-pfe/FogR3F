@@ -99,7 +99,7 @@ export default function Experience() {
       <BrokenRobot />
       <Poster />
       <Interaction />
-      <Physics gravity={[0, -30, 0]}>
+      <Physics   gravity={[0, -30, 0]}>
         <Terrain />
         <Decors />
         <Trees />
