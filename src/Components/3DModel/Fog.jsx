@@ -7,7 +7,7 @@ const Fog = () => {
             {/* very light fig more in the air */}
             <GroundFog
                 position={[6, 3.9, 8]}
-                opacity={0.05}
+                opacity={0.02}
                 scale={2}
                 color="#aaaaaa"
             />
@@ -21,9 +21,9 @@ const Fog = () => {
             />
             {/* thick fog next to the ground */}
             <GroundFog
-                position={[-2, 3.7, -0]}
+                position={[-2, 3.6, -0]}
                 scale={2}
-                opacity={0.09}
+                opacity={0.04}
                 color="#8a8a8a"
             />
         </>
