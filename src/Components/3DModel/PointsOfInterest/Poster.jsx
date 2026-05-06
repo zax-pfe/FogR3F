@@ -46,19 +46,18 @@ export default function Poster(props) {
         scale={[1, 1, 1]}
         position={[0, 0.15, -0.2]}
       />
-      <group scale={[0.15, 0.15, 0.15]} rotation={[-1.05, -1.5, 0.53]}>
+      <group scale={[0.15, 0.15, 0.15]}  rotation={[0, Math.PI / 2, 0]}>
         <PressButtonUI element="poster" />
 
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.planeBlanc.geometry}
-          material={materials.posterMaterial2}
-          scale={[-1.986, 1, -1.489]}
+          material={materials.posterMaterial2} 
         ></mesh>
 
-        <mesh rotation={[-1.63, 0, 0]}>
-          <boxGeometry args={[4, 3, 0.1]} />
+        <mesh rotation={[0,  Math.PI / 2, 0]}>
+          <boxGeometry args={[3, 4, 0.1]} />
 
           <meshBasicMaterial opacity={0} transparent={true} />
 
