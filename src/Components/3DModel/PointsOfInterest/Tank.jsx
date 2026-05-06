@@ -42,7 +42,7 @@ export default function Tank(props) {
       <RigidBody
         type="fixed"
         colliders={false}
-        position={[0, 0, 0]}
+        position={[0, 0, -1]}
         rotation={[0, -Math.PI / 7, 0]}
       >
         <CuboidCollider args={[2, 3, 4]} />
