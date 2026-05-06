@@ -58,7 +58,7 @@ export default function MolecTest({ targetRef }) {
       attenuation={(t) => t * t}
     >
       <meshLineMaterial
-        color="#ecf9ff"
+        color="#cb8de3"
         transparent
         opacity={0.2}
         depthWrite={false}
@@ -69,15 +69,15 @@ export default function MolecTest({ targetRef }) {
       <MolecBody ref={meshRef} scale={0.12}>
         <pointLight
           color={molecSpeaking ? "#ffffff" : "#b94fe3"}
-          intensity={10}
-          distance={0.13}
+          intensity={50}
+          distance={0.1}
           position={[0, 0, 0]}
         />
 
         <pointLight
           ref={lightRef}
           color="#ebebf3"
-          intensity={5}
+          intensity={10}
           distance={100}
           position={[-4, 7, -12]}
         />

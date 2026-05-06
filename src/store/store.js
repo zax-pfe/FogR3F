@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { c_Objects } from "../constant/objects";
 
 export const useGameStore = create((set) => ({
-
-
   // ______________________ PLAYER __________________/
   playerPosition: null,
   setPlayerPosition: (position) => set({ playerPosition: position }),
@@ -20,14 +18,6 @@ export const useGameStore = create((set) => ({
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
 
-  // ______________________ VIEW __________________/
-
-  currentView: "startScreen",
-  setCurrentView: (view) => set({ currentView: view }),
-
-  transitionView: null,
-  setTransitionView: (transition) => set({ transitionView: transition }),
-
   // ______________________ POINTS OF INTEREST __________________/
 
   ammoBoxPosition: null,
@@ -40,6 +30,8 @@ export const useGameStore = create((set) => ({
   setBrokenRobotPosition: (position) => set({ brokenRobotPosition: position }),
   posterPosition: null,
   setPosterPosition: (position) => set({ posterPosition: position }),
+  swingPosition: null,
+  setSwingPosition: (position) => set({ swingPosition: position }),
 
   // ______________________ CONTACT __________________/
   elementContacted: null,
@@ -47,9 +39,9 @@ export const useGameStore = create((set) => ({
 
   // ______________________ GAMEPLAY __________________/
   currentTool: "Tool 0",
-	setCurrentTool: (tool) => {
-		set({ currentTool: tool }), console.log("Current tool set to:", tool);
-	},
+  setCurrentTool: (tool) => {
+    (set({ currentTool: tool }), console.log("Current tool set to:", tool));
+  },
   toolOpen: false,
   setToolOpen: (isOpen) => set({ toolOpen: isOpen }),
 
@@ -92,7 +84,6 @@ export const useGameStore = create((set) => ({
   setMediaLoading: (data) => set(data),
 
   //compressed objects management
-  isCompressed: true, 
+  isCompressed: true,
   setIsCompressed: (isCompressed) => set({ isCompressed }),
- 
 }));

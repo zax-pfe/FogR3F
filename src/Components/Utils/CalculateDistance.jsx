@@ -13,13 +13,10 @@ export default function CalculateDistance() {
   const ammoBoxPosition = useGameStore((state) => state.ammoBoxPosition);
   const tronkPosition = useGameStore((state) => state.tronkPosition);
   const pointerPosition = useGameStore((state) => state.pointerPosition);
-  const brokenRobotPosition = useGameStore(
-    (state) => state.brokenRobotPosition,
-  );
+  const brokenRobotPosition = useGameStore((state) => state.brokenRobotPosition);
+  const swingPosition = useGameStore((state) => state.swingPosition);
   //______________________ CONTACT __________________/
-  const setElementContacted = useGameStore(
-    (state) => state.setElementContacted,
-  );
+  const setElementContacted = useGameStore((state) => state.setElementContacted);
 
   const memorizedPosition = useMemo(
     () => playerPosition,
@@ -28,11 +25,7 @@ export default function CalculateDistance() {
 
   useEffect(() => {
     if (memorizedPosition) {
-      const playerPositionWorld = new THREE.Vector3(
-        playerPosition.x,
-        0,
-        playerPosition.z,
-      );
+      const playerPositionWorld = new THREE.Vector3(playerPosition.x, 0, playerPosition.z);
       {
         // faire une liste avec tout les cristalPosition
         // par default elementContacted = null
@@ -47,35 +40,23 @@ export default function CalculateDistance() {
         },
         {
           name: "pointer",
-          position: new THREE.Vector3(
-            pointerPosition?.x,
-            0,
-            pointerPosition?.z,
-          ),
+          position: new THREE.Vector3(pointerPosition?.x, 0, pointerPosition?.z),
         },
         {
           name: "ammoBox",
-          position: new THREE.Vector3(
-            ammoBoxPosition?.x,
-            0,
-            ammoBoxPosition?.z,
-          ),
+          position: new THREE.Vector3(ammoBoxPosition?.x, 0, ammoBoxPosition?.z),
         },
         {
           name: "tronk",
-          position: new THREE.Vector3(
-            tronkPosition?.x,
-            0,
-            tronkPosition?.z,
-          ),
+          position: new THREE.Vector3(tronkPosition?.x, 0, tronkPosition?.z),
         },
         {
           name: "brokenRobot",
-          position: new THREE.Vector3(
-            brokenRobotPosition?.x,
-            0,
-            brokenRobotPosition?.z,
-          ),
+          position: new THREE.Vector3(brokenRobotPosition?.x, 0, brokenRobotPosition?.z),
+        },
+        {
+          name: "swing",
+          position: new THREE.Vector3(swingPosition?.x, 0, swingPosition?.z),
         },
       ];
 

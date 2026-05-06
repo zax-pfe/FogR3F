@@ -21,6 +21,7 @@ import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
 import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
+import Swing from "./Components/3DModel/PointsOfInterest/Swing.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
@@ -98,6 +99,7 @@ export default function Experience() {
       <Tronk />
       <BrokenRobot />
       <Poster />
+      <Swing />
       <Interaction />
       <Physics gravity={[0, -30, 0]}>
         <Terrain />
