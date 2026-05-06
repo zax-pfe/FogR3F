@@ -20,7 +20,9 @@ export default function Tank(props) {
   const playerAnimation = useGameStore((state) => state.playerAnimation);
 
   useEffect(() => {
-    setTankPosition(tankRef.current.position);
+    const offset = new THREE.Vector3(2, -1, 1);
+    const adjustedPosition = tankRef.current.position.clone().add(offset);
+    setTankPosition(adjustedPosition);
   }, []);
 
   return (
@@ -36,7 +38,7 @@ export default function Tank(props) {
     //     console.log("real rotation:", rotation);
     //   }}
     // >
-    <group {...props} dispose={null} ref={tankRef} scale={0.7} position={[28.15, 5, -0.4]}>
+    <group {...props} dispose={null} scale={0.7} position={[28.15, 5, -0.4]} ref={tankRef}>
       <RigidBody
         type="fixed"
         colliders={false}
@@ -45,6 +47,7 @@ export default function Tank(props) {
       >
         <CuboidCollider args={[2, 3, 4]} />
       </RigidBody>
+
       <Sparkles
         size={1.5}
         depthWrite={true}
