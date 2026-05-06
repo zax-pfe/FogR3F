@@ -31,7 +31,7 @@ export default function Smoke() {
       lifeTime: { value: 0.7, min: 0.1, max: 5, step: 0.1 },
       speed: { value: 0.08, min: 0.01, max: 2, step: 0.01 },
       offsetX: { value: 0.2, min: 0, max: 10, step: 0.1 },
-      offsetY: { value: 0.75, min: 0, max: 10, step: 0.1 },
+      offsetY: { value: 0.2, min: 0, max: 10, step: 0.1 },
       offsetZ: { value: 0.5, min: 0, max: 10, step: 0.1 },
       particlesColor: "#d5cbbe",
       opacity: { value: 0.8, min: 0, max: 1, step: 0.01 },

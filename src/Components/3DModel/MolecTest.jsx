@@ -69,7 +69,7 @@ export default function MolecTest({ targetRef }) {
       <MolecBody ref={meshRef} scale={0.12}>
         <pointLight
           color={molecSpeaking ? "#ffffff" : "#b94fe3"}
-          intensity={5}
+          intensity={10}
           distance={0.13}
           position={[0, 0, 0]}
         />
@@ -77,7 +77,7 @@ export default function MolecTest({ targetRef }) {
         <pointLight
           ref={lightRef}
           color="#ebebf3"
-          intensity={50}
+          intensity={5}
           distance={100}
           position={[-4, 7, -12]}
         />

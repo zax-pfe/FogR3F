@@ -24,7 +24,11 @@ import { preloadMediaAssets } from "./utils/assetsPreloader";
 
 function App() {
   const { active, progress, loaded, total, item } = useProgress();
-  const { currentScreen, setCurrentScreen, mediaFinished, setMediaLoading } = useGameStore();
+  // const { currentScreen, setCurrentScreen, mediaFinished, setMediaLoading } = useGameStore();
+  const currentScreen = useGameStore((state) => state.currentScreen);
+  const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const mediaFinished = useGameStore((state) => state.mediaFinished);
+  const setMediaLoading = useGameStore((state) => state.setMediaLoading);
   // for current screen - loading | menu | game
 
   useEffect(() => {

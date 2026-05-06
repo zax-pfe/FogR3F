@@ -6,7 +6,10 @@ import { useEffect } from "react";
 export default function Interaction() {
   const interact = useKeyboardControls((state) => state.interact);
 
-  const { elementContacted, setPlayerAnimation, setCurrentDialogue } = useGameStore();
+  // const { elementContacted, setPlayerAnimation, setCurrentDialogue } = useGameStore();
+  const elementContacted = useGameStore((state) => state.elementContacted);
+  const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
+  const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
 
   useEffect(() => {
     if (interact && elementContacted) {

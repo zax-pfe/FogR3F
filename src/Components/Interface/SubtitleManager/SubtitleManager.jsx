@@ -8,79 +8,88 @@ import Subtitle from "../Design/Subtitle/Subtitle";
 import { AnimatePresence, motion } from "motion/react";
 
 const SubtitleVariants = {
-    hidden: { opacity: 0, transition: { duration: 0.3 } },
-    visible: { opacity: 1, transition: { duration: 0.3 } },
-}
+  hidden: { opacity: 0, transition: { duration: 0.3 } },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
+};
 
 const SubtitleManager = () => {
+  // const { currentDialogue, setCurrentDialogue, whoSpeaks } = useGameStore();
+  const currentDialogue = useGameStore((state) => state.currentDialogue);
+  const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
+  const whoSpeaks = useGameStore((state) => state.whoSpeaks);
+  const [subtitles, setSubtitles] = useState([]);
+  const subtitleLoaded = useRef(0);
 
-    const { currentDialogue, setCurrentDialogue, whoSpeaks } = useGameStore();
-    const [subtitles, setSubtitles] = useState([]);
-    const subtitleLoaded = useRef(0);
+  const handleDebugKeyDown = (e) => {
+    if (e.key === "s") {
+      console.log("Debug: Setting current audio to forest ambience");
+      setCurrentDialogue(c_Dialogue[0].index);
+    }
+  };
 
-    const handleDebugKeyDown = (e) => {
-        if (e.key === "s") {
-            console.log("Debug: Setting current audio to forest ambience");
-            setCurrentDialogue(c_Dialogue[0].index);
-        }
+  useEffect(() => {
+    const loadAllSubtitles = async () => {
+      const sub = await Promise.all(
+        c_Dialogue.map(async (dialogue) => {
+          const captions = await convertSRT(dialogue.srcSubtitle);
+          console.log(`Subtitles for ${dialogue.index} loaded:`, captions);
+          return {
+            index: dialogue.index,
+            srcSubtitle: dialogue.srcSubtitle,
+            caption: captions,
+          };
+        }),
+      );
+      setSubtitles(sub);
     };
 
-    useEffect(() => {
-        const loadAllSubtitles = async () => {
-            const sub = await Promise.all(
-                c_Dialogue.map(async (dialogue) => {
-                    const captions = await convertSRT(dialogue.srcSubtitle);
-                    console.log(`Subtitles for ${dialogue.index} loaded:`, captions);
-                    return {
-                        index: dialogue.index,
-                        srcSubtitle: dialogue.srcSubtitle,
-                        caption: captions
-                    };
-                })
-            );
-            setSubtitles(sub);
-        };
+    loadAllSubtitles();
+  }, []);
 
-        loadAllSubtitles();
-    }, []);
+  // useEffect(() => {
+  //     document.addEventListener("keydown", handleDebugKeyDown);
+  //     return () => {
+  //         document.removeEventListener("keydown", handleDebugKeyDown);
+  //     };
+  // }, []);
 
-    // useEffect(() => {
-    //     document.addEventListener("keydown", handleDebugKeyDown);
-    //     return () => {
-    //         document.removeEventListener("keydown", handleDebugKeyDown);
-    //     };
-    // }, []);
+  useEffect(() => {
+    console.log("Who speaks: ", whoSpeaks);
+  }, [whoSpeaks]);
 
-    useEffect(() => {
-        console.log("Who speaks: ", whoSpeaks);
-    }, [whoSpeaks]);
+  useEffect(() => {
+    console.log("Current audio changed in SubtitleManager: ", currentDialogue);
+  }, [currentDialogue]);
 
-    useEffect(() => {
-        console.log("Current audio changed in SubtitleManager: ", currentDialogue);
-    }, [currentDialogue]);
-
-    return (
-        <AnimatePresence>
-            {currentDialogue && (
-                <motion.div key="subtitleContainer" className={s.subtitleContainer} initial="hidden" animate="visible" exit="hidden" variants={SubtitleVariants}>
-                    {subtitles.map((subtitleArray) => (
-                        subtitleArray.index === currentDialogue && (
-                            subtitleArray.caption.map((subtitle, index) => (
-                                <Subtitle
-                                    key={index}
-                                    person={subtitle.person}
-                                    text={subtitle.text}
-                                    start={subtitle.start}
-                                    duration={subtitle.duration}
-                                    latest={subtitle.latest}
-                                />
-                            ))
-                        )
-                    ))}
-                </motion.div>
-            )}
-        </AnimatePresence>
-    )
+  return (
+    <AnimatePresence>
+      {currentDialogue && (
+        <motion.div
+          key="subtitleContainer"
+          className={s.subtitleContainer}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={SubtitleVariants}
+        >
+          {subtitles.map(
+            (subtitleArray) =>
+              subtitleArray.index === currentDialogue &&
+              subtitleArray.caption.map((subtitle, index) => (
+                <Subtitle
+                  key={index}
+                  person={subtitle.person}
+                  text={subtitle.text}
+                  start={subtitle.start}
+                  duration={subtitle.duration}
+                  latest={subtitle.latest}
+                />
+              )),
+          )}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 };
 
 export default SubtitleManager;
