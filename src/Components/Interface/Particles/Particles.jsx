@@ -14,7 +14,7 @@ const DISPLACEMENT_SIZE = 128; // Size of the canvas used for the displacement t
 export default function Particles() {
   const { camera } = useThree();
   // const {hotspotCurrent} = useGameStore();
-  const setHotspotCurrent = useGameStore((state) => state.setHotspotCurrent);
+  const hotspotCurrent = useGameStore((state) => state.hotspotCurrent);
 
   const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
 
