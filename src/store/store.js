@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { c_Objects } from "../constant/objects";
 
 export const useGameStore = create((set) => ({
-
-
   // ______________________ PLAYER __________________/
   playerPosition: null,
   setPlayerPosition: (position) => set({ playerPosition: position }),
@@ -11,10 +9,6 @@ export const useGameStore = create((set) => ({
   setPlayerAnimation: (animation) => set({ playerAnimation: animation }),
   playerRef: null,
   setPlayerRef: (ref) => set({ playerRef: ref }),
-
-  // ______________________ MOLEC __________________/
-  molecSpeaking: false,
-  setMolecSpeaking: (speaking) => set({ molecSpeaking: speaking }),
 
   // ______________________ CAMERA __________________/
   controlsRef: null,
@@ -30,6 +24,11 @@ export const useGameStore = create((set) => ({
   transitionView: null,
   setTransitionView: (transition) => set({ transitionView: transition }),
 
+  // ______________________ CURSOR __________________/
+
+  smthgIsHovered: false,
+  setSmthgIsHovered: (hovered) => set({ smthgIsHovered: hovered }),
+
   // ______________________ POINTS OF INTEREST __________________/
 
   ammoBoxPosition: null,
@@ -42,6 +41,10 @@ export const useGameStore = create((set) => ({
   setBrokenRobotPosition: (position) => set({ brokenRobotPosition: position }),
   posterPosition: null,
   setPosterPosition: (position) => set({ posterPosition: position }),
+  swingPosition: null,
+  setSwingPosition: (position) => set({ swingPosition: position }),
+  tankPosition: null,
+  setTankPosition: (position) => set({ tankPosition: position }),
 
   // ______________________ CONTACT __________________/
   elementContacted: null,
@@ -49,9 +52,9 @@ export const useGameStore = create((set) => ({
 
   // ______________________ GAMEPLAY __________________/
   currentTool: "Tool 0",
-	setCurrentTool: (tool) => {
-		set({ currentTool: tool }), console.log("Current tool set to:", tool);
-	},
+  setCurrentTool: (tool) => {
+    (set({ currentTool: tool }), console.log("Current tool set to:", tool));
+  },
   toolOpen: false,
   setToolOpen: (isOpen) => set({ toolOpen: isOpen }),
 
@@ -82,7 +85,10 @@ export const useGameStore = create((set) => ({
   // ______________________ SCREENS MANAGEMENT __________________/
 
   currentScreen: "loading", // loading | menu | game
-  setCurrentScreen: (screen) => set({ currentScreen: screen }),
+  setCurrentScreen: (screen) => {
+    set({ currentScreen: screen });
+    set({ smthgIsHovered: false });
+  },
 
   // ______________________ MEDIAS LOADING __________________/
   mediaProgress: 0,
@@ -94,7 +100,6 @@ export const useGameStore = create((set) => ({
   setMediaLoading: (data) => set(data),
 
   //compressed objects management
-  isCompressed: true, 
+  isCompressed: true,
   setIsCompressed: (isCompressed) => set({ isCompressed }),
- 
 }));

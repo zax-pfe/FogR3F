@@ -21,6 +21,8 @@ import AmmoBox from "./Components/3DModel/PointsOfInterest/AmmoBox.jsx";
 import BrokenRobot from "./Components/3DModel/PointsOfInterest/BrokenRobot.jsx";
 import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
+import Swing from "./Components/3DModel/PointsOfInterest/Swing.jsx";
+import Tank from "./Components/3DModel/PointsOfInterest/Tank.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
@@ -73,6 +75,7 @@ export default function Experience() {
 
   return (
     <>
+    {/* ____________ ENVIRONMENT ____________ A desactiver pour eco des perf */}
       <Environment preset="night" />
       {/* ______________________ FOG__________________/ */}
       <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />
@@ -98,8 +101,10 @@ export default function Experience() {
       <Tronk />
       <BrokenRobot />
       <Poster />
+      <Swing />
       <Interaction />
-      <Physics   gravity={[0, -30, 0]}>
+      <Physics gravity={[0, -30, 0]}>
+        <Tank />
         <Terrain />
         <Decors />
         <Trees />
@@ -114,10 +119,10 @@ export default function Experience() {
         size={{ x: 60, y: 6, z: 57 }}
         scale={1}
         count={2000}
-        color="#b9a3a3"
+        color="#7298a7"
         position={{ x: 11.3, y: 5.5, z: 5.4 }}
         speed={2}
-        opacity={0.8}
+        opacity={1}
       />
     </>
   );

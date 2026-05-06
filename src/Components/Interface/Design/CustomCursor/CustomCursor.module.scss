@@ -1,0 +1,26 @@
+:root {
+    cursor: none;
+}
+
+.customCursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 17px;
+    height: 26px;
+    pointer-events: none;
+    background: url('/assets/images/cursor.svg') no-repeat left center;
+    background-size: 300% 100%;
+    transform: rotateZ(-40deg) scale(0.9); ;
+    z-index: 9999;
+
+    &.hoverSmthg {
+        background-position: center center;
+        transform: rotateZ(-40deg) scale(1);
+    }
+
+    &.hoverSmthgInteractable {
+        background-position: right center;
+        transform: rotateZ(-40deg) scale(1);
+    }
+}

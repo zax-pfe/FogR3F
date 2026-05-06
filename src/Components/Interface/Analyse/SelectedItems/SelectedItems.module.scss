@@ -56,7 +56,7 @@
 
 		transition: outline-color 0.3s var(--easing), scale 0.3s var(--easing);
 
-		cursor: pointer;
+		cursor: none;
 
 		&.active {
 			outline-color: var(--color--violet);

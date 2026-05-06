@@ -5,14 +5,22 @@ import s from "./TabObject.module.scss";
 import { c_AudioUI } from "../../../constant/audio";
 
 const TabObject = ({ viewObject, setViewObject }) => {
-  // const { objectFind } = useGameStore();
-  const objectFind = useGameStore((state) => state.objectFind);
+  const { objectFind, setSmthgIsHovered } = useGameStore();
+  // const objectFind = useGameStore((state) => state.objectFind);
 
   const [currentObject, setCurrentObject] = useState([]);
 
   const handleClick = (object) => {
     setViewObject(object);
     c_AudioUI.play("open");
+  };
+
+  const handleEnter = () => {
+    setSmthgIsHovered(true);
+  };
+
+  const handleLeave = () => {
+    setSmthgIsHovered(false);
   };
 
   useEffect(() => {
@@ -35,6 +43,8 @@ const TabObject = ({ viewObject, setViewObject }) => {
           key={index}
           className={`${s.tabObject__btn} ${object.type === "missing" ? s.missing : ""} ${object === viewObject ? s.active : ""}`}
           onClick={() => handleClick(object)}
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
         >
           {object.type != "missing" && (
             <img className={s.tabObject__icon} src={object.image} alt="" />
