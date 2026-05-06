@@ -33,7 +33,7 @@ export default function Smoke() {
       offsetX: { value: 0.2, min: 0, max: 10, step: 0.1 },
       offsetY: { value: 0.2, min: 0, max: 10, step: 0.1 },
       offsetZ: { value: 0.5, min: 0, max: 10, step: 0.1 },
-      particlesColor: "#d5cbbe",
+      particlesColor: "#597079",
       opacity: { value: 0.8, min: 0, max: 1, step: 0.01 },
       sizeX: { value: 0.4, min: 0.01, max: 1, step: 0.01 },
       sizeY: { value: 0.4, min: 0.01, max: 1, step: 0.01 },

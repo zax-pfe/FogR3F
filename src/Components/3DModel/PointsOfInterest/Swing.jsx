@@ -19,12 +19,18 @@ export default function Swing(props) {
     setSwingPosition(swingRef.current.position);
   }, []);
 
-  // real position: _Vector3 {x: 0.3879131190128353, y: -1.6006564029851684, z: 0}
-  // Swing.jsx:35 real rotation: _Euler {isEuler: true, _x: -0, _y: 0, _z: 0.0745134106696528, _order: 'XYZ'}
-
   return (
     <group {...props} dispose={null} ref={swingRef} position={[23.61, 4.38, 28.5]}>
-      <Sparkles size={1} count={50} speed={1} scale={[2, 2, 1]} position={[0, 0.5, 0]} />
+      <Sparkles
+        size={1.5}
+        depthWrite={true}
+        color={"lightblue"}
+        transparent
+        count={25}
+        speed={0.5}
+        scale={[2, 2, 1]}
+        position={[0, 0.5, 0]}
+      />
       <group rotation={[-Math.PI, 1.22, -Math.PI + 0.07]} scale={0.7}>
         <PressButtonUI element="swing" />
         <mesh

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Trail, useHelper } from "@react-three/drei";
+import { Trail, useHelper, Float } from "@react-three/drei";
 import * as THREE from "three";
 
 import { extend } from "@react-three/fiber";
@@ -65,7 +65,7 @@ export default function MolecTest({ targetRef }) {
         blending={THREE.AdditiveBlending}
         lineWidth={0.35}
       />
-
+      {/* <Float speed={1} rotationIntensity={0.2} floatIntensity={0.2}> */}
       <MolecBody ref={meshRef} scale={0.12}>
         <pointLight
           color={molecSpeaking ? "#ffffff" : "#b94fe3"}
@@ -82,6 +82,7 @@ export default function MolecTest({ targetRef }) {
           position={[-4, 7, -12]}
         />
       </MolecBody>
+      {/* </Float> */}
     </Trail>
   );
 }

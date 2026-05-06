@@ -5,21 +5,22 @@ import { Outlines } from "@react-three/drei";
 import PressButtonUI from "./PressButtonUI.jsx";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 
-export default function BrokenRobot(props) {
-  const brokenRobotRef = useRef();
+export default function Tank(props) {
+  const tankRef = useRef();
 
   const { isCompressed, setIsCompressed } = useGameStore();
-  const objName = isCompressed ? "brokenBot_compressed" : "brokenBot";
+  const objName = isCompressed ? "tank_compressed" : "tank";
 
   const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/${objName}.glb`);
 
-  const setBrokenRobotPosition = useGameStore((state) => state.setBrokenRobotPosition);
+  const setTankPosition = useGameStore((state) => state.setTankPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
   const playerAnimation = useGameStore((state) => state.playerAnimation);
 
   useEffect(() => {
-    setBrokenRobotPosition(brokenRobotRef.current.position);
+    setTankPosition(tankRef.current.position);
   }, []);
 
   return (
@@ -35,38 +36,43 @@ export default function BrokenRobot(props) {
     //     console.log("real rotation:", rotation);
     //   }}
     // >
-    <group
-      {...props}
-      dispose={null}
-      position={[-9.74, 3.91, 6.25]}
-      rotation={[-1.67, 0, 2.25]}
-      ref={brokenRobotRef}
-    >
+    <group {...props} dispose={null} ref={tankRef} scale={0.7} position={[28.15, 5, -0.4]}>
+      <RigidBody
+        type="fixed"
+        colliders={false}
+        position={[0, 0, 0]}
+        rotation={[0, -Math.PI / 7, 0]}
+      >
+        <CuboidCollider args={[2, 3, 4]} />
+      </RigidBody>
       <Sparkles
         size={1.5}
         depthWrite={true}
         color={"lightblue"}
         transparent
-        count={15}
-        speed={0.5}
-        scale={[1, 1, 1]}
+        count={100}
+        speed={1}
+        scale={[6, 7, 7]}
         position={[-0.1, -0.3, 1]}
+        toneMapped={false}
+        noise={1}
       />
+      {playerAnimation !== "interaction" && <PressButtonUI element="tank" />}
 
-      {playerAnimation !== "interaction" && <PressButtonUI element="brokenRobot" />}
-
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Object_4.geometry}
-        material={materials.MAT_STAFFBot_Shattered}
-        rotation={[Math.PI / 2, 0, 0]}
-      >
-        {elementContacted === "brokenRobot" && <Outlines thickness={2} color="lightblue" />}
-      </mesh>
+      <group rotation={[0.15, -0.42, -0.15]}>
+        <mesh
+          // castShadow
+          // receiveShadow
+          geometry={nodes.Object_2.geometry}
+          material={materials.tank_material}
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
+          {elementContacted === "tank" && <Outlines thickness={2} color="lightblue" />}
+        </mesh>
+      </group>
     </group>
     // </PivotControls>
   );
 }
 
-// useGLTF.preload("/assets/3DModels/Interactive/brokenBot.glb");
+useGLTF.preload("/tank.glb");

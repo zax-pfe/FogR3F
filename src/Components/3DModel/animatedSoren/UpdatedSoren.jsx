@@ -13,7 +13,7 @@ export default function AnimatedSoren(props) {
 
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
-    const action = actions["action_neutral_idle"];
+    const action = actions["action_idle"];
 
     action.reset().fadeIn(0.2).play();
   }, []);
@@ -31,7 +31,7 @@ export default function AnimatedSoren(props) {
 
   useEffect(() => {
     const walking_action = actions["action_walking"];
-    const idle_action = actions["action_neutral_idle"];
+    const idle_action = actions["action_idle"];
     const interaction_action = actions["action_interaction"];
 
     // console.log("Current player animation:", playerAnimation);

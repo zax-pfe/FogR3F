@@ -7,14 +7,12 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function Pointer(props) {
-  const pointerRef = useRef(); 
+  const pointerRef = useRef();
 
-   const { isCompressed, setIsCompressed } = useGameStore( );
+  const { isCompressed, setIsCompressed } = useGameStore();
   const objName = isCompressed ? "Pointer_compressed" : "Pointer";
-    
-  const { nodes, materials } = useGLTF(
-    `/assets/3DModels/Interactive/${objName}.glb`,
-  ); 
+
+  const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/${objName}.glb`);
 
   const setPointerPosition = useGameStore((state) => state.setPointerPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
@@ -34,27 +32,24 @@ export default function Pointer(props) {
     //     console.log("scale:", pointerRef.current.scale);
     //   }}
     // >
-    <group
-      {...props}
-      dispose={null}
-      ref={pointerRef}
-      position={[-3.71, 3.7, 22.68]}
-    >
+    <group {...props} dispose={null} ref={pointerRef} position={[-3.71, 3.7, 22.68]}>
       <group position={[0, 0.006, -0.005]} scale={1.011}>
-        <mesh
-          geometry={nodes["+Pointer_1"].geometry}
-          material={materials["+Wood_dark"]}
-        >
-          {elementContacted === "pointer" && (
-            <Outlines thickness={2} color="lightblue" />
-          )}
+        <mesh geometry={nodes["+Pointer_1"].geometry} material={materials["+Wood_dark"]}>
+          {elementContacted === "pointer" && <Outlines thickness={2} color="lightblue" />}
         </mesh>
-        <mesh
-          geometry={nodes["+Pointer_2"].geometry}
-          material={nodes["+Pointer_2"].material}
-        />
+        <mesh geometry={nodes["+Pointer_2"].geometry} material={nodes["+Pointer_2"].material} />
       </group>
-      <Sparkles size={1} count={50} speed={1} scale={[1, 2, 1]} />
+
+      <Sparkles
+        size={1.5}
+        depthWrite={true}
+        color={"lightblue"}
+        transparent
+        count={18}
+        speed={0.5}
+        scale={[1, 2, 1]}
+        position={[0, 0.4, 0]}
+      />
 
       <PressButtonUI element="pointer" />
     </group>

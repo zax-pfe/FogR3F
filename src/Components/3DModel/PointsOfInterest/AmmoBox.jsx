@@ -9,15 +9,14 @@ import * as THREE from "three";
 export default function AmmoBox(props) {
   const ammoBoxRef = useRef();
 
-  const { isCompressed, setIsCompressed } = useGameStore( );
+  const { isCompressed, setIsCompressed } = useGameStore();
   const objName = isCompressed ? "ammo_box_compressed" : "ammo_box";
-  
-  const { nodes, materials } = useGLTF(
-    `/assets/3DModels/Interactive/${objName}.glb`,
-  );
+
+  const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/${objName}.glb`);
 
   const setAmmoBoxPosition = useGameStore((state) => state.setAmmoBoxPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
 
   useEffect(() => {
     setAmmoBoxPosition(ammoBoxRef.current.position);
@@ -32,12 +31,7 @@ export default function AmmoBox(props) {
     //     console.log("real position:", position);
     //   }}
     // >
-    <group
-      {...props}
-      dispose={null}
-      position={[-4.89, 3.53, -9.83]}
-      ref={ammoBoxRef}
-    >
+    <group {...props} dispose={null} position={[-4.89, 3.53, -9.83]} ref={ammoBoxRef}>
       <mesh
         // castShadow
         // receiveShadow
@@ -45,13 +39,20 @@ export default function AmmoBox(props) {
         material={materials["Material.001"]}
         rotation={[-Math.PI / 2, 0, 0]}
       >
-        {elementContacted === "ammoBox" && (
-          <Outlines thickness={2} color="lightblue" />
-        )}
+        {elementContacted === "ammoBox" && <Outlines thickness={2} color="lightblue" />}
       </mesh>
-      <Sparkles size={1} count={50} speed={1} scale={[1, 1, 1]} />
+      <Sparkles
+        size={1.5}
+        depthWrite={true}
+        color={"lightblue"}
+        transparent
+        count={15}
+        speed={0.5}
+        scale={[1, 1, 1]}
+        position={[0, 0.3, 0]}
+      />
 
-      <PressButtonUI element="ammoBox" />
+      {playerAnimation !== "interaction" && <PressButtonUI element="ammoBox" />}
     </group>
     // </PivotControls>
   );

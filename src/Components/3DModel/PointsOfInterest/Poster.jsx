@@ -7,14 +7,12 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function Poster(props) {
-  const posterRef = useRef(); 
+  const posterRef = useRef();
 
-  const { isCompressed, setIsCompressed } = useGameStore( );
+  const { isCompressed, setIsCompressed } = useGameStore();
   const objName = isCompressed ? "posterRouge_compressed" : "posterRouge";
-      
-  const { nodes, materials } = useGLTF(
-    `/assets/3DModels/Interactive/posters/${objName}.glb`,
-  ); 
+
+  const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/posters/${objName}.glb`);
 
   const setPosterPosition = useGameStore((state) => state.setPosterPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
@@ -24,27 +22,30 @@ export default function Poster(props) {
   }, []);
 
   return (
+    // <PivotControls
+    //   anchor={[0, 0, 0]}
+    //   depthTest={false}
+    //   onDrag={(localMatrix) => {
+    //     const position = new THREE.Vector3();
+    //     position.setFromMatrixPosition(localMatrix);
+    //     console.log("real position:", position);
+    //     const rotation = new THREE.Euler();
+    //     rotation.setFromRotationMatrix(localMatrix);
+    //     console.log("real rotation:", rotation);
+    //   }}
+    // >
 
-      // <PivotControls
-      //   anchor={[0, 0, 0]}
-      //   depthTest={false}
-      //   onDrag={(localMatrix) => {
-      //     const position = new THREE.Vector3();
-      //     position.setFromMatrixPosition(localMatrix);
-      //     console.log("real position:", position);
-      //     const rotation = new THREE.Euler();
-      //     rotation.setFromRotationMatrix(localMatrix);
-      //     console.log("real rotation:", rotation);
-      //   }}
-      // >
-
-    <group
-      {...props}
-      dispose={null}
-      position={[16.33, 4.5, 18.14]}
-      ref={posterRef}
-    >
-      <Sparkles size={1} count={50} speed={1} scale={[1, 1, 1]} />
+    <group {...props} dispose={null} position={[16.33, 4.5, 18.14]} ref={posterRef}>
+      <Sparkles
+        size={1.5}
+        depthWrite={true}
+        color={"lightblue"}
+        transparent
+        count={18}
+        speed={0.5}
+        scale={[1, 1, 1]}
+        position={[0, 0.15, -0.2]}
+      />
       <group scale={[0.15, 0.15, 0.15]} rotation={[-1.05, -1.5, 0.53]}>
         <PressButtonUI element="poster" />
 
@@ -61,9 +62,7 @@ export default function Poster(props) {
 
           <meshBasicMaterial opacity={0} transparent={true} />
 
-          {elementContacted === "poster" && (
-            <Outlines thickness={2} color="lightblue" />
-          )}
+          {elementContacted === "poster" && <Outlines thickness={2} color="lightblue" />}
         </mesh>
       </group>
     </group>
