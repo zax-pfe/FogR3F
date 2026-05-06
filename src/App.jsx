@@ -59,7 +59,7 @@ function App() {
 
       {currentScreen === "menu" && <StartScreen />}
 
-      <ThreeScene>
+      <ThreeScene placeholder>
         <Experience />
       </ThreeScene>
 

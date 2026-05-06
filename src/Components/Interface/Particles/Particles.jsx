@@ -13,8 +13,7 @@ const DISPLACEMENT_SIZE = 128; // Size of the canvas used for the displacement t
 
 export default function Particles() {
   const { camera } = useThree();
-  // const {hotspotCurrent} = useGameStore();
-  const hotspotCurrent = useGameStore((state) => state.hotspotCurrent);
+  const {hotspotCurrent} = useGameStore();
 
   const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
 
@@ -25,7 +24,7 @@ export default function Particles() {
     age: useLoader(THREE.TextureLoader, "/textures/MIL_tronkAge.png"),
     insectes: useLoader(THREE.TextureLoader, "/textures/MIL_tronkInsectes.png"),
     balle: useLoader(THREE.TextureLoader, "/textures/MIL_tronkBalle.png"),
-  };
+  }
 
   // Create a small offscreen canvas that we will draw the mouse "glow" into.
   // This canvas is converted to a Three.js texture and sampled by the vertex shader
@@ -77,9 +76,7 @@ export default function Particles() {
   useEffect(() => {
     if (hotspotCurrent) {
       console.log("Hotspot current changed, updating texture:", hotspotCurrent);
-      uniforms.uPictureTexture.value = hotspotCurrent.logTexture
-        ? tronkTexture[hotspotCurrent.logTexture]
-        : tronkTexture.base;
+      uniforms.uPictureTexture.value = hotspotCurrent.logTexture ? tronkTexture[hotspotCurrent.logTexture] : tronkTexture.base;
     }
   }, [hotspotCurrent]);
 
@@ -106,7 +103,7 @@ export default function Particles() {
         mouse.current.x * DISPLACEMENT_SIZE - glowSize * 0.5,
         (1 - mouse.current.y) * DISPLACEMENT_SIZE - glowSize * 0.5,
         glowSize,
-        glowSize,
+        glowSize
       );
     }
 
@@ -143,7 +140,10 @@ export default function Particles() {
     // Attach attributes so the vertex shader can read them as 'aIntensity' and 'aAngle'.
     geometry.setAttribute("aIntensity", new THREE.BufferAttribute(intensitiesArray, 1));
 
-    geometry.setAttribute("aAngle", new THREE.BufferAttribute(anglesArray, 1));
+    geometry.setAttribute(
+      "aAngle",
+      new THREE.BufferAttribute(anglesArray, 1)
+    );
 
     return geometry;
   }, []);
@@ -157,7 +157,8 @@ export default function Particles() {
     const intersection = new THREE.Vector3();
 
     const handleMouseMove = (event) => {
-      const canvas = document.querySelector("canvas");
+
+      const canvas = document.querySelector('canvas');
       if (!canvas) return;
 
       const rect = canvas.getBoundingClientRect();
@@ -173,8 +174,8 @@ export default function Particles() {
       raycaster.ray.intersectPlane(plane, intersection);
 
       // Convertir en coordonnées UV (0 à 1)
-      const x = intersection.x / SIZE + 0.5;
-      const y = intersection.y / SIZE + 0.5;
+      const x = (intersection.x / SIZE) + 0.5;
+      const y = (intersection.y / SIZE) + 0.5;
 
       mouse.current.set(x, y);
       mouseStrength.current = 1;
@@ -185,12 +186,12 @@ export default function Particles() {
       mouseStrength.current = 0;
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [camera]);
 
