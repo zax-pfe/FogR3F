@@ -27,7 +27,7 @@ const ToolsWheel = () => {
   const [, forceUpdate] = useState(0);
   const isArrived = useRef(0);
   const animationRef = useRef();
-  const { setCurrentTool, toolOpen, setToolOpen } = useGameStore();
+  const { setCurrentTool, toolOpen, setToolOpen, setSmthgIsHovered, smthgIsHovered } = useGameStore();
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
   const generateCirclePoints = (number, baseAngle = 0) => {
@@ -165,6 +165,14 @@ const ToolsWheel = () => {
     setPointer({ x: e.clientX, y: e.clientY });
   };
 
+  const handleEnter = () => {
+    setSmthgIsHovered(true);
+  };
+
+  const handleLeave = () => {
+    setSmthgIsHovered(false);
+  };
+
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
     window.addEventListener("keydown", handleKeyDown);
@@ -188,10 +196,10 @@ const ToolsWheel = () => {
     <>
       {toolOpen && (
         <div
-          className={s.pointer}
+          className={`${s.pointer} ${smthgIsHovered === 'interactable' ? s.active : ""}`}
           style={{
-            top: pointer.y + 12,
-            left: pointer.x + 12,
+            top: pointer.y + 18,
+            left: pointer.x + 18,
             WebkitMaskImage: `url(${tools.current[currentToolId].icon})`,
             maskImage: `url(${tools.current[currentToolId].icon})`,
             color: "white",
@@ -204,6 +212,8 @@ const ToolsWheel = () => {
         <button
           className={`${s.btn} ${toolOpen ? s.open : ""}`}
           onClick={() => setToolOpen(!toolOpen)}
+          onMouseEnter={handleEnter}
+          onMouseLeave={handleLeave}
         >
           {/* <span className="sr-only">Open tool</span> */}
           <span className="sr-only"> {toolOpen ? "Close" : "Open"} tool</span>
@@ -218,6 +228,8 @@ const ToolsWheel = () => {
                   changeTool(index);
                   c_AudioUI.play("toolSelect");
                 }}
+                onMouseEnter={handleEnter}
+                onMouseLeave={handleLeave}
                 style={{
                   right: `${tool.x}px`,
                   bottom: `${tool.y}px`,

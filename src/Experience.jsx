@@ -75,6 +75,7 @@ export default function Experience() {
 
   return (
     <>
+    {/* ____________ ENVIRONMENT ____________ A desactiver pour eco des perf */}
       <Environment preset="night" />
       {/* ______________________ FOG__________________/ */}
       <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />

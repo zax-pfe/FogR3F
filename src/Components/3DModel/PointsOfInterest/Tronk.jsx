@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, use } from "react";
 import { useGLTF, Html, Sparkles, PivotControls } from "@react-three/drei";
 import { useGameStore } from "../../../store/store.js";
 import { Outlines } from "@react-three/drei";
@@ -10,7 +10,10 @@ import { c_AudioUI } from "../../../constant/audio.js";
 export default function Tronk(props) {
   const tronkRef = useRef();
 
-  const { isCompressed, setIsCompressed } = useGameStore();
+  const isCompressed = useGameStore((state) => state.isCompressed);
+  const setIsCompressed = useGameStore((state) => state.setIsCompressed);
+  const setSmthgIsHovered = useGameStore((state) => state.setSmthgIsHovered);
+
   const objName = isCompressed ? "tronk_new_compressed" : "tronk_new";
 
   const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/${objName}.glb`);
@@ -18,14 +21,12 @@ export default function Tronk(props) {
   const toolNeeded = "Loupe";
   const [outlineColor, setOutlineColor] = useState("lightblue");
 
-  const {
-    setTronkPosition,
-    elementContacted,
-    setCurrentScreen,
-    currentTool,
-    toolOpen,
-    setCurrentDialogue,
-  } = useGameStore();
+  const setTronkPosition = useGameStore((state) => state.setTronkPosition);
+  const elementContacted = useGameStore((state) => state.elementContacted);
+  const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const currentTool = useGameStore((state) => state.currentTool);
+  const toolOpen = useGameStore((state) => state.toolOpen);
+  const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
 
   const handleClick = () => {
     if (elementContacted != "tronk" || !toolOpen) return;
@@ -41,9 +42,11 @@ export default function Tronk(props) {
     if (elementContacted != "tronk" || !toolOpen) return;
     c_AudioUI.play("hover");
     setOutlineColor("#7b5cff");
+    setSmthgIsHovered("interactable");
   };
 
   const handleMouseOut = () => {
+    setSmthgIsHovered(false);
     setOutlineColor("lightblue");
   };
 
