@@ -23,14 +23,14 @@ export default function PostProcessing() {
   return (
     <>
       <EffectComposer multisampling={0}>
-        {/* <Bloom
+        <Bloom
           intensity={0.25}
           luminanceThreshold={1.5}
           luminanceSmoothing={0.05}
           mipmapBlur
           resolutionX={512}
           resolutionY={512}
-        /> */}
+        />
         <Vignette offset={0.05} darkness={0.4} blendFunction={BlendFunction.NORMAL} />
 
         <Noise opacity={0.1} blendFunction={BlendFunction.SOFT_LIGHT} />
@@ -40,7 +40,7 @@ export default function PostProcessing() {
           focusLength={controlDepthOfField.focusLength}
           bokehScale={controlDepthOfField.bokehScale}
         /> */}
-        <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+        {/* <ToneMapping mode={ToneMappingMode.ACES_FILMIC} /> */}
       </EffectComposer>
     </>
   );

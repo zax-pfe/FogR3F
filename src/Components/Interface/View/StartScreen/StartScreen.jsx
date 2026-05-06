@@ -19,7 +19,6 @@ import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
 import { useGameStore } from "../../../../store/store";
 import ParticlesShader from "../../../VFX/ParticlesShader";
-
 {
   /* ______________________ CANVAS __________________/ */
 }
@@ -165,11 +164,10 @@ function StartScreenContent({ buttonHoveredRef }) {
   return (
     <>
       {/* <Perf position="top-left" /> */}
-
-      <OrbitControls args={[camera, gl.domElement]} />
-      <directionalLight position={[1, 2, 3]} intensity={6} />
-      <ambientLight intensity={5} />
-      <Environment preset="city" />
+      <Environment preset="night" />
+      {/* <OrbitControls args={[camera, gl.domElement]} /> */}
+      <directionalLight position={[1, 2, 3]} intensity={7} />
+      <ambientLight intensity={0} />
       <Title />
       <Float
         speed={2}

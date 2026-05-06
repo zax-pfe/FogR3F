@@ -5,19 +5,19 @@ import * as THREE from "three";
 import groundFogVertexShader from "../../shaders/groundfog/vertex.glsl?raw";
 import groundFogFragmentShader from "../../shaders/groundfog/fragment.glsl?raw";
 
-export default function GroundFog() {
+export default function GroundFog({ position = [0, 3.7, 0], scale = 2, opacity = 0.08, color = "#8a8a8a"}) {
   const materialRef = useRef();
 
   const uniforms = useMemo(
     () => ({
-      uColor: { value: new THREE.Color("#8a8a8a") },
+      uColor: { value: new THREE.Color(color) },
       uTime: { value: 0 },
       uCameraPosition: { value: new THREE.Vector3() },
-      uOpacity: { value: 0.08 },
-      uPosition: { value: new THREE.Vector3(0, 3.7, 0) },
-      uScale: { value: 2 },
+      uOpacity: { value: opacity },
+      uPosition: { value: new THREE.Vector3(...position) },
+      uScale: { value: scale },
     }),
-    []
+    [color, opacity, position, scale]
   );
 
   useFrame((state) => {
@@ -29,9 +29,9 @@ export default function GroundFog() {
 
   return (
     <mesh
-      position={[0, 3.7, 0]}
+      position={position}
       rotation={[-Math.PI / 2, 0, 0]}
-      scale={2}
+      scale={scale}
       frustumCulled={false}
     >
       <planeGeometry args={[100, 100]} />
