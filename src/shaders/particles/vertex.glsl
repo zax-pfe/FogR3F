@@ -68,7 +68,7 @@ void main() {
     float shimmerY = cos(combinedShimmer * 6.28) * shimmerIntensity;
     
     newPosition.x += shimmerX;
-    newPosition.y += shimmerY;
+    newPosition.y += shimmerY; 
 
     // Choose the stronger effect between displacement texture and mouse circle.
     float softStrength = max(displacementStrength * 0.65, circleStrength);

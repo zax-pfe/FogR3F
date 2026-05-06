@@ -36,7 +36,7 @@ const SelectedItems = ({ refBox, analyse }) => {
               setHotspotCurrent(item);
               c_AudioUI.play("open");
             }}
-            onMouseEnter={() => c_AudioUI.play("toolRoll")}
+            onMouseEnter={() => c_AudioUI.play("hover")}
           ></div>
         ))}
       </div>

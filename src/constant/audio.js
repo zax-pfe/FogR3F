@@ -61,6 +61,7 @@ export const c_AudioUI = new Howl({
 		remove: [2000, 500],
 		toolRoll: [2500, 500],
 		toolSelect: [3000, 500],
+		hover: [4000, 100]
 	},
 });
 

@@ -9,26 +9,32 @@ import { useGameStore } from "../../../store/store";
 const SIZE = 6;
 const COUNT = 260;
 const NOISE = 0.025;
-const DISPLACEMENT_SIZE = 128; // Size of the canvas used for the displacement texture
+const DISPLACEMENT_SIZE = 128;
 
 export default function Particles() {
   const { camera } = useThree();
-  // const {hotspotCurrent} = useGameStore();
-  const setHotspotCurrent = useGameStore((state) => state.setHotspotCurrent);
+  const { hotspotCurrent } = useGameStore();
 
-  const pictureTexture = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
+  const materialRef = useRef();
 
-  const tronkTexture = {
-    base: useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png"),
-    climat: useLoader(THREE.TextureLoader, "/textures/MIL_tronkClimat.png"),
-    feu: useLoader(THREE.TextureLoader, "/textures/MIL_tronkFeu.png"),
-    age: useLoader(THREE.TextureLoader, "/textures/MIL_tronkAge.png"),
-    insectes: useLoader(THREE.TextureLoader, "/textures/MIL_tronkInsectes.png"),
-    balle: useLoader(THREE.TextureLoader, "/textures/MIL_tronkBalle.png"),
-  };
+  const tronkBase = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBase.png");
+  const tronkClimat = useLoader(THREE.TextureLoader, "/textures/MIL_tronkClimat.png");
+  const tronkFeu = useLoader(THREE.TextureLoader, "/textures/MIL_tronkFeu.png");
+  const tronkAge = useLoader(THREE.TextureLoader, "/textures/MIL_tronkAge.png");
+  const tronkInsectes = useLoader(THREE.TextureLoader, "/textures/MIL_tronkInsectes.png");
+  const tronkBalle = useLoader(THREE.TextureLoader, "/textures/MIL_tronkBalle.png");
 
-  // Create a small offscreen canvas that we will draw the mouse "glow" into.
-  // This canvas is converted to a Three.js texture and sampled by the vertex shader
+  const tronkTextures = useMemo(() => {
+    return {
+      base: tronkBase,
+      climat: tronkClimat,
+      feu: tronkFeu,
+      age: tronkAge,
+      insectes: tronkInsectes,
+      balle: tronkBalle,
+    };
+  }, [tronkBase, tronkClimat, tronkFeu, tronkAge, tronkInsectes, tronkBalle]);
+
   const displacementCanvas = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = DISPLACEMENT_SIZE;
@@ -43,11 +49,11 @@ export default function Particles() {
     return context;
   }, [displacementCanvas]);
 
-  // 2D drawing context for the canvas. We paint a dark background and draw
-  // a bright glow image where the mouse is. The R channel is later sampled
-  // by the vertex shader to push particles away from the cursor.
   const displacementTexture = useMemo(() => {
-    return new THREE.CanvasTexture(displacementCanvas);
+    const texture = new THREE.CanvasTexture(displacementCanvas);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    return texture;
   }, [displacementCanvas]);
 
   const glowImage = useRef(null);
@@ -60,40 +66,37 @@ export default function Particles() {
     glowImage.current = image;
   }, []);
 
-  // Uniforms passed to the shaderMaterial. These are updated each frame.
   const uniforms = useMemo(() => {
     return {
-      uPictureTexture: new THREE.Uniform(null), // base image used for particle color
-      uDisplacementTexture: new THREE.Uniform(null), // canvas texture for pushing particles
-      uMouse: new THREE.Uniform(new THREE.Vector2(9999, 9999)), // mouse UV for shaders
-      uMouseStrength: new THREE.Uniform(0), // strength of mouse effect
-      uTime: new THREE.Uniform(0), // clock time for animation
+      uPictureTexture: { value: tronkBase },
+      uDisplacementTexture: { value: displacementTexture },
+      uMouse: { value: new THREE.Vector2(9999, 9999) },
+      uMouseStrength: { value: 0 },
+      uTime: { value: 0 },
     };
-  }, []);
-
-  uniforms.uPictureTexture.value = tronkTexture.base;
-  uniforms.uDisplacementTexture.value = displacementTexture;
+  }, [tronkBase, displacementTexture]);
 
   useEffect(() => {
-    if (hotspotCurrent) {
-      console.log("Hotspot current changed, updating texture:", hotspotCurrent);
-      uniforms.uPictureTexture.value = hotspotCurrent.logTexture
-        ? tronkTexture[hotspotCurrent.logTexture]
-        : tronkTexture.base;
-    }
-  }, [hotspotCurrent]);
+    if (!materialRef.current) return;
+
+    const textureName = hotspotCurrent?.logTexture || "base";
+    materialRef.current.uniforms.uPictureTexture.value =
+      tronkTextures[textureName] || tronkTextures.base;
+  }, [hotspotCurrent, tronkTextures]);
 
   useFrame((state) => {
-    uniforms.uTime.value = state.clock.elapsedTime;
-    uniforms.uMouse.value.copy(mouse.current);
-    uniforms.uMouseStrength.value = mouseStrength.current;
+    if (!materialRef.current) return;
 
-    // Main loop runs every frame.
-    // Update time and mouse uniforms for shaders.
-    displacementContext.globalCompositeOperation = "source-over"; // reset drawing mode
-    displacementContext.globalAlpha = 0.12; // how quickly old glow fades
-    displacementContext.fillStyle = "black"; // fill color for clearing
-    displacementContext.fillRect(0, 0, DISPLACEMENT_SIZE, DISPLACEMENT_SIZE); // clear canvas
+    const mat = materialRef.current;
+
+    mat.uniforms.uTime.value = state.clock.elapsedTime;
+    mat.uniforms.uMouse.value.copy(mouse.current);
+    mat.uniforms.uMouseStrength.value = mouseStrength.current;
+
+    displacementContext.globalCompositeOperation = "source-over";
+    displacementContext.globalAlpha = 0.12;
+    displacementContext.fillStyle = "black";
+    displacementContext.fillRect(0, 0, DISPLACEMENT_SIZE, DISPLACEMENT_SIZE);
 
     if (mouseStrength.current > 0 && glowImage.current) {
       const glowSize = DISPLACEMENT_SIZE * 0.16;
@@ -106,12 +109,11 @@ export default function Particles() {
         mouse.current.x * DISPLACEMENT_SIZE - glowSize * 0.5,
         (1 - mouse.current.y) * DISPLACEMENT_SIZE - glowSize * 0.5,
         glowSize,
-        glowSize,
+        glowSize
       );
     }
 
-    // Tell three.js to re-upload the canvas to the GPU texture this frame.
-    displacementTexture.needsUpdate = true; // mark texture for update
+    displacementTexture.needsUpdate = true;
   });
 
   const particlesGeometry = useMemo(() => {
@@ -123,9 +125,8 @@ export default function Particles() {
     const count = geometry.attributes.position.count;
     const positionAttribute = geometry.attributes.position;
 
-    // Prepare arrays for per-particle attributes: intensity and angle.
-    const intensitiesArray = new Float32Array(count); // intensity for each particle
-    const anglesArray = new Float32Array(count); // angle for each particle
+    const intensitiesArray = new Float32Array(count);
+    const anglesArray = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
       const x = positionAttribute.getX(i);
@@ -140,10 +141,15 @@ export default function Particles() {
 
     positionAttribute.needsUpdate = true;
 
-    // Attach attributes so the vertex shader can read them as 'aIntensity' and 'aAngle'.
-    geometry.setAttribute("aIntensity", new THREE.BufferAttribute(intensitiesArray, 1));
+    geometry.setAttribute(
+      "aIntensity",
+      new THREE.BufferAttribute(intensitiesArray, 1)
+    );
 
-    geometry.setAttribute("aAngle", new THREE.BufferAttribute(anglesArray, 1));
+    geometry.setAttribute(
+      "aAngle",
+      new THREE.BufferAttribute(anglesArray, 1)
+    );
 
     return geometry;
   }, []);
@@ -151,9 +157,7 @@ export default function Particles() {
   useEffect(() => {
     const raycaster = new THREE.Raycaster();
     const mouse3D = new THREE.Vector2();
-    const planeNormal = new THREE.Vector3(0, 0, 1); // le plane est perpendiculaire à Z
-    const planePoint = new THREE.Vector3(0, 0, 0); // le plane est à Z=0
-    const plane = new THREE.Plane(planeNormal, 0);
+    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
     const intersection = new THREE.Vector3();
 
     const handleMouseMove = (event) => {
@@ -162,17 +166,12 @@ export default function Particles() {
 
       const rect = canvas.getBoundingClientRect();
 
-      // Convertir en coordonnées normalisées (-1 à 1)
       mouse3D.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
       mouse3D.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-      // Créer le rayon
       raycaster.setFromCamera(mouse3D, camera);
-
-      // Trouver l'intersection avec le plan
       raycaster.ray.intersectPlane(plane, intersection);
 
-      // Convertir en coordonnées UV (0 à 1)
       const x = intersection.x / SIZE + 0.5;
       const y = intersection.y / SIZE + 0.5;
 
@@ -196,19 +195,18 @@ export default function Particles() {
 
   return (
     <group>
-      {/* Render particles as points using a custom shader material. */}
       <points geometry={particlesGeometry}>
         <shaderMaterial
+          ref={materialRef}
           vertexShader={particlesVertexShader}
           fragmentShader={particlesFragmentShader}
           uniforms={uniforms}
-          blending={THREE.AdditiveBlending} // additive blending for glow effects
+          blending={THREE.AdditiveBlending}
           transparent
-          depthWrite={false} // avoid writing depth to keep transparent blending correct
+          depthWrite={false}
         />
       </points>
 
-      {/* Invisible interactive plane: captures pointer events and updates mouse refs. */}
       <mesh>
         <planeGeometry args={[SIZE, SIZE]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />

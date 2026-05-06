@@ -5,6 +5,7 @@ import { Outlines } from "@react-three/drei";
 import PressButtonUI from "./PressButtonUI.jsx";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { c_AudioUI } from "../../../constant/audio.js";
 
 export default function Tronk(props) {
   const tronkRef = useRef();
@@ -38,7 +39,7 @@ export default function Tronk(props) {
 
   const handleMouseOver = () => {
     if (elementContacted != "tronk" || !toolOpen) return;
-
+    c_AudioUI.play("hover");
     setOutlineColor("#7b5cff");
   };
 

@@ -10,7 +10,7 @@ export default function Poster(props) {
   const posterRef = useRef();
 
   const { isCompressed, setIsCompressed } = useGameStore();
-  const objName = isCompressed ? "posterRouge_compressed" : "posterRouge";
+  const objName = isCompressed ? "posterBlanc" : "posterBlanc";
 
   const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/posters/${objName}.glb`);
 
