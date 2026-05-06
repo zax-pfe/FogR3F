@@ -10,10 +10,6 @@ export const useGameStore = create((set) => ({
   playerRef: null,
   setPlayerRef: (ref) => set({ playerRef: ref }),
 
-  // ______________________ MOLEC __________________/
-  molecSpeaking: false,
-  setMolecSpeaking: (speaking) => set({ molecSpeaking: speaking }),
-
   // ______________________ CAMERA __________________/
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
