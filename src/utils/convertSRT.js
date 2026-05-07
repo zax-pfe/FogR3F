@@ -8,8 +8,6 @@ export async function convertSRT(srtPath) {
         }
         
         const srtText = await response.text();
-
-		console.log(`Subtitle text loaded from ${srtPath}:`, srtText);
         
         if (!srtText) {
             console.error(`Empty subtitle file: ${srtPath}`);
@@ -18,8 +16,6 @@ export async function convertSRT(srtPath) {
         
         const subtitles = [];
         const srtEntries = srtText.split(/\r\n\r\n|\n\n/);
-
-		console.log(`SRT entries split from text:`, srtEntries);
 
         // console.log("SRT Text:", srtText);
         // console.log(srtEntries);
@@ -35,7 +31,7 @@ export async function convertSRT(srtPath) {
                     end: timeToSeconds(timecode[1]),
                     duration: timeToSeconds(timecode[1]) - timeToSeconds(timecode[0]),
                     person: lines[2],
-                    text: lines.slice(3).join("\r\n"),
+                    text: lines.slice(3).join("\n"),
                     latest: index === srtEntries.length - 1
                 });
             }
