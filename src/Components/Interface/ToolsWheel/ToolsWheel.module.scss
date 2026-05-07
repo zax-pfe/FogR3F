@@ -26,6 +26,23 @@
 		pointer-events: none;
 	}
 
+	.openIndication {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		bottom: 28px;
+		right: 112px;
+		font-size: 1rem;
+		alignment-baseline: middle;
+		color: var(--color--white);
+		background: var(--color--bg-transparent-dark);
+		width: 32px;
+		height: 32px;
+		border-radius: var(--radius--full);
+		z-index: 5;
+	}
+
 	.btn {
 		position: absolute;
 		width: 72px;
@@ -152,7 +169,7 @@
 			mask: no-repeat center center;
 	-webkit-mask-size: contain;
 			mask-size: contain;
-			z-index: var(--zI--ToolWheel);
+			z-index: var(--zI--Pointer);
 
 	&.active {
 		background: var(--color--violet);

@@ -6,7 +6,7 @@ Qu’est ce que ferait un tank ici ?
 2
 00:00:01,520 --> 00:00:03,880
 SOREN
-Peut être pour évacuer les personnes qui vivaient là ? 
+Peut-être pour évacuer les personnes qui vivaient là ? 
 
 3
 00:00:04,360 --> 00:00:08,280
@@ -22,7 +22,7 @@ Molec ?
 5
 00:00:09,640 --> 00:00:12,520
 SOREN
-Ce modele est il capable d’accueillir des personnes pour une évacuation ? 
+Ce modele est-il capable d’accueillir des personnes pour une évacuation ? 
 
 6
 00:00:12,800 --> 00:00:14,880

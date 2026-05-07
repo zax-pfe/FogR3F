@@ -26,7 +26,7 @@ La phrase sur la caisse est illisible...
 6
 00:00:09,880 --> 00:00:11,880
 SOREN
-Molec tu peux faire une analyse !
+Molec, tu peux faire une analyse ?
 
 7
 00:00:12,000 --> 00:00:14,640
