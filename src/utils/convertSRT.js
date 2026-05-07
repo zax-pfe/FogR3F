@@ -1,8 +1,6 @@
 export async function convertSRT(srtPath) {
     try {
         const response = await fetch(srtPath);
-
-		console.log(`Fetching subtitle from: ${srtPath}`, response);
         
         if (!response.ok) {
             console.error(`Failed to load subtitle: ${srtPath}`, response.status, response.statusText);
@@ -10,6 +8,8 @@ export async function convertSRT(srtPath) {
         }
         
         const srtText = await response.text();
+
+		console.log(`Subtitle text loaded from ${srtPath}:`, srtText);
         
         if (!srtText) {
             console.error(`Empty subtitle file: ${srtPath}`);
