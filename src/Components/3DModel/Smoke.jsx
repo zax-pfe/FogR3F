@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState } from "react";
 import { InstancedMesh2 } from "@three.ez/instanced-mesh";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
 
@@ -13,7 +13,7 @@ import { useGameStore } from "../../store/store.js";
 
 export default function Smoke() {
   const {
-    speedGeneration,
+    // speedGeneration,
     lifeTime,
     speed,
     offsetX,
@@ -26,7 +26,7 @@ export default function Smoke() {
   } = useControls(
     "Smoke",
     {
-      speedGeneration: { value: 5, min: 0.01, max: 5, step: 0.01 },
+      // speedGeneration: { value: 5, min: 0.01, max: 5, step: 0.01 },
       lifeTime: { value: 0.7, min: 0.1, max: 5, step: 0.1 },
       speed: { value: 0.08, min: 0.01, max: 2, step: 0.01 },
       offsetX: { value: 0.2, min: 0, max: 10, step: 0.1 },
@@ -59,6 +59,9 @@ export default function Smoke() {
     [texture, particlesColor, opacity],
   );
 
+  // const [speedGeneration, setSpeedGeneration] = useState(5);
+  const speedGenerationRef = useRef(5);
+
   useFrame((state, delta) => {
     if (!ref.current || ref.current.instancesCount >= 1000) return;
     const playerTranslation = useGameStore.getState().playerPosition;
@@ -70,7 +73,16 @@ export default function Smoke() {
 
     const elapsedTime = state.clock.getElapsedTime();
 
-    if (elapsedTime - time > Math.random() * speedGeneration && playerAnimation === "walk") {
+    if (playerAnimation === "walk") {
+      speedGenerationRef.current = 5;
+    } else if (playerAnimation === "run") {
+      speedGenerationRef.current = 1;
+    }
+
+    if (
+      elapsedTime - time > Math.random() * speedGenerationRef.current &&
+      (playerAnimation === "walk" || playerAnimation === "run")
+    ) {
       time = elapsedTime;
       ref.current.addInstances(2, (obj) => {
         obj.position.copy({

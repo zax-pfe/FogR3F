@@ -6,7 +6,7 @@ import { useControls, button } from "leva";
 export default function AnimatedSoren(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
-    "/assets/3DModels/Soren/animated_soren_textured_grey.glb",
+    "/assets/3DModels/Soren/animated_soren_textured_with_running.glb",
   );
   const animationsNames = animations.map((anim) => anim.name);
   // console.log("Available animations:", animationsNames);
@@ -25,6 +25,7 @@ export default function AnimatedSoren(props) {
 
   // ("action_interaction");
 
+  // "action_running"
   // ("action_neutral_idle");
 
   // ("action_walking");
@@ -33,27 +34,36 @@ export default function AnimatedSoren(props) {
     const walking_action = actions["action_walking"];
     const idle_action = actions["action_idle"];
     const interaction_action = actions["action_interaction"];
+    const running_action = actions["action_running"];
 
     // console.log("Current player animation:", playerAnimation);
 
     if (playerAnimation === "walk") {
+      running_action.fadeOut(1);
       idle_action.fadeOut(0.2);
       interaction_action.fadeOut(0.2);
       walking_action.reset().fadeIn(0.2).play();
     } else if (playerAnimation === "idle") {
+      running_action.fadeOut(1);
       walking_action.fadeOut(1);
       interaction_action.fadeOut(0.2);
       idle_action.reset().fadeIn(0.2).play();
     } else if (playerAnimation === "interaction") {
+      running_action.fadeOut(1);
       walking_action.fadeOut(1);
       idle_action.fadeOut(1);
       interaction_action.reset().fadeIn(0.2).play();
+    } else if (playerAnimation === "run") {
+      walking_action.fadeOut(1);
+      idle_action.fadeOut(1);
+      running_action.reset().fadeIn(0.2).play();
     }
 
     return () => {
       walking_action.fadeOut(0.2);
       idle_action.fadeOut(0.2);
       interaction_action.fadeOut(0.2);
+      running_action.fadeOut(0.2);
     };
   }, [playerAnimation]);
 

@@ -49,14 +49,16 @@ export default function CharacterController() {
   //   useGameStore();
   const setPlayerRef = useGameStore((state) => state.setPlayerRef);
 
-  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition); 
+  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
   const playerAnimation = useGameStore((state) => state.playerAnimation);
   const controlsRef = useGameStore((state) => state.controlsRef);
   const currentDialogue = useGameStore((state) => state.currentDialogue);
   const currentScreen = useGameStore((state) => state.currentScreen);
+  const playerSpeed = useGameStore((state) => state.playerSpeed);
+  const setPlayerSpeed = useGameStore((state) => state.setPlayerSpeed);
 
-   const cameraOverride = useGameStore((s) => s.cameraOverride);
+  const cameraOverride = useGameStore((s) => s.cameraOverride);
 
   const { camera } = useThree();
 
@@ -151,11 +153,19 @@ export default function CharacterController() {
     const targetAngle = Math.atan2(moveDirection.x, moveDirection.z);
 
     container.current.rotation.y = lerpAngle(container.current.rotation.y, targetAngle, 0.1);
-    if (playerAnimation !== "walk") setPlayerAnimation("walk");
+    // if (playerAnimation !== "walk") setPlayerAnimation("walk");
 
-    vel.x = (cameraDirection.x * movement.z + right.x * movement.x) * WALK_SPEED;
+    if (get().run) {
+      setPlayerSpeed(WALK_SPEED * 2);
+      setPlayerAnimation("run");
+    } else {
+      setPlayerSpeed(WALK_SPEED);
+      setPlayerAnimation("walk");
+    }
 
-    vel.z = (cameraDirection.z * movement.z + right.z * movement.x) * WALK_SPEED;
+    vel.x = (cameraDirection.x * movement.z + right.x * movement.x) * playerSpeed;
+
+    vel.z = (cameraDirection.z * movement.z + right.z * movement.x) * playerSpeed;
 
     rb.current.setLinvel(vel, true);
 

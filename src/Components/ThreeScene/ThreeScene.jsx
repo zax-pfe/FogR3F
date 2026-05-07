@@ -6,28 +6,25 @@ import { Environment, OrthographicCamera } from "@react-three/drei";
 import { useRef } from "react";
 import { Loader, useProgress } from "@react-three/drei";
 import Text from "../Interface/Design/Text/Text";
- 
+
 const keyBoardMap = [
   { name: "forward", keys: ["z", "Z", "ArrowUp"] },
   { name: "backward", keys: ["s", "S", "ArrowDown"] },
   { name: "left", keys: ["q", "Q", "ArrowLeft"] },
   { name: "right", keys: ["d", "D", "ArrowRight"] },
   { name: "interact", keys: ["a", "A"] },
+  { name: "run", keys: ["Shift"] },
 ];
 
-
-
 const ThreeScene = ({ children, placeholder = false }) => {
-
   return placeholder ? (
     <div className={`${s.canvas} ${s.placeholder}`}>
       <Text variant="h1" className={s.placeholder__text}>
         Ici le jeu
       </Text>
       <Text>
-        Supprimez la props <span className="txt-italic">"placeholder"</span> de
-        l'objet <span className="txt-medium">ThreeScene</span> pour afficher la
-        scène 3D.
+        Supprimez la props <span className="txt-italic">"placeholder"</span> de l'objet{" "}
+        <span className="txt-medium">ThreeScene</span> pour afficher la scène 3D.
       </Text>
     </div>
   ) : (
@@ -47,11 +44,9 @@ const ThreeScene = ({ children, placeholder = false }) => {
           dpr={1}
           gl={{ antialias: false }}
         >
-          <Suspense fallback={null}>
-            {children}
-          </Suspense>
+          <Suspense fallback={null}>{children}</Suspense>
         </Canvas>
-      </KeyboardControls>  
+      </KeyboardControls>
     </>
   );
 };
