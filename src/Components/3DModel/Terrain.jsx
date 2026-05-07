@@ -15,16 +15,19 @@ export default function Terrain(props) {
 
   return (
     <group {...props} dispose={null}  > 
-      <mesh 
-          geometry={nodes.TERRAIN.geometry}
-          material={materials['Material.003']}>
-        <mesh 
-          geometry={nodes.Plane.geometry}
-          material={materials.Material}
-        />
-      </mesh>
-
-        <RigidBody type="fixed"  colliders={false}>
+       <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TERRAIN.geometry}
+        material={materials['Material.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plane.geometry}
+        material={materials['Material.001']}
+      /> 
+      <RigidBody type="fixed"  colliders={false}>
          <MeshCollider type="trimesh" >
          <mesh 
           geometry={nodes.RIDGID.geometry} 
