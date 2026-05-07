@@ -11,9 +11,10 @@ const Result = ({ type, closeResult }) => {
     const [foundCount, setFoundCount] = useState(0);
     const selectedItems = useGameStore((state) => state.selectedItems);
     const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+    const setTransitionView = useGameStore((state) => state.setTransitionView);
 
     const startMemory = () => {
-        setCurrentScreen("memory");
+        setTransitionView("memory");
         c_AudioUI.play('click');
     }
 
@@ -25,9 +26,10 @@ const Result = ({ type, closeResult }) => {
         <>
             <div className={s.background} onClick={closeResult}></div>
             <div className={s.result}>
-                <Text variant="h1" className={s.result__title}>Succès</Text>
+                <Text variant="h1" className={s.result__title}>Analyse terminée</Text>
                 <div className={s.result__content}>
-                    <Text className={s.result__content__text}>Vous avez sélectionné tous les éléments nécessaires pour analyser la souche.</Text>
+                    <Text className={s.result__content__text}>Vous avez sélectionné tous les éléments nécessaires.</Text>
+                    <Text className={s.result__content__text}>Un souvenir à été généré à partir des données.</Text>
                     <Text className={`${s.result__content__secondTxt} ${s.success}`}>Eléments OK (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</Text>
                 </div>
                 <Button onClick={startMemory}>Lancer le souvenir</Button>
