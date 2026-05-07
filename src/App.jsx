@@ -14,6 +14,7 @@ import LoadingScreen from "./Components/Interface/View/LoadingScreen/LoadingScre
 import StartScreen from "./Components/Interface/View/StartScreen/StartScreen";
 import { preloadMediaAssets } from "./utils/assetsPreloader";
 import CustomCursor from "./Components/Interface/Design/CustomCursor/CustomCursor";
+import MemoryScreen from "./Components/Interface/View/MemoryScreen/MemoryScreen";
 
 // const keys = {
 //   left: "arrowleft",
@@ -60,13 +61,20 @@ function App() {
 
       {currentScreen === "menu" && <StartScreen />}
 
-      <ThreeScene>
-        <Experience />
-      </ThreeScene>
+      {currentScreen !== "memory" && (
+        <>
+          <ThreeScene>
+            <Experience />
+          </ThreeScene>
 
-      <ThreeAnalyse />
-      {currentScreen === "game" && <Hud />}
-      <SubtitleManager />
+          <ThreeAnalyse />
+          {currentScreen === "game" && <Hud />}
+          <SubtitleManager />
+        </>
+      )}
+
+      {currentScreen === "memory" && <MemoryScreen />}
+      
       <AudioController />
       <CustomCursor />
     </>
