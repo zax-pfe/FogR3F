@@ -13,6 +13,8 @@ export const useGameStore = create((set) => ({
   // ______________________ CAMERA __________________/
   controlsRef: null,
   setControlsRef: (ref) => set({ controlsRef: ref }),
+  cameraOverride: false,
+  setCameraOverride: (v) => set({ cameraOverride: v }),
 
   // ______________________ VIEW __________________/
 

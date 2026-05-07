@@ -47,13 +47,16 @@ export default function CharacterController() {
 
   // const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } =
   //   useGameStore();
+  const setPlayerRef = useGameStore((state) => state.setPlayerRef);
 
-  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
+  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition); 
   const setPlayerAnimation = useGameStore((state) => state.setPlayerAnimation);
   const playerAnimation = useGameStore((state) => state.playerAnimation);
   const controlsRef = useGameStore((state) => state.controlsRef);
   const currentDialogue = useGameStore((state) => state.currentDialogue);
   const currentScreen = useGameStore((state) => state.currentScreen);
+
+   const cameraOverride = useGameStore((s) => s.cameraOverride);
 
   const { camera } = useThree();
 
@@ -66,6 +69,8 @@ export default function CharacterController() {
       const pos = rb.current.translation();
       setPlayerPosition(pos);
     }
+    // store container ref so other components can rotate the player
+    setPlayerRef(container);
     // if (container.current) {
     //   container.current.rotation.y = Math.PI;
     // }
@@ -94,7 +99,7 @@ export default function CharacterController() {
     if (!rb.current || !controlsRef?.current) return;
     const controls = controlsRef.current;
 
-    if (CAMERA_LOCK) {
+    if (CAMERA_LOCK && !cameraOverride) {
       const playerPos = rb.current.translation();
       // console.log("Player position:", playerPos);
       const target = new THREE.Vector3(playerPos.x, playerPos.y, playerPos.z);

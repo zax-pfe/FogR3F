@@ -16,6 +16,7 @@ export default function Pointer(props) {
 
   const setPointerPosition = useGameStore((state) => state.setPointerPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
 
   useEffect(() => {
     setPointerPosition(pointerRef.current.position);
@@ -51,7 +52,7 @@ export default function Pointer(props) {
         position={[0, 0.4, 0]}
       />
 
-      <PressButtonUI element="pointer" />
+      {playerAnimation !== "interaction" && <PressButtonUI element="pointer" />}
     </group>
     // </PivotControls>
   );

@@ -24,6 +24,7 @@ export default function Tronk(props) {
   const setTronkPosition = useGameStore((state) => state.setTronkPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
   const currentTool = useGameStore((state) => state.currentTool);
   const toolOpen = useGameStore((state) => state.toolOpen);
   const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
@@ -99,7 +100,7 @@ export default function Tronk(props) {
         noise={1}
       />
 
-      <PressButtonUI element="tronk" />
+      {playerAnimation !== "interaction" && <PressButtonUI element="tronk" />}
     </group>
     // </PivotControls>
   );

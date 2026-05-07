@@ -23,7 +23,7 @@ export default function Trees(props) {
   //   })
   // }, [scene])
 
-  return <primitive object={scene} {...props} />
+  return <primitive object={scene} {...props} position={[0, -0.5, 0]}/> 
 }
 
 // useGLTF.preload('/assets/3DModels/TREES.glb')

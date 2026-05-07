@@ -38,9 +38,10 @@ export default function BrokenRobot(props) {
     <group
       {...props}
       dispose={null}
-      position={[-9.74, 3.91, 6.25]}
-      rotation={[-1.67, 0, 2.25]}
+      position={[-9.76, 3.98, 6.25]}
+      rotation={[-1.56, 0, 2.63]}
       ref={brokenRobotRef}
+      scale={0.8}
     >
       <Sparkles
         size={1.5}

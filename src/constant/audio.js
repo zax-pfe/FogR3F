@@ -7,7 +7,7 @@ export const c_Dialogue = [
 		srcSubtitle: "/assets/audio/dialogue/subtitle/miliBox.srt",
 	},
 	{
-		index: "balancoire",
+		index: "swing",
 		src: "/assets/audio/dialogue/balancoire.mp3",
 		srcSubtitle: "/assets/audio/dialogue/subtitle/balancoire.srt",
 	},
