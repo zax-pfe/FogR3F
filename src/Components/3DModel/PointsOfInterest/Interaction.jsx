@@ -198,6 +198,7 @@ export default function Interaction() {
 
     setCameraOverride(true);
     setPlayerAnimation("interaction");
+    faceTarget(playerRef, playerPosition, objectPosition);
 
     // dialogue starts interaction state
     if (elementContacted !== "poster") {
