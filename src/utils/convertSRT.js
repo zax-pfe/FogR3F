@@ -17,7 +17,7 @@ export async function convertSRT(srtPath) {
         }
         
         const subtitles = [];
-        const srtEntries = srtText.split("\r\n\r\n");
+        const srtEntries = srtText.split(/\r\n\r\n|\n\n/);
 
 		console.log(`SRT entries split from text:`, srtEntries);
 
@@ -25,7 +25,7 @@ export async function convertSRT(srtPath) {
         // console.log(srtEntries);
 
         srtEntries.forEach((entry, index) => {
-            const lines = entry.split("\r\n");
+            const lines = entry.split(/\r\n|\n/);
             // console.log(`SRT Entry Lines ${index}: `, lines);
             if (lines.length >= 3) {
                 const timecode = lines[1].split(" --> ");
