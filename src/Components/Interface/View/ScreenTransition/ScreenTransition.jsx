@@ -90,7 +90,7 @@ function ScreenTransitionElement() {
   return (
     <>
       <mesh position={[0, 0, 0]}>
-        <planeGeometry args={[10, 6, 32, 32]} />
+        <planeGeometry args={[12, 6, 32, 32]} />
         <shaderMaterial
           ref={materialRef}
           transparent={true}
