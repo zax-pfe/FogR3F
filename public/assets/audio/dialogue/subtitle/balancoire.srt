@@ -6,7 +6,7 @@ Que ferait une balançoire dans une zone contaminée ?
 2
 00:00:03,160 --> 00:00:06,200
 MOLEC
-Détection : traces usage fréquent.
+Détection : traces d'usage fréquent.
 Taille adaptée aux enfants.
 
 3

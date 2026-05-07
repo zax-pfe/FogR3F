@@ -208,6 +208,8 @@ const ToolsWheel = () => {
         ></div>
       )}
       <div className={s.toolsWheel}>
+        {/* Open indication */}
+        <span className={`${s.openIndication} ${toolOpen ? s.active : ""}`}>E</span>
         {/* ToolsWheel content */}
         <button
           className={`${s.btn} ${toolOpen ? s.open : ""}`}

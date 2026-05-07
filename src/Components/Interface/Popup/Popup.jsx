@@ -1,16 +1,18 @@
 import CloseBtn from "../Design/CloseBtn/CloseBtn";
 import Text from "../Design/Text/Text";
-import s from "./PopupObject.module.scss";
+import s from "./Popup.module.scss";
 
-const PopupObject = ({ image, title, text, closePopup }) => {
+const Popup = ({ image, title, closePopup, isClue, children, className, classNameBg }) => {
 
     return (
         <>
-            <div className={s.background} onClick={closePopup}></div>
-            <div className={s.popup}>
-                <div className={s.popup__note}>
-                    <Text variant="h3" className={s.popup__noteTitle}>Indice récolté</Text>
-                </div>
+            <div className={`${s.background} ${classNameBg}`} onClick={closePopup}></div>
+            <div className={`${s.popup} ${className}`}>
+                {isClue && (
+                    <div className={s.popup__note}>
+                        <Text variant="h3" className={s.popup__noteTitle}>Indice récolté</Text>
+                    </div>
+                )}
                 <div className={s.popup__container}>
                     <CloseBtn onClick={closePopup} className={s.popup__closeBtn} />
                     {image && <img className={s.popup__image} src={image} alt="" />}
@@ -19,15 +21,13 @@ const PopupObject = ({ image, title, text, closePopup }) => {
                         <Text variant="h3" className={s.popup__title}>{title}</Text>
                         <div className={`${s.popup__titleWrapper__decoration} ${s.right}`}></div>
                     </div>
-                    {text && (
-                        <Text className={s.popup__clue}>
-                            {text}
-                        </Text>
-                    )}
+                    <div className={s.popup__clue}>
+                        {children}
+                    </div>
                 </div>
             </div>
         </>
     );
 };
 
-export default PopupObject;
+export default Popup;

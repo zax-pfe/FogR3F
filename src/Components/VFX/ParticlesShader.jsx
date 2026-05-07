@@ -4,17 +4,19 @@ import * as THREE from "three";
 import { createNoise3D } from "simplex-noise";
 import { useControls } from "leva";
 import { FileLoader } from "three";
+import vertexShader from "../../shaders/environment_particles/vertex.glsl?raw";
+import fragmentShader from "../../shaders/particles_texture/fragment.glsl?raw";
 
 // import particlesFragmentShader from "../../shaders/particles/fragment.glsl";
 
 export default function ParticlesShader({ size, scale, count, color, position, opacity, speed }) {
-  const vertexShader = useLoader(FileLoader, "../../shaders/environment_particles/vertex.glsl");
+  // const vertexShader = useLoader(FileLoader, "../../shaders/environment_particles/vertex.glsl");
 
-  const fragmentShader = useLoader(
-    FileLoader,
-    "../../shaders/particles_texture/fragment.glsl",
-    // "../../shaders/particles/fragment.glsl",
-  );
+  // const fragmentShader = useLoader(
+  //   FileLoader,
+  //   "../../shaders/particles_texture/fragment.glsl",
+  //   // "../../shaders/particles/fragment.glsl",
+  // );
 
   const { gl } = useThree();
   const texture = useLoader(THREE.TextureLoader, "./textures/circle_05.png");
@@ -77,9 +79,24 @@ export default function ParticlesShader({ size, scale, count, color, position, o
       </mesh> */}
       <points ref={pointsRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={positions.length / 3} array={positions} itemSize={3} />
-          <bufferAttribute attach="attributes-aScale" count={scales.length} array={scales} itemSize={1} />
-          <bufferAttribute attach="attributes-aSpeed" count={movement_speed.length} array={movement_speed} itemSize={1} />
+          <bufferAttribute
+            attach="attributes-position"
+            count={positions.length / 3}
+            array={positions}
+            itemSize={3}
+          />
+          <bufferAttribute
+            attach="attributes-aScale"
+            count={scales.length}
+            array={scales}
+            itemSize={1}
+          />
+          <bufferAttribute
+            attach="attributes-aSpeed"
+            count={movement_speed.length}
+            array={movement_speed}
+            itemSize={1}
+          />
         </bufferGeometry>
 
         <shaderMaterial

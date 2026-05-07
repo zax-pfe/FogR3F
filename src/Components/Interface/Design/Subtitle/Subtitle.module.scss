@@ -11,6 +11,12 @@
     height: fit-content;
     text-align: center;
     max-width: 52ch;
+
+    &__person {
+        line-height: 1.75rem;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
     &__line {
         font-size: 1.375rem;
         line-height: 1.75rem;

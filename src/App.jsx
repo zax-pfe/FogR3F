@@ -12,6 +12,8 @@ import LoadingScreen from "./Components/Interface/View/LoadingScreen/LoadingScre
 import StartScreen from "./Components/Interface/View/StartScreen/StartScreen";
 import { preloadMediaAssets } from "./utils/assetsPreloader";
 import CustomCursor from "./Components/Interface/Design/CustomCursor/CustomCursor";
+import ScreenTransition from "./Components/Interface/View/ScreenTransition/ScreenTransition";
+import MemoryScreen from "./Components/Interface/View/MemoryScreen/MemoryScreen";
 
 // const keys = {
 //   left: "arrowleft",
@@ -27,6 +29,7 @@ function App() {
   const currentScreen = useGameStore((state) => state.currentScreen);
   const mediaFinished = useGameStore((state) => state.mediaFinished);
   const setMediaLoading = useGameStore((state) => state.setMediaLoading);
+  const transitionView = useGameStore((state) => state.transitionView);
   // for current screen - loading | menu | game
 
   const [ showButton, setShowButton] = useState(false);
@@ -58,14 +61,23 @@ function App() {
       {currentScreen === "loading" && <LoadingScreen showButton={showButton} />}
 
       {currentScreen === "menu" && <StartScreen />}
+      {/* {currentScreen === "menu" && <ScreenTransition />} */}
+      {/* {transitionView && <ScreenTransition />} */}
+      <ScreenTransition />
+      {currentScreen !== "memory" && (
+        <>
+          <ThreeScene>
+            <Experience />
+          </ThreeScene>
 
-      <ThreeScene>
-        <Experience />
-      </ThreeScene>
+          <ThreeAnalyse />
+          {currentScreen === "game" && <Hud />}
+          <SubtitleManager />
+        </>
+      )}
 
-      <ThreeAnalyse />
-      {currentScreen === "game" && <Hud />}
-      <SubtitleManager />
+      {currentScreen === "memory" && <MemoryScreen />}
+      
       <AudioController />
       <CustomCursor />
     </>
