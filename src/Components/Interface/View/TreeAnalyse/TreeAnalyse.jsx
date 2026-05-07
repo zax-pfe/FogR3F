@@ -10,17 +10,32 @@ import {
   coo_Ratio,
 } from "../../../../constant/arbre_hotSpots";
 import Tronk from "../../Tronk/Tronk";
-import { c_AudioUI, c_Click } from "../../../../constant/audio";
+import { c_AudioUI } from "../../../../constant/audio";
+import Text from "../../Design/Text/Text";
+import Popup from "../../Popup/Popup";
+import Result from "../../Analyse/Result/Result";
 
 const TreeAnalyse = () => {
   const { currentScreen, setCurrentScreen, selectedItems, resetSelectedItems } = useGameStore();
   // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
 
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [infoVisible, setInfoVisible] = useState(true);
+  const [result, setResult] = useState(false);
+
+  const infoOpen = () => {
+    setInfoVisible(true);
+    c_AudioUI.play('open');
+  }
+
+  const infoClose = () => {
+    setInfoVisible(false);
+    c_AudioUI.play('close');
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === "t") {
-      setCurrentScreen(currentScreen != "analyse" && "analyse");
+      setCurrentScreen(currentScreen != "analyse" ? "analyse" : "game");
     }
   };
 
@@ -31,6 +46,11 @@ const TreeAnalyse = () => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("mousemove", handleMouseMove);
+
+    if (currentScreen === "analyse") {
+      resetSelectedItems();
+      setOrigin({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -50,12 +70,12 @@ const TreeAnalyse = () => {
       console.log(`Nombre d'infos trouvées : ${foundCount}`);
 
       if (foundCount >= c_Arbre_HotSpots_MustFind) {
-        console.log("Cinématique");
+        setResult('success');
+        c_AudioUI.play('open');
       } else {
-        alert(
-          `Analyse incomplète. Il vous manque ${c_Arbre_HotSpots_MustFind - foundCount} éléments à trouver.`,
-        );
-        resetSelectedItems();
+        setResult('error');
+        c_AudioUI.play('open');
+        // resetSelectedItems();
       }
     } else {
       return alert(
@@ -64,19 +84,15 @@ const TreeAnalyse = () => {
     }
   };
 
+  const closeResult = () => {
+    setResult(false);
+    c_AudioUI.play('close');
+  }
+
   return (
     currentScreen === "analyse" && (
       <div className={s.treeAnalyse}>
         <Tronk />
-        <Button
-          className={s.treeAnalyse__closeBtn}
-          onClick={() => {
-            c_AudioUI.play("remove");
-            setCurrentScreen("game");
-          }}
-        >
-          Fermer la machine
-        </Button>
         {/* // Analyse du tronc */}
         {c_Arbre_HotSpots.map((spot, index) => (
           <HotSpot
@@ -86,7 +102,45 @@ const TreeAnalyse = () => {
             refBox={ref__selectedBox}
           />
         ))}
+        {/* Interface d'analyse */}
+        <div className={s.treeAnalyse__topWrapper}>
+          <Text variant="h2" className={s.treeAnalyse__title}>
+            Analyse / souche
+          </Text>
+          <div className={s.treeAnalyse__divider}></div>
+          <button className={s.treeAnalyse__infoBtn} onClick={infoOpen}>
+            <span className={s.treeAnalyse__infoBtnIcon}></span>
+            Informations
+          </button>
+        </div>
+        <Button
+          className={s.treeAnalyse__closeBtn}
+          onClick={() => {
+            c_AudioUI.play("remove");
+            setCurrentScreen("game");
+          }}
+        >
+          Eteindre
+        </Button>
         <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
+        {infoVisible && (
+          <Popup title="Consignes de recherche" closePopup={infoClose} className={s.popUp} classNameBg={s.popUpBg}>
+            <div className={s.popUp__content}>
+              <Text>
+                Analysez la souche afin de trouver les informations qu’elle tente de vous transmettre.
+              </Text>
+              <div className={s.popUp__divider}></div>
+              <Text>
+                Sélectionnez 4 indices qui vous paraissent essentiels pour la suite de l’histoire.
+              </Text>
+              <div className={s.popUp__divider}></div>
+              <Text>
+                Lancez l’analyse. Si les 4 bons indices n’ont pas été sélectionnés, vous devrez recommencer.
+              </Text>
+            </div>
+          </Popup>
+        )}
+        {result && <Result type={result} closeResult={closeResult} />}
         <div className={s.pointer} style={{ top: pointer.y, left: pointer.x }}></div>
       </div>
     )
