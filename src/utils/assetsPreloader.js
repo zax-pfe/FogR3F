@@ -1,6 +1,5 @@
 export const mediaAssets = {
   images: [
-    "/images/smoke.png",
     "/textures/tutorial.webp",
     "/textures/circle_05.png",
     "/textures/glow.png",
@@ -48,9 +47,7 @@ export const mediaAssets = {
     "/assets/audio/ui/UI_Sound.mp3",
   ],
 
-  files: [
-     
-  ],
+  files: [],
 };
 
 function loadImage(src) {
