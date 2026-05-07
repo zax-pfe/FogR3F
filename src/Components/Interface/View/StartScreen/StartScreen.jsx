@@ -1,3 +1,4 @@
+// ______________________ REACT & FIBER & DREI & UTILS __________________/
 import s from "./StartScreen.module.scss";
 import { useFrame, useThree, extend, Canvas, useLoader } from "@react-three/fiber";
 import { useRef, useState, useCallback } from "react";
@@ -12,13 +13,16 @@ import {
   Noise,
 } from "@react-three/postprocessing";
 import { ToneMappingMode, BlendFunction } from "postprocessing";
+
 import { useControls } from "leva";
 import { FileLoader } from "three";
-// import { Perf } from "r3f-perf";
+import { useGameStore } from "../../../../store/store";
+
+// ______________________ UI & EFFECTS __________________/
+import ParticlesShader from "../../../VFX/ParticlesShader";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
-import { useGameStore } from "../../../../store/store";
-import ParticlesShader from "../../../VFX/ParticlesShader";
+
 {
   /* ______________________ CANVAS __________________/ */
 }

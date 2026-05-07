@@ -14,6 +14,7 @@ import LoadingScreen from "./Components/Interface/View/LoadingScreen/LoadingScre
 import StartScreen from "./Components/Interface/View/StartScreen/StartScreen";
 import { preloadMediaAssets } from "./utils/assetsPreloader";
 import CustomCursor from "./Components/Interface/Design/CustomCursor/CustomCursor";
+import ScreenTransition from "./Components/Interface/View/ScreenTransition/ScreenTransition";
 
 // const keys = {
 //   left: "arrowleft",
@@ -59,7 +60,8 @@ function App() {
       {currentScreen === "loading" && <LoadingScreen />}
 
       {currentScreen === "menu" && <StartScreen />}
-
+      {/* {currentScreen === "menu" && <ScreenTransition />} */}
+      <ScreenTransition />
       <ThreeScene>
         <Experience />
       </ThreeScene>

@@ -38,7 +38,7 @@ export default function Tank(props) {
     //     console.log("real rotation:", rotation);
     //   }}
     // >
-    <group {...props} dispose={null} scale={0.7} position={[28.15, 5, -0.4]} ref={tankRef}>
+    <group {...props} dispose={null} scale={0.5} position={[28.15, 4.5, -0.4]} ref={tankRef}>
       <RigidBody
         type="fixed"
         colliders={false}

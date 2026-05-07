@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { Physics } from "@react-three/rapier";
 import { use, useEffect, useRef, useState } from "react";
 import { useGameStore } from "./store/store.js";
+import { Environment } from "@react-three/drei";
 
 // ______________________ 3D MODELS __________________/
 import Terrain from "./Components/3DModel/Terrain.jsx";
@@ -34,8 +35,6 @@ import CalculateDistance from "./Components/Utils/CalculateDistance.jsx";
 import Decors from "./Components/3DModel/Decors.jsx";
 import Trees from "./Components/3DModel/Trees.jsx";
 import GroundFog from "./Components/3DModel/GroundFog.jsx";
-
-import { Environment } from "@react-three/drei";
 import Fog from "./Components/3DModel/Fog.jsx";
 
 export default function Experience() {
@@ -75,7 +74,7 @@ export default function Experience() {
 
   return (
     <>
-    {/* ____________ ENVIRONMENT ____________ A desactiver pour eco des perf */}
+      {/* ____________ ENVIRONMENT ____________ A desactiver pour eco des perf */}
       <Environment preset="night" />
       {/* ______________________ FOG__________________/ */}
       <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />
