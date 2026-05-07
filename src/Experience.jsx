@@ -24,6 +24,7 @@ import Poster from "./Components/3DModel/PointsOfInterest/Poster.jsx";
 import Tronk from "./Components/3DModel/PointsOfInterest/Tronk.jsx";
 import Swing from "./Components/3DModel/PointsOfInterest/Swing.jsx";
 import Tank from "./Components/3DModel/PointsOfInterest/Tank.jsx";
+import Peluche from "./Components/3DModel/PointsOfInterest/Peluche.jsx";
 
 // ______________________ EXPERIENCE __________________/
 import Particles from "./Components/VFX/Particles.jsx";
@@ -101,8 +102,9 @@ export default function Experience() {
       <BrokenRobot />
       <Poster />
       <Swing />
+      <Peluche />
       <Interaction />
-      <Physics   gravity={[0, -30, 0]}>
+      <Physics gravity={[0, -30, 0]}>
         <Tank />
         <Terrain />
         <Decors />

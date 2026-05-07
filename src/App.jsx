@@ -31,7 +31,7 @@ function App() {
   const transitionView = useGameStore((state) => state.transitionView);
   // for current screen - loading | menu | game
 
-  const [ showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
     preloadMediaAssets((data) => {
@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     if (!active && progress === 100 && currentScreen === "loading" && mediaFinished) {
-      const timeout = setTimeout(() => { 
+      const timeout = setTimeout(() => {
         setShowButton(true);
       }, 500);
 
@@ -58,7 +58,6 @@ function App() {
   return (
     <>
       {currentScreen === "loading" && <LoadingScreen showButton={showButton} />}
-
       {currentScreen === "menu" && <StartScreen />}
       {/* {currentScreen === "menu" && <ScreenTransition />} */}
       {/* {transitionView && <ScreenTransition />} */}
@@ -66,9 +65,7 @@ function App() {
       <ThreeScene>
         <Experience />
       </ThreeScene>
-
-      <ThreeAnalyse />
-      {currentScreen === "game" && <Hud />}
+      <ThreeAnalyse />S{currentScreen === "game" && <Hud />}
       <SubtitleManager />
       <AudioController />
       <CustomCursor />

@@ -47,6 +47,8 @@ export const useGameStore = create((set) => ({
   setSwingPosition: (position) => set({ swingPosition: position }),
   tankPosition: null,
   setTankPosition: (position) => set({ tankPosition: position }),
+  peluchePosition: null,
+  setPeluchePosition: (position) => set({ peluchePosition: position }),
 
   // ______________________ CONTACT __________________/
   elementContacted: null,

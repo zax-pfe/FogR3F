@@ -16,6 +16,8 @@ export default function CalculateDistance() {
   const brokenRobotPosition = useGameStore((state) => state.brokenRobotPosition);
   const swingPosition = useGameStore((state) => state.swingPosition);
   const tankPosition = useGameStore((state) => state.tankPosition);
+  const peluchePosition = useGameStore((state) => state.peluchePosition);
+
   //______________________ CONTACT __________________/
   const setElementContacted = useGameStore((state) => state.setElementContacted);
 
@@ -62,6 +64,10 @@ export default function CalculateDistance() {
         {
           name: "tank",
           position: new THREE.Vector3(tankPosition?.x, 0, tankPosition?.z),
+        },
+        {
+          name: "peluche",
+          position: new THREE.Vector3(peluchePosition?.x, 0, peluchePosition?.z),
         },
       ];
 
