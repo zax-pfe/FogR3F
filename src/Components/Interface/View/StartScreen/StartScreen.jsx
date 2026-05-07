@@ -37,13 +37,14 @@ const StartScreen = () => {
       <InterfaceOverlay onHover={handleHover} />
       <div className={s.startScreen}>
         <Canvas
+        className={s.canvas}
           dpr={[1, 2]}
           gl={{
             antialias: true,
             toneMapping: THREE.ACESFilmicToneMapping,
             outputColorSpace: THREE.sRGBEncoding,
           }}
-          style={{ background: "#252922" }}
+         
           camera={{
             fov: 45,
             near: 0.1,
