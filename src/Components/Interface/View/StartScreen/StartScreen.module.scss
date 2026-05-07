@@ -5,7 +5,11 @@
   width: 100vw;
   height: 100vh;
   z-index: 9;
+  background-image: url("/assets/images/back.jpg");
+  background-size: cover;
+  background-position: center;
 }
+ 
 
 .startScreen__interface {
   position: absolute;

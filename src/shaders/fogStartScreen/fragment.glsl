@@ -86,8 +86,8 @@ float cnoise(vec3 P){
 void main()
 {
 
-  float dist = length(vPosition - uMeshPosition);
-  float glow = 1.0 - smoothstep(0.0, uGlowRadius, dist);
+  // float dist = length(vPosition - uMeshPosition);
+  // float glow = 1.0 - smoothstep(0.0, uGlowRadius, dist);
 
 
     float timeRatio = 0.2;

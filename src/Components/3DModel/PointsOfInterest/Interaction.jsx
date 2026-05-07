@@ -68,6 +68,8 @@ export default function Interaction() {
   const brokenRobotPosition = useGameStore(
     (state) => state.brokenRobotPosition
   );
+  const tank = useGameStore((state) => state.tankPosition);
+  const swing = useGameStore((state) => state.swingPosition);
 
   //camera controls
   const controlsRef = useGameStore((state) => state.controlsRef);
@@ -81,6 +83,8 @@ export default function Interaction() {
       tronk: tronkPosition,
       pointer: pointerPosition,
       brokenRobot: brokenRobotPosition,
+      tank: tank,
+      swing: swing,
     }),
     [
       posterPosition,
@@ -88,6 +92,8 @@ export default function Interaction() {
       tronkPosition,
       pointerPosition,
       brokenRobotPosition,
+      tank,
+      swing,
     ]
   );
 
@@ -113,6 +119,14 @@ export default function Interaction() {
       brokenRobot: {
         cameraOffset: new THREE.Vector3(0.8, 0.8, -2.2),
         targetOffset: new THREE.Vector3(0, 0.45, 0),
+      },
+      tank: {
+        cameraOffset: new THREE.Vector3(8, 1.2, 8),
+        targetOffset: new THREE.Vector3(0, 2, 2),
+      },
+      swing: {
+        cameraOffset: new THREE.Vector3(0, 1.8, -2),
+        targetOffset: new THREE.Vector3(0, 0.3, 0),
       },
     }),
     []

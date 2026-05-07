@@ -21,7 +21,7 @@ export default function Swing(props) {
   }, []);
 
   return (
-    <group {...props} dispose={null} ref={swingRef} position={[23.61, 4.38, 28.5]}>
+    <group {...props} dispose={null} ref={swingRef} position={[20.61, 3.2, 25.5]}>
       <Sparkles
         size={1.5}
         depthWrite={true}
@@ -32,7 +32,7 @@ export default function Swing(props) {
         scale={[2, 2, 1]}
         position={[0, 0.5, 0]}
       />
-      <group rotation={[-Math.PI, 1.22, -Math.PI + 0.07]} scale={0.7}>
+      <group rotation={[-Math.PI, Math.PI / 1.5, -Math.PI + 0.07]} scale={0.95}>
         {playerAnimation !== "interaction" && <PressButtonUI element="swing" />}
 
         <mesh
