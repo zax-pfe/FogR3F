@@ -31,6 +31,7 @@ function App() {
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
   const mediaFinished = useGameStore((state) => state.mediaFinished);
   const setMediaLoading = useGameStore((state) => state.setMediaLoading);
+  const transitionView = useGameStore((state) => state.transitionView);
   // for current screen - loading | menu | game
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function App() {
 
       {currentScreen === "menu" && <StartScreen />}
       {/* {currentScreen === "menu" && <ScreenTransition />} */}
+      {/* {transitionView && <ScreenTransition />} */}
       <ScreenTransition />
       <ThreeScene>
         <Experience />

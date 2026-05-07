@@ -71,9 +71,10 @@ function InterfaceOverlay({ onHover }) {
   // const { currentScreen, setCurrentScreen } = useGameStore();
   const currentScreen = useGameStore((state) => state.currentScreen);
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const setTransitionView = useGameStore((state) => state.setTransitionView);
 
   function handlePlayClick() {
-    setCurrentScreen("game");
+    setTransitionView("game");
   }
 
   return (

@@ -13,7 +13,12 @@ import Tronk from "../../Tronk/Tronk";
 import { c_AudioUI, c_Click } from "../../../../constant/audio";
 
 const TreeAnalyse = () => {
-  const { currentScreen, setCurrentScreen, selectedItems, resetSelectedItems } = useGameStore();
+  const currentScreen = useGameStore((state) => state.currentScreen);
+  const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const selectedItems = useGameStore((state) => state.selectedItems);
+  const resetSelectedItems = useGameStore((state) => state.resetSelectedItems);
+  const setTransitionView = useGameStore((state) => state.setTransitionView);
+
   // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
 
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
@@ -72,7 +77,8 @@ const TreeAnalyse = () => {
           className={s.treeAnalyse__closeBtn}
           onClick={() => {
             c_AudioUI.play("remove");
-            setCurrentScreen("game");
+            // setCurrentScreen("game");
+            setTransitionView("game");
           }}
         >
           Fermer la machine

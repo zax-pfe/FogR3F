@@ -12,7 +12,6 @@ import s from "./ScreenTransition.module.scss";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMotionValue, animate } from "framer-motion";
-// import ScreenTransitionElement from "./ScreenTransitionElement";
 
 export default function ScreenTransition() {
   return (
@@ -42,9 +41,12 @@ export default function ScreenTransition() {
 function ScreenTransitionElement() {
   const materialRef = useRef();
   const revealProgressRef = useRef({ value: 1.9 });
-  const timeLineRef = useRef();
-  const [isRevealed, setIsRevealed] = useState(false);
-  const currentView = useGameStore((state) => state.currentView);
+  const isRevealedRef = useRef(false);
+  const transitionView = useGameStore((state) => state.transitionView);
+  const setTransitionView = useGameStore((state) => state.setTransitionView);
+  const currentScreen = useGameStore((state) => state.currentScreen);
+  const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const revealProgress = useMotionValue(1.9);
 
   const { revealButton } = useControls("transition Screen", {
     playRevealAnimation: button(() => {
@@ -52,35 +54,38 @@ function ScreenTransitionElement() {
     }),
   });
 
-  function triggerAnimation() {
-    const tl = timeLineRef.current;
-    if (!tl) return;
-
-    if (isRevealed) {
-      tl.reverse();
-    } else {
-      tl.play();
-    }
-
-    setIsRevealed((prev) => !prev);
-  }
-
-  useGSAP(() => {
-    timeLineRef.current = gsap.timeline({ paused: true });
-
-    timeLineRef.current.to(revealProgressRef.current, {
-      value: -1,
-      duration: 3,
-      ease: "power1.inOut",
+  const handleReveal = () => {
+    animate(revealProgress, isRevealedRef.current ? 1.9 : -1, {
+      duration: 2,
+      ease: "easeInOut",
     });
-  }, []);
+    isRevealedRef.current = !isRevealedRef.current;
+  };
+
+  function triggerAnimation() {
+    handleReveal();
+  }
 
   useFrame((state) => {
     if (!materialRef.current) return;
 
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-    materialRef.current.uniforms.uProgress.value = revealProgressRef.current.value;
+    materialRef.current.uniforms.uProgress.value = revealProgress.get();
   });
+
+  useEffect(() => {
+    console.log("Transition view changed:", transitionView);
+    if (transitionView === null) return;
+
+    triggerAnimation();
+    setTimeout(() => {
+      setCurrentScreen(transitionView);
+      setTimeout(() => {
+        triggerAnimation();
+      }, 1000);
+    }, 1500);
+    setTransitionView(null);
+  }, [transitionView]);
 
   return (
     <>

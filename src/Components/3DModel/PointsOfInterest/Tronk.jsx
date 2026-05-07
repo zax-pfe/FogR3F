@@ -27,12 +27,14 @@ export default function Tronk(props) {
   const currentTool = useGameStore((state) => state.currentTool);
   const toolOpen = useGameStore((state) => state.toolOpen);
   const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
+  const setTransitionView = useGameStore((state) => state.setTransitionView);
 
   const handleClick = () => {
     if (elementContacted != "tronk" || !toolOpen) return;
 
     if (currentTool === toolNeeded) {
-      setCurrentScreen("analyse");
+      setTransitionView("analyse");
+      // setCurrentScreen("analyse");
     } else {
       setCurrentDialogue("wrongTool");
     }
