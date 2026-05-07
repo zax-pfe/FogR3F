@@ -22,6 +22,8 @@ import { useGameStore } from "../../../../store/store";
 import ParticlesShader from "../../../VFX/ParticlesShader";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
+import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
+import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
 
 {
   /* ______________________ CANVAS __________________/ */
@@ -41,14 +43,13 @@ const StartScreen = () => {
       <InterfaceOverlay onHover={handleHover} />
       <div className={s.startScreen}>
         <Canvas
-        className={s.canvas}
+          className={s.canvas}
           dpr={[1, 2]}
           gl={{
             antialias: true,
             toneMapping: THREE.ACESFilmicToneMapping,
             outputColorSpace: THREE.sRGBEncoding,
           }}
-         
           camera={{
             fov: 45,
             near: 0.1,
@@ -300,8 +301,6 @@ useGLTF.preload("/assets/3DModels/Molec/MolecEmissive.glb");
 }
 
 function StartScreenFog() {
-  const vertexShader = useLoader(FileLoader, "../../shaders/fogStartScreen/vertex.glsl");
-  const fragmentShader = useLoader(FileLoader, "../../shaders/fogStartScreen/fragment.glsl");
   const materialRef = useRef();
 
   useFrame((state) => {
@@ -321,8 +320,8 @@ function StartScreenFog() {
           uGlowRadius: { value: 7.0 },
           uGlowIntensity: { value: 0.3 },
         }}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+        vertexShader={vertexShaderFog}
+        fragmentShader={fragmentShaderFog}
         blending={THREE.AdditiveBlending}
       />
     </mesh>
