@@ -87,6 +87,22 @@ export default function Decors(props) {
         <RigidBody debug type="fixed" colliders={false} position={[-4.85, 3.55, -9.8]}>
         <CuboidCollider args={[0.25, 0.2, 0.25]} />
       </RigidBody>
+
+      {/* swing */}
+      <RigidBody debug type="fixed" colliders={false} rotation={[0, Math.PI * 1.3, 0]} position={[20.5, 3.55, 25.5]} >
+        <CuboidCollider args={[1.1, 1, 0.5]} />
+      </RigidBody>
+
+      {/* rocks next to tronk */}
+      <RigidBody debug type="fixed" colliders={false} position={[27, 3.55, -12.1]} >
+        <CuboidCollider args={[3, 1, 1]} />
+      </RigidBody>
+
+      <RigidBody debug type="fixed" colliders={false}   position={[30.6, 3.55, -11.2]} >
+        <CuboidCollider args={[1, 1,3]} />
+      </RigidBody>
+
+      
       </group>
     </group>
   );
