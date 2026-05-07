@@ -19,6 +19,8 @@ export async function convertSRT(srtPath) {
         const subtitles = [];
         const srtEntries = srtText.split("\r\n\r\n");
 
+		console.log(`SRT entries split from text:`, srtEntries);
+
         // console.log("SRT Text:", srtText);
         // console.log(srtEntries);
 
