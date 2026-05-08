@@ -2,7 +2,6 @@ import React, { useRef, useMemo } from "react";
 import { InstancedMesh2 } from "@three.ez/instanced-mesh";
 import { extend, useFrame, useLoader } from "@react-three/fiber";
 
-// import cloudImg from "../../../public/images/smoke.png";
 import cloudImg from "../../../public/textures/circle_05.png";
 
 import { MeshBasicMaterial, PlaneGeometry, Quaternion, TextureLoader, Vector3, Euler } from "three";

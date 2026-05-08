@@ -1,3 +1,4 @@
+// ______________________ REACT & FIBER & DREI & UTILS __________________/
 import s from "./StartScreen.module.scss";
 import { useFrame, useThree, extend, Canvas, useLoader } from "@react-three/fiber";
 import { useRef, useState, useCallback } from "react";
@@ -12,13 +13,18 @@ import {
   Noise,
 } from "@react-three/postprocessing";
 import { ToneMappingMode, BlendFunction } from "postprocessing";
+
 import { useControls } from "leva";
 import { FileLoader } from "three";
-// import { Perf } from "r3f-perf";
+import { useGameStore } from "../../../../store/store";
+
+// ______________________ UI & EFFECTS __________________/
+import ParticlesShader from "../../../VFX/ParticlesShader";
 import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
-import { useGameStore } from "../../../../store/store";
-import ParticlesShader from "../../../VFX/ParticlesShader";
+import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
+import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
+
 {
   /* ______________________ CANVAS __________________/ */
 }
@@ -95,9 +101,10 @@ function InterfaceOverlay({ onHover }) {
   // const { currentScreen, setCurrentScreen } = useGameStore();
   const currentScreen = useGameStore((state) => state.currentScreen);
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const setTransitionView = useGameStore((state) => state.setTransitionView);
 
   function handlePlayClick() {
-    setCurrentScreen("game");
+    setTransitionView("game");
   }
 
   return (
@@ -322,8 +329,6 @@ useGLTF.preload("/assets/3DModels/Molec/MolecEmissive.glb");
 }
 
 function StartScreenFog() {
-  const vertexShader = useLoader(FileLoader, "../../shaders/fogStartScreen/vertex.glsl");
-  const fragmentShader = useLoader(FileLoader, "../../shaders/fogStartScreen/fragment.glsl");
   const materialRef = useRef();
 
   useFrame((state) => {
@@ -343,8 +348,8 @@ function StartScreenFog() {
           uGlowRadius: { value: 7.0 },
           uGlowIntensity: { value: 0.3 },
         }}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+        vertexShader={vertexShaderFog}
+        fragmentShader={fragmentShaderFog}
         blending={THREE.AdditiveBlending}
       />
     </mesh>

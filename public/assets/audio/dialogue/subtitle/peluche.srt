@@ -11,7 +11,7 @@ Objet identifié : peluche enfant
 3
 00:00:07,280 --> 00:00:09,120
 SOREN
-Merci Molec j’avais remarqué. 
+Merci Molec, j’avais remarqué. 
 
 4
 00:00:09,120 --> 00:00:11,800
