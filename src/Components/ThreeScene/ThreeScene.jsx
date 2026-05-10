@@ -13,6 +13,7 @@ const keyBoardMap = [
   { name: "left", keys: ["q", "Q", "ArrowLeft"] },
   { name: "right", keys: ["d", "D", "ArrowRight"] },
   { name: "interact", keys: ["a", "A"] },
+  { name: "cancelInteraction", keys: ["x", "X"] },
 ];
 
 

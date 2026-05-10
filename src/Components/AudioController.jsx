@@ -25,6 +25,11 @@ const AudioController = () => {
   }, [dialogues]);
 
   useEffect(() => {
+    // stop all previous dialogue audios
+    dialogues.forEach((d) => {
+      d.audio.stop();
+    });
+
     if (currentDialogue) {
       const dialogue = dialogues.find((d) => d.index === currentDialogue);
       if (dialogue) {
@@ -33,7 +38,7 @@ const AudioController = () => {
         console.warn(`Audio with index ${currentDialogue} not found.`);
       }
     }
-  }, [currentDialogue]);
+  }, [currentDialogue, dialogues]);
 
   return <></>;
 };

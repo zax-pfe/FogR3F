@@ -75,7 +75,16 @@ export default function CalculateDistance() {
         }
       }
     }
-  }, [memorizedPosition]);
+  }, [
+    memorizedPosition,
+    posterPosition,
+    ammoBoxPosition,
+    tronkPosition,
+    pointerPosition,
+    brokenRobotPosition,
+    swingPosition,
+    tankPosition,
+  ]);
 
   return <></>;
 }

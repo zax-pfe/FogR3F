@@ -24,6 +24,9 @@ export const useGameStore = create((set) => ({
   transitionView: null,
   setTransitionView: (transition) => set({ transitionView: transition }),
 
+  isInteractionActive: false,
+  setIsInteractionActive: (active) => set({ isInteractionActive: active }),
+
   // ______________________ CURSOR __________________/
 
   smthgIsHovered: false,
@@ -81,6 +84,12 @@ export const useGameStore = create((set) => ({
 
   whoSpeaks: null,
   setWhoSpeaks: (who) => set({ whoSpeaks: who }),
+
+  stopDialogue: () =>
+    set({
+      currentDialogue: null,
+      whoSpeaks: null,
+    }),
 
   // ______________________ SCREENS MANAGEMENT __________________/
 

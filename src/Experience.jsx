@@ -102,7 +102,7 @@ export default function Experience() {
       <Poster />
       <Swing />
       <Interaction />
-      <Physics   gravity={[0, -30, 0]}>
+      <Physics gravity={[0, -30, 0]}>
         <Tank />
         <Terrain />
         <Decors />
