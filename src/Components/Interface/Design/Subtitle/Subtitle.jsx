@@ -10,7 +10,7 @@ const Subtitle = ({ person, text, start, duration, latest }) => {
   const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
   const setWhoSpeaks = useGameStore((state) => state.setWhoSpeaks);
 
-  const multiLine = text.split("\r\n");
+  const multiLine = text.split("\n");
   const r_Subtitle = useRef();
 
   useGSAP(() => {
