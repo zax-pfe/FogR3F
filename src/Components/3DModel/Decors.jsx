@@ -98,8 +98,8 @@ export default function Decors(props) {
         <CuboidCollider args={[3, 1, 1]} />
       </RigidBody>
 
-      <RigidBody debug type="fixed" colliders={false}   position={[30.6, 3.55, -11.2]} >
-        <CuboidCollider args={[1, 1,3]} />
+      <RigidBody debug type="fixed" colliders={false}   position={[31.2, 3.55, -11.2]} >
+        <CuboidCollider args={[0.7, 1,2]} />
       </RigidBody>
 
       
