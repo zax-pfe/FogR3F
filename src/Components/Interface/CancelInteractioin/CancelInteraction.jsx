@@ -8,7 +8,7 @@ const CancelInteraction = () => {
 
 	return ( 
         <div className={s.cancelInteractionContainer}>
-            <span>X</span> <p>Arreter interaction </p>
+            <span>X</span> <p>Quitter l'interaction </p>
         </div> 
         );
 };
