@@ -41,8 +41,8 @@ const Result = ({ type, closeResult }) => {
             <div className={s.result}>
                 <CustomText variant="h1" className={s.result__title}>Erreur</CustomText>
                 <div className={s.result__content}>
-                    <CustomText className={s.result__content__text}>Vous n’avez pas sélectionner d’assez bon éléments pour pouvoir analyser la souche.</CustomText>
-                    <CustomText className={s.result__content__secondTxt}>Eléments OK (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</CustomText>
+                    <CustomText className={s.result__content__text}>Mauvais indices sélectionnés. Analyse finale impossible.</CustomText>
+                    <CustomText className={s.result__content__secondTxt}>Indices corrects (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</CustomText>
                 </div>
                 <Button onClick={closeResult}>Recommencer</Button>
             </div>

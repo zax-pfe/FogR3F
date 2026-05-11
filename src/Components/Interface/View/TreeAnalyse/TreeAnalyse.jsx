@@ -140,19 +140,19 @@ const TreeAnalyse = () => {
                 <li className={s.popUp__contentItem}>
                   <span className={s.popUp__contentItemNumber}>01</span>
                   <CustomText className={s.popUp__contentItemTexte}>
-                    Analysez la souche afin de trouver les informations qu’elle tente de vous transmettre.
+                    Analyser la souche pour y trouver des informations pertinentes.
                   </CustomText>
                 </li>
                 <li className={s.popUp__contentItem}>
                   <span className={s.popUp__contentItemNumber}>02</span>
                   <CustomText className={s.popUp__contentItemTexte}>
-                    Sélectionnez <span className={s.popUp__contentItemTexteHighlight}>4 indices</span> qui vous paraissent essentiels pour la suite de l’histoire.
+                    Sélectionner <span className={s.popUp__contentItemTexteHighlight}>4 indices</span> qui paraissent essentiels pour compléter l’histoire du lieu.
                   </CustomText>
                 </li>
                 <li className={s.popUp__contentItem}>
                   <span className={s.popUp__contentItemNumber}>03</span>
                   <CustomText className={s.popUp__contentItemTexte}>
-                    Lancez l’analyse. Si les 4 bons indices n’ont pas été sélectionnés, vous devrez recommencer.
+                    Lancer l’analyse. Si les les indices sélectionnés ne sont pas les bons, recommencer.
                   </CustomText>
                 </li>
               </ul>
