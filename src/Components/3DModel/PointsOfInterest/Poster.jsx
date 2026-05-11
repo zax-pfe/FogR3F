@@ -16,6 +16,7 @@ export default function Poster(props) {
 
   const setPosterPosition = useGameStore((state) => state.setPosterPosition);
   const elementContacted = useGameStore((state) => state.elementContacted);
+  const playerAnimation = useGameStore((state) => state.playerAnimation);
 
   useEffect(() => {
     setPosterPosition(posterRef.current.position);
@@ -46,21 +47,19 @@ export default function Poster(props) {
         scale={[1, 1, 1]}
         position={[0, 0.15, -0.2]}
       />
-      <group scale={[0.25, 0.25, 0.25]}  rotation={[0, 0, 0]}>
-        <PressButtonUI element="poster" />
+      <group scale={[0.25, 0.25, 0.25]} rotation={[0, 0, 0]}>
+        {playerAnimation !== "interaction" && <PressButtonUI element="poster" />}
 
         <mesh
           // castShadow
           // receiveShadow
           geometry={nodes.planeBlanc.geometry}
           material={materials.posterMaterial2}
-          rotation={[Math.PI, Math.PI /2, Math.PI / 2]}
-        >
-          
-        </mesh>
+          rotation={[Math.PI, Math.PI / 2, Math.PI / 2]}
+        ></mesh>
 
-        <mesh >
-          <boxGeometry args={[2,2, 0.1]} />
+        <mesh>
+          <boxGeometry args={[2, 2, 0.1]} />
 
           <meshBasicMaterial opacity={0} transparent={true} />
 
