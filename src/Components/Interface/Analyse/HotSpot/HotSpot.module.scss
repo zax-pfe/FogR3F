@@ -73,22 +73,26 @@
 	position: absolute;
 	background-color: var(--color--bg-transparent-light);
 	color: var(--color--white);
-	width: 676px;
-	height: 295px;
-	padding: 24px;
+
 	border-radius: var(--radius--xxs);
 	border: 1px solid var(--color--white);
 	backdrop-filter: blur(32px);
-	box-shadow: 0 0 84px 0 rgba(139, 139, 139, 0.6);
+	box-shadow: 0 0 24px -5px var(--color--white);
+	overflow: hidden;
 
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: 32px;
-
-	transition: opacity 0.3s var(--easing);
 	z-index: 2;
+
+	&__container {
+		width: 676px;
+		min-height: 295px;
+		height: max-content;
+		padding: 24px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 32px;
+	}
 
 	&::before {
 		content: "";
@@ -147,7 +151,9 @@
 	}
 
 	&__img {
-		height: 100%;
+		min-height: 244px;
+		height: fill-available;
+		align-self: stretch;
 		width: 172px;
 		background: var(--color--gray-low);
 		background-size: cover;
@@ -193,7 +199,7 @@
 
 	&.active {
 		border: 1px solid var(--color--violet);
-		box-shadow: 0 0 24px 0 var(--color--violet);
+		box-shadow: 0 0 24px -3px var(--color--violet);
 
 		&::before {
 			--tri-color: var(--color--violet);

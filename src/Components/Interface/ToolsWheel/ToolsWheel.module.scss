@@ -50,7 +50,7 @@
 		border-radius: 72px;
 		background: url("/assets/images/MIL_Wheel.svg") no-repeat center center;
 		background-size: contain;
-		box-shadow: 0 0 44.2px 0 var(--color--white);
+		box-shadow: 0 0 24px -5px var(--color--white);
 		bottom: 46px;
 		right: 46px;
 		transition: box-shadow 0.2s var(--easing);
@@ -67,7 +67,7 @@
 			background: var(--color--white);
 			border-radius: 100%;
 			transition: 0.2s var(--easing);
-			filter: drop-shadow(0 0 44.2px var(--color--white));
+			filter: drop-shadow(0 0 24px -5px var(--color--white));
 		}
 
 		&::after {
@@ -81,17 +81,17 @@
 			border-radius: 100%;
 			opacity: 0;
 			transition: opacity 0.2s var(--easing);
-			filter: drop-shadow(0 0 44.2px var(--color--white));
+			filter: drop-shadow(0 0 24px -5px var(--color--white));
 		}
 
 		&:hover {
-			box-shadow: 0 0 66.5px 0 var(--color--white),
-				0 0 44.2px 0 var(--color--white);
+			box-shadow: 0 0 32px 0 var(--color--white),
+				0 0 24px -5px var(--color--white);
 		}
 
 		&.open {
-			box-shadow: 0 0 66.5px 0 var(--color--white),
-				0 0 44.2px 0 var(--color--white);
+			box-shadow: 0 0 32px 0 var(--color--white),
+				0 0 24px -5px var(--color--white);
 
 			&::before {
 				width: 21px;
