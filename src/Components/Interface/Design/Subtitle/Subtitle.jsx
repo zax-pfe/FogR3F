@@ -10,7 +10,7 @@ const Subtitle = ({ person, text, start, duration, latest }) => {
   const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
   const setWhoSpeaks = useGameStore((state) => state.setWhoSpeaks);
 
-  const multiLine = text.split("\r\n");
+  const multiLine = text.split("\n");
   const r_Subtitle = useRef();
 
   useGSAP(() => {
@@ -40,8 +40,9 @@ const Subtitle = ({ person, text, start, duration, latest }) => {
 
   return (
     <div ref={r_Subtitle} className={s.subtitle}>
+      <Text variant="c1" className={s.subtitle__person}>{person}</Text>
       {multiLine.map((line, index) => (
-        <Text variant="c1" key={index} className={s.subtitle__line}>
+        <Text variant="c1" key={index} className={`${s.subtitle__line} ${person === "MOLEC" ? 'txt-italic' : ""}`}>
           {line}
         </Text>
       ))}
