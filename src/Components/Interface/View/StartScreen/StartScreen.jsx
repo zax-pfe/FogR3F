@@ -24,6 +24,7 @@ import Button from "../../Design/Button/Button";
 import CustomText from "../../Design/Text/Text";
 import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
 import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
+import { c_AudioUI } from "../../../../constant/audio";
 
 {
   /* ______________________ CANVAS __________________/ */
@@ -104,6 +105,7 @@ function InterfaceOverlay({ onHover }) {
   const setTransitionView = useGameStore((state) => state.setTransitionView);
 
   function handlePlayClick() {
+    c_AudioUI.play('click');
     setTransitionView("game");
   }
 

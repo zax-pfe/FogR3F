@@ -13,8 +13,8 @@ export const c_Dialogue = [
 	},
 	{
 		index: "brokenRobot",
-		src: "/assets/audio/dialogue/peluche.mp3",
-		srcSubtitle: "/assets/audio/dialogue/subtitle/peluche.srt",
+		src: "/assets/audio/dialogue/brokenRobot.mp3",
+		srcSubtitle: "/assets/audio/dialogue/subtitle/brokenRobot.srt",
 	},
 	{
 		index: "peluche",
@@ -45,9 +45,12 @@ export const c_Dialogue = [
 
 export const c_Mix = {
 	dialogue: 1.0,
-	ambiance: 0.8,
+	ambiance: 0.15,
 	interface: 0.8,
-	music: 0.5,
+	music: {
+		menu: 0.7,
+		game: 0.7,
+	},
 };
 
 export const c_AudioUI = new Howl({
@@ -61,7 +64,7 @@ export const c_AudioUI = new Howl({
 		remove: [2000, 500],
 		toolRoll: [2500, 500],
 		toolSelect: [3000, 500],
-		hover: [4000, 100]
+		hover: [4000, 100],
 	},
 });
 
