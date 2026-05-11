@@ -2,16 +2,19 @@ import { Howl, Howler } from "howler";
 import { useGameStore } from "../store/store";
 import { useEffect, useRef, useState } from "react";
 import { c_Dialogue, c_Mix } from "../constant/audio";
+import { i } from "motion/react-client";
 
 const AudioController = () => {
   // const { currentDialogue, setCurrentDialogue } = useGameStore();
   const currentDialogue = useGameStore((state) => state.currentDialogue);
   const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
   const currentScreen = useGameStore((state) => state.currentScreen);
+  const [musicFading, setMusicFading] = useState(false);
   const [dialogues, setDialogues] = useState([]);
 
   const musicRef = useRef(null);
   const ambianceGameRef = useRef(null);
+  const musicVintageRef = useRef(null);
 
   // Créer une seule fois
   useEffect(() => {
@@ -29,9 +32,17 @@ const AudioController = () => {
       preload: true,
     });
 
+    musicVintageRef.current = new Howl({
+      src: ["/assets/music/Piste_01_vintage.mp3"],
+      volume: 0,
+      loop: true,
+      preload: true,
+    });
+
     return () => {
       musicRef.current?.stop();
       ambianceGameRef.current?.stop();
+      musicVintageRef.current?.stop();
     };
   }, []);
 
@@ -48,23 +59,32 @@ const AudioController = () => {
 
   useEffect(() => {
     if (currentScreen === "menu") {
+
       musicRef.current.play();
       musicRef.current.fade(0, c_Mix.music, 2000);
+      musicVintageRef.current.play();
+
     } else if (currentScreen === "game") {
+
       ambianceGameRef.current.play();
       ambianceGameRef.current.fade(0, c_Mix.ambiance, 2000);
+
+      if (musicFading) {
+        musicVintageRef.current.fade(c_Mix.music, 0, 2000);
+        musicRef.current.fade(0, c_Mix.music, 2000);
+        setMusicFading(false);
+      }
+
     } else if (currentScreen === "memory") {
+
       musicRef.current.stop();
       ambianceGameRef.current.stop();
 
-      // musicRef.current.fade(c_Mix.music, 0, 200);
-      // console.log("Fading out music...");
-      // setTimeout(() => {
-      //   console.log("Stopping music...");
-      //   musicRef.current.stop();
-      // }, 200);
-      // console.log("Stopping ambiance...");
-      // ambianceGameRef.current.stop();
+      musicVintageRef.current.fade(c_Mix.music, 0, 200);
+      setTimeout(() => {
+        musicVintageRef.current.stop();
+      }, 200);
+
     } else if (currentScreen === "analyse") {
       console.log("Fading out ambiance...");
       ambianceGameRef.current.fade(c_Mix.ambiance, 0, 200);
@@ -72,6 +92,10 @@ const AudioController = () => {
         console.log("Stopping ambiance...");
         ambianceGameRef.current.stop();
       }, 200);
+
+      musicVintageRef.current.fade(0, c_Mix.music, 2000);
+      musicRef.current.fade(c_Mix.music, 0, 2000);
+      setMusicFading(true);
     }
   }, [currentScreen]);
 
