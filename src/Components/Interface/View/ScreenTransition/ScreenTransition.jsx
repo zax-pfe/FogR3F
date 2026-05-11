@@ -13,6 +13,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMotionValue, animate } from "framer-motion";
 
+import { c_AudioUI } from "../../../../constant/audio";
+
 export default function ScreenTransition() {
   return (
     <div className={s.screenTransition}>
@@ -55,6 +57,11 @@ function ScreenTransitionElement() {
   });
 
   const handleReveal = () => {
+    if (isRevealedRef.current) {
+      c_AudioUI.play("close");
+    } else {
+      c_AudioUI.play("open");
+    }
     animate(revealProgress, isRevealedRef.current ? 1.9 : -1, {
       duration: 2,
       ease: "easeInOut",
@@ -78,6 +85,7 @@ function ScreenTransitionElement() {
     if (transitionView === null) return;
 
     triggerAnimation();
+
     setTimeout(() => {
       setCurrentScreen(transitionView);
       setTimeout(() => {

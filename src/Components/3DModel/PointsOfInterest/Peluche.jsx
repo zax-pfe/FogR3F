@@ -10,7 +10,7 @@ export default function Peluche(props) {
   const pelucheRef = useRef();
   // const isCompressed = useGameStore((state) => state.isCompressed);
   // const setIsCompressed = useGameStore((state) => state.setIsCompressed);
-  const objName = "Peluche_compressed";
+  const objName = "Peluche_darker_compressed";
   const { nodes, materials } = useGLTF(`/assets/3DModels/Interactive/${objName}.glb`);
 
   const setPeluchePosition = useGameStore((state) => state.setPeluchePosition);
@@ -22,18 +22,6 @@ export default function Peluche(props) {
   }, []);
 
   return (
-    // <PivotControls
-    //   anchor={[0, 0, 0]}
-    //   depthTest={false}
-    //   onDrag={(localMatrix) => {
-    //     const position = new THREE.Vector3();
-    //     position.setFromMatrixPosition(localMatrix);
-    //     console.log("real position:", position);
-    //     const rotation = new THREE.Euler();
-    //     rotation.setFromRotationMatrix(localMatrix);
-    //     console.log("real rotation:", rotation);
-    //   }}
-    // >
     <group {...props} dispose={null} ref={pelucheRef} scale={0.25} position={[6.88, 3.47, -1.31]}>
       <Sparkles
         size={1.5}
@@ -48,17 +36,13 @@ export default function Peluche(props) {
       <group rotation={[-1.63, 0, -3.02]}>
         {playerAnimation !== "interaction" && <PressButtonUI element="peluche" />}
 
-        <mesh geometry={nodes.Cube002.geometry} material={materials.peluche_material}>
+         <mesh 
+        geometry={nodes.tete001.geometry}
+        material={materials['peluche_material_darker.001']}
+        >
           {elementContacted === "peluche" && <Outlines thickness={2} color="lightblue" />}
         </mesh>
-        <mesh geometry={nodes.Cube002_1.geometry} material={materials.oreille} />
-        <mesh geometry={nodes.Cube002_2.geometry} material={materials.bouche} />
-        <mesh geometry={nodes.Cube002_3.geometry} material={materials["peau.002"]} />
-        <mesh geometry={nodes.Cube002_4.geometry} material={materials.blanc} />
-        <mesh geometry={nodes.Cube002_5.geometry} material={materials.noir} />
       </group>
     </group>
-
-    // </PivotControls>
   );
 }

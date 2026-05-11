@@ -47,10 +47,7 @@ export const c_Mix = {
 	dialogue: 1.0,
 	ambiance: 0.15,
 	interface: 0.8,
-	music: {
-		menu: 0.7,
-		game: 0.7,
-	},
+	music: 0.7,
 };
 
 export const c_AudioUI = new Howl({
