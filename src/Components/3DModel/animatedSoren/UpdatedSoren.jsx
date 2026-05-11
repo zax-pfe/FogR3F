@@ -6,7 +6,7 @@ import { useControls, button } from "leva";
 export default function AnimatedSoren(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
-    "/assets/3DModels/Soren/animated_soren_textured_ambiant.glb",
+    "/assets/3DModels/Soren/animated_soren_textured_ambiant_compressed.glb",
   );
   const animationsNames = animations.map((anim) => anim.name);
   // console.log("Available animations:", animationsNames);
@@ -117,4 +117,4 @@ export default function AnimatedSoren(props) {
   );
 }
 
-useGLTF.preload("/assets/3DModels/Soren/animated_soren_textured_grey.glb");
+useGLTF.preload("/assets/3DModels/Soren/animated_soren_textured_grey_compressed.glb");
