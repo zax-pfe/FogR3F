@@ -118,7 +118,7 @@ void main()
 
     n = n * uNoiseStrength + 0.5;
     // float alpha = n * uAlphaRatio;
-    float baseAlpha = 0.0;
+    float baseAlpha = 0.05;
     float alpha = baseAlpha + n * uAlphaRatio * vPosition.y * vPosition.y * uAlphaYRatio;
     
 
