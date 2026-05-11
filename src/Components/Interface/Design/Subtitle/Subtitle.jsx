@@ -1,5 +1,5 @@
 import { useGSAP } from "@gsap/react";
-import Text from "../Text/Text";
+import CustomText from "../Text/Text";
 import s from "./Subtitle.module.scss";
 import { useRef } from "react";
 import gsap from "gsap";
@@ -40,11 +40,11 @@ const Subtitle = ({ person, text, start, duration, latest }) => {
 
   return (
     <div ref={r_Subtitle} className={s.subtitle}>
-      <Text variant="c1" className={s.subtitle__person}>{person}</Text>
+      <CustomText variant="c1" className={s.subtitle__person}>{person}</CustomText>
       {multiLine.map((line, index) => (
-        <Text variant="c1" key={index} className={`${s.subtitle__line} ${person === "MOLEC" ? 'txt-italic' : ""}`}>
+        <CustomText variant="c1" key={index} className={`${s.subtitle__line} ${person === "MOLEC" ? 'txt-italic' : ""}`}>
           {line}
-        </Text>
+        </CustomText>
       ))}
     </div>
   );

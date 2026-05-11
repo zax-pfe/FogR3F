@@ -49,6 +49,7 @@ export default function Experience() {
 
   // ______________ ZUSTAND _____________/
   const setControlsRef = useGameStore((state) => state.setControlsRef);
+  const userConfiguration = useGameStore((state) => state.userConfiguration);
 
   useEffect(() => {
     setControlsRef(controlsRef);
@@ -76,12 +77,12 @@ export default function Experience() {
   return (
     <>
       {/* ____________ ENVIRONMENT ____________ A desactiver pour eco des perf */}
-      <Environment preset="night" />
+      {userConfiguration === "high" && <Environment preset="night" />}
       {/* ______________________ FOG__________________/ */}
       <fog attach="fog" args={[controlFog.color, controlFog.near, controlFog.far]} />
       <color attach="background" args={[controlFog.color]} />
       {/* ______________________ POST PROCESSING__________________/ */}
-      <PostProcessing />
+      {userConfiguration !== "low" && <PostProcessing />}
       {/* ______________________ SETUP __________________/ */}
       <OrbitControls
         ref={controlsRef}
@@ -111,20 +112,22 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      <Smoke />
+      {userConfiguration === "high" && <Smoke />}
       <Fog />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}
       {/* <VFX particlesColor={controlFog.color} /> */}
-      <ParticlesShader
-        size={{ x: 60, y: 6, z: 57 }}
-        scale={1}
-        count={2000}
-        color="#7298a7"
-        position={{ x: 11.3, y: 5.5, z: 5.4 }}
-        speed={2}
-        opacity={1}
-      />
+      {userConfiguration !== "low" && (
+        <ParticlesShader
+          size={{ x: 60, y: 6, z: 57 }}
+          scale={1}
+          count={2000}
+          color="#7298a7"
+          position={{ x: 11.3, y: 5.5, z: 5.4 }}
+          speed={2}
+          opacity={1}
+        />
+      )}
     </>
   );
 }

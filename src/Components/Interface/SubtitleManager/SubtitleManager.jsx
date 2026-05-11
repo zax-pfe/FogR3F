@@ -3,7 +3,7 @@ import s from "./SubtitleManager.module.scss";
 import { c_Dialogue } from "../../../constant/audio";
 import { convertSRT } from "../../../utils/convertSRT";
 import { useGameStore } from "../../../store/store";
-import Text from "../Design/Text/Text";
+import CustomText from "../Design/Text/Text";
 import Subtitle from "../Design/Subtitle/Subtitle";
 import { AnimatePresence, motion } from "motion/react";
 

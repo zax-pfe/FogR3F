@@ -21,7 +21,7 @@ import { useGameStore } from "../../../../store/store";
 // ______________________ UI & EFFECTS __________________/
 import ParticlesShader from "../../../VFX/ParticlesShader";
 import Button from "../../Design/Button/Button";
-import Text from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text";
 import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
 import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
 import VolumetricFog from "../../../VFX/VolumetricFog";
@@ -164,7 +164,7 @@ function InterfaceOverlay({ onHover }) {
         onMouseEnter={() => onHover("play")}
         onMouseLeave={() => onHover("none")}
       >
-        <Button onClick={handlePlayClick}>Reprendre</Button>
+        <Button onClick={handlePlayClick}>Continuer</Button>
       </div>
       {/* <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
         <Button>Credit</Button>
@@ -199,6 +199,7 @@ function Title() {
 }
 function StartScreenContent({ buttonHoveredRef }) {
   const { camera, gl, mouse } = useThree();
+  const userConfiguration = useGameStore((state) => state.userConfiguration);
   const sphereRef = useRef();
   const groupRef = useRef();
   const lightRef = useRef();
@@ -249,10 +250,10 @@ function StartScreenContent({ buttonHoveredRef }) {
   return (
     <>
       {/* <Perf position="top-left" /> */}
-      <Environment preset="night" />
+      {userConfiguration === "high" && <Environment preset="night" />}
       {/* <OrbitControls args={[camera, gl.domElement]} /> */}
       <directionalLight position={[1, 2, 3]} intensity={7} />
-      <ambientLight intensity={0} />
+      <ambientLight intensity={userConfiguration === "high" ? 0 : 0.5} />
       <Title />
       <Float
         speed={2}
@@ -265,8 +266,7 @@ function StartScreenContent({ buttonHoveredRef }) {
           <ModelTextured buttonHoveredRef={buttonHoveredRef} />
         </group>
       </Float>
-      <PostProcessingStartScreen />
-
+      {userConfiguration !== "low" && <PostProcessingStartScreen />}
       <VolumetricFog
         rotation={[0, 0, 0]}
         position={[0, -7.5, 0]}
@@ -279,15 +279,18 @@ function StartScreenContent({ buttonHoveredRef }) {
         noiseStrength={0.7}
         color="#ddded3"
       />
-      <ParticlesShader
-        size={{ x: 30, y: 15, z: 8 }}
-        scale={5}
-        count={200}
-        color="#b9a3a3"
-        position={{ x: 0, y: -7.5, z: 0 }}
-        speed={8}
-        opacity={0.2}
-      />
+
+      {userConfiguration === "high" && (
+        <ParticlesShader
+          size={{ x: 30, y: 15, z: 8 }}
+          scale={5}
+          count={200}
+          color="#b9a3a3"
+          position={{ x: 0, y: -7.5, z: 0 }}
+          speed={8}
+          opacity={0.2}
+        />
+      )}
     </>
   );
 }
