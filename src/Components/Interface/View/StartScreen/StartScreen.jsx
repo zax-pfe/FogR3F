@@ -40,30 +40,78 @@ const StartScreen = () => {
 
   return (
     <>
-
       <InterfaceOverlay onHover={handleHover} />
 
       <div className={s.startScreen}>
         <div className={s.svgContainer}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1603 1080" fill="none">
-            <ellipse cx="803.822" cy="469.695" rx="681.469" ry="680.695" fill="#435853" fillOpacity="0.29" />
-            <ellipse cx="679.92" cy="523.128" rx="679.92" ry="681.469" fill="#4FD1C5" fillOpacity="0.02" />
-            <ellipse cx="747.309" cy="609.436" rx="681.469" ry="680.695" fill="#435853" fillOpacity="0.08" />
-            <ellipse cx="881.263" cy="581.208" rx="681.469" ry="680.695" fill="#1A2F2A" fillOpacity="0.34" />
+            <ellipse
+              cx="803.822"
+              cy="469.695"
+              rx="681.469"
+              ry="680.695"
+              fill="#435853"
+              fillOpacity="0.29"
+            />
+            <ellipse
+              cx="679.92"
+              cy="523.128"
+              rx="679.92"
+              ry="681.469"
+              fill="#4FD1C5"
+              fillOpacity="0.02"
+            />
+            <ellipse
+              cx="747.309"
+              cy="609.436"
+              rx="681.469"
+              ry="680.695"
+              fill="#435853"
+              fillOpacity="0.08"
+            />
+            <ellipse
+              cx="881.263"
+              cy="581.208"
+              rx="681.469"
+              ry="680.695"
+              fill="#1A2F2A"
+              fillOpacity="0.34"
+            />
             <circle cx="923.08" cy="495.25" r="679.92" fill="#192A2E" fillOpacity="0.21" />
             <g filter="url(#filter0_i_837_1182)">
               <ellipse cx="803.822" cy="544.811" rx="681.469" ry="679.92" fill="#070D0C" />
             </g>
             <defs>
-              <filter id="filter0_i_837_1182" x="122.354" y="-135.109" width="1362.94" height="1363.84" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+              <filter
+                id="filter0_i_837_1182"
+                x="122.354"
+                y="-135.109"
+                width="1362.94"
+                height="1363.84"
+                filterUnits="userSpaceOnUse"
+                colorInterpolationFilters="sRGB"
+              >
                 <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                <feMorphology radius="54" operator="dilate" in="SourceAlpha" result="effect1_innerShadow_837_1182" />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feMorphology
+                  radius="54"
+                  operator="dilate"
+                  in="SourceAlpha"
+                  result="effect1_innerShadow_837_1182"
+                />
                 <feOffset dy="4" />
                 <feGaussianBlur stdDeviation="65.65" />
                 <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0.786358 0 0 0 0 1 0 0 0 0 0.980279 0 0 0 1 0" />
+                <feColorMatrix
+                  type="matrix"
+                  values="0 0 0 0 0.786358 0 0 0 0 1 0 0 0 0 0.980279 0 0 0 1 0"
+                />
                 <feBlend mode="normal" in2="shape" result="effect1_innerShadow_837_1182" />
               </filter>
             </defs>
@@ -85,9 +133,7 @@ const StartScreen = () => {
         >
           <StartScreenContent buttonHoveredRef={buttonHoveredRef} />
         </Canvas>
-
       </div>
-
     </>
   );
 };
@@ -103,7 +149,11 @@ function InterfaceOverlay({ onHover }) {
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
   const setTransitionView = useGameStore((state) => state.setTransitionView);
 
+  const [clicked, setClicked] = useState(false);
+
   function handlePlayClick() {
+    if (clicked) return;
+    setClicked(true);
     setTransitionView("game");
   }
 
