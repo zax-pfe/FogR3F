@@ -14,7 +14,7 @@ const keyBoardMap = [
   { name: "right", keys: ["d", "D", "ArrowRight"] },
   { name: "interact", keys: ["a", "A"] },
   { name: "run", keys: ["Shift", "CapsLock"] },
-  { name: "cancelInteraction", keys: ["x", "X"] },
+  { name: "cancelInteraction", keys: ["f", "F"] },
 ];
 
 const ThreeScene = ({ children, placeholder = false }) => {

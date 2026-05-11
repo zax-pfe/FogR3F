@@ -1,7 +1,7 @@
 .cancelInteractionContainer {
   position: fixed;
-  bottom: 30px;
-  left: 30px;
+  bottom: 32px;
+  left: 32px;
   z-index: 1000;
   pointer-events: none;
   color: white;
@@ -12,13 +12,13 @@
   span {
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
-    height: 40px;
-    width: 40px;
+    height: 38px;
+    width: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 1rem;
     pointer-events: none;   
   }
 }
