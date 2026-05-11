@@ -11,7 +11,7 @@ import {
 } from "../../../../constant/arbre_hotSpots";
 import Tronk from "../../Tronk/Tronk";
 import { c_AudioUI } from "../../../../constant/audio";
-import Text from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text";
 import Popup from "../../Popup/Popup";
 import Result from "../../Analyse/Result/Result";
 
@@ -109,9 +109,9 @@ const TreeAnalyse = () => {
         ))}
         {/* Interface d'analyse */}
         <div className={s.treeAnalyse__topWrapper}>
-          <Text variant="h2" className={s.treeAnalyse__title}>
+          <CustomText variant="h2" className={s.treeAnalyse__title}>
             Analyse / souche
-          </Text>
+          </CustomText>
           <div className={s.treeAnalyse__divider}></div>
           <button className={s.treeAnalyse__infoBtn} onClick={infoOpen}>
             <span className={s.treeAnalyse__infoBtnIcon}></span>
@@ -131,17 +131,17 @@ const TreeAnalyse = () => {
         {infoVisible && (
           <Popup title="Consignes de recherche" closePopup={infoClose} className={s.popUp} classNameBg={s.popUpBg}>
             <div className={s.popUp__content}>
-              <Text>
+              <CustomText>
                 Analysez la souche afin de trouver les informations qu’elle tente de vous transmettre.
-              </Text>
+              </CustomText>
               <div className={s.popUp__divider}></div>
-              <Text>
+              <CustomText>
                 Sélectionnez 4 indices qui vous paraissent essentiels pour la suite de l’histoire.
-              </Text>
+              </CustomText>
               <div className={s.popUp__divider}></div>
-              <Text>
+              <CustomText>
                 Lancez l’analyse. Si les 4 bons indices n’ont pas été sélectionnés, vous devrez recommencer.
-              </Text>
+              </CustomText>
             </div>
           </Popup>
         )}

@@ -5,6 +5,7 @@ import { useGameStore } from "../../../../store/store";
 import { useProgress } from "@react-three/drei";
 import Button from "../../Design/Button/Button";
 import { Sparkles } from "@react-three/drei"; 
+import CustomText from "../../Design/Text/Text";
 
 const LoadingScreen = ({ showButton }) => {
   const { progress, loaded, total } = useProgress();
@@ -13,14 +14,19 @@ const LoadingScreen = ({ showButton }) => {
   const mediaLoaded = useGameStore((state) => state.mediaLoaded);
   const mediaTotal = useGameStore((state) => state.mediaTotal);
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const setUserConfiguration = useGameStore((state) => state.setUserConfiguration);
 
   const hasMedia = mediaTotal > 0;
 
   const finalProgress = hasMedia ? progress * 0.7 + mediaProgress * 0.3 : progress;
 
+  const setupConfiguration = (config) => {
+    setUserConfiguration(config);
+    setCurrentScreen("menu");
+  }
+
   return (
     <div className={s.loadingScreen}>
-     
       {/* <Canvas
         dpr={[1, 2]}
         style={{
@@ -54,21 +60,21 @@ const LoadingScreen = ({ showButton }) => {
               playsInline
             />
             <div className={s.loadingData}>
-              <span> Chargement {Math.round(progress)}%</span>
+              <CustomText variant="b1">Chargement {Math.round(progress)}%</CustomText>
             </div>
           </>
         ) : (
           <>
-          <h1>Paramètres graphiques</h1>
+          <CustomText variant="h1">Paramètres graphiques</CustomText>
 
             <div className={s.buttonsWrapper}>
-              <Button onClick={() => setCurrentScreen("menu")}>
+              <Button onClick={() => setupConfiguration("low")}>
                 Faible
               </Button>
-              <Button onClick={() => setCurrentScreen("menu")}>
+              <Button onClick={() => setupConfiguration("medium")}>
                 Moyenne
               </Button>
-              <Button onClick={() => setCurrentScreen("menu")}>
+              <Button onClick={() => setupConfiguration("high")}>
                 Élevée
               </Button>
             </div>
@@ -78,7 +84,9 @@ const LoadingScreen = ({ showButton }) => {
  
       <div className={s.headphones}>
         <img src="/assets/images/headphones.svg" alt="" />
-        <p>Pour une meilleure expérience, nous vous recommandons d’utiliser un casque audio. </p>
+        <CustomText variant="b1">
+          Pour une meilleure expérience, nous vous recommandons d’utiliser un casque audio.
+        </CustomText>
       </div>
     </div>
   );

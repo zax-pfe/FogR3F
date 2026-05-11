@@ -1,5 +1,5 @@
 import CloseBtn from "../Design/CloseBtn/CloseBtn";
-import Text from "../Design/Text/Text";
+import CustomText from "../Design/Text/Text";
 import s from "./Popup.module.scss";
 
 const Popup = ({ image, title, closePopup, isClue, children, className, classNameBg }) => {
@@ -10,7 +10,7 @@ const Popup = ({ image, title, closePopup, isClue, children, className, classNam
             <div className={`${s.popup} ${className}`}>
                 {isClue && (
                     <div className={s.popup__note}>
-                        <Text variant="h3" className={s.popup__noteTitle}>Indice récolté</Text>
+                        <CustomText variant="h3" className={s.popup__noteTitle}>Indice récolté</CustomText>
                     </div>
                 )}
                 <div className={s.popup__container}>
@@ -18,7 +18,7 @@ const Popup = ({ image, title, closePopup, isClue, children, className, classNam
                     {image && <img className={s.popup__image} src={image} alt="" />}
                     <div className={s.popup__titleWrapper}>
                         <div className={`${s.popup__titleWrapper__decoration} ${s.left}`}></div>
-                        <Text variant="h3" className={s.popup__title}>{title}</Text>
+                        <CustomText variant="h3" className={s.popup__title}>{title}</CustomText>
                         <div className={`${s.popup__titleWrapper__decoration} ${s.right}`}></div>
                     </div>
                     <div className={s.popup__clue}>

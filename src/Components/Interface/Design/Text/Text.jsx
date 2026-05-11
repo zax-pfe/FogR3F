@@ -1,6 +1,6 @@
 import s from "./Text.module.scss";
 
-const Text = ({ children, className, variant = "b0", inline = false }) => {
+const CustomText = ({ children, className, variant = "b0", inline = false }) => {
 
     return variant == "h1" ? (
         <h1 className={`${s[variant]} ${className}`}>
@@ -33,4 +33,4 @@ const Text = ({ children, className, variant = "b0", inline = false }) => {
     );
 };
 
-export default Text;
+export default CustomText;
