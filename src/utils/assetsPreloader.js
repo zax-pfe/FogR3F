@@ -35,6 +35,7 @@ export const mediaAssets = {
   videos: [
     // "/videos/loading.mp4",
     // "/videos/intro.mp4",
+    "/assets/video/Cinematique.mp4",
   ],
 
   audios: [
