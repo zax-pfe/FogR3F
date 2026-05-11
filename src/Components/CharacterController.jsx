@@ -11,9 +11,11 @@ import MolecTest from "./3DModel/MolecTest.jsx";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useGameStore } from "../store/store.js";
+import { steps } from "../constant/audio.js";
 
 // import AnimatedSoren from "./3DModel/animatedSoren/Soren.jsx";
 import AnimatedSoren from "./3DModel/animatedSoren/UpdatedSoren.jsx";
+import { time } from "motion";
 
 // ______________________ UTILS __________________/
 
@@ -44,6 +46,11 @@ export default function CharacterController() {
   // Object refs
   const rb = useRef(); // RigidBody -> hitbox
   const character = useRef();
+
+  // sounds const
+  const timeTracker = useRef(0);
+  const walkSoundFrequency = 0.8;
+  const runSoundFrequency = 0.6;
 
   // const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } =
   //   useGameStore();
@@ -154,13 +161,27 @@ export default function CharacterController() {
 
     container.current.rotation.y = lerpAngle(container.current.rotation.y, targetAngle, 0.1);
     // if (playerAnimation !== "walk") setPlayerAnimation("walk");
-
+    timeTracker.current += delta;
     if (get().run) {
-      setPlayerSpeed(WALK_SPEED * 2);
-      setPlayerAnimation("run");
+      if (playerAnimation !== "run") {
+        setPlayerAnimation("run");
+        timeTracker.current = 0;
+        setPlayerSpeed(WALK_SPEED * 2);
+      }
+      if (timeTracker.current >= runSoundFrequency) {
+        steps.play();
+        timeTracker.current = 0;
+      }
     } else {
-      setPlayerSpeed(WALK_SPEED);
-      setPlayerAnimation("walk");
+      if (playerAnimation !== "walk") {
+        setPlayerAnimation("walk");
+        timeTracker.current = 0;
+        setPlayerSpeed(WALK_SPEED);
+      }
+      if (timeTracker.current >= walkSoundFrequency) {
+        steps.play();
+        timeTracker.current = 0;
+      }
     }
 
     vel.x = (cameraDirection.x * movement.z + right.x * movement.x) * playerSpeed;
