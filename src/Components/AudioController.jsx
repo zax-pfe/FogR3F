@@ -47,22 +47,15 @@ const AudioController = () => {
   }, []);
 
   useEffect(() => {
-
     if (currentScreen === "menu") {
-
       musicRef.current.play();
       musicRef.current.fade(0, c_Mix.music, 2000);
-
     } else if (currentScreen === "game") {
-
       ambianceGameRef.current.play();
       ambianceGameRef.current.fade(0, c_Mix.ambiance, 2000);
-
     } else if (currentScreen === "memory") {
-
       musicRef.current.stop();
       ambianceGameRef.current.stop();
-
 
       // musicRef.current.fade(c_Mix.music, 0, 200);
       // console.log("Fading out music...");
@@ -72,19 +65,14 @@ const AudioController = () => {
       // }, 200);
       // console.log("Stopping ambiance...");
       // ambianceGameRef.current.stop();
-
     } else if (currentScreen === "analyse") {
-
       console.log("Fading out ambiance...");
       ambianceGameRef.current.fade(c_Mix.ambiance, 0, 200);
       setTimeout(() => {
         console.log("Stopping ambiance...");
         ambianceGameRef.current.stop();
       }, 200);
-
     }
-
-
   }, [currentScreen]);
 
   useEffect(() => {
