@@ -58,7 +58,9 @@ function ScreenTransitionElement() {
 
   const handleReveal = () => {
     if (isRevealedRef.current) {
-      transition.play();
+      setTimeout(() => {
+        transition.play();
+      }, 500);
     } else {
       transition.play();
     }
