@@ -34,14 +34,7 @@ export default function Peluche(props) {
     //     console.log("real rotation:", rotation);
     //   }}
     // >
-    <group
-      {...props}
-      dispose={null}
-      ref={pelucheRef}
-      scale={0.25}
-      position={[6.88, 3.3 + 0.17, -1.28 + 0.3]}
-      rotation={[-1.63, 0, -3.02]}
-    >
+    <group {...props} dispose={null} ref={pelucheRef} scale={0.25} position={[6.88, 3.47, -1.31]}>
       <Sparkles
         size={1.5}
         depthWrite={true}
@@ -50,19 +43,22 @@ export default function Peluche(props) {
         count={15}
         speed={0.5}
         scale={[1, 1, 1]}
-        position={[-0.1, -0.3, 1]}
+        position={[-0.1, 1, 1]}
       />
-      {playerAnimation !== "interaction" && <PressButtonUI element="peluche" />}
+      <group rotation={[-1.63, 0, -3.02]}>
+        {playerAnimation !== "interaction" && <PressButtonUI element="peluche" />}
 
-      <mesh geometry={nodes.Cube002.geometry} material={materials.peluche_material}>
-        {elementContacted === "peluche" && <Outlines thickness={2} color="lightblue" />}
-      </mesh>
-      <mesh geometry={nodes.Cube002_1.geometry} material={materials.oreille} />
-      <mesh geometry={nodes.Cube002_2.geometry} material={materials.bouche} />
-      <mesh geometry={nodes.Cube002_3.geometry} material={materials["peau.002"]} />
-      <mesh geometry={nodes.Cube002_4.geometry} material={materials.blanc} />
-      <mesh geometry={nodes.Cube002_5.geometry} material={materials.noir} />
+        <mesh geometry={nodes.Cube002.geometry} material={materials.peluche_material}>
+          {elementContacted === "peluche" && <Outlines thickness={2} color="lightblue" />}
+        </mesh>
+        <mesh geometry={nodes.Cube002_1.geometry} material={materials.oreille} />
+        <mesh geometry={nodes.Cube002_2.geometry} material={materials.bouche} />
+        <mesh geometry={nodes.Cube002_3.geometry} material={materials["peau.002"]} />
+        <mesh geometry={nodes.Cube002_4.geometry} material={materials.blanc} />
+        <mesh geometry={nodes.Cube002_5.geometry} material={materials.noir} />
+      </group>
     </group>
+
     // </PivotControls>
   );
 }
