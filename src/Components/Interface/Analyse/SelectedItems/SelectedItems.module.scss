@@ -5,7 +5,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 32px;
+	gap: 24px;
 	color: var(--color--white);
 	z-index: 1;
 
@@ -30,7 +30,7 @@
 	}
 
 	&__boxDecoration {
-		margin-top: -239px;
+		margin-top: -231px;
 		width: 210px;
 		height: 210px;
 		background-image: url("/assets/images/MIL_boxBg.svg");
