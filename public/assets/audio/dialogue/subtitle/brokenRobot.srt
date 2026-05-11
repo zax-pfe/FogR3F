@@ -1,0 +1,14 @@
+﻿1
+00:00:00,000 --> 00:00:03,193
+MOLEC
+Analyse : robot de combat modèle BN00317.
+
+2
+00:00:03,193 --> 00:00:05,253
+MOLEC
+Traces de brûlures et d'impacts violents détectées.
+
+2
+00:00:05,253 --> 00:00:06,707
+MOLEC
+Tentative de liaison interrompue.

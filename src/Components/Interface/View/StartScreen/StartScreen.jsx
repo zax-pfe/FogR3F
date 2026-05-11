@@ -24,6 +24,7 @@ import Button from "../../Design/Button/Button";
 import CustomText from "../../Design/Text/Text";
 import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
 import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
+import { c_AudioUI } from "../../../../constant/audio";
 import VolumetricFog from "../../../VFX/VolumetricFog";
 {
   /* ______________________ CANVAS __________________/ */
@@ -154,6 +155,7 @@ function InterfaceOverlay({ onHover }) {
   function handlePlayClick() {
     if (clicked) return;
     setClicked(true);
+    c_AudioUI.play('click');
     setTransitionView("game");
   }
 
