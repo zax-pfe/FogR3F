@@ -7,7 +7,14 @@ const AudioController = () => {
   // const { currentDialogue, setCurrentDialogue } = useGameStore();
   const currentDialogue = useGameStore((state) => state.currentDialogue);
   const setCurrentDialogue = useGameStore((state) => state.setCurrentDialogue);
+  const currentScreen = useGameStore((state) => state.currentScreen);
   const [dialogues, setDialogues] = useState([]);
+  const music = new Howl({
+    src: ["/assets/music/Piste_01.mp3"],
+    volume: c_Mix.music,
+    loop: true,
+    preload: true,
+  });
 
   useEffect(() => {
     let dialogueArray = [];
@@ -19,6 +26,12 @@ const AudioController = () => {
     });
     setDialogues(dialogueArray);
   }, []);
+
+  useEffect(() => {
+    if (currentScreen === "menu") {
+      music.play();
+    }
+  }, [currentScreen]);
 
   useEffect(() => {
     console.log("Dialogue in AudioController: ", dialogues);

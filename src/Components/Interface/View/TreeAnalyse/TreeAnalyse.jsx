@@ -40,8 +40,8 @@ const TreeAnalyse = () => {
   }
 
   const handleKeyDown = (e) => {
-    if (e.key === "t") {
-      setCurrentScreen(currentScreen != "analyse" ? "analyse" : "game");
+    if (e.key === "t" || e.key === "escape") {
+      setTransitionView(currentScreen != "analyse" ? "analyse" : "game");
     }
   };
 
