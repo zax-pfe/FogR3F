@@ -36,7 +36,10 @@ export default function Peluche(props) {
       <group rotation={[-1.63, 0, -3.02]}>
         {playerAnimation !== "interaction" && <PressButtonUI element="peluche" />}
 
-        <mesh geometry={nodes.tete001.geometry} material={materials.peluche_material_darker}>
+         <mesh 
+        geometry={nodes.tete001.geometry}
+        material={materials['peluche_material_darker.001']}
+        >
           {elementContacted === "peluche" && <Outlines thickness={2} color="lightblue" />}
         </mesh>
       </group>

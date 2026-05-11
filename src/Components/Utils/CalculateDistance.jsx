@@ -90,6 +90,7 @@ export default function CalculateDistance() {
     brokenRobotPosition,
     swingPosition,
     tankPosition,
+    peluchePosition,
   ]);
 
   return <></>;
