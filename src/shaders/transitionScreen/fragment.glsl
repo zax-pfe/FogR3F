@@ -162,7 +162,6 @@ void main()
      // Clamp the value from 0 to 1 & invert it
     strength = clamp(strength, 0.0, 1.0);
     // strength = 1.0 - strength;
-    strength =  strength;
 
 
     // gl_FragColor = vec4(0.86, 0.22, 0.22, 1.0);

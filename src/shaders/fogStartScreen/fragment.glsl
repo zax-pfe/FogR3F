@@ -86,22 +86,29 @@ float cnoise(vec3 P){
 void main()
 {
 
-  // float dist = length(vPosition - uMeshPosition);
-  // float glow = 1.0 - smoothstep(0.0, uGlowRadius, dist);
+// ________________ GLOW __________________ //
+    // float dist = length(vPosition - uMeshPosition);
+    // float glow = 1.0 - smoothstep(0.0, uGlowRadius, dist);
 
 
-    float timeRatio = 0.2;
+    float timeRatio = 0.3;
     float alphaRatio = 0.15;
     float scaleRatio = 0.2;
 
 
-
+// ________________ CLASSIC NOISE __________________ //
     float n = cnoise(vPosition * scaleRatio + uTime * timeRatio);
+
+// ________________ NOISE + STRENGHT__________________ //
+    // float warp = cnoise(vPosition * 0.1 + uTime * 0.1);
+    // vec3 displacedPos = vPosition + vec3(warp);
+    // float n = cnoise(displacedPos * 0.4 + uTime * timeRatio);
+
 
     n = n * 0.5 + 0.5;
     // float alpha = n * alphaRatio;
     float baseAlpha = 0.05;
-float alpha = baseAlpha + n * alphaRatio * vPosition.y * vPosition.y * 0.025;
+    float alpha = baseAlpha + n * alphaRatio * vPosition.y * vPosition.y * 0.025;
 
 
     gl_FragColor = vec4(0.52, 0.49, 0.49, alpha);
