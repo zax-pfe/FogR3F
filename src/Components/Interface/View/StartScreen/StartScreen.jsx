@@ -149,6 +149,7 @@ function Title() {
 }
 function StartScreenContent({ buttonHoveredRef }) {
   const { camera, gl, mouse } = useThree();
+  const userConfiguration = useGameStore((state) => state.userConfiguration);
   const sphereRef = useRef();
   const groupRef = useRef();
   const lightRef = useRef();
@@ -199,10 +200,10 @@ function StartScreenContent({ buttonHoveredRef }) {
   return (
     <>
       {/* <Perf position="top-left" /> */}
-      <Environment preset="night" />
+      {userConfiguration === "high" && <Environment preset="night" />}
       {/* <OrbitControls args={[camera, gl.domElement]} /> */}
       <directionalLight position={[1, 2, 3]} intensity={7} />
-      <ambientLight intensity={0} />
+      <ambientLight intensity={userConfiguration === "high" ? 0 : 0.5} />
       <Title />
       <Float
         speed={2}
@@ -215,17 +216,19 @@ function StartScreenContent({ buttonHoveredRef }) {
           <ModelTextured buttonHoveredRef={buttonHoveredRef} />
         </group>
       </Float>
-      <PostProcessingStartScreen />
+      {userConfiguration !== "low" && <PostProcessingStartScreen />}
       <StartScreenFog />
-      <ParticlesShader
-        size={{ x: 30, y: 15, z: 8 }}
-        scale={5}
-        count={200}
-        color="#b9a3a3"
-        position={{ x: 0, y: -7.5, z: 0 }}
-        speed={8}
-        opacity={0.2}
-      />
+      {userConfiguration === "high" && (
+        <ParticlesShader
+          size={{ x: 30, y: 15, z: 8 }}
+          scale={5}
+          count={200}
+          color="#b9a3a3"
+          position={{ x: 0, y: -7.5, z: 0 }}
+          speed={8}
+          opacity={0.2}
+        />
+      )}
     </>
   );
 }

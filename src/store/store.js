@@ -2,6 +2,11 @@ import { create } from "zustand";
 import { c_Objects } from "../constant/objects";
 
 export const useGameStore = create((set) => ({
+
+  // ______________________ GAME STATE __________________/
+  userConfiguration: 'high',
+  setUserConfiguration: (config) => set({ userConfiguration: config }),
+
   // ______________________ PLAYER __________________/
   playerPosition: null,
   setPlayerPosition: (position) => set({ playerPosition: position }),

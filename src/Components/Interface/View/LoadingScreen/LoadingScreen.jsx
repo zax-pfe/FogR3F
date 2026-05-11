@@ -14,10 +14,16 @@ const LoadingScreen = ({ showButton }) => {
   const mediaLoaded = useGameStore((state) => state.mediaLoaded);
   const mediaTotal = useGameStore((state) => state.mediaTotal);
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
+  const setUserConfiguration = useGameStore((state) => state.setUserConfiguration);
 
   const hasMedia = mediaTotal > 0;
 
   const finalProgress = hasMedia ? progress * 0.7 + mediaProgress * 0.3 : progress;
+
+  const setupConfiguration = (config) => {
+    setUserConfiguration(config);
+    setCurrentScreen("menu");
+  }
 
   return (
     <div className={s.loadingScreen}>
@@ -62,13 +68,13 @@ const LoadingScreen = ({ showButton }) => {
           <CustomText variant="h1">Paramètres graphiques</CustomText>
 
             <div className={s.buttonsWrapper}>
-              <Button onClick={() => setCurrentScreen("menu")}>
+              <Button onClick={() => setupConfiguration("low")}>
                 Faible
               </Button>
-              <Button onClick={() => setCurrentScreen("menu")}>
+              <Button onClick={() => setupConfiguration("medium")}>
                 Moyenne
               </Button>
-              <Button onClick={() => setCurrentScreen("menu")}>
+              <Button onClick={() => setupConfiguration("high")}>
                 Élevée
               </Button>
             </div>
