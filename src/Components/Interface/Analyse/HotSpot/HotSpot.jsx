@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./HotSpot.module.scss";
 import CloseBtn from "../../Design/CloseBtn/CloseBtn";
-import Text from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text";
 import Button from "../../Design/Button/Button";
 import gsap from "gsap";
 import { addScaleCorrector } from "motion";
@@ -114,12 +114,12 @@ const HotSpot = ({ data, coo, refBox }) => {
             <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
             <div className={s.popUp__img} style={{ backgroundImage: `url(${data.image})` }}></div>
             <div className={s.popUp__content}>
-              <Text className={s.popUp__title} variant="b2">
+              <CustomText className={s.popUp__title} variant="b2">
                 {data.title}
-              </Text>
-              <Text variant="b3" className={s.popUp__text}>
+              </CustomText>
+              <CustomText variant="b3" className={s.popUp__text}>
                 {data.text}
-              </Text>
+              </CustomText>
               <div className={s.popUp__buttonContainer}>
                 {!iAmSelected() ? (
                   <Button
@@ -141,9 +141,9 @@ const HotSpot = ({ data, coo, refBox }) => {
                   </Button>
                 )}
                 {!iAmSelected() && selectedItems.length >= maxSelectedItems && (
-                  <Text variant="c3" className={s.warning}>
+                  <CustomText variant="c3" className={s.warning}>
                     Nombre maximum d'éléments sélectionnés atteint.
-                  </Text>
+                  </CustomText>
                 )}
               </div>
             </div>

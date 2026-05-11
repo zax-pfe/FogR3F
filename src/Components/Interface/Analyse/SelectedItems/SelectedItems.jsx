@@ -1,7 +1,7 @@
 import { c_AudioUI } from "../../../../constant/audio";
 import { useGameStore } from "../../../../store/store";
 import Button from "../../Design/Button/Button";
-import Text from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text";
 import s from "./SelectedItems.module.scss";
 
 const SelectedItems = ({ refBox, analyse }) => {
@@ -15,9 +15,9 @@ const SelectedItems = ({ refBox, analyse }) => {
 
   return (
     <div className={s.selectedItems}>
-      <Text variant="b1" className={s.selectedItems__title}>
+      <CustomText variant="b1" className={s.selectedItems__title}>
         Éléments sélectionnés
-      </Text>
+      </CustomText>
       <div
         ref={refBox}
         className={`${s.selectedItems__box} ${selectedItems.length >= maxSelectedItems ? s.highlight : ""}`}

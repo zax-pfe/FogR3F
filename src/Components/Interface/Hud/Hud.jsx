@@ -5,7 +5,7 @@ import ToolsWheel from "../ToolsWheel/ToolsWheel";
 import Popup from "../Popup/Popup";
 import TabObject from "../TabObject/TabObject";
 import { c_AudioUI } from "../../../constant/audio";
-import Text from "../Design/Text/Text";
+import CustomText from "../Design/Text/Text";
 import { useGameStore } from "../../../store/store";
 import CancelInteraction from "../CancelInteractioin/CancelInteraction";
 
@@ -27,7 +27,7 @@ const Hud = () => {
         <div className={s.hud}>
           {viewObject &&
             <Popup image={viewObject.image} title={viewObject.title} closePopup={handleClosePopup} isClue>
-              {viewObject.text && <Text>{viewObject.text}</Text>}
+              {viewObject.text && <CustomText>{viewObject.text}</CustomText>}
             </Popup>}
           {/* // sous-titre et roue d'outils */}
           <TabObject viewObject={viewObject} setViewObject={setViewObject} />

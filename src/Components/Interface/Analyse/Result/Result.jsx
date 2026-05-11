@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../../Design/Button/Button";
-import Text from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text";
 import s from "./Result.module.scss";
 import { useGameStore } from "../../../../store/store";
 import { c_Arbre_HotSpots_MustFind } from "../../../../constant/arbre_hotSpots";
@@ -26,11 +26,11 @@ const Result = ({ type, closeResult }) => {
         <>
             <div className={s.background} onClick={closeResult}></div>
             <div className={s.result}>
-                <Text variant="h1" className={s.result__title}>Analyse terminée</Text>
+                <CustomText variant="h1" className={s.result__title}>Analyse terminée</CustomText>
                 <div className={s.result__content}>
-                    <Text className={s.result__content__text}>Vous avez sélectionné tous les éléments nécessaires.</Text>
-                    <Text className={s.result__content__text}>Un souvenir à été généré à partir des données.</Text>
-                    <Text className={`${s.result__content__secondTxt} ${s.success}`}>Eléments OK (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</Text>
+                    <CustomText className={s.result__content__text}>Vous avez sélectionné tous les éléments nécessaires.</CustomText>
+                    <CustomText className={s.result__content__text}>Un souvenir à été généré à partir des données.</CustomText>
+                    <CustomText className={`${s.result__content__secondTxt} ${s.success}`}>Eléments OK (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</CustomText>
                 </div>
                 <Button onClick={startMemory}>Lancer le souvenir</Button>
             </div>
@@ -39,10 +39,10 @@ const Result = ({ type, closeResult }) => {
         <>
             <div className={s.background} onClick={closeResult}></div>
             <div className={s.result}>
-                <Text variant="h1" className={s.result__title}>Erreur</Text>
+                <CustomText variant="h1" className={s.result__title}>Erreur</CustomText>
                 <div className={s.result__content}>
-                    <Text className={s.result__content__text}>Vous n’avez pas sélectionner d’assez bon éléments pour pouvoir analyser la souche.</Text>
-                    <Text className={s.result__content__secondTxt}>Eléments OK (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</Text>
+                    <CustomText className={s.result__content__text}>Vous n’avez pas sélectionner d’assez bon éléments pour pouvoir analyser la souche.</CustomText>
+                    <CustomText className={s.result__content__secondTxt}>Eléments OK (( {foundCount} / {c_Arbre_HotSpots_MustFind} ))</CustomText>
                 </div>
                 <Button onClick={closeResult}>Recommencer</Button>
             </div>

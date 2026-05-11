@@ -21,7 +21,7 @@ import { useGameStore } from "../../../../store/store";
 // ______________________ UI & EFFECTS __________________/
 import ParticlesShader from "../../../VFX/ParticlesShader";
 import Button from "../../Design/Button/Button";
-import Text from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text";
 import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
 import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
 
