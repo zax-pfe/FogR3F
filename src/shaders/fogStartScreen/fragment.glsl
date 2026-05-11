@@ -1,9 +1,18 @@
 varying vec3 vPosition;
 uniform float uTime;
-
+// glow
 uniform vec3 uMeshPosition;
 uniform float uGlowRadius;
 uniform float uGlowIntensity;
+// noise
+uniform float uTimeRatio ;
+uniform float uAlphaRatio ;
+uniform float uScaleRatio ;
+uniform float uAlphaYRatio ;
+uniform float uNoiseStrength;
+// color 
+uniform vec3 uBaseColor;
+
 
 
 
@@ -91,27 +100,31 @@ void main()
     // float glow = 1.0 - smoothstep(0.0, uGlowRadius, dist);
 
 
-    float timeRatio = 0.3;
-    float alphaRatio = 0.15;
-    float scaleRatio = 0.2;
+    // float timeRatio = 0.3;
+    // float alphaRatio = 0.15;
+    // float scaleRatio = 0.2;
+    // float alphaYRatio =  0.025;
+    // float uNoiseStrength = 0.6;
 
 
 // ________________ CLASSIC NOISE __________________ //
-    float n = cnoise(vPosition * scaleRatio + uTime * timeRatio);
+    float n = cnoise(vPosition * uScaleRatio + uTime * uTimeRatio);
 
 // ________________ NOISE + STRENGHT__________________ //
     // float warp = cnoise(vPosition * 0.1 + uTime * 0.1);
     // vec3 displacedPos = vPosition + vec3(warp);
-    // float n = cnoise(displacedPos * 0.4 + uTime * timeRatio);
+    // float n = cnoise(displacedPos * 0.4 + uTime * uTimeRatio);
 
 
-    n = n * 0.5 + 0.5;
-    // float alpha = n * alphaRatio;
-    float baseAlpha = 0.05;
-    float alpha = baseAlpha + n * alphaRatio * vPosition.y * vPosition.y * 0.025;
+    n = n * uNoiseStrength + 0.5;
+    // float alpha = n * uAlphaRatio;
+    float baseAlpha = 0.0;
+    float alpha = baseAlpha + n * uAlphaRatio * vPosition.y * vPosition.y * uAlphaYRatio;
+    
 
+    // gl_FragColor = vec4(0.52, 0.49, 0.49, alpha);
+    gl_FragColor = vec4(uBaseColor, alpha);
 
-    gl_FragColor = vec4(0.52, 0.49, 0.49, alpha);
     // gl_FragColor.rgb += vec3(0, 1.0, 1.0) * glow * uGlowIntensity;
 
     #include <colorspace_fragment>

@@ -24,7 +24,7 @@ import Button from "../../Design/Button/Button";
 import Text from "../../Design/Text/Text";
 import vertexShaderFog from "../../../../shaders/fogStartScreen/vertex.glsl?raw";
 import fragmentShaderFog from "../../../../shaders/fogStartScreen/fragment.glsl?raw";
-
+import VolumetricFog from "../../../VFX/VolumetricFog";
 {
   /* ______________________ CANVAS __________________/ */
 }
@@ -250,7 +250,7 @@ function StartScreenContent({ buttonHoveredRef }) {
     <>
       {/* <Perf position="top-left" /> */}
       <Environment preset="night" />
-      {/* <OrbitControls args={[camera, gl.domElement]} /> */}
+      <OrbitControls args={[camera, gl.domElement]} />
       <directionalLight position={[1, 2, 3]} intensity={7} />
       <ambientLight intensity={0} />
       <Title />
@@ -266,7 +266,19 @@ function StartScreenContent({ buttonHoveredRef }) {
         </group>
       </Float>
       <PostProcessingStartScreen />
-      <StartScreenFog />
+
+      <VolumetricFog
+        rotation={[0, 0, 0]}
+        position={[0, -7.5, 0]}
+        scale={1}
+        boxSize={[30, 15, 8]}
+        timeRatio={0.3}
+        alphaRatio={0.15}
+        scaleRatio={0.2}
+        alphaYRatio={0.02}
+        noiseStrength={0.7}
+        color="#ddded3"
+      />
       <ParticlesShader
         size={{ x: 30, y: 15, z: 8 }}
         scale={5}
@@ -373,35 +385,3 @@ function ModelTextured({ buttonHoveredRef, ...props }) {
 }
 
 useGLTF.preload("/assets/3DModels/Molec/MolecEmissive.glb");
-
-{
-  /* ______________________ VOLUMETRIC FOG __________________/ */
-}
-
-function StartScreenFog() {
-  const materialRef = useRef();
-
-  useFrame((state) => {
-    materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-  });
-  return (
-    <mesh rotation={[0, 0, 0]} position={[0, -7.5, 0]} scale={1}>
-      {/* <planeGeometry args={[15, 15]} /> */}
-      <boxGeometry args={[30, 15, 8]} />
-      <shaderMaterial
-        ref={materialRef}
-        transparent
-        depthWrite={false}
-        uniforms={{
-          uTime: { value: 0 },
-          uMeshPosition: { value: new THREE.Vector3(0, -7.5, 1.5) },
-          uGlowRadius: { value: 7.0 },
-          uGlowIntensity: { value: 0.3 },
-        }}
-        vertexShader={vertexShaderFog}
-        fragmentShader={fragmentShaderFog}
-        blending={THREE.AdditiveBlending}
-      />
-    </mesh>
-  );
-}
