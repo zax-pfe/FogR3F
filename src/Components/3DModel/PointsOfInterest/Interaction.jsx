@@ -35,6 +35,10 @@ import { toVector3, faceTarget, saveCamera, moveCameraToObject, restoreCamera } 
     cameraOffset: new THREE.Vector3(0, 1.8, -2),
     targetOffset: new THREE.Vector3(0, 0.3, 0),
   },
+  peluche: {
+    cameraOffset: new THREE.Vector3(-1.5, 1.5,  -0.7),
+    targetOffset: new THREE.Vector3(-0.2, 0.5, 0.5),
+  },
 };
 
 export default function Interaction() {
@@ -78,6 +82,7 @@ export default function Interaction() {
   const brokenRobotPosition = useGameStore((state) => state.brokenRobotPosition);
   const tankPosition = useGameStore((state) => state.tankPosition);
   const swingPosition = useGameStore((state) => state.swingPosition);
+  const peluchePosition = useGameStore((state) => state.peluchePosition);
 
   //maped positions to names
   const objectPositions = useMemo(
@@ -89,6 +94,7 @@ export default function Interaction() {
       brokenRobot: brokenRobotPosition,
       tank: tankPosition,
       swing: swingPosition,
+      peluche: peluchePosition,
     }),
     [
       posterPosition,
@@ -98,6 +104,7 @@ export default function Interaction() {
       brokenRobotPosition,
       tankPosition,
       swingPosition,
+      peluchePosition,
     ]
   );
  
@@ -130,24 +137,24 @@ export default function Interaction() {
   function startInteraction(elementName) {
   const ctrl = controlsRef?.current;
 
-  // console.log("Attempting to start interaction with:", elementName);
+  console.log("Attempting to start interaction with:", elementName);
 
   if (!ctrl) return;
   if (!elementName) return;
   if (activeElementRef.current || currentDialogue) return;
 
-  // console.log("Starting interaction with:", elementName);
+  console.log("Starting interaction with:", elementName);
 
   const objectPosition = toVector3(objectPositions[elementName]);
-  // console.log("Object position for interaction:", objectPosition);
+  console.log("Object position for interaction:", objectPosition);
   const shot = CAMERA_SHOTS[elementName];
-  // console.log("Camera shot for interaction:", shot);
+  console.log("Camera shot for interaction:", shot);
  
   if (!objectPosition || !shot) return;
 
   setIsInteractionActive(true);
 
-  // console.log("Object position:", objectPosition);
+  console.log("Object position:", objectPosition);
 
   savedCameraRef.current = saveCamera(ctrl);
   activeElementRef.current = elementName;

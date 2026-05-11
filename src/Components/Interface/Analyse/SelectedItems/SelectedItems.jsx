@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "motion/react";
 import { c_AudioUI } from "../../../../constant/audio";
 import { useGameStore } from "../../../../store/store";
 import Button from "../../Design/Button/Button";
@@ -15,36 +16,42 @@ const SelectedItems = ({ refBox, analyse }) => {
 
   return (
     <div className={s.selectedItems}>
-      <CustomText variant="b1" className={s.selectedItems__title}>
-        Éléments sélectionnés
-      </CustomText>
       <div
         ref={refBox}
         className={`${s.selectedItems__box} ${selectedItems.length >= maxSelectedItems ? s.highlight : ""}`}
       >
-        {/* Les éléments sélectionnés seront affichés ici */}
-        {selectedItems.map((item, index) => (
-          <div
-            key={index}
-            style={{
-              top: "calc(50% + " + item.y * coefPos + "px)",
-              left: "calc(50% + " + item.x * coefPos + "px)",
-              "--animation-delay": `${index * 0.2}s`,
-            }}
-            className={`${s.selectedItems__point} ${hotspotCurrent === item ? s.active : ""}`}
-            onClick={() => {
-              setHotspotCurrent(item);
-              c_AudioUI.play("open");
-            }}
-            onMouseEnter={() => c_AudioUI.play("hover")}
-          ></div>
-        ))}
+        <AnimatePresence>
+          {/* Les éléments sélectionnés seront affichés ici */}
+          {selectedItems.map((item, index) => (
+            <motion.div
+              key={index}
+              style={{
+                top: "calc(50% + " + item.y * coefPos + "px)",
+                left: "calc(50% + " + item.x * coefPos + "px)",
+                "--animation-delay": `${index * 0.2}s`,
+              }}
+              className={`${s.selectedItems__point} ${hotspotCurrent === item ? s.active : ""}`}
+              onClick={() => {
+                setHotspotCurrent(item);
+                c_AudioUI.play("open");
+              }}
+              onMouseEnter={() => c_AudioUI.play("hover")}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            ></motion.div>
+          ))}
+        </AnimatePresence>
       </div>
       <div className={s.selectedItems__boxDecoration}></div>
+      <CustomText variant="b1" className={s.selectedItems__title}>
+        Éléments sélectionnés
+      </CustomText>
       <Button
         onClick={analyse}
         hovered={selectedItems.length >= maxSelectedItems}
         disabled={selectedItems.length < 1}
+        variant="s"
       >
         Analyser
       </Button>

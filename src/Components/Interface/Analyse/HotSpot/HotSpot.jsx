@@ -7,8 +7,14 @@ import gsap from "gsap";
 import { addScaleCorrector } from "motion";
 import { useGameStore } from "../../../../store/store";
 import { c_AudioUI, c_Click } from "../../../../constant/audio";
+import { AnimatePresence, motion } from "motion/react";
 
-const HotSpot = ({ data, coo, refBox }) => {
+const PopupVariants = {
+  enter: { opacity: 0, width: 0 },
+  visible: { opacity: 1, width: 676 },
+  exit: { opacity: 0, width: 676 },
+};
+const HotSpot = ({ data, coo, refBox, setHover }) => {
   // const { selectedItems, addSelectedItems, maxSelectedItems, removeSelectedItem, setHotspotCurrent, hotspotCurrent } = useGameStore();
   const selectedItems = useGameStore((state) => state.selectedItems);
   const addSelectedItems = useGameStore((state) => state.addSelectedItems);
@@ -19,12 +25,13 @@ const HotSpot = ({ data, coo, refBox }) => {
 
   // const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(false);
+  const [isPopupOnRight, setIsPopupOnRight] = useState(false);
 
   const safeArea = 24; // Zone de sécurité pour éviter que le pop-up ne sorte de l'écran
   const popUpWidth = 676; // Largeur estimée du pop-up
   const popUpHeight = 295; // Hauteur estimée du pop-up
 
-  const popUpX = useRef(coo.x - popUpWidth - safeArea); // Position par défaut à gauche du point
+  const popUpX = useRef(window.innerWidth - coo.x + safeArea); // Position par défaut à gauche du point
   const popUpY = useRef(coo.y - popUpHeight - safeArea); // Position par défaut au-dessus du point
 
   const ref_pointMove = useRef(null);
@@ -92,6 +99,8 @@ const HotSpot = ({ data, coo, refBox }) => {
     // Ajustement de la position du pop-up pour qu'il reste dans la fenêtre
     if (coo.x - popUpWidth - safeArea < 0) {
       popUpX.current = coo.x + safeArea; // Positionner à droite du point
+      setIsPopupOnRight(true);
+
     }
     if (coo.y - popUpHeight - safeArea < 0) {
       popUpY.current = coo.y + safeArea; // Positionner en dessous du point
@@ -104,52 +113,71 @@ const HotSpot = ({ data, coo, refBox }) => {
         <div
           className={`${s.point} ${iAmCurrentHotspot() ? s.open : ""} ${iAmSelected() ? s.active : ""}`}
           onClick={handleClickPoint}
-          onMouseEnter={() => c_AudioUI.play("hover")}
+          onMouseEnter={() => {
+            c_AudioUI.play("hover");
+            setHover(true);
+          }}
+          onMouseLeave={() => setHover(false)}
         ></div>
       </div>
-      {iAmCurrentHotspot() && (
-        <>
-          <div className={s.overlay} onClick={handleClose}></div>
-          <div className={`${s.popUp} ${iAmSelected() ? s.active : ""}`} style={{ left: popUpX.current, top: popUpY.current }}>
-            <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
-            <div className={s.popUp__img} style={{ backgroundImage: `url(${data.image})` }}></div>
-            <div className={s.popUp__content}>
-              <CustomText className={s.popUp__title} variant="b2">
-                {data.title}
-              </CustomText>
-              <CustomText variant="b3" className={s.popUp__text}>
-                {data.text}
-              </CustomText>
-              <div className={s.popUp__buttonContainer}>
-                {!iAmSelected() ? (
-                  <Button
-                    className={s.popUp__button}
-                    variant="xs"
-                    onClick={handleChoose}
-                    disabled={selectedItems.length >= maxSelectedItems}
-                  >
-                    Récolter cet élément
-                  </Button>
-                ) : (
-                  <Button
-                    className={s.popUp__button}
-                    variant="xs"
-                    onClick={handleRemove}
-                    active={true}
-                  >
-                    Retirer cet élément
-                  </Button>
-                )}
-                {!iAmSelected() && selectedItems.length >= maxSelectedItems && (
-                  <CustomText variant="c3" className={s.warning}>
-                    Nombre maximum d'éléments sélectionnés atteint.
+      <AnimatePresence>
+        {iAmCurrentHotspot() && (
+          <>
+            <div className={s.overlay} onClick={handleClose}></div>
+            <motion.div
+              className={`${s.popUp} ${iAmSelected() ? s.active : ""}`}
+              style={isPopupOnRight ? { left: popUpX.current, top: popUpY.current } : { right: popUpX.current, top: popUpY.current }}
+              initial="enter"
+              animate="visible"
+              exit="exit"
+              variants={PopupVariants}
+              transition={{
+                default: { duration: 0.3, ease: "easeInOut" },
+                opacity: { duration: 0.2, ease: "easeInOut" }
+              }}
+            >
+              <div className={s.popUp__container}>
+                <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
+                <div className={s.popUp__img} style={{ backgroundImage: `url(${data.image})` }}></div>
+                <div className={s.popUp__content}>
+                  <CustomText className={s.popUp__title} variant="b2">
+                    {data.title}
                   </CustomText>
-                )}
+                  <CustomText variant="b3" className={s.popUp__text}>
+                    {data.text}
+                  </CustomText>
+                  <div className={s.popUp__buttonContainer}>
+                    {!iAmSelected() ? (
+                      <Button
+                        className={s.popUp__button}
+                        variant="xs"
+                        onClick={handleChoose}
+                        disabled={selectedItems.length >= maxSelectedItems}
+                      >
+                        Récolter cet élément
+                      </Button>
+                    ) : (
+                      <Button
+                        className={s.popUp__button}
+                        variant="xs"
+                        onClick={handleRemove}
+                        active={true}
+                      >
+                        Retirer cet élément
+                      </Button>
+                    )}
+                    {!iAmSelected() && selectedItems.length >= maxSelectedItems && (
+                      <CustomText variant="c3" className={s.warning}>
+                        Nombre maximum d'éléments sélectionnés atteint.
+                      </CustomText>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </>
-      )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
       {selected && (
         <div
           ref={ref_pointMove}
