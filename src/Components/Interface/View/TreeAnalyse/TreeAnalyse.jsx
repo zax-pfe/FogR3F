@@ -27,6 +27,7 @@ const TreeAnalyse = () => {
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
   const [infoVisible, setInfoVisible] = useState(true);
   const [result, setResult] = useState(false);
+  const [hoverHotSpot, setHoverHotSpot] = useState(false);
 
   const infoOpen = () => {
     setInfoVisible(true);
@@ -105,6 +106,7 @@ const TreeAnalyse = () => {
             data={spot}
             coo={{ x: origin.x + coo_Ratio(spot.x), y: origin.y + coo_Ratio(spot.y) }}
             refBox={ref__selectedBox}
+            setHover={setHoverHotSpot}
           />
         ))}
         {/* Interface d'analyse */}
@@ -118,35 +120,50 @@ const TreeAnalyse = () => {
             Informations
           </button>
         </div>
-        <Button
-          className={s.treeAnalyse__closeBtn}
-          onClick={() => {
-            c_AudioUI.play("remove");
-            setTransitionView("game");
-          }}
-        >
-          Eteindre
-        </Button>
+        <div className={s.treeAnalyse__closeBtnWrapper}>
+          <button
+            className={s.treeAnalyse__closeBtn}
+            onClick={() => {
+              c_AudioUI.play("remove");
+              setTransitionView("game");
+            }}
+          >
+            <img className={s.treeAnalyse__closeBtn__icon} src="/assets/icons/MIL_power.svg" alt="éteindre la machine" />
+          </button>
+          <span>On</span>
+        </div>
         <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
         {infoVisible && (
           <Popup title="Consignes de recherche" closePopup={infoClose} className={s.popUp} classNameBg={s.popUpBg}>
-            <div className={s.popUp__content}>
-              <CustomText>
-                Analysez la souche afin de trouver les informations qu’elle tente de vous transmettre.
-              </CustomText>
-              <div className={s.popUp__divider}></div>
-              <CustomText>
-                Sélectionnez 4 indices qui vous paraissent essentiels pour la suite de l’histoire.
-              </CustomText>
-              <div className={s.popUp__divider}></div>
-              <CustomText>
-                Lancez l’analyse. Si les 4 bons indices n’ont pas été sélectionnés, vous devrez recommencer.
-              </CustomText>
+            <div className={s.popUp__Wrapper}>
+              <ul className={s.popUp__content}>
+                <li className={s.popUp__contentItem}>
+                  <span className={s.popUp__contentItemNumber}>01</span>
+                  <CustomText className={s.popUp__contentItemTexte}>
+                    Analysez la souche afin de trouver les informations qu’elle tente de vous transmettre.
+                  </CustomText>
+                </li>
+                <li className={s.popUp__contentItem}>
+                  <span className={s.popUp__contentItemNumber}>02</span>
+                  <CustomText className={s.popUp__contentItemTexte}>
+                    Sélectionnez <span className={s.popUp__contentItemTexteHighlight}>4 indices</span> qui vous paraissent essentiels pour la suite de l’histoire.
+                  </CustomText>
+                </li>
+                <li className={s.popUp__contentItem}>
+                  <span className={s.popUp__contentItemNumber}>03</span>
+                  <CustomText className={s.popUp__contentItemTexte}>
+                    Lancez l’analyse. Si les 4 bons indices n’ont pas été sélectionnés, vous devrez recommencer.
+                  </CustomText>
+                </li>
+              </ul>
+              <Button className={s.popUp__button} onClick={infoClose}>
+                Commencer
+              </Button>
             </div>
           </Popup>
         )}
         {result && <Result type={result} closeResult={closeResult} />}
-        <div className={s.pointer} style={{ top: pointer.y, left: pointer.x }}></div>
+        <div className={`${s.pointer} ${hoverHotSpot ? s.hover : ""}`} style={{ top: pointer.y, left: pointer.x }}></div>
       </div>
     )
   );

@@ -14,7 +14,7 @@ const PopupVariants = {
   visible: { opacity: 1, width: 676 },
   exit: { opacity: 0, width: 676 },
 };
-const HotSpot = ({ data, coo, refBox }) => {
+const HotSpot = ({ data, coo, refBox, setHover }) => {
   // const { selectedItems, addSelectedItems, maxSelectedItems, removeSelectedItem, setHotspotCurrent, hotspotCurrent } = useGameStore();
   const selectedItems = useGameStore((state) => state.selectedItems);
   const addSelectedItems = useGameStore((state) => state.addSelectedItems);
@@ -113,7 +113,11 @@ const HotSpot = ({ data, coo, refBox }) => {
         <div
           className={`${s.point} ${iAmCurrentHotspot() ? s.open : ""} ${iAmSelected() ? s.active : ""}`}
           onClick={handleClickPoint}
-          onMouseEnter={() => c_AudioUI.play("hover")}
+          onMouseEnter={() => {
+            c_AudioUI.play("hover");
+            setHover(true);
+          }}
+          onMouseLeave={() => setHover(false)}
         ></div>
       </div>
       <AnimatePresence>

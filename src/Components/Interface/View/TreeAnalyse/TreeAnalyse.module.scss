@@ -6,15 +6,59 @@
 	height: 100%;
 	z-index: 20;
 	overflow: hidden;
-    background: url("/assets/images/MIL_Background2D.webp") no-repeat center center;
-    background-size: cover;
+	background: url("/assets/images/MIL_Background2D.webp") no-repeat center
+		center;
+	background-size: cover;
 	cursor: none;
 	--margin: 48px;
 
-	&__closeBtn {
+	&__closeBtnWrapper {
 		position: absolute !important;
 		top: var(--margin);
 		right: var(--margin);
+
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		gap: 10px;
+		text-align: center;
+		color: var(--color--white);
+
+		span {
+			font-family: var(--font--primary);
+			font-size: 0.625rem;
+			line-height: 0.75rem;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+	}
+
+	&__closeBtn {
+		
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		width: 42px;
+		height: 42px;
+		padding: 8px;
+
+		color: var(--color--white);
+		background: var(--color--gray-high);
+		border: 1px solid var(--color--gray-mid);
+		transition: 0.2s var(--easing);
+		border-radius: 42px;
+
+		&:hover {
+			background: var(--color--gray-mid);
+			border: 1px solid var(--color--gray-low);
+		}
+
+		&__icon {
+			width: 24px;
+			height: 24px;
+			object-fit: cover;
+		}
 	}
 
 	&__topWrapper {
@@ -39,7 +83,7 @@
 		width: 100%;
 		height: 2px;
 		background-color: var(--color--white);
-		box-shadow: 0 4px 20.9px rgba(255, 255, 255, 0.60);
+		box-shadow: 0 4px 20.9px rgba(255, 255, 255, 0.6);
 	}
 	&__infoBtn {
 		color: white;
@@ -58,7 +102,8 @@
 			height: 1em;
 			background: currentColor;
 			mask: url("/assets/icons/MIL_info.svg") no-repeat center center;
-			--webkit-mask: url("/assets/icons/MIL_info.svg") no-repeat center center;
+			--webkit-mask: url("/assets/icons/MIL_info.svg") no-repeat center
+				center;
 			mask-size: cover;
 			-webkit-mask-size: cover;
 		}
@@ -84,12 +129,47 @@
 .popUp {
 	z-index: 20 !important;
 
-	&__content {
+	&__Wrapper {
+		margin-top: 8px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		gap: 16px;
+		gap: 38px;
+	}
+
+	&__content {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 12px;
+		list-style: none;
+
+		&Item {
+			border: 1px solid var(--color--gray-mid);
+			text-align: left;
+			padding: 32px 22px;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 24px;
+
+			&Number {
+				font-size: 3rem;
+				color: var(--color--gray-mid);
+				font-weight: 300;
+				line-height: 2rem;
+			}
+
+			&Texte {
+				font-size: 1.375rem;
+				line-height: 120%;
+
+				&Highlight {
+					color: var(--color--white);
+					font-family: var(--font--tertiary);
+					font-weight: 600;
+				}
+			}
+		}
 	}
 
 	&__divider {
@@ -104,9 +184,41 @@
 	position: fixed;
 	width: 42px;
 	height: 42px;
-	background: url("/assets/icons/tools/MIL_Loupe.svg") no-repeat center center;
-	background-size: contain;
+	background: url("/assets/icons/MIL_Loupe_S1T.svg") no-repeat center top,
+		url("/assets/icons/MIL_Loupe_S1R.svg") no-repeat right center,
+		url("/assets/icons/MIL_Loupe_S1B.svg") no-repeat center bottom,
+		url("/assets/icons/MIL_Loupe_S1L.svg") no-repeat left center;
+	background-size: 5px 12px, 12px 5px, 5px 12px, 12px 5px;
 	transform: translate(-50%, -50%);
 	pointer-events: none;
+	transition: width 0.2s ease, height 0.2s ease;
 	z-index: 30;
+
+	&::after {
+		content: "";
+		width: 70%;
+		height: 70%;
+		background: url("/assets/icons/MIL_Loupe_S2T.svg") no-repeat right top,
+			url("/assets/icons/MIL_Loupe_S2R.svg") no-repeat right bottom,
+			url("/assets/icons/MIL_Loupe_S2B.svg") no-repeat left bottom,
+			url("/assets/icons/MIL_Loupe_S2L.svg") no-repeat left top;
+		background-size: 9px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		transition: width 0.3s ease, height 0.3s ease;
+	}
+
+	&.hover {
+		width: 64px;
+		height: 64px;
+		background-size: 8px 15px, 15px 8px, 8px 15px, 15px 8px;
+
+		&::after {
+			width: 90%;
+			height: 90%;
+			background-size: 12px;
+		}
+	}
 }
