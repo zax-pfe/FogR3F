@@ -45,10 +45,10 @@ export const c_Dialogue = [
 
 export const c_Mix = {
   dialogue: 1.0,
-  ambiance: 0.15,
+  ambiance: 0.1,
   interface: 0.8,
   music: 0.7,
-  game: 0.3,
+  game: 0.15,
 };
 
 export const c_AudioUI = new Howl({

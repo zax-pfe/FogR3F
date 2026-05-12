@@ -1,5 +1,5 @@
 import * as THREE from "three";
- 
+
 export function toVector3(pos) {
   if (!pos) return null;
 
@@ -9,20 +9,16 @@ export function toVector3(pos) {
     return new THREE.Vector3(pos[0], pos[1], pos[2]);
   }
 
-  if (
-    typeof pos.x === "number" &&
-    typeof pos.y === "number" &&
-    typeof pos.z === "number"
-  ) {
+  if (typeof pos.x === "number" && typeof pos.y === "number" && typeof pos.z === "number") {
     return new THREE.Vector3(pos.x, pos.y, pos.z);
   }
 
   return null;
 }
- 
+
 // rotate player to face target (XZ only)
 export function faceTarget(playerRef, playerPos, targetPos) {
-    console.log("Facing target. Player position:", playerPos, "Target position:", targetPos);
+  // console.log("Facing target. Player position:", playerPos, "Target position:", targetPos);
   const playerVec = toVector3(playerPos);
   const targetVec = toVector3(targetPos);
 

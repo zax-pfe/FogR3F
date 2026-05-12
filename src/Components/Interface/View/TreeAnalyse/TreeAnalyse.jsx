@@ -31,13 +31,13 @@ const TreeAnalyse = () => {
 
   const infoOpen = () => {
     setInfoVisible(true);
-    c_AudioUI.play('open');
-  }
+    c_AudioUI.play("open");
+  };
 
   const infoClose = () => {
     setInfoVisible(false);
-    c_AudioUI.play('close');
-  }
+    c_AudioUI.play("close");
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "t" || e.key === "escape") {
@@ -70,17 +70,17 @@ const TreeAnalyse = () => {
 
   const startAnalyse = () => {
     if (selectedItems.length > 0) {
-      console.log(selectedItems);
-      console.log(`Nombre d'infos à trouver : ${c_Arbre_HotSpots_MustFind}`);
+      // console.log(selectedItems);
+      // console.log(`Nombre d'infos à trouver : ${c_Arbre_HotSpots_MustFind}`);
       const foundCount = selectedItems.filter((item) => item.mustBeFound).length;
-      console.log(`Nombre d'infos trouvées : ${foundCount}`);
+      // console.log(`Nombre d'infos trouvées : ${foundCount}`);
 
       if (foundCount >= c_Arbre_HotSpots_MustFind) {
-        setResult('success');
-        c_AudioUI.play('open');
+        setResult("success");
+        c_AudioUI.play("open");
       } else {
-        setResult('error');
-        c_AudioUI.play('open');
+        setResult("error");
+        c_AudioUI.play("open");
         // resetSelectedItems();
       }
     } else {
@@ -92,8 +92,8 @@ const TreeAnalyse = () => {
 
   const closeResult = () => {
     setResult(false);
-    c_AudioUI.play('close');
-  }
+    c_AudioUI.play("close");
+  };
 
   return (
     currentScreen === "analyse" && (
@@ -128,13 +128,22 @@ const TreeAnalyse = () => {
               setTransitionView("game");
             }}
           >
-            <img className={s.treeAnalyse__closeBtn__icon} src="/assets/icons/MIL_power.svg" alt="éteindre la machine" />
+            <img
+              className={s.treeAnalyse__closeBtn__icon}
+              src="/assets/icons/MIL_power.svg"
+              alt="éteindre la machine"
+            />
           </button>
           <span>On</span>
         </div>
         <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
         {infoVisible && (
-          <Popup title="Consignes de recherche" closePopup={infoClose} className={s.popUp} classNameBg={s.popUpBg}>
+          <Popup
+            title="Consignes de recherche"
+            closePopup={infoClose}
+            className={s.popUp}
+            classNameBg={s.popUpBg}
+          >
             <div className={s.popUp__Wrapper}>
               <ul className={s.popUp__content}>
                 <li className={s.popUp__contentItem}>
@@ -146,13 +155,16 @@ const TreeAnalyse = () => {
                 <li className={s.popUp__contentItem}>
                   <span className={s.popUp__contentItemNumber}>02</span>
                   <CustomText className={s.popUp__contentItemTexte}>
-                    Sélectionner <span className={s.popUp__contentItemTexteHighlight}>4 indices</span> qui paraissent essentiels pour compléter l’histoire du lieu.
+                    Sélectionner{" "}
+                    <span className={s.popUp__contentItemTexteHighlight}>4 indices</span> qui
+                    paraissent essentiels pour compléter l’histoire du lieu.
                   </CustomText>
                 </li>
                 <li className={s.popUp__contentItem}>
                   <span className={s.popUp__contentItemNumber}>03</span>
                   <CustomText className={s.popUp__contentItemTexte}>
-                    Lancer l’analyse. Si les les indices sélectionnés ne sont pas les bons, recommencer.
+                    Lancer l’analyse. Si les les indices sélectionnés ne sont pas les bons,
+                    recommencer.
                   </CustomText>
                 </li>
               </ul>
@@ -163,7 +175,10 @@ const TreeAnalyse = () => {
           </Popup>
         )}
         {result && <Result type={result} closeResult={closeResult} />}
-        <div className={`${s.pointer} ${hoverHotSpot ? s.hover : ""}`} style={{ top: pointer.y, left: pointer.x }}></div>
+        <div
+          className={`${s.pointer} ${hoverHotSpot ? s.hover : ""}`}
+          style={{ top: pointer.y, left: pointer.x }}
+        ></div>
       </div>
     )
   );

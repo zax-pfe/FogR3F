@@ -12,33 +12,43 @@ extend({ InstancedMesh2 });
 import { useGameStore } from "../../store/store.js";
 
 export default function Smoke() {
-  const {
-    // speedGeneration,
-    lifeTime,
-    speed,
-    offsetX,
-    offsetY,
-    offsetZ,
-    particlesColor,
-    opacity,
-    sizeX,
-    sizeY,
-  } = useControls(
-    "Smoke",
-    {
-      // speedGeneration: { value: 5, min: 0.01, max: 5, step: 0.01 },
-      lifeTime: { value: 0.7, min: 0.1, max: 5, step: 0.1 },
-      speed: { value: 0.08, min: 0.01, max: 2, step: 0.01 },
-      offsetX: { value: 0.2, min: 0, max: 10, step: 0.1 },
-      offsetY: { value: 0.2, min: 0, max: 10, step: 0.1 },
-      offsetZ: { value: 0.5, min: 0, max: 10, step: 0.1 },
-      particlesColor: "#597079",
-      opacity: { value: 0.8, min: 0, max: 1, step: 0.01 },
-      sizeX: { value: 0.4, min: 0.01, max: 1, step: 0.01 },
-      sizeY: { value: 0.4, min: 0.01, max: 1, step: 0.01 },
-    },
-    { collapsed: true },
-  );
+  // const {
+  //   // speedGeneration,
+  //   lifeTime,
+  //   speed,
+  //   offsetX,
+  //   offsetY,
+  //   offsetZ,
+  //   particlesColor,
+  //   opacity,
+  //   sizeX,
+  //   sizeY,
+  // } = useControls(
+  //   "Smoke",
+  //   {
+  //     // speedGeneration: { value: 5, min: 0.01, max: 5, step: 0.01 },
+  //     lifeTime: { value: 0.7, min: 0.1, max: 5, step: 0.1 },
+  //     speed: { value: 0.08, min: 0.01, max: 2, step: 0.01 },
+  //     offsetX: { value: 0.2, min: 0, max: 10, step: 0.1 },
+  //     offsetY: { value: 0.2, min: 0, max: 10, step: 0.1 },
+  //     offsetZ: { value: 0.5, min: 0, max: 10, step: 0.1 },
+  //     particlesColor: "#597079",
+  //     opacity: { value: 0.8, min: 0, max: 1, step: 0.01 },
+  //     sizeX: { value: 0.4, min: 0.01, max: 1, step: 0.01 },
+  //     sizeY: { value: 0.4, min: 0.01, max: 1, step: 0.01 },
+  //   },
+  //   { collapsed: true },
+  // );
+
+  const lifeTime = 0.7;
+  const speed = 0.08;
+  const offsetX = 0.2;
+  const offsetY = 0.2;
+  const offsetZ = 0.5;
+  const particlesColor = "#597079";
+  const opacity = 0.8;
+  const sizeX = 0.4;
+  const sizeY = 0.4;
 
   const ref = useRef(null);
 

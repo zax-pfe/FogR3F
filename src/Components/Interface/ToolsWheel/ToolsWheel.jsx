@@ -27,7 +27,8 @@ const ToolsWheel = () => {
   const [, forceUpdate] = useState(0);
   const isArrived = useRef(0);
   const animationRef = useRef();
-  const { setCurrentTool, toolOpen, setToolOpen, setSmthgIsHovered, smthgIsHovered } = useGameStore();
+  const { setCurrentTool, toolOpen, setToolOpen, setSmthgIsHovered, smthgIsHovered } =
+    useGameStore();
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
 
   const generateCirclePoints = (number, baseAngle = 0) => {
@@ -139,12 +140,12 @@ const ToolsWheel = () => {
     let newTool = currentToolId;
 
     if (delta > 0) {
-      console.log("Scroll down");
+      // console.log("Scroll down");
       newTool = currentToolId - 1 < 0 ? tools.current.length - 1 : currentToolId - 1;
       // console.log("New tool index:", newTool);
       changeTool(newTool);
     } else if (delta < 0) {
-      console.log("Scroll up");
+      // console.log("Scroll up");
       newTool = currentToolId + 1 >= tools.current.length ? 0 : currentToolId + 1;
       // console.log("New tool index:", newTool);
       changeTool(newTool);
@@ -196,7 +197,7 @@ const ToolsWheel = () => {
     <>
       {toolOpen && (
         <div
-          className={`${s.pointer} ${smthgIsHovered === 'interactable' ? s.active : ""}`}
+          className={`${s.pointer} ${smthgIsHovered === "interactable" ? s.active : ""}`}
           style={{
             top: pointer.y + 18,
             left: pointer.x + 18,

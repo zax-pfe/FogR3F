@@ -49,7 +49,7 @@ export default function CharacterController() {
 
   // sounds const
   const timeTracker = useRef(0);
-  const walkSoundFrequency = 0.8;
+  const walkSoundFrequency = 0.9;
   const runSoundFrequency = 0.6;
 
   // const { setPlayerPosition, setPlayerAnimation, playerAnimation, controlsRef, currentDialogue } =
@@ -90,10 +90,13 @@ export default function CharacterController() {
   const [, get] = useKeyboardControls(); // Get input controls
 
   // ______________________ LEVA CONTROLS __________________/
-  const { WALK_SPEED, CAMERA_LOCK } = useControls("Character Test Controls", {
-    WALK_SPEED: { value: 1.5, min: 0, max: 20, step: 0.1 },
-    CAMERA_LOCK: true,
-  });
+  // const { WALK_SPEED, CAMERA_LOCK } = useControls("Character Test Controls", {
+  //   WALK_SPEED: { value: 1.5, min: 0, max: 20, step: 0.1 },
+  //   CAMERA_LOCK: true,
+  // });
+
+  const WALK_SPEED = 1.5;
+  const CAMERA_LOCK = true;
 
   // ______________________ FRAME UPDATE __________________/
 

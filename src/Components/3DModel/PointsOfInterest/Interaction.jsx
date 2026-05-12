@@ -3,10 +3,16 @@ import { useGameStore } from "../../../store/store.js";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
-import { toVector3, faceTarget, saveCamera, moveCameraToObject, restoreCamera } from "../../../utils/useInteractionCamera.js";
+import {
+  toVector3,
+  faceTarget,
+  saveCamera,
+  moveCameraToObject,
+  restoreCamera,
+} from "../../../utils/useInteractionCamera.js";
 
-  //offsets for camera position and target for each object
-  const CAMERA_SHOTS  = {
+//offsets for camera position and target for each object
+const CAMERA_SHOTS = {
   poster: {
     cameraOffset: new THREE.Vector3(0, 1.2, -2.2),
     targetOffset: new THREE.Vector3(0, 0.2, 0),
@@ -36,17 +42,17 @@ import { toVector3, faceTarget, saveCamera, moveCameraToObject, restoreCamera } 
     targetOffset: new THREE.Vector3(0, 0.3, 0),
   },
   peluche: {
-    cameraOffset: new THREE.Vector3(-1.5, 1.5,  -0.7),
+    cameraOffset: new THREE.Vector3(-1.5, 1.5, -0.7),
     targetOffset: new THREE.Vector3(-0.2, 0.5, 0.5),
   },
 };
 
 export default function Interaction() {
-  const interact = useKeyboardControls((state) => state.interact);// letterr A to interact
-  const cancelInteraction = useKeyboardControls( (state) => state.cancelInteraction );//letter X to cancel interaction
+  const interact = useKeyboardControls((state) => state.interact); // letterr A to interact
+  const cancelInteraction = useKeyboardControls((state) => state.cancelInteraction); //letter X to cancel interaction
 
   //interactions started - to prevent the same start multiple times
-  const wasInteractPressedRef = useRef(false); 
+  const wasInteractPressedRef = useRef(false);
   //which element we are currently interacting with
   const activeElementRef = useRef(null);
   //old camera position and target before interaction
@@ -57,7 +63,7 @@ export default function Interaction() {
   const wasCancelPressedRef = useRef(false);
 
   //element we pressed interact on
-  const elementContacted = useGameStore((state) => state.elementContacted); 
+  const elementContacted = useGameStore((state) => state.elementContacted);
   const setIsInteractionActive = useGameStore((state) => state.setIsInteractionActive);
 
   //Audio and dialogues
@@ -105,9 +111,8 @@ export default function Interaction() {
       tankPosition,
       swingPosition,
       peluchePosition,
-    ]
+    ],
   );
- 
 
   function clearPosterTimeout() {
     if (!posterTimeoutRef.current) return;
@@ -135,46 +140,46 @@ export default function Interaction() {
   }
 
   function startInteraction(elementName) {
-  const ctrl = controlsRef?.current;
+    const ctrl = controlsRef?.current;
 
-  console.log("Attempting to start interaction with:", elementName);
+    // console.log("Attempting to start interaction with:", elementName);
 
-  if (!ctrl) return;
-  if (!elementName) return;
-  if (activeElementRef.current || currentDialogue) return;
+    if (!ctrl) return;
+    if (!elementName) return;
+    if (activeElementRef.current || currentDialogue) return;
 
-  console.log("Starting interaction with:", elementName);
+    // console.log("Starting interaction with:", elementName);
 
-  const objectPosition = toVector3(objectPositions[elementName]);
-  console.log("Object position for interaction:", objectPosition);
-  const shot = CAMERA_SHOTS[elementName];
-  console.log("Camera shot for interaction:", shot);
- 
-  if (!objectPosition || !shot) return;
+    const objectPosition = toVector3(objectPositions[elementName]);
+    // console.log("Object position for interaction:", objectPosition);
+    const shot = CAMERA_SHOTS[elementName];
+    // console.log("Camera shot for interaction:", shot);
 
-  setIsInteractionActive(true);
+    if (!objectPosition || !shot) return;
 
-  console.log("Object position:", objectPosition);
+    setIsInteractionActive(true);
 
-  savedCameraRef.current = saveCamera(ctrl);
-  activeElementRef.current = elementName;
+    // console.log("Object position:", objectPosition);
 
-  setCameraOverride(true);
-  setPlayerAnimation("interaction");
+    savedCameraRef.current = saveCamera(ctrl);
+    activeElementRef.current = elementName;
 
-  faceTarget(playerRef, playerPosition, objectPosition);
-  moveCameraToObject(ctrl, objectPosition, shot);
+    setCameraOverride(true);
+    setPlayerAnimation("interaction");
 
-  if (elementName === "poster") {
-    posterTimeoutRef.current = setTimeout(() => {
-      stopInteraction();
-    }, 4000);
+    faceTarget(playerRef, playerPosition, objectPosition);
+    moveCameraToObject(ctrl, objectPosition, shot);
 
-    return;
+    if (elementName === "poster") {
+      posterTimeoutRef.current = setTimeout(() => {
+        stopInteraction();
+      }, 4000);
+
+      return;
+    }
+
+    setCurrentDialogue(elementName);
   }
-
-  setCurrentDialogue(elementName);
-}
 
   useEffect(() => {
     const justPressed = interact && !wasInteractPressedRef.current;
@@ -186,7 +191,7 @@ export default function Interaction() {
     startInteraction(elementContacted);
   }, [interact, elementContacted]);
 
-  //stop interaction automatically if dialogue ends 
+  //stop interaction automatically if dialogue ends
   useEffect(() => {
     if (!activeElementRef.current) return;
     if (activeElementRef.current === "poster") return;
@@ -195,7 +200,6 @@ export default function Interaction() {
     stopInteraction();
   }, [currentDialogue]);
 
-  
   //forget the timepout when we unmount the component
   useEffect(() => {
     return () => {
@@ -203,14 +207,14 @@ export default function Interaction() {
     };
   }, []);
 
- useEffect(() => {
-  const justPressed = cancelInteraction && !wasCancelPressedRef.current;
-  wasCancelPressedRef.current = cancelInteraction;
+  useEffect(() => {
+    const justPressed = cancelInteraction && !wasCancelPressedRef.current;
+    wasCancelPressedRef.current = cancelInteraction;
 
-  if (!justPressed) return;
+    if (!justPressed) return;
 
-  stopInteraction();
-}, [cancelInteraction]);
+    stopInteraction();
+  }, [cancelInteraction]);
 
   return null;
 }
