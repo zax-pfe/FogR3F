@@ -161,13 +161,14 @@ function InterfaceOverlay({ onHover }) {
 
   return (
     <div className={s.startScreen__interface}>
-      <div
+      <button
         className={s.startScreen__button}
         onMouseEnter={() => onHover("play")}
         onMouseLeave={() => onHover("none")}
+        onClick={handlePlayClick}
       >
-        <Button onClick={handlePlayClick}>Continuer</Button>
-      </div>
+        Continuer
+      </button>
       {/* <div className={s.startScreen__button} onMouseEnter={() => onHover("credit")} onMouseLeave={() => onHover("none")}>
         <Button>Credit</Button>
       </div> */}
