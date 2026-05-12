@@ -5,7 +5,7 @@ import { useGameStore } from "../../../../store/store";
 import { useProgress } from "@react-three/drei";
 import Button from "../../Design/Button/Button";
 import { Sparkles } from "@react-three/drei"; 
-import CustomText from "../../Design/Text/Text";
+import CustomText from "../../Design/Text/Text"; 
 
 const LoadingScreen = ({ showButton }) => {
   const { progress, loaded, total } = useProgress();
@@ -88,6 +88,7 @@ const LoadingScreen = ({ showButton }) => {
           Pour une meilleure expérience, nous vous recommandons d’utiliser un casque audio.
         </CustomText>
       </div>
+ 
     </div>
   );
 };
