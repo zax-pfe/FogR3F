@@ -22,7 +22,7 @@ const SubtitleManager = () => {
 
   const handleDebugKeyDown = (e) => {
     if (e.key === "s") {
-      console.log("Debug: Setting current audio to forest ambience");
+      // console.log("Debug: Setting current audio to forest ambience");
       setCurrentDialogue(c_Dialogue[0].index);
     }
   };
@@ -32,7 +32,7 @@ const SubtitleManager = () => {
       const sub = await Promise.all(
         c_Dialogue.map(async (dialogue) => {
           const captions = await convertSRT(dialogue.srcSubtitle);
-          console.log(`Subtitles for ${dialogue.index} loaded:`, captions);
+          // console.log(`Subtitles for ${dialogue.index} loaded:`, captions);
           return {
             index: dialogue.index,
             srcSubtitle: dialogue.srcSubtitle,
@@ -54,11 +54,11 @@ const SubtitleManager = () => {
   // }, []);
 
   useEffect(() => {
-    console.log("Who speaks: ", whoSpeaks);
+    // console.log("Who speaks: ", whoSpeaks);
   }, [whoSpeaks]);
 
   useEffect(() => {
-    console.log("Current audio changed in SubtitleManager: ", currentDialogue);
+    // console.log("Current audio changed in SubtitleManager: ", currentDialogue);
   }, [currentDialogue]);
 
   return (

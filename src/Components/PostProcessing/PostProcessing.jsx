@@ -11,15 +11,15 @@ import { useControls } from "leva";
 import { ToneMappingMode, BlendFunction } from "postprocessing";
 
 export default function PostProcessing() {
-  const controlDepthOfField = useControls(
-    "DepthOfField",
-    {
-      focusDistance: { value: 0.025, min: 0, max: 1, step: 0.001 },
-      focusLength: { value: 0.025, min: 0, max: 1, step: 0.001 },
-      bokehScale: { value: 0.2, min: 0, max: 10, step: 0.1 },
-    },
-    { collapsed: true },
-  );
+  // const controlDepthOfField = useControls(
+  //   "DepthOfField",
+  //   {
+  //     focusDistance: { value: 0.025, min: 0, max: 1, step: 0.001 },
+  //     focusLength: { value: 0.025, min: 0, max: 1, step: 0.001 },
+  //     bokehScale: { value: 0.2, min: 0, max: 10, step: 0.1 },
+  //   },
+  //   { collapsed: true },
+  // );
   return (
     <>
       <EffectComposer multisampling={0}>

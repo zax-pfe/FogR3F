@@ -95,7 +95,7 @@ export async function preloadMediaAssets(onProgress) {
     ...mediaAssets.files.map((src) => () => loadFile(src)),
   ];
 
-  console.log("Total media assets to load:", tasks.length);
+  // console.log("Total media assets to load:", tasks.length);
 
   const total = tasks.length;
 
@@ -125,6 +125,6 @@ export async function preloadMediaAssets(onProgress) {
       finished: loaded === total,
     });
 
-    console.log(`Loaded: ${result.src} (${result.status}) - ${loaded}/${total}`);
+    // console.log(`Loaded: ${result.src} (${result.status}) - ${loaded}/${total}`);
   }
 }

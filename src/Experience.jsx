@@ -56,12 +56,19 @@ export default function Experience() {
   }, [setControlsRef]);
 
   // ______________________ LEVA CONTROLS __________________/
-  const controlFog = useControls("Fog", {
-    near: { value: -15, min: -15, max: 150, step: 0.1 },
-    far: { value: 61, min: 1, max: 150, step: 0.1 },
-    color: "#49636d", // "#4c5559"
-    scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
-  });
+  // const controlFog = useControls("Fog", {
+  //   near: { value: -15, min: -15, max: 150, step: 0.1 },
+  //   far: { value: 61, min: 1, max: 150, step: 0.1 },
+  //   color: "#49636d", // "#4c5559"
+  //   scaleModel: { value: 2, min: 1, max: 15, step: 0.1 },
+  // });
+
+  const controlFog = {
+    near: -15,
+    far: 61,
+    color: "#49636d",
+    scaleModel: 2,
+  };
 
   // const characterControls = useControls("Character", {
   //   scale: { value: 0.6, min: 0.1, max: 10, step: 0.1 },
@@ -70,9 +77,11 @@ export default function Experience() {
   //   z: { value: 20, min: -50, max: 50, step: 0.1 },
   // });
 
-  const { CAMERA_LOCK } = useControls("camera lock ", {
-    CAMERA_LOCK: true,
-  });
+  // const { CAMERA_LOCK } = useControls("camera lock ", {
+  //   CAMERA_LOCK: true,
+  // });
+
+  const CAMERA_LOCK = true;
 
   return (
     <>

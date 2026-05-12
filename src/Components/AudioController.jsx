@@ -59,13 +59,10 @@ const AudioController = () => {
 
   useEffect(() => {
     if (currentScreen === "menu") {
-
       musicRef.current.play();
       musicRef.current.fade(0, c_Mix.music, 2000);
       musicVintageRef.current.play();
-
     } else if (currentScreen === "game") {
-
       ambianceGameRef.current.play();
       ambianceGameRef.current.fade(0, c_Mix.ambiance, 2000);
 
@@ -74,9 +71,7 @@ const AudioController = () => {
         musicRef.current.fade(0, c_Mix.music, 2000);
         setMusicFading(false);
       }
-
     } else if (currentScreen === "memory") {
-
       musicRef.current.stop();
       ambianceGameRef.current.stop();
 
@@ -84,12 +79,11 @@ const AudioController = () => {
       setTimeout(() => {
         musicVintageRef.current.stop();
       }, 200);
-
     } else if (currentScreen === "analyse") {
-      console.log("Fading out ambiance...");
+      // console.log("Fading out ambiance...");
       ambianceGameRef.current.fade(c_Mix.ambiance, 0, 200);
       setTimeout(() => {
-        console.log("Stopping ambiance...");
+        // console.log("Stopping ambiance...");
         ambianceGameRef.current.stop();
       }, 200);
 
@@ -100,7 +94,7 @@ const AudioController = () => {
   }, [currentScreen]);
 
   useEffect(() => {
-    console.log("Dialogue in AudioController: ", dialogues);
+    // console.log("Dialogue in AudioController: ", dialogues);
   }, [dialogues]);
 
   useEffect(() => {

@@ -61,14 +61,14 @@ const HotSpot = ({ data, coo, refBox, setHover }) => {
       return;
     }
     c_AudioUI.play("click");
-    console.log(`Element récolté : ${data.title}`);
+    // console.log(`Element récolté : ${data.title}`);
     setSelected(true);
     handleClose();
   };
 
   const handleRemove = () => {
     c_AudioUI.play("remove");
-    console.log(`Element retiré : ${data.title}`);
+    // console.log(`Element retiré : ${data.title}`);
     removeSelectedItem(data);
     setSelected(false);
     handleClose();
@@ -100,7 +100,6 @@ const HotSpot = ({ data, coo, refBox, setHover }) => {
     if (coo.x - popUpWidth - safeArea < 0) {
       popUpX.current = coo.x + safeArea; // Positionner à droite du point
       setIsPopupOnRight(true);
-
     }
     if (coo.y - popUpHeight - safeArea < 0) {
       popUpY.current = coo.y + safeArea; // Positionner en dessous du point
@@ -126,19 +125,26 @@ const HotSpot = ({ data, coo, refBox, setHover }) => {
             <div className={s.overlay} onClick={handleClose}></div>
             <motion.div
               className={`${s.popUp} ${iAmSelected() ? s.active : ""}`}
-              style={isPopupOnRight ? { left: popUpX.current, top: popUpY.current } : { right: popUpX.current, top: popUpY.current }}
+              style={
+                isPopupOnRight
+                  ? { left: popUpX.current, top: popUpY.current }
+                  : { right: popUpX.current, top: popUpY.current }
+              }
               initial="enter"
               animate="visible"
               exit="exit"
               variants={PopupVariants}
               transition={{
                 default: { duration: 0.3, ease: "easeInOut" },
-                opacity: { duration: 0.2, ease: "easeInOut" }
+                opacity: { duration: 0.2, ease: "easeInOut" },
               }}
             >
               <div className={s.popUp__container}>
                 <CloseBtn onClick={handleClose} className={s.popUp__closeBtn} />
-                <div className={s.popUp__img} style={{ backgroundImage: `url(${data.image})` }}></div>
+                <div
+                  className={s.popUp__img}
+                  style={{ backgroundImage: `url(${data.image})` }}
+                ></div>
                 <div className={s.popUp__content}>
                   <CustomText className={s.popUp__title} variant="b2">
                     {data.title}

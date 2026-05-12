@@ -5,25 +5,32 @@ import { Environment, OrthographicCamera } from "@react-three/drei";
 export default function Lights() {
   const shadowCameraRef = useRef();
 
-  const {
-    directionalLightIntensity,
-    color,
-    ambiantLightIntensity,
-    X_directionalLight,
-    Y_directionalLight,
-    Z_directionalLight,
-  } = useControls(
-    "Lights",
-    {
-      directionalLightIntensity: { value: 1, min: 0, max: 10, step: 0.1 },
-      X_directionalLight: { value: 7, min: 0, max: 10, step: 0.1 },
-      Y_directionalLight: { value: 8, min: 0, max: 10, step: 0.1 },
-      Z_directionalLight: { value: 1.7, min: 0, max: 10, step: 0.1 },
-      color: "#6d707f",
-      ambiantLightIntensity: { value: 2, min: 0, max: 10, step: 0.1 },
-    },
-    { collapsed: true },
-  );
+  // const {
+  //   directionalLightIntensity,
+  //   color,
+  //   ambiantLightIntensity,
+  //   X_directionalLight,
+  //   Y_directionalLight,
+  //   Z_directionalLight,
+  // } = useControls(
+  //   "Lights",
+  //   {
+  //     directionalLightIntensity: { value: 1, min: 0, max: 10, step: 0.1 },
+  //     X_directionalLight: { value: 7, min: 0, max: 10, step: 0.1 },
+  //     Y_directionalLight: { value: 8, min: 0, max: 10, step: 0.1 },
+  //     Z_directionalLight: { value: 1.7, min: 0, max: 10, step: 0.1 },
+  //     color: "#6d707f",
+  //     ambiantLightIntensity: { value: 2, min: 0, max: 10, step: 0.1 },
+  //   },
+  //   { collapsed: true },
+  // );
+
+  const directionalLightIntensity = 1;
+  const X_directionalLight = 7;
+  const Y_directionalLight = 8;
+  const Z_directionalLight = 1.7;
+  const color = "#6d707f";
+  const ambiantLightIntensity = 2;
   return (
     <>
       <directionalLight

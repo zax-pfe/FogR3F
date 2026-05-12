@@ -50,11 +50,12 @@ function ScreenTransitionElement() {
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
   const revealProgress = useMotionValue(1.9);
 
-  const { revealButton } = useControls("transition Screen", {
-    playRevealAnimation: button(() => {
-      triggerAnimation();
-    }),
-  });
+  // const { revealButton } = useControls("transition Screen", {
+  //   playRevealAnimation: button(() => {
+  //     triggerAnimation();
+  //   }),
+
+  // });
 
   const handleReveal = () => {
     if (isRevealedRef.current) {
@@ -83,7 +84,7 @@ function ScreenTransitionElement() {
   });
 
   useEffect(() => {
-    console.log("Transition view changed:", transitionView);
+    // console.log("Transition view changed:", transitionView);
     if (transitionView === null) return;
 
     triggerAnimation();

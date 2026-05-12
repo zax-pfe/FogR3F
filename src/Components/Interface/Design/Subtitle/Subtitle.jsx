@@ -31,7 +31,7 @@ const Subtitle = ({ person, text, start, duration, latest }) => {
       onComplete: () => {
         setWhoSpeaks(null);
         if (latest) {
-          console.log("Last subtitle finished, resetting current audio.");
+          // console.log("Last subtitle finished, resetting current audio.");
           setCurrentDialogue(null); // Reset current audio to hide subtitles
         }
       },
@@ -40,9 +40,15 @@ const Subtitle = ({ person, text, start, duration, latest }) => {
 
   return (
     <div ref={r_Subtitle} className={s.subtitle}>
-      <CustomText variant="c1" className={s.subtitle__person}>{person}</CustomText>
+      <CustomText variant="c1" className={s.subtitle__person}>
+        {person}
+      </CustomText>
       {multiLine.map((line, index) => (
-        <CustomText variant="c1" key={index} className={`${s.subtitle__line} ${person === "MOLEC" ? 'txt-italic' : ""}`}>
+        <CustomText
+          variant="c1"
+          key={index}
+          className={`${s.subtitle__line} ${person === "MOLEC" ? "txt-italic" : ""}`}
+        >
           {line}
         </CustomText>
       ))}
