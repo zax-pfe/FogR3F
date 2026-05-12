@@ -134,7 +134,7 @@ const TreeAnalyse = () => {
               alt="éteindre la machine"
             />
           </button>
-          <span>On</span>
+          <span>On / Off</span>
         </div>
         <SelectedItems refBox={ref__selectedBox} analyse={startAnalyse} />
         {infoVisible && (
