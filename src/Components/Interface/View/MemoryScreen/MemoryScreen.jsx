@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import s from "./MemoryScreen.module.scss";
 import { useGameStore } from "../../../../store/store";
-import Button from "../../Design/Button/Button";
+import Credits from "../Credits/Credits";
 
 const MemoryScreen = () => {
   const r_Video = useRef();
@@ -26,9 +26,8 @@ const MemoryScreen = () => {
         <source src="/assets/video/Cinematique.mp4" type="video/mp4" />
       </video>
       {videoEnded && (
-        <Button onClick={() => location.reload()} className={s.memoryScreen__btn}>
-          Recommencer
-        </Button>
+       
+       <Credits/>
       )}
     </div>
   );
