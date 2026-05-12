@@ -155,7 +155,7 @@ function InterfaceOverlay({ onHover }) {
   function handlePlayClick() {
     if (clicked) return;
     setClicked(true);
-    c_AudioUI.play('click');
+    c_AudioUI.play("click");
     setTransitionView("game");
   }
 
@@ -209,15 +209,19 @@ function StartScreenContent({ buttonHoveredRef }) {
   const targetRotation = useRef({ x: 0, y: 0 });
   const currentRotation = useRef({ x: 0, y: 0 });
 
-  const { rotation_x, rotation_y, rotation_z } = useControls(
-    "Start Screen Molec Rotation",
-    {
-      rotation_x: { value: 0.0, min: -Math.PI / 5, max: Math.PI / 5, step: 0.001 },
-      rotation_y: { value: 0.0, min: -Math.PI / 5, max: Math.PI / 5, step: 0.001 },
-      rotation_z: { value: 0.0, min: -Math.PI / 5, max: Math.PI / 5, step: 0.001 },
-    },
-    { collapsed: true },
-  );
+  // const { rotation_x, rotation_y, rotation_z } = useControls(
+  //   "Start Screen Molec Rotation",
+  //   {
+  //     rotation_x: { value: 0.0, min: -Math.PI / 5, max: Math.PI / 5, step: 0.001 },
+  //     rotation_y: { value: 0.0, min: -Math.PI / 5, max: Math.PI / 5, step: 0.001 },
+  //     rotation_z: { value: 0.0, min: -Math.PI / 5, max: Math.PI / 5, step: 0.001 },
+  //   },
+  //   { collapsed: true },
+  // );
+
+  const rotation_x = 0.0;
+  const rotation_y = 0.0;
+  const rotation_z = 0.0;
   {
     /* ______________________ MOUSE ROTATION __________________/ */
   }
