@@ -121,7 +121,7 @@ export default function Experience() {
         <Trees />
         <CharacterController ref={characterRef} />
       </Physics>
-      {userConfiguration === "high" && <Smoke />}
+      {userConfiguration !== "low" && <Smoke />}
       <Fog />
       <MolecTest targetRef={characterRef} />
       {/* ______________________ VFX __________________/ */}

@@ -14,7 +14,7 @@ import { preloadMediaAssets } from "./utils/assetsPreloader";
 import CustomCursor from "./Components/Interface/Design/CustomCursor/CustomCursor";
 import ScreenTransition from "./Components/Interface/View/ScreenTransition/ScreenTransition";
 import MemoryScreen from "./Components/Interface/View/MemoryScreen/MemoryScreen";
-
+import Command_overlay from "./Components/Interface/Design/Command_overlay/Command_overlay";
 // const keys = {
 //   left: "arrowleft",
 //   right: "arrowright",
@@ -71,6 +71,7 @@ function App() {
 
           <ThreeAnalyse />
           {currentScreen === "game" && <Hud />}
+          {currentScreen === "game" && <Command_overlay />}
           <SubtitleManager />
         </>
       )}
