@@ -4,14 +4,10 @@ import { useGameStore } from "../../../../store/store";
 
 const CustomCursor = () => {
 
-    const { smthgIsHovered, currentScreen } = useGameStore();
-
-    // hover | interactable
-
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const { cursorPosition, setCursorPosition, smthgIsHovered, currentScreen } = useGameStore();
 
     const moveCursor = (e) => {
-        setPosition({ x: e.clientX, y: e.clientY });
+        setCursorPosition({ x: e.clientX, y: e.clientY });
     };
 
     useEffect(() => {
@@ -23,7 +19,7 @@ const CustomCursor = () => {
     }, []);
 
     return currentScreen !== "analyse" && (
-        <div style={{ left: position.x, top: position.y }} className={`${s.customCursor} ${smthgIsHovered ? s.hoverSmthg : ''} ${smthgIsHovered === 'interactable' ? s.hoverSmthgInteractable : ''}`}></div>
+        <div style={{ left: cursorPosition.x, top: cursorPosition.y }} className={`${s.customCursor} ${smthgIsHovered ? s.hoverSmthg : ''} ${smthgIsHovered === 'interactable' ? s.hoverSmthgInteractable : ''}`}></div>
     );
 };
 

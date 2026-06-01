@@ -21,10 +21,10 @@ const TreeAnalyse = () => {
   const selectedItems = useGameStore((state) => state.selectedItems);
   const resetSelectedItems = useGameStore((state) => state.resetSelectedItems);
   const setTransitionView = useGameStore((state) => state.setTransitionView);
+  const cursorPosition = useGameStore((state) => state.cursorPosition);
 
   // -- debug pour afficher ou non l'analyse du tronc avec la touche "t" --
 
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
   const [infoVisible, setInfoVisible] = useState(true);
   const [result, setResult] = useState(false);
   const [hoverHotSpot, setHoverHotSpot] = useState(false);
@@ -45,13 +45,8 @@ const TreeAnalyse = () => {
     }
   };
 
-  const handleMouseMove = (e) => {
-    setPointer({ x: e.clientX, y: e.clientY });
-  };
-
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("mousemove", handleMouseMove);
 
     if (currentScreen === "analyse") {
       resetSelectedItems();
@@ -60,7 +55,6 @@ const TreeAnalyse = () => {
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [currentScreen]);
 
@@ -177,7 +171,7 @@ const TreeAnalyse = () => {
         {result && <Result type={result} closeResult={closeResult} />}
         <div
           className={`${s.pointer} ${hoverHotSpot ? s.hover : ""}`}
-          style={{ top: pointer.y, left: pointer.x }}
+          style={{ top: cursorPosition.y, left: cursorPosition.x }}
         ></div>
       </div>
     )

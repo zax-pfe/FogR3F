@@ -149,6 +149,17 @@ function InterfaceOverlay({ onHover }) {
   const currentScreen = useGameStore((state) => state.currentScreen);
   const setCurrentScreen = useGameStore((state) => state.setCurrentScreen);
   const setTransitionView = useGameStore((state) => state.setTransitionView);
+  const { setSmthgIsHovered } = useGameStore();
+
+  const handleEnter = () => {
+    onHover("play")
+    setSmthgIsHovered(true);
+  };
+
+  const handleLeave = () => {
+    onHover("none")
+    setSmthgIsHovered(false);
+  };
 
   const [clicked, setClicked] = useState(false);
 
@@ -163,8 +174,8 @@ function InterfaceOverlay({ onHover }) {
     <div className={s.startScreen__interface}>
       <button
         className={s.startScreen__button}
-        onMouseEnter={() => onHover("play")}
-        onMouseLeave={() => onHover("none")}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
         onClick={handlePlayClick}
       >
         Continuer
